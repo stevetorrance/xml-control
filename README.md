@@ -1,2 +1,2 @@
 # XML Control - Software & Automation
-Website for XML Control supporting documentation and examples.
+A website for XML Control supporting documentation and examples.
