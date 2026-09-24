@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<title>ControlCircuit Price Sheet</title>
+<style>
+  /* House system, as ControlCircuit/HelpSystem/controlcircuit-onboarding.html.
+     Deliberately light-only: this is a poster to be screen-grabbed and posted,
+     so it must look identical whatever theme the viewer is running. */
+  :root{
+    --bg:#eef4fb;
+    --sheet:#ffffff;
+    --sheet-alt:#f4f8fd;
+    --sheet-line:#d2e1f0;
+    --sheet-line-heavy:#b8cde3;
+    --ink:#14202e;
+    --ink-dim:#4d637b;
+    --ink-faint:#8197af;
+    --copper:#1e62b0;
+    --copper-light:#e6f0fa;
+    --copper-dim:#558ecb;
+    --live:#0088a8;
+    --live-light:#e5f6f9;
+    --earth:#2e854b;
+    --amber:#b87414;
+    --amber-light:#fdf5e9;
+    --trunk:#8eaecf;
+    --mono:'Cascadia Code',Consolas,'Segoe UI Mono','SF Mono',monospace;
+    --sans:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+  }
+  .stage{padding-inline:16px;padding-block:16px;display:flex;justify-content:center}
+  .poster{
+    width:min(1600px,100%);
+    aspect-ratio:16/9;
+    container-type:size;
+    background:var(--sheet);
+    border:1px solid var(--sheet-line-heavy);
+    border-radius:var(--radius,6px);
+    box-shadow:0 4px 22px rgba(20,32,46,.12);
+    display:grid;
+    grid-template-rows:auto auto 1fr auto auto;
+    overflow:hidden;
+  }
+
+  /* ---------- header on drawing paper ---------- */
+  .head{
+    background:
+      linear-gradient(var(--sheet-line) 1px, transparent 1px) 0 0/3cqw 3cqw,
+      linear-gradient(90deg, var(--sheet-line) 1px, transparent 1px) 0 0/3cqw 3cqw,
+      var(--bg);
+    border-bottom:1px solid var(--sheet-line-heavy);
+    padding:2.4cqw 2.8cqw 2cqw;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:2cqw;
+  }
+  .tag{
+    font-family:var(--mono);
+    font-size:.78cqw;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--copper);
+    background:var(--copper-light);
+    border:1px solid var(--copper-dim);
+    border-radius:.25cqw;
+    padding:.2cqw .6cqw;
+    display:inline-block;
+    margin-bottom:.9cqw;
+  }
+  h1{
+    font-size:3.5cqw;
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:1.08;
+    margin:0 0 .6cqw;
+  }
+  .sub{margin:0;font-size:1.05cqw;color:var(--ink-dim);max-width:58ch}
+  .stamp{
+    flex:none;
+    text-align:center;
+    border:.13cqw solid var(--copper);
+    border-radius:.3cqw;
+    background:var(--sheet);
+    padding:.85cqw 1.2cqw;
+    color:var(--copper);
+  }
+  .stamp b{display:block;font-size:1.55cqw;font-weight:800;letter-spacing:.06em;line-height:1.1}
+  .stamp span{
+    display:block;
+    font-family:var(--mono);
+    font-size:.66cqw;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin-top:.2cqw;
+  }
+  .rule{
+    height:.22cqw;
+    background:linear-gradient(90deg,var(--copper) 0%,var(--live) 30%,var(--earth) 70%,var(--sheet-line) 100%);
+  }
+
+  /* ---------- tiers ---------- */
+  .tiers{display:grid;grid-template-columns:repeat(4,1fr);min-height:0}
+  .tier{
+    border-right:1px solid var(--sheet-line);
+    padding:2cqw;
+    display:grid;
+    grid-template-rows:auto auto auto 1fr;
+    gap:1.1cqw;
+    min-height:0;
+  }
+  .tier:last-child{border-right:0}
+  .tier--lead{background:var(--copper-light)}
+
+  .t-top{display:flex;align-items:center;justify-content:space-between;gap:.6cqw}
+  .t-name{font-size:2.4cqw;font-weight:800;letter-spacing:.04em;line-height:1}
+  .flag{
+    font-family:var(--mono);
+    font-size:.62cqw;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--amber);
+    background:var(--amber-light);
+    border:1px solid var(--amber);
+    border-radius:1cqw;
+    padding:.18cqw .6cqw;
+    white-space:nowrap;
+  }
+  .price{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:3.3cqw;
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-.03em;
+    line-height:1;
+  }
+  .price em{
+    display:block;
+    font-family:var(--sans);
+    font-style:normal;
+    font-weight:400;
+    font-size:.8cqw;
+    color:var(--ink-faint);
+    margin-top:.5cqw;
+    letter-spacing:0;
+  }
+  .sheets{
+    background:var(--sheet-alt);
+    border:1px solid var(--sheet-line);
+    border-radius:.28cqw;
+    padding:.55cqw .9cqw;
+    display:flex;
+    align-items:baseline;
+    gap:.6cqw;
+  }
+  .sheets b{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:1.55cqw;
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+  }
+  .sheets span{
+    font-family:var(--mono);
+    font-size:.66cqw;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  ul{list-style:none;margin:0;padding:0;display:grid;gap:.65cqw;align-content:start}
+  li{
+    display:grid;
+    grid-template-columns:1.05cqw 1fr;
+    gap:.5cqw;
+    font-size:1.08cqw;
+    line-height:1.35;
+    color:var(--ink-dim);
+  }
+  li b{font-weight:700;color:var(--ink)}
+  .mk{font-family:var(--mono);font-size:.8cqw;color:var(--earth);line-height:1.5}
+  .mk.off{color:var(--ink-faint)}
+
+  /* ---------- included strip ---------- */
+  .strip{
+    border-top:1px solid var(--sheet-line-heavy);
+    background:var(--sheet-alt);
+    padding:1.2cqw 2.8cqw;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:.5cqw 1.6cqw;
+    font-size:.98cqw;
+    color:var(--ink-dim);
+  }
+  .strip .lbl{
+    font-family:var(--mono);
+    font-size:.7cqw;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--copper);
+  }
+  .strip i{font-style:normal;color:var(--sheet-line-heavy)}
+
+  /* ---------- title block ---------- */
+  .tblock{
+    display:grid;
+    grid-template-columns:repeat(4,1fr) 1.3fr;
+    border-top:1px solid var(--sheet-line-heavy);
+    background:var(--sheet);
+  }
+  .tb{padding:1cqw 1.5cqw;border-right:1px solid var(--sheet-line)}
+  .tb:last-child{border-right:0;text-align:right}
+  .tb span{
+    display:block;
+    font-family:var(--mono);
+    font-size:.64cqw;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:.2cqw;
+  }
+  .tb b{font-size:1.08cqw;font-weight:700}
+  .caption{
+    max-width:1600px;
+    margin:0 auto;
+    padding:10px 16px 26px;
+    font-size:12px;
+    color:var(--ink-faint);
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="poster">
+
+    <div class="head">
+      <div>
+        <span class="tag">ControlCircuit &middot; Electrical CAD</span>
+        <h1>Buy it once. Then it is simply yours.</h1>
+        <p class="sub">Schematics, schedules and symbol authoring for panel builders, with the publishing suite in PRO &mdash; all on a perpetual licence. No renewal date, no seat audit, nothing that switches off because an invoice lapsed. Sheets up to A0.</p>
+      </div>
+      <div class="stamp">
+        <b>PERPETUAL</b>
+        <span>No subscription</span>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="tiers">
+
+      <div class="tier">
+        <div class="t-top"><div class="t-name">EVAL</div><div class="flag">Time limited</div></div>
+        <div class="price">Free<em>Publishing, watermarked</em></div>
+        <div class="sheets"><b>10</b><span>Sheets</span></div>
+        <ul>
+          <li><span class="mk">&#9679;</span><span><b>Web Portal</b> &amp; <b>Smart PDF</b></span></li>
+          <li><span class="mk off">&#9675;</span><span>Watermarked &mdash; <b>portal too</b></span></li>
+          <li><span class="mk off">&#9675;</span><span><b>100</b> automation runs</span></li>
+          <li><span class="mk off">&#9675;</span><span>Evaluation use only</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <div class="t-top"><div class="t-name">HOME</div></div>
+        <div class="price">&pound;95<em>One time, forever</em></div>
+        <div class="sheets"><b>10</b><span>Sheets</span></div>
+        <ul>
+          <li><span class="mk">&#9679;</span><span>Full <b>Symbol Editor</b></span></li>
+          <li><span class="mk off">&#9675;</span><span><b>No publisher tools</b></span></li>
+          <li><span class="mk off">&#9675;</span><span>Non-commercial, byline on output</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <div class="t-top"><div class="t-name">STD</div></div>
+        <div class="price">&pound;295<em>One time, forever</em></div>
+        <div class="sheets"><b>100</b><span>Sheets</span></div>
+        <ul>
+          <li><span class="mk">&#9679;</span><span><b>Commercial use</b></span></li>
+          <li><span class="mk">&#9679;</span><span>Clean, unmarked output</span></li>
+          <li><span class="mk off">&#9675;</span><span><b>No publisher tools</b></span></li>
+        </ul>
+      </div>
+
+      <div class="tier tier--lead">
+        <div class="t-top"><div class="t-name">PRO</div><div class="flag">Most shops</div></div>
+        <div class="price">&pound;895<em>One time, forever</em></div>
+        <div class="sheets"><b>400</b><span>Sheets</span></div>
+        <ul>
+          <li><span class="mk">&#9679;</span><span><b>Web Portal</b> &mdash; browsable sets</span></li>
+          <li><span class="mk">&#9679;</span><span><b>Smart PDF</b> &mdash; live cross-refs</span></li>
+          <li><span class="mk">&#9679;</span><span><b>DXF Portfolio</b> export</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="strip">
+      <span class="lbl">In every licence</span>
+      <span>Symbol Editor with DXF import &amp; export</span><i>&#124;</i>
+      <span>Sheets to A0</span><i>&#124;</i>
+      <span>Wire, Cable &amp; Terminal Schedules</span><i>&#124;</i>
+      <span>Component &amp; Purchase Lists</span><i>&#124;</i>
+      <span>Contact Cross-Reference</span><i>&#124;</i>
+      <span>Custom borders &amp; forms</span><i>&#124;</i>
+      <span>Point releases free</span>
+    </div>
+
+    <div class="tblock">
+      <div class="tb"><span>Companion key</span><b>+25% at purchase</b></div>
+      <div class="tb"><span>Upgrades</span><b>Pay the difference</b></div>
+      <div class="tb"><span>Licensing</span><b>One key per PC</b></div>
+      <div class="tb"><span>Prices</span><b>GBP excl. VAT</b></div>
+      <div class="tb"><span>Sheet</span><b>Rev. A &middot; 1 of 1</b></div>
+    </div>
+
+  </div>
+</div>
+
+<p class="caption">Grab the panel above at full browser width for a 16:9 image.</p>
+<footer style="max-width:1100px;margin:0 auto;padding:28px 16px 40px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:.9rem">
+  <p><a href="./">Back to Control Circuit 2026</a></p>
+</footer>
+</body>
+</html>

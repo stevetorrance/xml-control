@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<title>ControlCircuit Licensing</title>
+<style>
+  /* House system, as ControlCircuit/HelpSystem/controlcircuit-onboarding.html:
+     conductor-named tokens, 48px grid ground, offline system fonts only. */
+  :root{
+    --bg:#eef4fb;
+    --sheet:#ffffff;
+    --sheet-alt:#f4f8fd;
+    --sheet-line:#d2e1f0;
+    --sheet-line-heavy:#b8cde3;
+    --ink:#14202e;
+    --ink-dim:#4d637b;
+    --ink-faint:#8197af;
+    --copper:#1e62b0;
+    --copper-light:#e6f0fa;
+    --copper-dim:#558ecb;
+    --live:#0088a8;
+    --live-light:#e5f6f9;
+    --earth:#2e854b;
+    --earth-light:#eaf6ee;
+    --amber:#b87414;
+    --amber-light:#fdf5e9;
+    --trunk:#8eaecf;
+    --danger:#c04938;
+    --card-shadow:0 4px 16px rgba(20,32,46,.05);
+    --radius:6px;
+    --radius-sm:4px;
+    --mono:'Cascadia Code',Consolas,'Segoe UI Mono','SF Mono',monospace;
+    --sans:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0e1520;
+      --sheet:#172130;
+      --sheet-alt:#1c293c;
+      --sheet-line:#273950;
+      --sheet-line-heavy:#344d6c;
+      --ink:#e6eef7;
+      --ink-dim:#a0b4cc;
+      --ink-faint:#5f7590;
+      --copper:#4da0ff;
+      --copper-light:#162b45;
+      --copper-dim:#3275c2;
+      --live:#26c6da;
+      --live-light:#12333d;
+      --earth:#4caf50;
+      --earth-light:#183321;
+      --amber:#ffb74d;
+      --amber-light:#3e2d14;
+      --trunk:#3d5677;
+      --danger:#ef5350;
+      --card-shadow:0 4px 16px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0e1520;
+    --sheet:#172130;
+    --sheet-alt:#1c293c;
+    --sheet-line:#273950;
+    --sheet-line-heavy:#344d6c;
+    --ink:#e6eef7;
+    --ink-dim:#a0b4cc;
+    --ink-faint:#5f7590;
+    --copper:#4da0ff;
+    --copper-light:#162b45;
+    --copper-dim:#3275c2;
+    --live:#26c6da;
+    --live-light:#12333d;
+    --earth:#4caf50;
+    --earth-light:#183321;
+    --amber:#ffb74d;
+    --amber-light:#3e2d14;
+    --trunk:#3d5677;
+    --danger:#ef5350;
+    --card-shadow:0 4px 16px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body{
+    background:
+      linear-gradient(var(--sheet-line) 1px, transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg, var(--sheet-line) 1px, transparent 1px) 0 0/48px 48px,
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+  }
+  .mono{font-family:var(--mono)}
+
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding-inline:16px;
+    padding-block:40px 56px;
+  }
+
+  /* ---------- title block ---------- */
+  .titleblock{margin-bottom:34px}
+  .tag{
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.14em;
+    color:var(--copper);
+    text-transform:uppercase;
+    background:var(--copper-light);
+    padding:3px 9px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--copper-dim);
+    display:inline-block;
+    margin-bottom:12px;
+  }
+  .titleblock h1{
+    font-size:clamp(32px,4.5vw,52px);
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:1.15;
+    margin:0 0 8px;
+    text-wrap:balance;
+    max-width:20ch;
+  }
+  .lead{
+    margin:0;
+    color:var(--ink-dim);
+    font-size:17px;
+    max-width:62ch;
+  }
+  .lead b{color:var(--ink);font-weight:600}
+  .rule{
+    margin-top:26px;
+    height:2px;
+    border-radius:2px;
+    background:linear-gradient(90deg,var(--copper) 0%,var(--live) 30%,var(--earth) 70%,var(--sheet-line) 100%);
+  }
+  .tb-fields{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 36px;
+    margin-top:16px;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .tb-fields b{
+    color:var(--ink);
+    display:block;
+    font-size:13px;
+    margin-top:2px;
+    text-transform:none;
+    letter-spacing:0;
+    font-weight:600;
+  }
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:44px}
+  .sec-id{
+    font-family:var(--mono);
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.14em;
+    color:var(--copper);
+    text-transform:uppercase;
+  }
+  h2{font-size:24px;font-weight:700;margin:4px 0 6px;letter-spacing:-.01em}
+  h2 .year{font-weight:400;font-size:16px;color:var(--ink-faint);letter-spacing:0;white-space:nowrap}
+  .sec-note{margin:0 0 20px;color:var(--ink-dim);max-width:70ch}
+  .sec-note b{color:var(--ink);font-weight:600}
+
+  /* ---------- tier cards ---------- */
+  .tiers{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+    gap:16px;
+  }
+  .tier{
+    background:var(--sheet);
+    border:1px solid var(--sheet-line);
+    border-left:5px solid var(--trunk);
+    border-radius:var(--radius);
+    box-shadow:var(--card-shadow);
+    padding:20px 20px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:13px;
+  }
+  .tier--lead{border-color:var(--copper-dim);border-left-color:var(--copper)}
+  .tier-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .tier-name{font-size:20px;font-weight:800;letter-spacing:.04em}
+  .flag{
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--amber);
+    background:var(--amber-light);
+    border:1px solid var(--amber);
+    border-radius:12px;
+    padding:2px 8px;
+    white-space:nowrap;
+  }
+  .price{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:30px;
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+    letter-spacing:-.02em;
+  }
+  .price small{
+    display:block;
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:11.5px;
+    color:var(--ink-faint);
+    margin-top:7px;
+    letter-spacing:0;
+  }
+  .who{margin:0;font-size:13.5px;color:var(--ink-dim);min-height:3.3em}
+  .allow{
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:600;
+    padding:8px 11px;
+    background:var(--sheet-alt);
+    border:1px solid var(--sheet-line);
+    border-radius:var(--radius-sm);
+    color:var(--ink);
+  }
+  .allow span{color:var(--ink-faint);font-weight:400;letter-spacing:.12em;font-size:10px;text-transform:uppercase}
+  ul.pts{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:13.5px}
+  ul.pts li{display:grid;grid-template-columns:15px 1fr;gap:7px;align-items:start;color:var(--ink-dim)}
+  ul.pts li b{font-weight:600;color:var(--ink)}
+  .mk{font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--earth)}
+  .mk.off{color:var(--ink-faint)}
+
+  /* ---------- companion key ---------- */
+  .companion{
+    margin-top:18px;
+    background:var(--sheet);
+    border:1px solid var(--live);
+    border-left:5px solid var(--live);
+    border-radius:var(--radius);
+    box-shadow:var(--card-shadow);
+    padding:20px 22px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px 28px;
+  }
+  .comp-say{flex:1 1 330px}
+  .comp-say h3{font-size:17px;font-weight:700;margin:0 0 5px;color:var(--live)}
+  .comp-say p{margin:0;font-size:13.5px;color:var(--ink-dim);max-width:64ch}
+  .comp-say p b{color:var(--ink);font-weight:600}
+  .comp-rates{display:flex;gap:10px;flex:none}
+  .comp-rates > div{
+    background:var(--live-light);
+    border:1px solid var(--live);
+    border-radius:var(--radius-sm);
+    padding:9px 16px;
+    text-align:center;
+  }
+  .comp-rates span{
+    display:block;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--ink-dim);
+    margin-bottom:2px;
+  }
+  .comp-rates b{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:19px;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+  }
+
+  /* ---------- included grid ---------- */
+  .included{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .inc{
+    background:var(--sheet-alt);
+    border:1px solid var(--sheet-line);
+    border-radius:var(--radius-sm);
+    padding:14px 16px;
+  }
+  .inc h3{font-size:14px;font-weight:700;margin:0 0 4px}
+  .inc p{margin:0;font-size:12.5px;color:var(--ink-dim)}
+
+  /* ---------- comparison table ---------- */
+  .card{
+    background:var(--sheet);
+    border:1px solid var(--sheet-line);
+    border-radius:var(--radius);
+    box-shadow:var(--card-shadow);
+    padding:20px 22px;
+  }
+  .tscroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
+  thead th{
+    text-align:left;
+    padding:10px 14px;
+    background:var(--sheet-alt);
+    border-bottom:2px solid var(--sheet-line-heavy);
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    white-space:nowrap;
+  }
+  thead th:not(:first-child){text-align:center}
+  tbody th{
+    font-weight:400;
+    text-align:left;
+    padding:9px 14px;
+    border-bottom:1px solid var(--sheet-line);
+    color:var(--ink-dim);
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:9px 14px;
+    border-bottom:1px solid var(--sheet-line);
+    text-align:center;
+    font-family:var(--mono);
+    font-size:12px;
+    font-variant-numeric:tabular-nums;
+  }
+  tr.group th{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--copper);
+    background:var(--copper-light);
+    padding-top:9px;
+    padding-bottom:7px;
+  }
+  .col-lead{background:var(--copper-light)}
+  .yes{color:var(--earth);font-weight:700}
+  .no{color:var(--ink-faint)}
+  tbody tr:hover td,tbody tr:hover th{background:var(--sheet-alt)}
+  tbody tr:hover td.col-lead{background:var(--copper-light)}
+
+  /* ---------- terms ---------- */
+  dl.terms{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}
+  dl.terms > div{
+    background:var(--sheet);
+    border:1px solid var(--sheet-line);
+    border-top:3px solid var(--copper-dim);
+    border-radius:var(--radius-sm);
+    padding:14px 16px;
+  }
+  dt{font-size:14px;font-weight:700;margin-bottom:4px}
+  dd{margin:0;font-size:13px;color:var(--ink-dim)}
+  dd b{color:var(--ink);font-weight:600}
+
+  .callout{
+    margin-top:20px;
+    background:var(--amber-light);
+    border:1px solid var(--amber);
+    border-left:5px solid var(--amber);
+    border-radius:var(--radius);
+    padding:16px 20px;
+  }
+  .callout h3{font-size:15px;font-weight:700;margin:0 0 6px;color:var(--amber)}
+  .callout p{margin:0 0 8px;font-size:13.5px;max-width:74ch;color:var(--ink-dim)}
+  .callout p:last-child{margin-bottom:0}
+  .callout b{color:var(--ink);font-weight:600}
+
+  /* ---------- ladder ---------- */
+  .ladder{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:14px}
+  .step{
+    background:var(--sheet);
+    border:1px solid var(--sheet-line);
+    border-radius:var(--radius-sm);
+    padding:13px 15px;
+    box-shadow:var(--card-shadow);
+  }
+  .step .route{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);letter-spacing:.04em}
+  .step .delta{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:22px;
+    font-variant-numeric:tabular-nums;
+    margin-top:5px;
+    color:var(--copper);
+  }
+
+  /* ---------- footer title block ---------- */
+  .tblock{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+    background:var(--sheet);
+    border:1px solid var(--sheet-line-heavy);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .tb{padding:12px 16px;border-right:1px solid var(--sheet-line)}
+  .tb:last-child{border-right:0}
+  .tb span{
+    display:block;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:3px;
+  }
+  .tb b{font-size:14px;font-weight:700}
+  .fine{margin:16px 0 0;font-size:12px;color:var(--ink-faint);max-width:82ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="titleblock">
+    <span class="tag">ControlCircuit &middot; Licensing</span>
+    <h1>Buy it once. Then it is simply yours.</h1>
+    <p class="lead">Schematic drawing, terminal and wire schedules and symbol authoring in every licence &mdash; with the full publishing suite in <b>PRO</b>. All of it <b>perpetual</b>: no renewal date, no seat audit, no feature that switches itself off because an invoice lapsed. Draw at any size up to <b>A0</b>.</p>
+    <div class="rule"></div>
+    <div class="tb-fields">
+      <span>Model<b>Perpetual</b></span>
+      <span>Currency<b>GBP excl. VAT</b></span>
+      <span>Licensing<b>One key per PC</b></span>
+      <span>Issue<b>Rev. A</b></span>
+    </div>
+  </div>
+
+  <section>
+    <p class="sec-id">01 &middot; Licences</p>
+    <h2>Four licences, sized to the job <span class="year">(2026/27 Pricing)</span></h2>
+    <p class="sec-note">Every one is a one-time purchase. What separates the commercial tiers is how much drawing you do, and whether you want the advanced <b>Publisher Tools</b>: a Web Portal for the workshop floor, and finished documentation for your customers.</p>
+
+    <div class="tiers">
+
+      <div class="tier">
+        <div class="tier-head"><div class="tier-name">EVAL</div><div class="flag">Time limited</div></div>
+        <div class="price">Free<small>Web Portal &amp; Smart PDF, watermarked</small></div>
+        <p class="who">Prove it on a real circuit before you spend anything.</p>
+        <div class="allow">10 <span>Sheets</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span><b>Web Portal</b> and <b>Smart PDF</b> unlocked</span></li>
+          <li><span class="mk">&#9679;</span><span>Symbol Editor, DXF in and out</span></li>
+          <li><span class="mk off">&#9675;</span><span>Watermarked output &mdash; <b>portal and PDF included</b></span></li>
+          <li><span class="mk off">&#9675;</span><span><b>100 automation runs</b>, then the automated tools lock</span></li>
+          <li><span class="mk off">&#9675;</span><span>Non-commercial evaluation only</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <div class="tier-head"><div class="tier-name">HOME</div></div>
+        <div class="price">&pound;95<small>One time, perpetual</small></div>
+        <p class="who">Hobby panels, restoration projects, teaching yourself the trade.</p>
+        <div class="allow">10 <span>Sheets</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span>Full Symbol Editor and libraries</span></li>
+          <li><span class="mk">&#9679;</span><span>All six schedules and listings</span></li>
+          <li><span class="mk off">&#9675;</span><span><b>No publisher tools</b> &mdash; no Web Portal, Smart PDF or DXF Portfolio</span></li>
+          <li><span class="mk off">&#9675;</span><span>Non-commercial use, one grey line above the drawing</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <div class="tier-head"><div class="tier-name">STD</div></div>
+        <div class="price">&pound;295<small>One time, perpetual</small></div>
+        <p class="who">The sole trader and the small controls shop. Clean drawings out the door.</p>
+        <div class="allow">100 <span>Sheets</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span><b>Commercial use</b>, no marks on output</span></li>
+          <li><span class="mk">&#9679;</span><span>Custom form templates and borders</span></li>
+          <li><span class="mk">&#9679;</span><span>Print and standard PDF</span></li>
+          <li><span class="mk off">&#9675;</span><span><b>No publisher tools</b> &mdash; no Web Portal, Smart PDF or DXF Portfolio</span></li>
+        </ul>
+      </div>
+
+      <div class="tier tier--lead">
+        <div class="tier-head"><div class="tier-name">PRO</div><div class="flag">Most shops</div></div>
+        <div class="price">&pound;895<small>One time, perpetual</small></div>
+        <p class="who">Machine builders and integrators who hand a documented panel to a customer.</p>
+        <div class="allow">400 <span>Sheets</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span><b>Web Portal</b> &mdash; a browsable, searchable set</span></li>
+          <li><span class="mk">&#9679;</span><span><b>Smart PDF</b> &mdash; live cross-references</span></li>
+          <li><span class="mk">&#9679;</span><span><b>DXF Portfolio</b> export</span></li>
+          <li><span class="mk">&#9679;</span><span>Symbol library PDF with documentation</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="companion">
+      <div class="comp-say">
+        <h3>Companion key</h3>
+        <p>Most engineers draw at a bench and review on a laptop. Add a second key to your order for <b>25% more</b> and the same person gets both machines &mdash; the bench and the laptop. It goes on the original order only, so decide when you buy.</p>
+      </div>
+      <div class="comp-rates">
+        <div><span>HOME</span><b>+&pound;25</b></div>
+        <div><span>STD</span><b>+&pound;75</b></div>
+        <div><span>PRO</span><b>+&pound;225</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-id">02 &middot; In every licence</p>
+    <h2>The Coach seats are as comfy as the Club seats</h2>
+    <p class="sec-note">These are the parts of the tool you would resent paying extra for, so you do not. A &pound;95 HOME licence draws with the same engine as an &pound;895 one. The <b>publisher tools are PRO only</b> &mdash; the Web Portal, Smart PDF and DXF Portfolio are not in HOME or STD at any price. EVAL opens the <b>Web Portal</b> and <b>Smart PDF</b> so you can see them work on your own drawing, and watermarks everything they produce.</p>
+    <div class="included">
+      <div class="inc"><h3>Symbol Editor</h3><p>The complete authoring tool, including DXF import and export. Build your own library and take it with you.</p></div>
+      <div class="inc"><h3>Sheets to A0</h3><p>Any sheet size up to A0. If a job genuinely wants one enormous drawing, nothing stops you.</p></div>
+      <div class="inc"><h3>Six schedules</h3><p>Wire, Cable and Terminal Schedules, Component List, Purchase List and Contact Cross-Reference &mdash; read from the drawing, not typed twice.</p></div>
+      <div class="inc"><h3>Form templates</h3><p>Your own borders and schedule forms, so the paperwork leaves the office looking like yours.</p></div>
+      <div class="inc"><h3>Costed from the drawing</h3><p>The Purchase List and Component List price the job off the same data the schematic already holds.</p></div>
+      <div class="inc"><h3>Point releases, free</h3><p>Every fix and improvement within your major version, for as long as that version is supported.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-id">03 &middot; Side by side</p>
+    <h2>What actually differs</h2>
+    <div class="card">
+      <div class="tscroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">&nbsp;</th>
+              <th scope="col">EVAL</th>
+              <th scope="col">HOME</th>
+              <th scope="col">STD</th>
+              <th scope="col" class="col-lead">PRO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="group"><th colspan="5" scope="colgroup">Scope</th></tr>
+            <tr><th scope="row">Price</th><td class="no">&mdash;</td><td>&pound;95</td><td>&pound;295</td><td class="col-lead">&pound;895</td></tr>
+            <tr><th scope="row">Sheet limit</th><td>10</td><td>10</td><td>100</td><td class="col-lead">400</td></tr>
+            <tr><th scope="row">Automation runs</th><td>100</td><td>Unlimited</td><td>Unlimited</td><td class="col-lead">Unlimited</td></tr>
+            <tr><th scope="row">Commercial use</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td></tr>
+            <tr><th scope="row">Marks on output</th><td>Watermark</td><td>Byline</td><td>None</td><td class="col-lead">None</td></tr>
+            <tr><th scope="row">Term</th><td>Time limited</td><td>Perpetual</td><td>Perpetual</td><td class="col-lead">Perpetual</td></tr>
+
+            <tr class="group"><th colspan="5" scope="colgroup">Drawing</th></tr>
+            <tr><th scope="row">Sheet sizes to A0</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td></tr>
+            <tr><th scope="row">Symbol Editor + DXF</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td></tr>
+            <tr><th scope="row">All six schedules</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td></tr>
+            <tr><th scope="row">Custom form templates</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td></tr>
+
+            <tr class="group"><th colspan="5" scope="colgroup">Publisher tools</th></tr>
+            <tr><th scope="row">Web Portal</th><td class="yes">&#9679;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead yes">&#9679;</td></tr>
+            <tr><th scope="row">Smart PDF</th><td class="yes">&#9679;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead yes">&#9679;</td></tr>
+            <tr><th scope="row">DXF Portfolio</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead yes">&#9679;</td></tr>
+            <tr><th scope="row">Symbol library PDF</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead yes">&#9679;</td></tr>
+
+            <tr class="group"><th colspan="5" scope="colgroup">Keys &amp; support</th></tr>
+            <tr><th scope="row">Licence key activates</th><td>1 PC</td><td>1 PC</td><td>1 PC</td><td class="col-lead">1 PC</td></tr>
+            <tr><th scope="row">Companion key</th><td class="no">&mdash;</td><td>+&pound;25</td><td>+&pound;75</td><td class="col-lead">+&pound;225</td></tr>
+            <tr><th scope="row">Support</th><td>Forum</td><td>Forum</td><td>Forum</td><td class="col-lead">Forum + email</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-id">04 &middot; The licence, in plain words</p>
+    <h2>No asterisks worth chasing</h2>
+    <dl class="terms">
+      <div>
+        <dt>Perpetual</dt>
+        <dd>The version you buy is yours to run for as long as you like. It does not phone home for permission and it does not stop working.</dd>
+      </div>
+      <div>
+        <dt>Updates</dt>
+        <dd>Every point release in your major version is free &mdash; fixes, new symbols, new report types. When a major version lands, you may move up for <b>45%</b> of list, or stay exactly where you are.</dd>
+      </div>
+      <div>
+        <dt>One key, one PC</dt>
+        <dd>Each licence key activates a single computer. The companion key adds a second machine for the same engineer at 25% of list &mdash; the bench and the laptop, not two people. It is ordered with the licence, not added afterwards.</dd>
+      </div>
+      <div>
+        <dt>Upgrades</dt>
+        <dd>Move up the range whenever the work asks for it. You pay the difference between what you paid and the higher tier's list price on the day you upgrade, within your major version. <b>No deadline</b>, and you never buy the same software twice.</dd>
+      </div>
+      <div>
+        <dt>Support</dt>
+        <dd>The community forum is open to everyone, on every tier, with no time limit. <b>Email support comes with the Publisher Tools</b> &mdash; PRO and above &mdash; because that is where a job gets complicated. It does not expire either: a perpetual licence with support that lapses is not perpetual.<br><br>Support covers the software, not the engineering. How to make a schedule show spare ways is support; whether your motor starter is right is not. And a <b>bug report is welcome from anyone, on any tier, forever</b> &mdash; if something is broken, tell us, whatever you paid.</dd>
+      </div>
+      <div>
+        <dt>Automation runs</dt>
+        <dd>Auto Numbering, the two cross-reference sweeps, Net Runner and Populate Forms are <b>unlimited on every paid licence</b>. An evaluation includes 100 runs in total &mdash; far more than trying the tool takes, and they are the only thing in it that is counted.</dd>
+      </div>
+      <div>
+        <dt>Your files</dt>
+        <dd>Projects are readable files on your own disk. Drawings export to DXF and PDF from every tier, so nothing you draw is trapped in here.</dd>
+      </div>
+    </dl>
+
+    <div class="callout">
+      <h3>The sheet limit is the limit</h3>
+      <p>Each tier draws up to its sheet count and no further. There is no soft edge and no grace sheet, so choose the tier that matches the jobs you actually take on rather than the one you hope to grow into.</p>
+      <p>If the work outgrows it, moving up costs only the difference. Buying STD today and PRO whenever you actually need it costs no more than buying PRO outright &mdash; there is no window to miss.</p>
+        <p>And if <b>400 sheets</b> is not enough, that is not the end of the road either: larger licences are issued on request. Tell us the size of the job and we will size one to it.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-id">05 &middot; Moving up</p>
+    <h2>Pay the difference, never the price</h2>
+    <p class="sec-note">Start where you are today. When the work grows &mdash; next month or in five years &mdash; you pay the difference between what you paid and the higher tier's list price on the day. <b>No deadline to beat</b>, and never more than buying that tier outright. The figures below are today's.</p>
+    <div class="ladder">
+      <div class="step"><div class="route">HOME &rarr; STD</div><div class="delta">&pound;200</div></div>
+      <div class="step"><div class="route">STD &rarr; PRO</div><div class="delta">&pound;600</div></div>
+      <div class="step"><div class="route">HOME &rarr; PRO</div><div class="delta">&pound;800</div></div>
+      <div class="step"><div class="route">Companion key, at purchase</div><div class="delta">+25%</div></div>
+    </div>
+  </section>
+
+  <div class="tblock">
+    <div class="tb"><span>Product</span><b>ControlCircuit</b></div>
+    <div class="tb"><span>Model</span><b>Perpetual</b></div>
+    <div class="tb"><span>Currency</span><b>GBP excl. VAT</b></div>
+    <div class="tb"><span>Issue</span><b>Rev. A</b></div>
+    <div class="tb"><span>Sheet</span><b>1 of 1</b></div>
+  </div>
+
+  <p class="fine">Licences above 400 sheets are issued on request, as are educational and volume licences. Prices shown exclude VAT, which is added at checkout according to your location. An evaluation licence may be issued once per organisation.</p>
+</div>
+<footer style="max-width:1100px;margin:0 auto;padding:28px 16px 40px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:.9rem">
+  <p><a href="./">Back to Control Circuit 2026</a></p>
+</footer>
+</body>
+</html>
