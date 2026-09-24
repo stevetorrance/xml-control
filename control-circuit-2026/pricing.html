@@ -119,13 +119,16 @@
     margin-bottom:12px;
   }
   .titleblock h1{
-    font-size:clamp(32px,4.5vw,52px);
+    /* The line wants about 21.2em in Segoe UI. The clamp keeps it on one line from
+       tablet width up, with enough headroom that a different fallback face on another
+       platform does not tip it onto two, and lets it wrap on a phone, where holding
+       one line would shrink it to 17px. */
+    font-size:clamp(28px,4.2vw,48px);
     font-weight:800;
     letter-spacing:-.02em;
     line-height:1.15;
     margin:0 0 8px;
     text-wrap:balance;
-    max-width:20ch;
   }
   .lead{
     margin:0;
