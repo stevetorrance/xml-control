@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<title>Download ControlCircuit</title>
+<meta name="description" content="Download ControlCircuit for Windows. One installer runs as an evaluation without a licence, and as the tier you bought with one.">
+<!--
+  The ControlCircuit download page. Help > Check for Updates opens it, and it is the
+  "page" of every ControlCircuit release in /versions.xml.
+
+  Nothing about a release is written here. The version, date, notes and checksum are
+  read from /versions.xml, so publishing a release is still one edit to that file.
+  The Download button is a plain link to download/, which forwards to the newest
+  installer on GitHub Releases, so it works with scripts off or the manifest unreadable.
+-->
+<style>
+  /* House system, as control-circuit-2026/pricing.html. */
+  :root{
+    --bg:#eef4fb;
+    --sheet:#ffffff;
+    --sheet-alt:#f4f8fd;
+    --sheet-line:#d2e1f0;
+    --ink:#14202e;
+    --ink-dim:#4d637b;
+    --ink-faint:#8197af;
+    --copper:#1e62b0;
+    --copper-light:#e6f0fa;
+    --copper-dim:#558ecb;
+    --live:#0088a8;
+    --earth:#2e854b;
+    --trunk:#8eaecf;
+    --card-shadow:0 4px 16px rgba(20,32,46,.05);
+    --radius:6px;
+    --radius-sm:4px;
+    --mono:'Cascadia Code',Consolas,'Segoe UI Mono','SF Mono',monospace;
+    --sans:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0e1520;
+      --sheet:#172130;
+      --sheet-alt:#1c293c;
+      --sheet-line:#273950;
+      --ink:#e6eef7;
+      --ink-dim:#a0b4cc;
+      --ink-faint:#5f7590;
+      --copper:#4da0ff;
+      --copper-light:#162b45;
+      --copper-dim:#3275c2;
+      --live:#26c6da;
+      --earth:#4caf50;
+      --trunk:#3d5677;
+      --card-shadow:0 4px 16px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0e1520;
+    --sheet:#172130;
+    --sheet-alt:#1c293c;
+    --sheet-line:#273950;
+    --ink:#e6eef7;
+    --ink-dim:#a0b4cc;
+    --ink-faint:#5f7590;
+    --copper:#4da0ff;
+    --copper-light:#162b45;
+    --copper-dim:#3275c2;
+    --live:#26c6da;
+    --earth:#4caf50;
+    --trunk:#3d5677;
+    --card-shadow:0 4px 16px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body{
+    background:
+      linear-gradient(var(--sheet-line) 1px, transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg, var(--sheet-line) 1px, transparent 1px) 0 0/48px 48px,
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+  }
+  a{color:var(--copper)}
+  .mono{font-family:var(--mono)}
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding-inline:16px;
+    padding-block:40px 56px;
+  }
+
+  /* ---------- title block ---------- */
+  .titleblock{margin-bottom:30px}
+  .tag{
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.14em;
+    color:var(--copper);
+    text-transform:uppercase;
+    background:var(--copper-light);
+    padding:3px 9px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--copper-dim);
+    display:inline-block;
+    margin-bottom:12px;
+  }
+  h1{
+    font-size:clamp(28px,4.2vw,44px);
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:1.15;
+    margin:0 0 8px;
+  }
+  .lead{color:var(--ink-dim);font-size:17px;max-width:62ch}
+  .lead b{color:var(--ink);font-weight:600}
+  .rule{
+    margin-top:24px;
+    height:2px;
+    border-radius:2px;
+    background:linear-gradient(90deg,var(--copper) 0%,var(--live) 30%,var(--earth) 70%,var(--sheet-line) 100%);
+  }
+
+  /* ---------- release card ---------- */
+  .release{
+    background:var(--sheet);
+    border:1px solid var(--copper-dim);
+    border-left:5px solid var(--copper);
+    border-radius:var(--radius);
+    box-shadow:var(--card-shadow);
+    padding:22px 22px 24px;
+    margin-bottom:34px;
+  }
+  .release-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:4px 16px;
+    margin-bottom:6px;
+  }
+  .release-head h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
+  .release-date{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint)}
+  .notes{color:var(--ink-dim);margin-bottom:18px;max-width:62ch}
+  .notes:empty{display:none}
+
+  .btn{
+    display:inline-block;
+    background:var(--copper);
+    color:#fff;
+    font-weight:600;
+    font-size:16px;
+    text-decoration:none;
+    padding:11px 22px;
+    border-radius:var(--radius);
+  }
+  .btn:hover,.btn:focus-visible{filter:brightness(1.1)}
+  .btn:focus-visible{outline:3px solid var(--copper-dim);outline-offset:2px}
+  .file{
+    display:block;
+    margin-top:8px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-faint);
+  }
+
+  .checksum{
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px solid var(--sheet-line);
+    font-size:13.5px;
+    color:var(--ink-dim);
+  }
+  .checksum[hidden]{display:none}
+  .checksum code{
+    display:block;
+    margin:6px 0 8px;
+    padding:8px 10px;
+    background:var(--sheet-alt);
+    border:1px solid var(--sheet-line);
+    border-radius:var(--radius-sm);
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink);
+    overflow-wrap:anywhere;
+    user-select:all;
+  }
+  .checksum kbd{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+  .status{margin-top:14px;font-size:13.5px;color:var(--ink-faint)}
+  .status:empty{display:none}
+
+  /* ---------- notes ---------- */
+  section{margin-bottom:28px}
+  .sec-id{
+    font-family:var(--mono);
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.14em;
+    color:var(--copper);
+    text-transform:uppercase;
+  }
+  h3{font-size:18px;font-weight:700;margin:2px 0 6px}
+  section p{color:var(--ink-dim);max-width:66ch}
+  section p + p{margin-top:8px}
+  section b{color:var(--ink);font-weight:600}
+
+  footer{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 16px 40px;
+    font-size:14px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 24px;
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <div class="titleblock">
+    <span class="tag">Control Circuit 2026 &middot; Download</span>
+    <h1>Download ControlCircuit</h1>
+    <p class="lead"><b>One installer for everyone.</b> Without a licence it runs as an evaluation; with one, it runs the tier you bought. There is no separate licensed download to look for.</p>
+    <div class="rule"></div>
+  </div>
+
+  <div class="release" aria-live="polite">
+    <div class="release-head">
+      <h2 id="release-version">Latest version</h2>
+      <span class="release-date" id="release-date"></span>
+    </div>
+    <p class="notes" id="release-notes"></p>
+
+    <a class="btn" href="download/">Download for Windows</a>
+    <span class="file">ControlCircuitSetup.exe</span>
+
+    <div class="checksum" id="checksum" hidden>
+      SHA-256
+      <code id="checksum-value"></code>
+      To check your download, run <kbd>certutil -hashfile ControlCircuitSetup.exe SHA256</kbd> in the folder you saved it to, and compare.
+    </div>
+
+    <p class="status" id="status"></p>
+  </div>
+
+  <section>
+    <span class="sec-id">Evaluating</span>
+    <h3>Try it before you buy</h3>
+    <p>Install it and start drawing. With no licence entered, ControlCircuit runs as an evaluation: the full drawing tool, with the limits set out on the <a href="../control-circuit-2026/pricing.html">pricing page</a>.</p>
+  </section>
+
+  <section>
+    <span class="sec-id">Licensed</span>
+    <h3>Already bought a licence?</h3>
+    <p>Download the same installer. Your licence is activated in the application, from <b>Help &gt; License Control</b>, and that is what unlocks your tier.</p>
+  </section>
+
+  <section>
+    <span class="sec-id">Updates</span>
+    <h3>Keeping up to date</h3>
+    <p>Within your version, updates are free: install the new build over the old one. <b>Help &gt; Check for Updates</b> tells you when there is one. It checks only when you ask, and sends nothing about you or your licence.</p>
+  </section>
+
+  <section>
+    <span class="sec-id">Requirements</span>
+    <h3>What it runs on</h3>
+    <p>Windows, with .NET Framework 4.8, which is included in Windows 10 and 11.</p>
+  </section>
+
+</main>
+
+<footer>
+  <a href="../control-circuit-2026/">Control Circuit 2026</a>
+  <a href="../control-circuit-2026/pricing.html">Pricing &amp; licensing</a>
+</footer>
+
+<script>
+  // Fills the release card from /versions.xml. Everything is written with
+  // textContent, so nothing in the manifest can inject markup. If the manifest cannot
+  // be read, the card keeps its generic heading and the Download button still works.
+  (function () {
+    var PRODUCT = "ControlCircuit";
+    var CHANNEL = "stable";
+
+    function $(id) { return document.getElementById(id); }
+
+    function showVersion(v) {
+      // Three parts: the revision is a time of day and means nothing to a customer
+      return v.split(".").slice(0, 3).join(".");
+    }
+
+    function showDate(iso) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+      if (!m) return "";
+      var d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
+      return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+    }
+
+    function fail() {
+      $("status").textContent = "The version details could not be loaded, but the download link above always gives the newest build.";
+    }
+
+    fetch("../versions.xml", { cache: "no-cache" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+      .then(function (text) {
+        var doc = new DOMParser().parseFromString(text, "application/xml");
+        if (doc.getElementsByTagName("parsererror").length) throw new Error("parse");
+
+        var product = Array.prototype.find.call(doc.getElementsByTagName("product"),
+          function (p) { return p.getAttribute("id") === PRODUCT; });
+        if (!product) throw new Error("product");
+
+        // The highest major in the stable channel is the one download/ serves
+        var latest = Array.prototype.filter.call(product.getElementsByTagName("release"),
+            function (r) { return r.getAttribute("channel") === CHANNEL; })
+          .sort(function (a, b) { return (+b.getAttribute("major")) - (+a.getAttribute("major")); })[0];
+        if (!latest) throw new Error("release");
+
+        var version = latest.getAttribute("version") || "";
+        if (!/^\d+\.\d+\.\d+(\.\d+)?$/.test(version)) throw new Error("version");
+
+        $("release-version").textContent = "Version " + showVersion(version);
+        $("release-date").textContent = showDate(latest.getAttribute("date"));
+
+        var notes = latest.getElementsByTagName("notes")[0];
+        $("release-notes").textContent = notes ? notes.textContent.replace(/\s+/g, " ").trim() : "";
+
+        var sha = latest.getElementsByTagName("sha256")[0];
+        var hash = sha ? sha.textContent.replace(/\s+/g, "").toLowerCase() : "";
+        if (/^[0-9a-f]{64}$/.test(hash)) {
+          $("checksum-value").textContent = hash;
+          $("checksum").hidden = false;
+        }
+      })
+      .catch(fail);
+  })();
+</script>
+</body>
+</html>

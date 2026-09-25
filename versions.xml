@@ -10,10 +10,19 @@
   One <release> per major version per channel, holding the latest build in it.
   This is not a history; release notes live on the download page.
 
-    channel   "stable" is read by every licensed tier, "eval" by evaluation builds.
+    channel   "stable" is read by every copy, licensed or not: an evaluation is the
+              same build with no licence. The attribute leaves room for a beta.
     major     point releases within a major are free; a new major is a paid upgrade.
+              Must match the first part of version, or apps reject the whole file.
     version   the full four-part build number, compared with System.Version.
-    page      opened in the browser; apps only open pages on xml-control.com hosts.
+    notes     one line, shown in the app's dialog and on the download page.
+    page      opened in the browser; apps only open https pages on xml-control.com hosts.
+    sha256    optional: the installer's SHA-256, shown on the download page. Apps
+              ignore it. Lower-case hex, as certutil -hashfile prints it.
+
+  After editing, run the ControlCircuit test LiveManifest_IsReadable by name: a
+  mistake here fails nowhere else, and an app meeting one says it couldn't read the
+  update information.
 
   Design: ControlCircuit/Docs/UpdateCheckerBrief.md
 -->
