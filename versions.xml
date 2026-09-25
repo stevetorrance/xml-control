@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The latest released version of each XML Control application.
+
+  Every shipped copy of every app reads this file from
+  https://arizona.xml-control.com/versions.xml when the user chooses
+  Help > Check for Updates. That address is compiled into the apps, so this file
+  must never move or be renamed, and its shape may only change by raising "schema".
+
+  One <release> per major version per channel, holding the latest build in it.
+  This is not a history; release notes live on the download page.
+
+    channel   "stable" is read by every licensed tier, "eval" by evaluation builds.
+    major     point releases within a major are free; a new major is a paid upgrade.
+    version   the full four-part build number, compared with System.Version.
+    page      opened in the browser; apps only open pages on xml-control.com hosts.
+
+  Design: ControlCircuit/Docs/UpdateCheckerBrief.md
+-->
+<versions schema="1" updated="2026-09-25">
+
+  <product id="ControlCircuit" name="ControlCircuit">
+    <!-- Pre-release placeholder. Replace with the first public build when it ships. -->
+    <release channel="stable" major="1" version="1.0.267.0" date="2026-09-25">
+      <notes>Pre-release.</notes>
+      <page>https://arizona.xml-control.com/controlcircuit/</page>
+    </release>
+  </product>
+
+</versions>
