@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+  Forwarder: arizona.xml-control.com/controlcircuit/download/ goes straight to the
+  newest installer on GitHub Releases. This is the address to hand out; if the
+  installers ever leave GitHub, only the URL below changes.
+
+  It relies on two rules for every release in stevetorrance/controlcircuit-releases:
+    - the asset is always named ControlCircuitSetup.exe (the version is in the file
+      properties and on the download page, never in the file name);
+    - the release is published as "latest", not as a pre-release. "latest" skips
+      pre-releases, so a test build can go up as a pre-release without customers
+      ever being sent to it.
+
+  GitHub Pages cannot send a server redirect, so the browser is forwarded three
+  ways: meta refresh, script, and a link to click as the last resort.
+-->
+<meta http-equiv="refresh" content="0; url=https://github.com/stevetorrance/controlcircuit-releases/releases/latest/download/ControlCircuitSetup.exe">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<title>Downloading ControlCircuit</title>
+<style>
+  :root{
+    --bg:#eef4fb;
+    --ink:#14202e;
+    --ink-dim:#4d637b;
+    --copper:#1e62b0;
+    --sans:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  }
+  body{
+    margin:0;
+    padding:48px 16px;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.5;
+  }
+  main{max-width:36rem;margin:0 auto}
+  h1{font-size:1.4rem;font-weight:600;margin:0 0 .75rem}
+  p{margin:0 0 .75rem;color:var(--ink-dim)}
+  a{color:var(--copper)}
+</style>
+<script>
+  location.replace("https://github.com/stevetorrance/controlcircuit-releases/releases/latest/download/ControlCircuitSetup.exe");
+</script>
+</head>
+<body>
+<main>
+  <h1>Downloading ControlCircuit…</h1>
+  <p>If the download doesn't start,
+    <a href="https://github.com/stevetorrance/controlcircuit-releases/releases/latest/download/ControlCircuitSetup.exe">download ControlCircuitSetup.exe</a>.</p>
+  <p>Release notes and the checksum are on the
+    <a href="../">ControlCircuit download page</a>.</p>
+</main>
+</body>
+</html>
