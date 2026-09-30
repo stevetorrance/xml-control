@@ -59,6 +59,23 @@ kbd {
   border-radius: 4px;
 }
 
+/* Good news: a warm, friendly aside for things that are a pleasant surprise, not a warning. */
+.good {
+  margin: 1rem 0;
+  padding: 0.8rem 1rem 0.8rem 3rem;
+  position: relative;
+  border-radius: 10px;
+  background: rgba(46, 160, 98, 0.10);
+  border: 1px solid rgba(46, 160, 98, 0.45);
+}
+.good::before {
+  content: "\2605";
+  position: absolute; left: 0.9rem; top: 0.55rem;
+  font-size: 1.5rem; line-height: 1;
+  color: #e0a100;
+}
+.good .lead { display: block; font-size: 1.05rem; margin-bottom: 0.25rem; }
+
 .recap li { margin-bottom: 0.35rem; }
 .nextprev { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
 

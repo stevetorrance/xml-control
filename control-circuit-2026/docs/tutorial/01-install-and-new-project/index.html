@@ -16,12 +16,12 @@
 
   <div class="goal">
     <strong>Goal</strong>
-    Create a project, look at its settings, place a three-pole switch fuse on the sheet, and wire it up.
+    Create a project, look at its settings, place a three-pole switch fuse on the sheet, and start wiring it up.
     About ten minutes, and nothing to prepare.
   </div>
 
   <p>This chapter is deliberately small. Control Circuit has a great many tools, and you will not meet most of them today.
-  By the end you will have a saved project with one real symbol on it, wired, and you will know where the main parts of the screen are.</p>
+  By the end you will have a saved project with one real symbol on it, part wired, and you will know where the main parts of the screen are.</p>
 
   <h2>Part 1: Start a project</h2>
 
@@ -64,7 +64,7 @@
       <p>Two choices here.</p>
       <p><b>Wire cross-section units:</b> mm&sup2; (IEC, metric) or AWG (North America). This only changes how wire sizes are <em>displayed</em>; mm&sup2; is what is stored underneath.</p>
       <p><b>Default border:</b> the drawing sheet size. Pick one and stay with it.</p>
-      <div class="warn"><b>Choose carefully</b> The border is a project-wide setting. It applies to every sheet, and changing it later moves everything drawn on them. A3 landscape is a sensible default if you are unsure.</div>
+      <div class="warn"><b>Border choice</b> The border is a project-wide setting. It applies to every sheet, and changing it later moves everything drawn on them. A3 landscape is a sensible default if you are unsure.</div>
       <p>The list shows the common sizes; <b>More&hellip;</b> browses the rest. Later on you can build your own borders, including your own branding, with the advanced <b>Border Management</b> tool.</p>
       <figure>
         <img src="05.png" alt="The Standards step with millimetre-squared selected and A3 Landscape chosen as the default border" width="684" height="494">
@@ -125,7 +125,7 @@
     </li>
   </ol>
 
-  <h2>Part 3: Place a symbol and wire it</h2>
+  <h2>Part 3: Place a symbol and start wiring</h2>
 
   <ol class="steps">
     <li>
@@ -136,6 +136,7 @@
       <figure>
         <img src="12.png" alt="The Symbols tab with the library drop-down open showing IEC_BASIC, NFPA_BASIC and TERMS_BASIC" width="418" height="328">
       </figure>
+      <div class="good"><strong class="lead">About those padlocks</strong> They simply mean the shipped libraries are protected, so they always stay exactly as shipped. You are never stuck with them: clone any symbol and adapt it into a library of your own, or build one from scratch. Got symbols from a CAD package? Bring them in from DXF. And with a <b>PRO</b> licence you can export a professional-quality PDF of any library to share with your team, your customer, or the public.</div>
     </li>
 
     <li>
@@ -150,6 +151,7 @@
     <li>
       <h3>Find the symbol you want</h3>
       <p>Expand <b>Power</b> and rest the pointer on <b>3P Switch Fuse V</b>. The tooltip gives its ID, its default tag letter (<b>Q</b>), a description and typical real-world series. The preview shows the symbol.</p>
+      <div class="note"><b>Search</b> Not sure where a symbol lives? Type part of a word into the &ldquo;Search symbols&rdquo; box above the list. Every symbol in the selected library that partly matches is shown, with its groups opened for you. It looks at names, IDs, keywords, descriptions and typical hardware, so a partial word such as <em>fuse</em>, <em>relay</em> or <em>motor</em> is enough. Clear the box to see the whole library again. Search covers the library you have selected, so switch library to search another.</div>
       <figure>
         <img src="14.png" alt="The symbol 3P Switch Fuse V highlighted with its tooltip and a preview of the symbol below the list" width="656" height="328">
       </figure>
@@ -184,7 +186,7 @@
     <li>
       <h3>Drop some nodes</h3>
       <p>From <b>Nodes</b>, choose the <b>S</b> Junction node and click three times, once above each of the upper pins (1, 3 and 5), roughly in line with them. They show as red T shapes.</p>
-      <p>Nodes are the building blocks of a circuit: they mark where a wire starts, ends, turns or joins another. A T-shaped Junction can point <b>N</b>, <b>S</b>, <b>E</b> or <b>W</b>, which is why the palette has four of them. The letter says which way the stem of the T runs.</p>
+      <p>Nodes are the building blocks of a circuit: they mark where a wire starts, ends, turns or joins another. A T-shaped Junction can point <b>N</b>, <b>S</b>, <b>E</b> or <b>W</b>, which is why the palette has four of them. The letter is a compass direction: the middle branch of the T, the stem, points that way. An <b>S</b> node has its stem pointing down the sheet.</p>
       <figure>
         <img src="18.png" alt="Three red Junction nodes placed above pins 1, 3 and 5 of the switch fuse" width="472" height="568">
       </figure>
@@ -199,11 +201,12 @@
         <img src="19.png" alt="The Wiring menu with Perform Auto-Wire highlighted, showing the shortcut Alt+W" width="287" height="483">
         <figcaption>The Wiring menu is also where you will find the Connectivity Engine, numbering and the wire-type library.</figcaption>
       </figure>
+      <div class="good"><strong class="lead">Auto-Wire is only the start</strong> It is a fast, convenient one-off pass, and Control Circuit has more help where that came from. <b>Auto-Connect</b> (<kbd>F8</kbd>) wires <em>as you work</em>: line a node or pin up with another and the wire appears, move it out of line and the wire goes. It can cut the effort of connecting your symbols and nodes dramatically. You will meet it properly in a later chapter.</div>
     </li>
 
     <li>
       <h3>Done</h3>
-      <p>Three wires now run from the pins up to the Junction nodes. You have a saved project, a real symbol, and a wired circuit.</p>
+      <p>Three wires now run from the pins up to the Junction nodes. You have a saved project, a real symbol, and a semi-wired circuit.</p>
       <figure>
         <img src="20.png" alt="Three wires connecting pins 1, 3 and 5 of the switch fuse to the Junction nodes above" width="343" height="574">
       </figure>
