@@ -1,0 +1,67 @@
+/* Tutorial pages: layered on ../../../assets/site.css (colours, column, links). */
+
+.crumbs { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+.goal {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.1rem;
+  border-left: 4px solid #1f6fb2;
+  background: rgba(31, 111, 178, 0.08);
+  border-radius: 0 8px 8px 0;
+}
+.goal strong { display: block; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+ol.steps { list-style: none; counter-reset: step; padding-left: 0; }
+ol.steps > li {
+  counter-increment: step;
+  position: relative;
+  margin: 0 0 2.2rem;
+  padding-left: 2.6rem;
+}
+ol.steps > li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 1.9rem; height: 1.9rem;
+  border-radius: 50%;
+  background: #1f6fb2; color: #fff;
+  font-weight: 700; font-size: 0.95rem;
+  display: flex; align-items: center; justify-content: center;
+}
+ol.steps h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
+ol.steps p { margin: 0.4rem 0; }
+
+figure { margin: 0.8rem 0 0; }
+figure img {
+  max-width: 100%; height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #fff;
+  box-sizing: border-box;
+}
+figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.35rem; }
+
+.note, .warn {
+  margin: 0.8rem 0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.note { background: rgba(31, 111, 178, 0.08); border: 1px solid rgba(31, 111, 178, 0.3); }
+.warn { background: rgba(214, 140, 0, 0.1); border: 1px solid rgba(214, 140, 0, 0.45); }
+.note b, .warn b { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.06em; margin-right: 0.4rem; }
+
+kbd {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.85em;
+  padding: 0.05em 0.4em;
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}
+
+.recap li { margin-bottom: 0.35rem; }
+.nextprev { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
+
+.toc { list-style: none; padding-left: 0; }
+.toc li { margin-bottom: 1rem; }
+.toc .soon { color: var(--muted); }

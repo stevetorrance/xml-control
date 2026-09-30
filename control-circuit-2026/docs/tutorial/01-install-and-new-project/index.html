@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 1: Your First Project - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 1</p>
+
+  <h1>Chapter 1: Your First Project</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Create a project, look at its settings, place a three-pole switch fuse on the sheet, and wire it up.
+    About ten minutes, and nothing to prepare.
+  </div>
+
+  <p>This chapter is deliberately small. Control Circuit has a great many tools, and you will not meet most of them today.
+  By the end you will have a saved project with one real symbol on it, wired, and you will know where the main parts of the screen are.</p>
+
+  <h2>Part 1: Start a project</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Launch the program and choose New</h3>
+      <p>The start screen lists your recent projects. On a first run the list is empty. Choose <b>New</b>.</p>
+      <p>The <b>Getting Started Guide</b> link at the top right is always there if you want the overview first.</p>
+      <figure>
+        <img src="01.png" alt="The Control Circuit start screen with an empty recent projects list and Open, New and Close buttons" width="679" height="447">
+        <figcaption>The start screen. Double-clicking a recent project opens it immediately.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Name the project</h3>
+      <p>The New Project wizard has four steps, listed down the left: <b>Identity</b>, <b>Location</b>, <b>Standards</b> and <b>Review</b>.
+      Only the <b>Project title</b> is required; you cannot move on without one.</p>
+      <figure>
+        <img src="02.png" alt="The Identity step of the New Project wizard with the title field empty and a message saying a project title is required" width="687" height="496">
+        <figcaption>Step 1 of 4. The red message clears as soon as you type a title.</figcaption>
+      </figure>
+      <p>Type a title. Here we use <code>MySimpleCircuit</code>. The project number, client and engineer are optional, and you can fill them in now or at any time later.</p>
+      <figure>
+        <img src="03.png" alt="The Identity step with the title MySimpleCircuit entered" width="687" height="497">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Choose where to save it</h3>
+      <p>Pick the folder that will hold your projects. Control Circuit creates a <b>sub-folder named after the project</b> inside it,
+      so you never need to make one yourself. The full path it will use is shown underneath.</p>
+      <figure>
+        <img src="04.png" alt="The Location step showing the project folder and the resolved project file path" width="688" height="495">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Set the standards</h3>
+      <p>Two choices here.</p>
+      <p><b>Wire cross-section units:</b> mm&sup2; (IEC, metric) or AWG (North America). This only changes how wire sizes are <em>displayed</em>; mm&sup2; is what is stored underneath.</p>
+      <p><b>Default border:</b> the drawing sheet size. Pick one and stay with it.</p>
+      <div class="warn"><b>Choose carefully</b> The border is a project-wide setting. It applies to every sheet, and changing it later moves everything drawn on them. A3 landscape is a sensible default if you are unsure.</div>
+      <p>The list shows the common sizes; <b>More&hellip;</b> browses the rest. Later on you can build your own borders, including your own branding, with the advanced <b>Border Management</b> tool.</p>
+      <figure>
+        <img src="05.png" alt="The Standards step with millimetre-squared selected and A3 Landscape chosen as the default border" width="684" height="494">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Review and create</h3>
+      <p>The last page lists everything you chose. If anything looks wrong, use <b>Back</b>. Otherwise choose <b>Create</b>.</p>
+      <figure>
+        <img src="06.png" alt="The Review step summarising identity, location and standards, with unfilled optional fields shown as dashes" width="683" height="494">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Find your way around</h3>
+      <p>Your project opens with its first sheet, <b>Sheet 1</b>, already drawn with a border and a title block. Three things to notice:</p>
+      <ul>
+        <li>The <b>Project</b>, <b>Symbols</b> and <b>Tools</b> tabs at the top left are the three panels you will use most. This chapter uses all three.</li>
+        <li>The menu bar runs across the top. Most of what you do later lives in <b>Symbols</b>, <b>Wiring</b> and <b>Reports</b>.</li>
+        <li>The <b>Schematic (F2)</b>, <b>Annotation (F3)</b> and <b>Preview (F4)</b> buttons switch what you are looking at. Stay on Schematic for now.</li>
+      </ul>
+      <figure>
+        <img src="07.png" alt="The main window with the project tree, Sheet 1 selected, and the drawing sheet beside it" width="652" height="392">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>Part 2: Project settings</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Reopening a project</h3>
+      <p>Close the project and you will see it at the top of the recent list on the start screen. Select it and choose <b>Open</b>, or simply double-click it.</p>
+      <figure>
+        <img src="08.png" alt="The start screen with MySimpleCircuit at the top of the recent projects list" width="677" height="448">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Project Settings &amp; Properties</h3>
+      <p>The details you gave the wizard live here, together with a good deal more: revision, status, site and customer details, and comments. Whatever you enter flows into the title block and into reports.</p>
+      <p>Changes are not final until you choose <b>Save Changes</b>. You will be reminded to save the project itself when you leave the sheet or close it.</p>
+      <figure>
+        <img src="10.png" alt="The Project Settings and Properties dialog on the Project tab, showing identity, customer and site details" width="790" height="596">
+        <figcaption>Project settings. Fields you left blank in the wizard stay blank here, ready to fill in.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Custom Fields, and the other tabs</h3>
+      <p>The other tabs &mdash; <b>Custom Fields</b>, <b>Drawing</b>, <b>Terminals</b>, <b>Node Styles</b> and <b>Options</b> &mdash; are there when you need them.
+      The grey <b>Custom Fields</b> are built in and can only have their values edited; you can add your own, and use them later in annotations.</p>
+      <div class="note"><b>Skip for now</b> You do not need any of these to finish this chapter. Close the dialog and carry on.</div>
+      <figure>
+        <img src="11.png" alt="The Custom Fields tab listing default fields such as AccountManager, ApprovalAuthority and ContractNo" width="789" height="595">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>Part 3: Place a symbol and wire it</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Open the Symbols tab and choose a library</h3>
+      <p>Select the <b>Symbols</b> tab. The symbol library name is shown at the top; click the drop-down arrow to switch library. There are three to start with:
+      <b>IEC_BASIC</b>, <b>NFPA_BASIC</b> and <b>TERMS_BASIC</b>. We use IEC_BASIC.</p>
+      <p>Symbols are grouped by type: Coils/Contacts, Control, Power, Protection and so on. Expand a group with the <b>+</b>.</p>
+      <figure>
+        <img src="12.png" alt="The Symbols tab with the library drop-down open showing IEC_BASIC, NFPA_BASIC and TERMS_BASIC" width="418" height="328">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Turn on the preview</h3>
+      <p>Right-click in the symbol list for a menu. Tick <b>Show Preview</b> so a drawing of the highlighted symbol appears beneath the list. <b>Show Tooltips</b> is worth having on as well.</p>
+      <p>The same menu has zoom, tree appearance and Expand All / Collapse All.</p>
+      <figure>
+        <img src="13.png" alt="The symbol list right-click menu with Show Preview and Show Tooltips" width="299" height="320">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Find the symbol you want</h3>
+      <p>Expand <b>Power</b> and rest the pointer on <b>3P Switch Fuse V</b>. The tooltip gives its ID, its default tag letter (<b>Q</b>), a description and typical real-world series. The preview shows the symbol.</p>
+      <figure>
+        <img src="14.png" alt="The symbol 3P Switch Fuse V highlighted with its tooltip and a preview of the symbol below the list" width="656" height="328">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Drag it onto the sheet</h3>
+      <p>Drag the symbol from the list, or from the preview, onto the sheet and let go. Its six pins are numbered 1 to 6, and it has picked up the tag <b>Q</b>.</p>
+      <figure>
+        <img src="15.png" alt="The 3P Switch Fuse V symbol placed on the sheet with pins numbered 1 to 6 and the tag Q" width="563" height="328">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Switch to the Tools tab</h3>
+      <p>Select the <b>Tools</b> tab. The <b>Wiring</b> group has the <b>Pointer</b>, the wire tools and the <b>Nodes</b> you will use in a moment. The <b>Drawing</b> group below it has lines, shapes, text, notes and so on.</p>
+      <div class="note"><b>Do not learn it all</b> There are a lot of buttons. You will meet the others one at a time in later chapters. Today you only need the Nodes.</div>
+      <figure>
+        <img src="16.png" alt="The Tools tab showing the Wiring group with Pointer, Smart Wire, Free Wire, nodes and terminals, and the Drawing group below" width="845" height="810">
+      </figure>
+    </li>
+
+    <li>
+      <h3>One &amp; Done</h3>
+      <p>At the bottom of the Tools panel, the <b>One &amp; Done</b> checkbox controls what a tool does after you use it. With it ticked, the tool goes back to the Pointer after a single placement; without it, the tool stays active so you can place several in a row.</p>
+      <p>The status bar along the bottom of the window also tells you what you just did, for example <i>Placed symbol: 3P Switch Fuse V</i>.</p>
+      <figure>
+        <img src="17.png" alt="The bottom of the Tools panel with the One and Done checkbox, and the status bar reading Placed symbol" width="271" height="415">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Drop some nodes</h3>
+      <p>From <b>Nodes</b>, choose the <b>S</b> Junction node and click three times, once above each of the upper pins (1, 3 and 5), roughly in line with them. They show as red T shapes.</p>
+      <p>Nodes are the building blocks of a circuit: they mark where a wire starts, ends, turns or joins another. A T-shaped Junction can point <b>N</b>, <b>S</b>, <b>E</b> or <b>W</b>, which is why the palette has four of them. The letter says which way the stem of the T runs.</p>
+      <figure>
+        <img src="18.png" alt="Three red Junction nodes placed above pins 1, 3 and 5 of the switch fuse" width="472" height="568">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Auto-wire</h3>
+      <p>Open the <b>Wiring</b> menu and choose <b>Perform Auto-Wire</b>, or press <kbd>Alt</kbd>+<kbd>W</kbd>.
+      It draws the wires it can infer between aligned pins and nodes on the current sheet.</p>
+      <div class="note"><b>Undo</b> Auto-Wire takes an undo snapshot first, so if you do not like the result, one undo puts it back.</div>
+      <figure>
+        <img src="19.png" alt="The Wiring menu with Perform Auto-Wire highlighted, showing the shortcut Alt+W" width="287" height="483">
+        <figcaption>The Wiring menu is also where you will find the Connectivity Engine, numbering and the wire-type library.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Done</h3>
+      <p>Three wires now run from the pins up to the Junction nodes. You have a saved project, a real symbol, and a wired circuit.</p>
+      <figure>
+        <img src="20.png" alt="Three wires connecting pins 1, 3 and 5 of the switch fuse to the Junction nodes above" width="343" height="574">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Created a project with the wizard and chose a project-wide border and wire units.</li>
+    <li>Opened Project Settings &amp; Properties, where the project details live.</li>
+    <li>Chose a symbol library and placed a symbol, using the preview and tooltips to find the right one.</li>
+    <li>Placed nodes from the Tools tab and joined them with Perform Auto-Wire.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>Chapter 2 covers adding more sheets and tagging your symbols. Until then, the reference topics behind this chapter are in the program's help (<kbd>F1</kbd>):
+  <em>Project Workflow</em>, <em>Perform Auto-Wire</em> and <em>Working with Wiring</em>.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>

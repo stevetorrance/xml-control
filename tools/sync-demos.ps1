@@ -4,11 +4,12 @@
 
 .DESCRIPTION
     The site publishes generated artefacts (help pages, sample PDFs) that live in
-    other repos. This script refreshes the copies under the site's demos folders so
+    other repos. This script refreshes the copies under the site's docs folders so
     the published versions match the current source. Re-run it before pushing.
 
-    Everything it writes lives in a 'demos' folder and is owned by this script --
-    do not hand-edit those copies, edit the source and re-sync.
+    Every file it writes is owned by this script -- do not hand-edit those copies,
+    edit the source and re-sync. The tutorial/ folder is NOT one of them: it is
+    authored here, so sync never touches it.
 
 .PARAMETER SourceRoot
     Folder containing the sibling repos. Defaults to the parent of this repo.
@@ -31,11 +32,11 @@ if (-not $SourceRoot) { $SourceRoot = Split-Path -Parent $siteRoot }
 $items = @(
     @{
         From = 'ControlCircuit\ControlCircuit\HelpSystem\controlcircuit-onboarding.html'
-        To   = 'control-circuit-2026\demos\controlcircuit-onboarding.html'
+        To   = 'control-circuit-2026\docs\controlcircuit-onboarding.html'
     }
     # Sample PDF output -- fill in once the export path is known, e.g.
     # @{ From = 'ControlCircuit\...\sample-schematic.pdf'
-    #    To   = 'control-circuit-2026\demos\sample-schematic.pdf' }
+    #    To   = 'control-circuit-2026\docs\sample-schematic.pdf' }
 )
 
 $copied = 0
