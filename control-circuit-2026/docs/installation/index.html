@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installation - Control Circuit 2026</title>
+  <link rel="icon" href="../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial/tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../">Control Circuit 2026</a> &rsaquo; Installation</p>
+
+  <h1>Installation</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Install Control Circuit, accept the licence agreement, and reach the start screen.
+    About five minutes, and there is nothing else to install first.
+  </div>
+
+  <p>Control Circuit installs like any other Windows program: one setup file, a short wizard, and a desktop shortcut.
+  The screenshots below were taken in a fresh Windows 11 virtual machine, and the steps are identical on a real PC.</p>
+
+  <h2>Before you start</h2>
+  <ul>
+    <li><b>Windows 10 (version 1903 or later) or Windows 11.</b> Control Circuit needs the .NET Framework 4.8, which both already include, so there are no extra downloads.</li>
+    <li><b>About 6&nbsp;MB</b> of disk space. The setup file is about the same size.</li>
+    <li><b>Administrator rights.</b> The program installs under <code>Program Files</code>, so Windows will ask for permission once.</li>
+  </ul>
+
+  <h2>Installing</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Put the setup file somewhere local</h3>
+      <p>Copy the setup file to your <b>Desktop</b> (or any folder on your own drive) before you run it.
+      The file name carries the version, so it will look like <code>ControlCircuit2026v1.0.272.1313.exe</code>.</p>
+      <div class="note"><b>Tip</b> Windows is happiest running an installer from a local drive. If the file is on a network share, a USB stick, or a shared folder from a virtual machine, copy it across first.</div>
+      <figure>
+        <img src="01.png" alt="A Windows desktop with the ControlCircuit setup file sitting on it" width="244" height="322">
+        <figcaption>The setup file on the desktop, ready to run. Double-click it.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Allow it to make changes</h3>
+      <p>Windows asks whether you want to allow the app to make changes to your device. Choose <b>Yes</b>.</p>
+      <p>It may name the publisher as <b>Unknown</b>. That is expected for now: the setup file is not yet digitally signed, which is a separate step from being safe to run.</p>
+      <div class="warn"><b>Careful</b> The <b>Yes</b> button is not the highlighted one: Windows highlights <b>No</b> by default. Check which you are clicking.</div>
+      <figure>
+        <img src="02.png" alt="The Windows User Account Control prompt asking whether to allow ControlCircuit2026v1.0.272.1313.exe from an unknown publisher to make changes, with Yes and No buttons" width="466" height="413">
+        <figcaption>The User Account Control prompt.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Welcome</h3>
+      <p>The setup wizard opens on a short welcome page that shows the version you are about to install, who publishes it, and its size.
+      The steps are listed down the left. Choose <b>Next</b>.</p>
+      <div class="warn"><b>Only ever this installer</b> XML Control programs are distributed <em>only</em> through the <strong>Haggis Installer</strong>, which is itself an XML Control in-house utility, so every XML Control setup looks like the one below.
+      If you ever meet an XML Control program in any other kind of installer, reject it as unsafe and do not run it.</div>
+      <figure>
+        <img src="03.png" alt="The Haggis Installer welcome page for ControlCircuit2026, showing publisher XML Control, version 1.0.272.1313 and size 6.4 MB" width="526" height="456">
+      </figure>
+      <div class="good"><strong class="lead">Why &ldquo;Haggis&rdquo;?</strong> Because a haggis is stuffed full of good things, and so is our installer: your program, its symbol libraries and everything it needs, packed snugly into one neat parcel. And, like the real thing, it was made in Scotland. We promise that ours is a good deal easier to swallow, and there is no need to address it with a poem.</div>
+    </li>
+
+    <li>
+      <h3>Read and accept the licence agreement</h3>
+      <p>Read the End User Licence Agreement, tick <b>I accept the terms of the license agreement</b>, then choose <b>Next</b>.
+      You cannot install without accepting.</p>
+      <figure>
+        <img src="04.png" alt="The licence agreement page with the accept checkbox ticked" width="524" height="457">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Choose where it goes</h3>
+      <p>The default location is <code>C:\Program Files (x86)\ControlCircuit2026</code>, and for nearly everybody that is the right answer.
+      The page also shows the space required and the space available on that drive.</p>
+      <p><b>Create desktop shortcut</b> is ticked for you. Choose <b>Install</b>.</p>
+      <figure>
+        <img src="05.png" alt="The install location page with the default Program Files (x86) path and Create desktop shortcut ticked" width="524" height="455">
+        <figcaption>Use <b>Browse&hellip;</b> only if you have a reason to install somewhere else.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Finish</h3>
+      <p>The install takes a few seconds. When it reports <b>Installation complete</b>, leave <b>Launch application now</b> ticked and choose <b>Finish</b>.</p>
+      <figure>
+        <img src="06.png" alt="The Installation complete page with Launch application now ticked" width="524" height="454">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>First run</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Sign the licence agreement</h3>
+      <p>The first time Control Circuit starts, it shows the licence agreement again, this time for you to sign.
+      Scroll to the end; a green <em>Thank you for reading the agreement</em> appears once you have.
+      Type your <b>initials</b> (up to six characters) and choose <b>I Accept</b>.</p>
+      <p>Your initials, the date and the software version are recorded with your acceptance. You are only asked once for each version.</p>
+      <figure>
+        <img src="07.png" alt="The ControlCircuit End User Licence Agreement scrolled to the end, with a field for the user's initials and Decline and I Accept buttons" width="703" height="632">
+        <figcaption>Declining closes the program without starting it.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>The start screen</h3>
+      <p>Control Circuit opens on its start screen. The <b>Recent Projects</b> list is empty because you have not made one yet.
+      The version and build date are shown at the top, which is the first thing to quote if you ever need help.</p>
+      <p>You are ready. Choose <b>New</b> to begin.</p>
+      <figure>
+        <img src="08.png" alt="The Control Circuit 2026 start screen over an empty sheet, with an empty Recent Projects list and Open, New and Close buttons" width="1204" height="763">
+        <figcaption>The start screen on a first run.</figcaption>
+      </figure>
+    </li>
+  </ol>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Ran the setup file from a local drive and allowed it to install.</li>
+    <li>Accepted the licence agreement in the installer, then signed it on first run.</li>
+    <li>Reached the start screen with a desktop shortcut for next time.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>Start the <a href="../tutorial/01-install-and-new-project/">Tutorial: Chapter 1, Your First Project</a>, which begins at exactly this screen.</p>
+
+  <footer>
+    <p><a href="../../">Back to Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
