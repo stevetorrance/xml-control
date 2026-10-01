@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 2: Understanding Wiring Tools and Methods - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 2</p>
+
+  <h1>Chapter 2: Understanding Wiring Tools and Methods</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Understand why the wire is the most important thing in Control Circuit, meet the wiring tools, try the three ways of working with them, and link two sheets together with Interruption Nodes.
+  </div>
+
+  <h2>Why wiring matters</h2>
+
+  <p>If you want to draw an electrical circuit in Windows Paint, you can. It will not be smart, it will not be very editable, and it will be hard to convince anyone of your circuit's integrity.</p>
+  <p>That is why we use dedicated tools: tools that are fit for purpose, built on logic, and easy to document and use in the real world. Control Circuit is one of them.</p>
+
+  <p>In Control Circuit the most fundamental element is the <b>wire</b>. It is a first-class citizen, and it is smart:</p>
+  <ul>
+    <li>it knows what it is connected to, a <b>Pin</b> on a Symbol or a connection node (or that it is not connected to anything);</li>
+    <li>it has a wire type, for example <em>6mm&sup2; Black</em>;</li>
+    <li>it may have a visual style;</li>
+    <li>and, most importantly, it knows which <b>network</b> it belongs to, for example <em>L1</em> or <em>24VDC</em>, from beginning to end, across devices, terminals and even sheets.</li>
+  </ul>
+  <p>With that knowledge the wiring engine can work out wire numbers, build reports and help you catch design errors before they reach a printout.</p>
+
+  <div class="note"><b>What is a Pin?</b> A <b>Pin</b> is an electrical connection point on a <b>Symbol</b>: the place where a wire attaches to a contactor coil, a push button, a motor, and so on. Every symbol has them, whether it comes from the shipped libraries or one you create yourself. A pin is to a symbol what a node is to a bare wire: it is where connections are made, and it knows what is attached to it.
+    Symbols and pins get a tutorial of their own later on. For now, wherever this chapter says &ldquo;node or pin&rdquo;, it means any point a wire can start or finish.</div>
+
+  <h2>Part 1: The tools and the idea of a net</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>The Wiring palette</h3>
+      <p>Open the <b>Tools</b> tab. The <b>Wiring</b> section is home to every wiring tool.</p>
+      <ul>
+        <li><b>Pointer</b> grabs, moves and edits nodes once they are placed.</li>
+        <li><b>Smart Wire</b> works two ways. Click it, then draw a wire between two valid nodes or symbol pins. Or hold <kbd>Ctrl</kbd> and click to enter <em>routing mode</em>: start at a node or pin, then click a path to your destination.</li>
+        <li><b>Nodes</b> are the smart connection points between wires. They come as <em>branch</em>, <em>angle</em>, <em>junction</em> and <em>end cap</em> types.</li>
+        <li>The <b>number pad</b> on your keyboard arms the Node tool, laid out to match the picture on the palette: <kbd>7</kbd> <kbd>8</kbd> <kbd>9</kbd> across the top, <kbd>5</kbd> for a junction, <kbd>0</kbd> for an end cap. Then click, or press <kbd>Enter</kbd>, to plant it.</li>
+        <li>The <b>N, S, E and W</b> nodes are <em>Interruption Nodes</em>. They carry a wire from one sheet to another (a supply L and N, for instance), or tidy up a link on the same sheet. We use them at the end of this chapter.</li>
+        <li><b>Terminals</b> are smart nodes too. They can be assigned to a terminal rail or group and have formatted text. The number-pad keys <kbd>-</kbd> and <kbd>/</kbd> arm horizontal and vertical terminals, and once planted they can be rotated.</li>
+        <li><b>Wire Utilities</b> come later, once there are nodes, symbols and wires to apply them to: <b>Wire No.</b> (a manual reference, or let the engine assign the number by your wiring group conventions), <b>Cable Marker</b> (placed over one or more wires to define the cores or single wires, with size, colour, component data and more) and <b>Screening</b> (like a Cable Marker, but with its own symbol and a node for earthing).</li>
+      </ul>
+      <figure>
+        <img src="01.png" alt="The Tools tab with the Wiring section open: Pointer, Smart Wire, Free Wire, the node grid with its number-pad layout, the terminal tools and the Wire Utilities" width="250" height="665">
+        <figcaption>The Wiring section of the Tools tab.</figcaption>
+      </figure>
+      <div class="warn"><b>One &amp; Done</b> The <b>One &amp; Done</b> tick box (under Settings, on the Tools tab) decides what a tool does after you place something. Tick it and the tool puts itself down and returns to the Pointer after each placement. Leave it unticked (the default) and the tool stays armed, so every click places another one. That is handy for a row of nodes, and it is also how you end up with several nodes stacked invisibly on top of each other. <kbd>Ctrl</kbd>+<kbd>Z</kbd> is your friend.</div>
+    </li>
+
+    <li>
+      <h3>Place some nodes</h3>
+      <p>Choose a few node types and place them. Nothing is connected yet: they are just nodes sitting on the sheet.</p>
+      <figure>
+        <img src="02.png" alt="A handful of junction, angle and Interruption Nodes placed on the sheet with no wires between them" width="666" height="283">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Wire them up</h3>
+      <p>Press <kbd>Alt</kbd>+<kbd>W</kbd> (Perform Auto-Wire, as in Chapter 1). Wires appear between the nodes that line up.</p>
+      <figure>
+        <img src="03.png" alt="The same nodes now joined by wires" width="679" height="244">
+      </figure>
+      <div class="note"><b>Nodes have limits</b> Each node type carries a fixed number of wires, because the shape it draws only makes sense for that many.
+        <ul>
+          <li><b>Branch:</b> exactly three, forming a tee: a straight run with one leg off it. Two of the three leaving the same side is reported as an error, even though the count is right.</li>
+          <li><b>Angle:</b> two.</li>
+          <li><b>Junction:</b> three or four.</li>
+          <li><b>Terminal node:</b> two, one wire in and one wire out.</li>
+          <li><b>Interruption Node</b> and <b>End cap:</b> one.</li>
+        </ul>
+        If you need more wires than a node allows, use a different node type. The Sheet Validator flags any node that breaks its limit.</div>
+    </li>
+
+    <li>
+      <h3>The Wiring menu</h3>
+      <p>Open the <b>Wiring</b> menu, because the options here only make sense once you know what they are for.</p>
+      <p>By default the program is in <b>Standard/Manual Mode</b> (ticked in the menu). In that mode, as you connect nodes and symbol pins, whether by hand or with <kbd>Alt</kbd>+<kbd>W</kbd>, the connections are <em>captured as you make them</em>. Each node or pin now knows what it is connected to. It is not just lines that happen to touch on the sheet; it is relationships.</p>
+      <figure>
+        <img src="04.png" alt="The Wiring menu with Standard/Manual Mode ticked, and Net-Centric Dragging, Auto-Connect Active, Perform Auto-Wire and the other wiring commands listed" width="291" height="470">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Select a whole net</h3>
+      <p>Click any wire or element. If the wiring is good, the <b>whole net</b> is selected and highlighted. The pink square marks the actual element under your cursor.</p>
+      <figure>
+        <img src="05.png" alt="A network of wires and nodes highlighted in blue, with a pink square on the Interruption Node's wire" width="618" height="254">
+        <figcaption>One click, one net. Everything the wire is connected to lights up.</figcaption>
+      </figure>
+    </li>
+  </ol>
+
+  <h2>Part 2: Three ways of working</h2>
+
+  <p>The same wiring can be edited in three different ways. The status bar tells you which one is active.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Standard: move one thing at a time</h3>
+      <p>In Standard/Manual Mode, dragging a node (or nudging it with the arrow keys) moves <em>that node only</em>. Here the Interruption Node has been pulled away from where it started, and its wire stretches to follow.</p>
+      <figure>
+        <img src="06.png" alt="One Interruption Node dragged down and to the right, with its wires stretched to follow" width="657" height="273">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Net-Centric: move the whole net</h3>
+      <p>Press <kbd>F7</kbd> to switch on <b>Net-Centric Dragging</b>. Now pick any wire and drag, and the <em>whole net</em> moves in unison.</p>
+      <figure>
+        <img src="07.png" alt="The wires and nodes of a net, with one wire in yellow as it is dragged and the rest of the net following" width="680" height="344">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Auto-Connect: let the wires follow you</h3>
+      <p>Press <kbd>F8</kbd> to switch on <b>Auto-Connect</b>. (If Net-Centric is still on, press <kbd>F7</kbd> again to turn it off. The two switches are independent, and choosing <b>Standard/Manual Mode</b> from the Wiring menu clears both.) The status bar shows where you are.</p>
+      <figure>
+        <img src="08.png" alt="The status bar panel showing the active wiring mode" width="399" height="34">
+        <figcaption>The status bar names the active mode: Manual, Net-Centric, Auto-Connect, or both.</figcaption>
+      </figure>
+      <p>Auto-Connect is for when you drop the node type you want onto the sheet, then mouse or arrow-key nudge it into line with the node or symbol pin you want. The moment a valid connection is possible, <em>snap</em>, the wire is drawn.</p>
+      <p>Of course, as you scoot a node around it may latch onto the wrong pin when you were after the next one. No problem: select the node, <b>press and hold <kbd>Alt</kbd></b>, and move on.</p>
+    </li>
+
+    <li>
+      <h3>Hold Alt to detach</h3>
+      <p>As you detach a node and move it away, a pink <b>alignment radar</b> appears when a valid connection point is reached.</p>
+      <figure>
+        <img src="09.png" alt="A node being moved with Alt held, a dashed pink alignment line running to the point where a connection is possible" width="338" height="393">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Let go and the wires sort themselves out</h3>
+      <p>When you release the movement and the <kbd>Alt</kbd> key, any wire that is now redundant is deleted, and any new wire is drawn for you.</p>
+      <figure>
+        <img src="10.png" alt="The node settled in its new place with the old wire removed and a new wire drawn" width="320" height="385">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Turn a node with Shift and the arrow keys</h3>
+      <p>With any node selected, hold <kbd>Shift</kbd> and tap an arrow key to change its direction. It works on branch nodes, angle nodes, Interruption Nodes and terminal nodes. (Terminal nodes also have a separate horizontal/vertical setting in their properties.)</p>
+      <figure>
+        <img src="11.png" alt="Before and after: the selected branch node points up on the left, and after Shift and Down Arrow it points down on the right" width="1093" height="481">
+        <figcaption>The same four branch nodes before and after. The selected one flips from up to down.</figcaption>
+      </figure>
+      <div class="warn"><b>Turning terminals</b> Turning a terminal node cuts its wires loose, because a wire no longer meets it at the same point. Re-wire afterwards with <kbd>Alt</kbd>+<kbd>W</kbd>.</div>
+    </li>
+  </ol>
+
+  <h2>Part 3: Linking sheets with Interruption Nodes</h2>
+
+  <p>A wire cannot cross from one sheet to the next, but a net can. An <b>Interruption Node</b> says &ldquo;this wire carries on elsewhere&rdquo;, and a shared <b>Net Name</b> says where. We will do it on one sheet here; across sheets it works exactly the same way.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Set up two Interruption Nodes</h3>
+      <p>Press <kbd>Alt</kbd>+<kbd>Delete</kbd>. You are asked whether to delete all the wires on the sheet; choose <b>Yes</b>. Delete the nodes you no longer need, and re-arrange the rest into the layout shown, then press <kbd>Alt</kbd>+<kbd>W</kbd> to wire them up.</p>
+      <figure>
+        <img src="12.png" alt="Two red end-cap nodes, each wired to an Interruption Node arrow, one pointing right and one pointing left" width="877" height="240">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Give them the same Net Name</h3>
+      <p>Select the first Interruption Node. In the <b>Wiring</b> section of its properties, type any name you like into <b>Net Name</b>, here <code>BOB</code>, and press <b>Apply Wiring Changes</b>. Then do exactly the same for the second node: the same Net Name, and <b>Apply</b> again.</p>
+      <p>The <code>???</code> and <code>?Net</code> you see are placeholders. They stay until the program has had the chance to link the two nodes, which is the next step.</p>
+      <figure>
+        <img src="13.png" alt="The first Interruption Node with Net Name BOB entered in the properties panel, showing ??? beneath the name" width="1201" height="178">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Update the cross references</h3>
+      <p>From the <b>Project</b> menu choose <b>Update Node/Wire/Cable Cross References</b> (<kbd>Alt</kbd>+<kbd>U</kbd>). However big the project, the cross-reference engine walks every Interruption Node on every sheet and links them up.</p>
+      <figure>
+        <img src="14.png" alt="The Project menu with Update Node/Wire/Cable Cross References highlighted" width="341" height="269">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Linked</h3>
+      <p>Each node now shows its partner's sheet and grid reference in place of the <code>???</code>.</p>
+      <figure>
+        <img src="15.png" alt="Both Interruption Nodes labelled BOB, one showing SH 1.4A and the other SH 1.2A" width="783" height="122">
+        <figcaption>Each node names the sheet and grid reference of the other.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Poor Bob</h3>
+      <p>Interruption Nodes link in <b>pairs</b>: one node to one other. If a name is left with an odd one out, the update stops and gives you an error report.</p>
+      <p>Twenty nodes called <code>BOB</code> is fine; they pair up. Add a twenty-first and one of them has no partner, so you get a report. Bob has no partner, poor Bob. The report also lists any Net Name used by more than two nodes, which is correct for a net that crosses several sheets but worth a glance otherwise.</p>
+      <figure>
+        <img src="16.png" alt="The Cross-References - Unresolved Interruption Nodes dialog reporting 2 of 3 nodes cross-referenced and that Net Name BOB has no partner" width="797" height="461">
+        <figcaption>A third BOB. Two are linked; one is left showing <code>???</code>.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Jump to the other end</h3>
+      <p>A nifty extra: select a source Interruption Node and press <kbd>J</kbd>. If the other node is valid, the cursor takes you straight to it. If it lives on another sheet you are asked to save the current one first (if it needs it) and then the new sheet loads. A landing beacon flashes briefly so you can see where you arrived.</p>
+      <figure>
+        <img src="17.png" alt="A source Interruption Node on the left and, after pressing J, the destination node on the right with concentric landing rings around it" width="847" height="282">
+        <figcaption>Press <kbd>J</kbd> on the source and the destination is selected and ringed.</figcaption>
+      </figure>
+    </li>
+  </ol>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Learned that a wire knows what it connects to and which net it belongs to, and why that matters.</li>
+    <li>Met the Wiring palette: Pointer, Smart Wire, nodes, terminals and the wire utilities.</li>
+    <li>Selected a whole net with one click.</li>
+    <li>Tried the three ways of working: Standard, Net-Centric (<kbd>F7</kbd>) and Auto-Connect (<kbd>F8</kbd>), and used <kbd>Alt</kbd> to detach a node.</li>
+    <li>Turned nodes with <kbd>Shift</kbd> and the arrow keys.</li>
+    <li>Paired two Interruption Nodes by Net Name, updated the cross references, and jumped between them with <kbd>J</kbd>.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>Chapter 3 looks at Net Names and Wire Numbering: how a net gets its name, and how the engine turns what it knows into wire numbers. Until then, the reference topics behind this chapter are in the program's help (<kbd>F1</kbd>): <em>Working with Wiring</em>, <em>Perform Auto-Wire</em> and <em>One &amp; Done Mode</em>.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
