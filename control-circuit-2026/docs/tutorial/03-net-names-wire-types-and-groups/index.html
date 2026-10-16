@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 3: Net Names, Wire Types and Wire Groups - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 3</p>
+
+  <h1>Chapter 3: Net Names, Wire Types and Wire Groups</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Understand the three values that turn a drawn wire into a smart one, set up the two libraries behind them (<b>Wire Types</b> and <b>Wire Groups</b>), and then put those values on wires, one at a time or all at once.
+  </div>
+
+  <h2>From wires to numbers</h2>
+
+  <p>In the previous chapter we learned that wires are the building blocks the circuit engines use to map how symbols, terminals, nodes and Interruptions are connected.</p>
+  <p>In this chapter we continue the journey towards logic-based wire numbering and design rule checking, by giving wires three pieces of information.</p>
+
+  <p>You can add wires at will and leave them as plain drawing artefacts. For them to become <em>smart</em>, they need a <b>Wire Group</b> as a minimum, because that is what the connectivity and numbering engines work from. A <b>Net Name</b> and a <b>Wire Type</b> are optional.</p>
+
+  <table class="three">
+    <thead>
+      <tr><th>Value</th><th>What it says</th><th>Examples</th><th>What it makes possible</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Net Name</b> <span class="opt">optional</span></td>
+        <td>A label for the <em>network</em> the wire belongs to.</td>
+        <td>ESTOP, PWR, MODE</td>
+        <td>Readable reports and messages, and a CE cross-check that two separate networks do not share a label.</td>
+      </tr>
+      <tr>
+        <td><b>Wire Group</b></td>
+        <td>Which <em>potential</em> the wire belongs to.</td>
+        <td>24VDC, L1, N</td>
+        <td>Wire numbering automation. The engine gathers every wire in a group and numbers them in sequence by your numbering rule.</td>
+      </tr>
+      <tr>
+        <td><b>Wire Type</b> <span class="opt">optional</span></td>
+        <td>What the wire <em>is</em>: its size and colour.</td>
+        <td>1.5mm&sup2; Black, 1.0mm&sup2; Blue</td>
+        <td>Wire thickness and colour on the sheet and in outputs, and the wire type shown in the Wire Schedule.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>A wire already knows what it is <em>connected</em> to. These three values say what it <em>is</em>. There are three ways to put them on a wire: the <b>Wiring</b> section of the wire's properties, the <b>right-click menu</b> on a selection, and <b>Mass Wire Update</b> (<kbd>Alt</kbd>+<kbd>M</kbd>). Parts 1 to 3 set up the libraries behind the values; Part 4 walks through each of the three ways.</p>
+
+  <div class="note"><b>Wire Type is cosmetic</b> A Wire Type renders the wire in a particular thickness and colour on the sheet and in print-outs, which is useful in certain situations: you might set a certain set of wires to 1.0mm&sup2; blue, for instance. It is entirely optional.</div>
+
+  <h2>Part 1: The Wiring menu</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>The options that matter for this chapter</h3>
+      <p>The top of the <b>Wiring</b> menu holds everything in this chapter and the next. We will work through the items as you meet them in your design workflow.</p>
+      <ul>
+        <li><b>Wire Type Library&hellip;</b> and <b>Wire Group Definitions&hellip;</b>: the two libraries, covered here.</li>
+        <li><b>Select Net</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>) and <b>Mass Wire Update&hellip;</b> (<kbd>Alt</kbd>+<kbd>M</kbd>): pick a whole net, or change many wires at once.</li>
+        <li><b>Connectivity Engine</b> (<kbd>F5</kbd>), <b>Net Runner Auto Numbering</b> (<kbd>F6</kbd>) and <b>Manual Mode Numbering</b> (<kbd>Shift</kbd>+<kbd>F6</kbd>): the connectivity map and the two numbering methods, in the chapters ahead.</li>
+      </ul>
+      <figure>
+        <img src="01.png" alt="The top of the Wiring menu: Wire Type Library, Wire Group Definitions, Select Net, Mass Wire Update, Connectivity Engine, Net Runner Auto Numbering and Manual Mode Numbering" width="286" height="196">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>Part 2: Wire Types</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Open the Wire Type Library</h3>
+      <p>From the <b>Wiring</b> menu choose <b>Wire Type Library&hellip;</b>.</p>
+      <p>When you create a new project you choose between <b>mm&sup2;</b> and <b>AWG</b> wire sizes, and the library is seeded for you with a range of common sizes and typical colours (in mm&sup2; mode, from 0.05mm&sup2; up to 120.0mm&sup2;; in AWG mode, from AWG 30 up to 4/0). The title bar tells you which mode you are in. You can customise the list as you need.</p>
+      <figure>
+        <img src="02.png" alt="The Wire Type Library Manager in mm-squared mode: the Wire Types Catalog list on the left, and the General, Spec Properties and Visual Style tabs on the right" width="838" height="596">
+        <figcaption>The catalogue on the left, the details of the selected wire type on the right. Nothing is written to file until you press <b>Save Library</b>.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>The General tab</h3>
+      <p>On this tab you can change the details of an existing entry, including the name it is displayed under.</p>
+      <p>You may also record a default <b>Manufacturer</b> and <b>Part Number</b>, if you have a house standard that must be followed.</p>
+      <p>The small italic <em>Auto-named</em> under the name means the name follows the size and colour: change either and the name changes with it. Type a name of your own and the entry stops being auto-named.</p>
+      <figure>
+        <img src="03.png" alt="The General tab for the 0.5mm-squared Black wire type showing its ID, name, the Auto-named indicator, Manufacturer and Part Number" width="562" height="244">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Add a new wire type</h3>
+      <p>Select the wire type you would like to base the new one on, say <b>1.0mm&sup2; Black</b>, then press <b>Add New</b>. A new entry is created, starting as a copy of the one you selected, and it is selected for you.</p>
+      <ul>
+        <li>The <b>ID</b> it is given is always unique.</li>
+        <li>The <b>name</b> must be unique too. If the size and colour match an entry that already exists, a red note appears beside the name and the cursor lands in the Name box: give it a name of its own, such as <em>1.0mm&sup2; Black LSZH</em>.</li>
+        <li>It is not possible to save the library while any name or ID is repeated; <b>Save Library</b> tells you which.</li>
+      </ul>
+      <p>To remove an entry, select it and press <b>Delete</b>. To keep everything you have done, press <b>Save Library</b>. To throw all your edits away, press <b>Cancel</b>.</p>
+      <figure>
+        <img src="04.png" alt="The catalogue with a new 1.25mm-squared Black entry selected, marked with an asterisk, and its new ID WT087" width="569" height="175">
+      </figure>
+    </li>
+
+    <li>
+      <h3>List order, and the asterisk</h3>
+      <p>The order of the list is not set by a wire type's name, but by its <b>size</b>, the CSA (cross-sectional area) set on the <b>Spec Properties</b> tab. A size you type in yourself with <b>Custom&hellip;</b> slots in at its true position: 1.25mm&sup2; sits between 1.0 and 1.5.</p>
+      <p>A <b>custom size</b>, one that is not among the standard sizes the library ships with, is marked with an <b>*</b> asterisk after its name. It is simply a visual clue for you.</p>
+      <figure>
+        <img src="05.png" alt="The Spec Properties tab showing Cross-Sectional Area set to Custom with 1.25 mm-squared entered, and the 1.25mm-squared Black entry between 1.0mm-squared and 1.5mm-squared in the list" width="583" height="188">
+      </figure>
+    </li>
+
+    <li>
+      <h3>The Visual Style tab</h3>
+      <p>As the name suggests, this is how the wire <em>looks</em> on the sheet and in rendered outputs: the normal print job, the Web Portal and Smart PDF. A blue-sheathed wire can literally be drawn blue, with a thickness that suits it.</p>
+      <p>It is entirely optional. <b>Display Thickness</b> is a visual-only property and has no relation to the electrical size of the wire.</p>
+      <figure>
+        <img src="06.png" alt="The Visual Style tab showing a black Colour swatch with a Pick Colour button, and Display Thickness set to Normal" width="571" height="213">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>Part 3: Wire Groups</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>What a Wire Group is for</h3>
+      <p>From the <b>Wiring</b> menu choose <b>Wire Group Definitions&hellip;</b>.</p>
+      <p>Wire Groups define the various potentials, the voltages, found in your schematic. They are used to collect together every wire in a group so that the numbering engine has a solid basis for numbering the wire markers across the whole circuit.</p>
+      <p>Every engineer and company has a house standard for wire numbering. Some are standards-based, some are unique and customised. Automatic wire numbering is optional: it is a feature that is there when you want it.</p>
+      <figure>
+        <img src="07.png" alt="The Wire Group Definitions dialog with an empty grid, and the columns ID, Name, Prefix, Suffix, Start At, Increment and Padded" width="788" height="514">
+        <figcaption>A new project starts with no groups defined. The line at the bottom states the rule: a wire number is <em>Prefix + Sequential + Suffix</em>.</figcaption>
+      </figure>
+    </li>
+
+    <li>
+      <h3>Seed the groups for a new project</h3>
+      <p>On a fresh installation you have two ways to get started.</p>
+      <ol>
+        <li>Create your own from scratch with <b>Add Row</b>.</li>
+        <li>Import a generic example set with <b>Import from STD</b>. It brings in groups for 0VDC, 24VDC, Earth, L1, L2, L3 and N.</li>
+      </ol>
+      <p>Press <b>Save</b> to keep them in this project.</p>
+      <figure>
+        <img src="08.png" alt="The Wire Group Definitions grid filled with seven groups after Import from STD, with the message that 7 wire groups were imported and to press Save to keep them" width="789" height="513">
+        <figcaption>Import from STD, then Save. The groups belong to the project; STD is a library shared between projects.</figcaption>
+      </figure>
+      <div class="note"><b>Import never overwrites</b> Importing skips any group whose name the project already has, so groups you have made for this project survive an import.</div>
+    </li>
+
+    <li>
+      <h3>Keep your house standard</h3>
+      <p>Once you have set up what is, in effect, your <b>house standard</b>, press <b>Save to STD</b>. That stores the configuration so you can import it into any other project later.</p>
+      <p>The <b>Start At</b>, <b>Increment</b> and <b>Padded</b> columns decide how the numbers run. They come into their own when we number wires, in a later chapter.</p>
+    </li>
+  </ol>
+
+  <h2>Part 4: Worked examples</h2>
+
+  <p>Now to put the libraries to work. Here are the three ways to give wires their values, from a single wire to every wire on the sheet.</p>
+
+  <h3>Example 1: One wire, from the Properties panel</h3>
+
+  <ol class="steps">
+    <li>
+      <h3>Make a wire and select it</h3>
+      <p>In the simplest form, create a wire between any two valid destinations (nodes, symbol pins and so on), press <kbd>Alt</kbd>+<kbd>W</kbd> to auto-wire, then click the wire you have just made.</p>
+      <p>In the <b>Properties</b> panel, the <b>Wiring</b> section gives you direct access to all three values: <b>Net Name</b>, <b>Wire Group</b> and <b>Wire Type</b>.</p>
+      <figure>
+        <img src="09.png" alt="The Properties panel for a selected wire, with Net Name empty and Wire Group and Wire Type both set to None, and an Apply Wiring Changes button" width="916" height="336">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Set a Net Name and a Wire Group</h3>
+      <p>Give the wire any Net Name you fancy. It is optional, and it labels this one network, so every separate network should have a name of its own. The Wire Group is the value the numbering tools gather wires by, later on.</p>
+      <p>If you followed Part 3, your wire groups are in the <b>Wire Group</b> drop-down. Choose one.</p>
+      <figure>
+        <img src="10.png" alt="The Wiring section with Net Name ALICE entered and the Wire Group drop-down open, listing None, 0VDC, 24VDC, Earth, L1, L2, L3 and N" width="279" height="212">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Optionally, choose a Wire Type</h3>
+      <p>This one is entirely optional. One reason to set it is that it lets a visual style be applied: the colour and thickness from the Visual Style tab of the library.</p>
+      <p>Then press <b>Apply Wiring Changes</b>. Nothing is entered until you do.</p>
+      <figure>
+        <img src="11.png" alt="The Wire Type drop-down open, listing the brown wire types such as 0.5mm-squared Brown, 1.0mm-squared Brown and 2.5mm-squared Brown" width="280" height="237">
+      </figure>
+    </li>
+
+    <li>
+      <h3>The wire changes, and the type is remembered</h3>
+      <p>The wire is now brown, and a <b>Recent Wire Types</b> link appears under the Apply button. It holds a Wire Group and Wire Type <em>together</em>, and keeps the last ten you used. Click one on the next wire and it fills in both drop-downs for you; then press Apply.</p>
+      <figure>
+        <img src="12.png" alt="The wire drawn in brown, and the Recent Wire Types list under the Apply button showing L1 - 2.5mm-squared Brown" width="889" height="256">
+      </figure>
+      <div class="note"><b>Why does the arrow still say ?Net?</b> The <b>?Net</b> beside each arrow is that Interruption Node's <em>own</em> Net Name: the one that pairs it with its partner, from Chapter 2. It is separate from the wire's Net Name, which is what groups wires together.</div>
+    </li>
+
+    <li>
+      <h3>Show or hide wire styles</h3>
+      <p>As we said, wire styling is both optional and configurable. It can be shown or hidden at any time, on the sheets and in printed or rendered outputs.</p>
+      <p>Open <b>Project Properties</b> (<kbd>Alt</kbd>+<kbd>P</kbd>) from the <b>Project</b> menu, go to the <b>Node Styles</b> tab, and look at the <b>Wire Visual Styles</b> box at the bottom right:</p>
+      <ul>
+        <li><b>Show on Canvas</b> draws the wire colours and thicknesses on the sheet.</li>
+        <li><b>Include in Print</b> carries them into printed and rendered output.</li>
+      </ul>
+      <p>Press <b>Save Changes</b> to commit. You will be asked to save the project when you leave the sheet or close the project, so that the settings are written to disk.</p>
+      <figure>
+        <img src="13.png" alt="The Project menu with Project Properties highlighted, shortcut Alt+P" width="346" height="120">
+      </figure>
+      <figure>
+        <img src="14.png" alt="The Node Styles tab with the Wire Visual Styles box ringed: Show on Canvas and Include in Print both ticked, and the Save Changes button" width="789" height="596">
+      </figure>
+    </li>
+  </ol>
+
+  <h3>Example 2: A whole net, from the right-click menu</h3>
+
+  <ol class="steps">
+    <li>
+      <h3>Elaborate the circuit</h3>
+      <p>Suppose we now add some nodes and some new wires, and end up with something like this. The new wires have no attributes yet.</p>
+      <figure>
+        <img src="15.png" alt="An expanded network: a brown wire across the top with branches dropping down to two more Interruption Nodes, drawn in black" width="611" height="307">
+      </figure>
+      <p>We do not need to go around selecting each new wire and applying its values one at a time.</p>
+    </li>
+
+    <li>
+      <h3>Select the net, then right-click</h3>
+      <p>Select the brown wire we already defined, right-click and choose <b>Select Net</b>. That finds every wire connected in the same network and selects them all. Right-click one of them again and the top of the menu counts what is selected (here <em>7 wires</em>), and shows <em>mixed</em> for any value they do not all share.</p>
+      <p>From here you have several options:</p>
+      <figure>
+        <img src="16.png" alt="The wire right-click menu over a selected net of 7 wires. Labels: Click the wire; Option A on the Net Name, Wire Group and Wire Type entries; Option B on Recent; Option C on Wire Properties; and Select Net." width="635" height="398">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Option A: pick the attributes one at a time</h3>
+      <p>Choose <b>Net Name</b>, <b>Wire Group</b> or <b>Wire Type</b> from the menu and pick a value. It is applied to every selected wire.</p>
+    </li>
+
+    <li>
+      <h3>Option B: Recent, a Group and a Type in one click</h3>
+      <p>Choose <b>Recent</b> and pick one of the pairs, such as <em>L1 &mdash; 2.5mm&sup2; Brown</em>. The Wire Group and the Wire Type are both applied in one hit. (Net Name is set from its own entry in the menu.)</p>
+      <figure>
+        <img src="17.png" alt="The Recent submenu open, offering L1 - 2.5mm-squared Brown" width="704" height="351">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Option C: Wire Properties for the Mass Wire Update dialog</h3>
+      <p>Choose <b>Wire Properties&hellip;</b> to open the most flexible choice, the <b>Mass Wire Update</b> dialog, which sets all three in one go. More on that dialog in a moment.</p>
+      <figure>
+        <img src="18.png" alt="The Mass Wire Update dialog opened for 7 selected wires, with Net name, Wire group and Wire type, and an Apply to 7 wires button" width="596" height="512">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Done</h3>
+      <p>In a couple of clicks, two wires or twenty or more are updated.</p>
+      <figure>
+        <img src="19.png" alt="All the wires of the network now drawn in brown and at the thicker weight" width="598" height="302">
+      </figure>
+    </li>
+  </ol>
+
+  <h3>Example 3: Everything at once, with Mass Wire Update</h3>
+
+  <p>Suppose you have built your whole circuit first: symbols, terminals, nodes, comments, details, the lot. Now you want to give the wires their values. This is where <b>Mass Wire Update</b> stretches its legs.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Select, then Alt+M</h3>
+      <p>Select the wires in any of the usual ways: drag over them, or hold <kbd>Ctrl</kbd> and click to pick wires that are not next to each other. You can even press <kbd>Ctrl</kbd>+<kbd>A</kbd> to select everything on the sheet, wires, symbols and terminals alike. Then press <kbd>Alt</kbd>+<kbd>M</kbd>.</p>
+      <p>Anything selected that is not a wire is ignored, but you are asked first, and told how many of each.</p>
+      <figure>
+        <img src="20.png" alt="A prompt reading: The selection contains 9 wires and 16 other objects (symbols, nodes, etc.). Only the wires will be updated. Continue?" width="428" height="194">
+      </figure>
+    </li>
+
+    <li>
+      <h3>The Mass Wire Update dialog</h3>
+      <p>Here is the same dialog again. Anything you leave blank, or at <em>no change</em>, is skipped, so you can set one value or all three in a single hit.</p>
+      <p>A good rhythm: select all your L1 wires and apply, then all your L2 and apply, then all your 24VDC and apply.</p>
+      <figure>
+        <img src="21.png" alt="The Mass Wire Update dialog for 9 selected wires, with Net name, Wire group and Wire type set to no change, the Recent wire types link, and an Apply to 9 wires button" width="397" height="407">
+      </figure>
+      <div class="warn"><b>Careful with Alt+Delete</b> <kbd>Alt</kbd>+<kbd>Delete</kbd> deletes <em>every</em> wire on the sheet, and with them all the attributes you have just set, which would need setting again. You are asked to confirm first, and the default answer is No.</div>
+    </li>
+  </ol>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Learned the three values that make a wire smart: <b>Wire Group</b> (the potential, required), <b>Net Name</b> (a label for the network, optional) and <b>Wire Type</b> (what the wire is, optional).</li>
+    <li>Found your way around the Wire Type Library: details, adding and deleting, list order, and visual style.</li>
+    <li>Understood the asterisk: a custom size, and only a visual clue.</li>
+    <li>Defined Wire Groups by hand, or imported the starter set, and saved your own as a standard with <b>Save to STD</b>.</li>
+    <li>Put the values on wires three ways: the <b>Properties</b> panel for one wire, <b>Select Net</b> and the right-click menu for a whole network, and <b>Mass Wire Update</b> (<kbd>Alt</kbd>+<kbd>M</kbd>) for everything at once.</li>
+    <li>Showed or hid wire styles on the canvas and in print, under <b>Project Properties</b> &rsaquo; <b>Node Styles</b>.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>In the next chapter we build a simple circuit and meet the <b>Connectivity Engine</b>, which checks that every wire, node and pin is properly connected. Wire numbering follows after that. Until then, the reference topics behind this chapter are in the program's help (<kbd>F1</kbd>): <em>Wire Type Library</em> and <em>Wire Group Definitions</em>.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>

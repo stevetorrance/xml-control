@@ -82,3 +82,10 @@ kbd {
 .toc { list-style: none; padding-left: 0; }
 .toc li { margin-bottom: 1rem; }
 .toc .soon { color: var(--muted); }
+
+/* A small three-column explainer table (Chapter 3). */
+table.three { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.95rem; }
+table.three th, table.three td { text-align: left; vertical-align: top; padding: 0.55rem 0.7rem; border: 1px solid var(--rule); }
+table.three th { background: rgba(31, 111, 178, 0.08); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+table.three .opt { font-size: 0.75rem; color: var(--muted); font-weight: normal; border: 1px solid var(--rule); border-radius: 4px; padding: 0 0.3rem; margin-left: 0.3rem; }
+@media (max-width: 640px) { table.three { font-size: 0.85rem; } table.three th, table.three td { padding: 0.4rem; } }

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 4: The Connectivity Engine and a Simple Circuit - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 4</p>
+
+  <h1>Chapter 4: The Connectivity Engine and a Simple Circuit</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Build a small test circuit, meet the Connectivity Engine (the CE), understand what a net and a Wire Group are, and learn the wiring tools that tidy a sheet up afterwards.
+  </div>
+
+  <h2>Where we are</h2>
+
+  <p>Previously we discovered how wires are first-class citizens, and the essential building blocks the engine uses to work out networks and circuit integrity. In this chapter we introduce the <b>Connectivity Engine</b> and build a simple test circuit to use it on. In the next chapter we move on to the wire numbering methods, from manual and semi-automatic through to fully automated numbering.</p>
+  <p>Again, how fully you use the range and depth of Circuit's automation tools is entirely up to you. The more automation you want, the more groundwork and the better the preparation you need to put in.</p>
+
+  <p>The Connectivity Engine serves to validate three things:</p>
+  <ul>
+    <li>that every wire can be identified;</li>
+    <li>that every wire, node and symbol pin on the sheet has a valid and legitimate connection;</li>
+    <li>and, when you command it, that the entire circuit across every sheet is valid too.</li>
+  </ul>
+  <p>The wire numbering engine builds on a successful outcome from the CE, and won&rsquo;t run while the CE is reporting errors. (Warnings do not block numbering; only errors do.)</p>
+  <p><b>Wire Numbering Nodes</b> (WNNs) are placed by you on every wire segment where you want to see a wire number. The CE and the numbering engine supply the logic that marks the same wire with the same number, and wires on different segments, or wires that have crossed a boundary such as a symbol or a terminal, with new numbers. There are many configurable options.</p>
+
+  <p>The CE gives a very thorough report on what passes and what fails. With that information it becomes apparent what the extra tools at the bottom of the <b>Wiring</b> menu could be useful for.</p>
+
+  <figure>
+    <img src="01.png" alt="The Wiring menu with its last group of items ringed in red: Straighten All Wires, Remove Unwired Nodes, Join Selected and Heal Sheet Wiring" width="287" height="462">
+    <figcaption>The tools at the bottom of the Wiring menu. We will come back to them at the end of the chapter.</figcaption>
+  </figure>
+
+  <h2>Part 1: A simple circuit</h2>
+
+  <p>Before we can sensibly use the CE and wire numbering, we need a simple yet valid circuit. It is only a backdrop, so it needn&rsquo;t be something NASA will approve of. Just get some symbols on the sheet.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Choose a symbol library</h3>
+      <p>Switch to the <b>Symbols</b> palette. Control Circuit ships with some very basic starter libraries: <b>IEC_BASIC</b>, <b>NFPA_BASIC</b> and <b>TERMS_BASIC</b>. Use the drop-down arrow to change library. We will use <b>IEC_BASIC</b>, but NFPA_BASIC works just as well.</p>
+      <figure>
+        <img src="02.png" alt="The Symbols palette with the library drop-down open, listing IEC_BASIC, NFPA_BASIC and TERMS_BASIC, with IEC_BASIC ticked" width="458" height="336">
+      </figure>
+      <div class="note"><b>The libraries are a starting point</b> They are there to get you going, and to show how a library is formed and indexed and how symbols are presented. The shipped libraries are updated from time to time, but they are in BIN (encrypted binary) format, so you cannot alter a symbol in them. You can, however, open any symbol in the Symbol Editor and change it. When you save, you are prompted to save to a custom library, for example <em>IEC_CUSTOM</em>. That way the shipped libraries are preserved, and you can make as many libraries of your own as you need. (The Symbol Editor gets its own chapter later.)</div>
+    </li>
+
+    <li>
+      <h3>Drag symbols onto the sheet</h3>
+      <p>With a symbol selected, you can drag it from the tree list or from the preview image underneath.</p>
+      <figure>
+        <img src="03.png" alt="The 2P MCB 1PH Neutral selected in the tree list, with its tooltip showing, and arrows showing it can be dragged either from the list or from the preview image onto the sheet" width="705" height="633">
+      </figure>
+      <p>Build up a simple circuit. Here we have a 2-pole MCB, a power supply, a ground symbol, a single-pole MCB and a lamp.</p>
+      <figure>
+        <img src="04.png" alt="Five symbols laid out down the sheet: a 2-pole MCB, a power supply with its ground symbol, a 1-pole MCB and a lamp" width="287" height="645">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Add some End Cap nodes</h3>
+      <p>Once you have some components arranged, switch to the <b>Tools</b> palette.</p>
+      <p>To start, add a couple of <b>End Cap</b> nodes. These can represent incoming supplies or bus-bar ends, and they usefully give wiring a clean start and finish, symbolically, if you want one. Choose the tool, then click anywhere to place the End Cap.</p>
+      <figure>
+        <img src="05.png" alt="The Tools palette with the End Cap node tool highlighted, beside the sheet with the symbols laid out" width="752" height="478">
+      </figure>
+      <div class="note"><b>One &amp; Done</b> By default <b>One &amp; Done</b> mode is on: after every use of a tool the mouse returns to the Pointer. Later on, when you are planting lots of nodes and other items, you can switch the mode off and multi-drop to your heart&rsquo;s content.</div>
+      <figure>
+        <img src="06.png" alt="The Settings section of the Tools palette with One and Done ticked, and the status bar reading Mode: Pointer" width="262" height="83">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Outline the rest with nodes</h3>
+      <p>Carry on with the other node types, and outline your intended circuit. Here the red squares are End Caps and the red corners are corner nodes. (There are various tools, such as snap alignment and instant auto-wire, available, but for right now just eyeball it and place the nodes.)</p>
+      <figure>
+        <img src="07.png" alt="The symbols with two End Caps above the 2-pole MCB and corner nodes placed beside the power supply, ground symbol and lamp" width="252" height="803">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Auto-wire it</h3>
+      <p>Tap <kbd>Alt</kbd>+<kbd>W</kbd> to auto-wire the circuit. It looks OK, but the End Caps have joined themselves together, which is not what we wanted. An End Cap has no idea where you want it to go, unlike the other node types, which have directional branches.</p>
+      <figure>
+        <img src="08.png" alt="The auto-wired circuit, with a short wire joining the two End Caps at the top" width="256" height="799">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Fix the End Caps with Free Wire</h3>
+      <p>Select the small wire between the End Caps and delete it. Then use the <b>Free Wire</b> tool to run a wire from one End Cap to the correct pin on the MCB, and then from the other.</p>
+      <p>Free Wire is used because an End Cap is a node, not a pin, so Smart Wire&rsquo;s pin-to-pin routing doesn&rsquo;t apply. Free Wire draws at any angle. Here the End Caps sit directly above the pins, so the wires come out straight. If one ever comes out slanted, <kbd>Alt</kbd>+<kbd>S</kbd> will square it off; we meet that command at the end of the chapter.</p>
+      <figure>
+        <img src="09.png" alt="The Free Wire tool drawing a dashed wire from the right-hand End Cap down to the N1 pin of the MCB" width="449" height="469">
+      </figure>
+      <p>We now have a completed circuit for our purposes.</p>
+    </li>
+  </ol>
+
+  <h2>Part 2: Nets, Wire Groups and the Connectivity Engine</h2>
+
+  <p>Before we run the CE, there is one idea worth getting straight, because everything the CE checks hangs off it.</p>
+
+  <h3>What is a net?</h3>
+  <p>A <b>net</b> is a run of wire that is electrically joined together with nothing in between. The moment the current passes through a device (a breaker, a switch, a power supply, a terminal) one net ends and another begins. Our little circuit is made of <b>8 nets</b>, although it is drawn with <b>14 wire segments</b>, because a net can be several segments long, thanks to the corners.</p>
+
+  <h3>Wire Groups</h3>
+  <p>A <b>Wire Group</b> says what a net <em>is</em>: its potential. L1, N, 24VDC, 0VDC, Earth. Every wire in a net must belong to the same Wire Group; a net with two different groups in it is a serious (cross-voltage) error. The same Wire Group is used again and again, on as many nets as you like.</p>
+  <p>For example, L1 going into the 2P MCB and L1 coming out of it are both Wire Group <b>L1</b>, but they are two distinct nets, because the breaker sits between them.</p>
+  <p>The CE insists that every wire belongs to a Wire Group, so that is what we will set up here.</p>
+
+  <h3>Net Names</h3>
+  <p>A net can also carry a <b>Net Name</b>, a label for that one net. For example, <em>L1_SUPPLY</em> for the L1 going into the MCB and <em>L1_LOAD</em> for the L1 leaving it. Net Names are entirely <b>optional</b>, and our simple circuit does not need any. A name on a wire is there for you: it makes reports and messages easier to read, and the CE uses it for a cross-check, warning you if two separate nets have been given the same name.</p>
+  <p>Don&rsquo;t confuse it with the Net Name on an <b>Interruption Node</b>. That one is set on the node itself, and it is the one that matters: two Interruptions sharing a Net Name is what links them, so a signal can leave one place on a sheet, or one sheet, and arrive at another (we met this in <a href="../02-wiring-tools-and-methods/">Chapter 2</a>).</p>
+
+  <div class="good"><span class="lead">The colour and the address</span>If it helps: the Wire Group is the <em>colour</em> of the wire, and the Net Name, if you use one, is its <em>address</em>.</div>
+
+  <ol class="steps">
+    <li>
+      <h3>Run the Connectivity Engine</h3>
+      <p>Now for our first outing with the CE. Tap <kbd>F5</kbd>, or choose <b>Wiring</b> &rsaquo; <b>Connectivity Engine</b>.</p>
+      <figure>
+        <img src="10.png" alt="The Connectivity Engine Trace window: 8 nets, 14 wires, 0 cross-sheet and ungrouped=8, with ungrouped=8 ringed in red" width="709" height="553">
+      </figure>
+      <p>The circuit is sound, but none of the wires have been assigned to a Wire Group. Note that the summary counts <em>nets</em>, not wires: 8 nets, made up of 14 wire segments, and all 8 are ungrouped.</p>
+    </li>
+
+    <li>
+      <h3>See the problem on the sheet</h3>
+      <p>Press <kbd>Esc</kbd> to dismiss the window. Because <b>Wiring</b> &rsaquo; <b>Show Wire Issues</b> is ticked, every wire with an issue is highlighted in purple.</p>
+      <figure>
+        <img src="11.png" alt="The whole circuit with every wire highlighted in purple" width="261" height="689">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Set a Wire Group</h3>
+      <p>Let&rsquo;s fix that. We know these two segments are both L1, so select them both, right-click and drill to <b>Wire Group</b>, then choose <b>L1</b>.</p>
+      <figure>
+        <img src="12.png" alt="Two wire segments selected, one above and one below the MCB, with the right-click menu open on Wire Group and the list 0VDC, 24VDC, Earth, L1, L2, L3, N and Clear Wire Group" width="536" height="449">
+      </figure>
+      <div class="note"><b>Where do the groups come from?</b> The Wire Groups offered here come from the <b>Wire Group Definitions</b> list (<b>Wiring</b> &rsaquo; <b>Wire Group Definitions&hellip;</b>), which also carries the auto-numbering rules we meet in the next chapter. If your list is empty, <a href="../03-net-names-wire-types-and-groups/">Chapter 3</a> shows how to import the starter set.</div>
+    </li>
+
+    <li>
+      <h3>Do the rest in one go</h3>
+      <p>You could do the same for every other set of wires, but there is a quicker way. Select all the wires of one potential, even across several nets, right-click and choose <b>Wire Properties</b>. With more than one wire selected, that opens the <b>Mass Wire Update</b> dialog (also <kbd>Alt</kbd>+<kbd>M</kbd> from the Wiring menu). Fields left blank are skipped, so we just choose the Wire Group and apply it to all of them at once.</p>
+      <figure>
+        <img src="13.png" alt="The Mass Wire Update dialog for 2 selected wires with Net name blank, Wire group set to L1 and Wire type set to no change, beside the two selected wires either side of the MCB" width="644" height="394">
+      </figure>
+      <p>Go around the circuit and update the remaining wires (N, Earth, 24VDC and 0VDC).</p>
+    </li>
+
+    <li>
+      <h3>Run it again</h3>
+      <p>Hit <kbd>F5</kbd> again, and the summary turns green.</p>
+      <figure>
+        <img src="14.png" alt="The Connectivity Engine Trace window with a green tick: nets=8, wires=14, cross-sheet=0" width="706" height="550">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Look at the full diagnostics</h3>
+      <p>Press <kbd>F5</kbd> once more while the CE window is open and it lists everything it found, net by net, with its Wire Group, and finishes with a summary.</p>
+      <figure>
+        <img src="15.png" alt="The full diagnostics: each net listed as closed with its wires, pins and group, then a summary of 1 sheet, 8 nets, 14 wires, no group conflicts, no ungrouped nets and no open stubs, with 8 unnamed nets in the status bar" width="706" height="550">
+      </figure>
+      <div class="note"><b>Unnamed nets</b> Because we have not used Net Names, the status bar also reminds you that the nets are unnamed. That is a soft note, not an error, and nothing to worry about here.</div>
+    </li>
+  </ol>
+
+  <h2>Part 3: The wiring tools</h2>
+
+  <p>Of course, we have pretty much just done everything the hard way. Now you will appreciate what follows.</p>
+
+  <h3>Let the CE help</h3>
+  <p>The CE can actually solve some problems for you. For example, it can automatically <b>propagate</b> a Wire Group or Net Name across a net, so you only need to set it on one wire in that net. Tap <kbd>F5</kbd> to open the CE, then choose <b>View</b> &rsaquo; <b>Settings</b>.</p>
+  <figure>
+    <img src="16.png" alt="The Connectivity Engine Settings dialog, with the two Auto-Propagation options at the bottom highlighted and both unticked" width="704" height="548">
+    <figcaption>The two Auto-Propagation options are at the bottom.</figcaption>
+  </figure>
+  <p>The Auto-Propagation options are switched <b>off</b> by default. Tick them if you want the CE to fill in ungrouped or unnamed wires in a net, once at least one wire in that net already has a Wire Group or Net Name. We will not dig too deep here; just be aware that automation options exist.</p>
+
+  <h3>Tools for the sheet itself</h3>
+  <p>The sheet editor has tools of its own, too: the four at the bottom of the Wiring menu.</p>
+  <figure>
+    <img src="17.png" alt="Straighten All Wires Alt+S, Remove Unwired Nodes Alt+K, Join Selected Alt+J, Heal Sheet Wiring Alt+Shift+H" width="259" height="100">
+  </figure>
+
+  <ul>
+    <li>
+      <b>Straighten All Wires</b> (<kbd>Alt</kbd>+<kbd>S</kbd>). Circuit does not like angled wires; wires should be orthogonal. It tries to straighten them automatically as you edit, but now and then an angled wire can remain, after moving a symbol for example, or because Free Wire draws at any angle. This command works across the whole sheet: it squares off slanted wires, tidies repeated points and restores missing corner nodes, and it leaves your hand-drawn routing alone. It never deletes a node.
+    </li>
+    <li>
+      <b>Remove Unwired Nodes</b> (<kbd>Alt</kbd>+<kbd>K</kbd>). On large, complex sheets, nodes can be orphaned and of no use. This finds and deletes them for you: nodes carrying no wire at all, and corner nodes left holding only one. It works across the whole sheet, not just the selection, it can be undone, and it is the only command that removes nodes. The status bar tells you how many it took.
+    </li>
+    <li>
+      <b>Join Selected</b> (<kbd>Alt</kbd>+<kbd>J</kbd>). Move a symbol a lot, insert branches, delete them again, and pretty soon you will have wires that appear to run straight between two points but are actually two or more physical segments. That is not good practice. Select all the segments and press <kbd>Alt</kbd>+<kbd>J</kbd>, and Circuit replaces them with a single segment. If the segments carry different wire numbers you are asked which to keep (with more than two different numbers, Circuit declines and asks you to sort the numbers out first). If Circuit does not fully understand the selection it changes nothing and tells you why in the status bar.
+    </li>
+    <li>
+      <b>Heal Sheet Wiring</b> (<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>). This tidies the wiring topology of the whole sheet in one hit: it splits wires that pass straight through a branch or junction node, attaches loose wire ends to pins and nodes, merges collinear segments, removes repeated points and restores missing corner nodes. It does not remove unwired nodes or square off angled wires; those remain <kbd>Alt</kbd>+<kbd>K</kbd> and <kbd>Alt</kbd>+<kbd>S</kbd>. A summary of what it did appears in the status bar, and it can be undone.
+    </li>
+  </ul>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Built a small circuit: symbols from a starter library, End Cap and corner nodes, auto-wire, and Free Wire for the End Caps.</li>
+    <li>Learned what a <b>net</b> is: a run of wire that ends at every device.</li>
+    <li>Understood the two labels on a net: the <b>Wire Group</b> (what it is, required) and the <b>Net Name</b> (which one it is, an optional label; the Net Name on an Interruption Node is a separate thing, and is what links two of them).</li>
+    <li>Ran the <b>Connectivity Engine</b> (<kbd>F5</kbd>), saw it flag ungrouped nets, fixed them one net at a time and then all at once with <b>Mass Wire Update</b>, and ran it again for a green result.</li>
+    <li>Met the CE&rsquo;s Auto-Propagation options and the four sheet tools: Straighten (<kbd>Alt</kbd>+<kbd>S</kbd>), Remove Unwired Nodes (<kbd>Alt</kbd>+<kbd>K</kbd>), Join Selected (<kbd>Alt</kbd>+<kbd>J</kbd>) and Heal Sheet Wiring (<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>).</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>In the next chapter we add <b>WNNs</b> (Wire Numbering Nodes) to our wires and look at the wire numbering methods available, from manual numbering to fully automated. Until then, the program&rsquo;s help (<kbd>F1</kbd>) is the place to dig deeper into anything in this chapter; try searching for <em>Connectivity Engine</em>.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
