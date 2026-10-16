@@ -122,6 +122,8 @@
   <p>A net can also carry a <b>Net Name</b>, a label for that one net. For example, <em>L1_SUPPLY</em> for the L1 going into the MCB and <em>L1_LOAD</em> for the L1 leaving it. Net Names are entirely <b>optional</b>, and our simple circuit does not need any. A name on a wire is there for you: it makes reports and messages easier to read, and the CE uses it for a cross-check, warning you if two separate nets have been given the same name.</p>
   <p>Don&rsquo;t confuse it with the Net Name on an <b>Interruption Node</b>. That one is set on the node itself, and it is the one that matters: two Interruptions sharing a Net Name is what links them, so a signal can leave one place on a sheet, or one sheet, and arrive at another (we met this in <a href="../02-wiring-tools-and-methods/">Chapter 2</a>).</p>
 
+  <div class="good"><span class="lead">Name the signals that matter</span>You do not need to name every wire, but it pays to name a few strategic ones, such as <em>MASTER_RST</em> or <em>CHARGE_START</em>. In the Find and Replace dialog, tick <b>Net Names</b> under Search targets, set <b>Look in</b> to Entire Project, and Find All lists every wire carrying that name, whichever sheet it is on. Double-click a result to jump straight to it. On a project with a couple of hundred sheets, that is a quick way to track a key signal down.</div>
+
   <div class="good"><span class="lead">The colour and the address</span>If it helps: the Wire Group is the <em>colour</em> of the wire, and the Net Name, if you use one, is its <em>address</em>.</div>
 
   <ol class="steps">
