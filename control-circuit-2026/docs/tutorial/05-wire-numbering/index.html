@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 5: Wire Numbering - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 5</p>
+
+  <h1>Chapter 5: Wire Numbering</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Understand how Circuit numbers wires, look at the rules behind the numbers, place Wire Numbering Nodes on our circuit, and number it two ways: fully automatically with Net Runner, or by hand in Manual Mode.
+  </div>
+
+  <h2>Where we are</h2>
+
+  <p>In the previous chapter we saw how assigning wires to a Wire Group determines each wire&rsquo;s potential (voltage), and how the Connectivity Engine (CE) validates every wire on a Sheet and across the whole Project. That was the groundwork for what comes next: Wire Numbering.</p>
+
+  <p>A wire number is the unique number attached to a core. It ensures correct assembly in the panel shop and reliable tracing in the field for fault finding and maintenance. Every wire should be identified, whatever standard you work to &ndash; it&rsquo;s best practice and common sense.</p>
+
+  <p>Your house standard or prescribed method decides the numbering convention. Circuit gives you two ways to number: fully automatic, by way of <b>Net Runner</b>, which we&rsquo;ll meet shortly, or manual, where you stay in control of every number.</p>
+
+  <p>Numbers are assigned per <b>Net</b>, whether or not a Net Name is applied: each physically contiguous network of wires carries one number until it reaches a component. Terminals can either act as a boundary or pass the number through, and that behaviour is a setting you can adjust: it is set per terminal group, in the <b>Boundary</b> column of the <b>Terminal Groups</b> dialog, and an individual terminal can override it.</p>
+
+  <p>How a number is built is defined by its Wire Group: a prefix, a starting number, an increment and a suffix. If your standard puts the sheet number in the wire number, such as <em>3-101</em> for the first wire on sheet 3, put <b>{S}</b> in the prefix and tick <b>Restart / Sheet</b> so each sheet starts again. A Net can run across several sheets, for example through Interruption Nodes that share a Net Name, and it still carries just one number on every sheet. That number takes the sheet of the earliest Wire Numbering Node on the Net (the lowest sheet number).</p>
+
+  <p>To annotate a wire number, use a <b>Wire Numbering Node</b> (WNN) from the Tool Palette. Drag a WNN onto the wire you want annotated &ndash; it must land on the wire itself. You can then slide it along that wire, but keep it on the wire.</p>
+
+  <h2>Part 1: The numbering rules</h2>
+
+  <p>Before numbering anything, let&rsquo;s look at the <b>Wire Group Definitions</b> dialog. From here we define our numbering conventions, and each series of wires (each Wire Group) has its own start, prefix and suffix values. For our example project we&rsquo;ll just stick with the defaults&hellip;</p>
+
+  <figure>
+    <img src="01.png" alt="The Wire Group Definitions dialog with the starter set: 0VDC, 24VDC, Earth, L1, L2, L3 and N, each with a prefix such as 0V- or L1-, and an Example column such as L1-100, L1-101" width="789" height="215">
+  </figure>
+
+  <p>The <b>Example</b> column previews what each rule will produce before you number anything: L1, for instance, will give <em>L1-100</em>, then <em>L1-101</em>.</p>
+
+  <h3>Going further</h3>
+
+  <p>None of this next part is needed for our example project, so skim it for now and come back when your own standard asks for it. Just be aware though, the rules can get quite exotic if required&hellip;</p>
+
+  <figure>
+    <img src="02.png" alt="The Wire Group Definitions dialog with an extra L2 row that uses {S} as its prefix and has Restart / Sheet ticked, so its Example column reads 3200, 3201 and then, for sheet 4, 4200" width="789" height="513">
+  </figure>
+
+  <p>Here, L2 puts the sheet number in front of its sequence and restarts on every sheet, so sheet 3 starts at 3200 and sheet 4 at 4200. (In practice you would add a separator, such as <b>{S}-</b> in the prefix, so the result reads <em>3-200</em>.)</p>
+
+  <div class="note"><b>Sheet number tokens</b> <b>{S}</b> in the prefix or suffix becomes the sheet number, and <b>{S:2}</b> pads it to two digits, so sheet 3 gives <em>03</em>. You can pad from 1 to 8 digits. If Restart / Sheet is ticked but neither the prefix nor the suffix holds a token, every sheet repeats the same numbers, and the Example column turns red to warn you.</div>
+
+  <h2>Part 2: Placing WNNs</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Drag a WNN onto a wire</h3>
+      <p>First things first: drag a WNN onto a wire from the Tool Palette.</p>
+      <figure>
+        <img src="03.png" alt="A newly placed Wire Numbering Node on a wire, with a ? above its diamond and a blue arrow pointing to it" width="279" height="158">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Set its position</h3>
+      <p>The WNN is placed <b>Above</b> the wire by default, and shows a <b>?</b> until it has been numbered. Once placed, select it and choose <b>Position: Left</b>.</p>
+      <figure>
+        <img src="04.png" alt="The WNN properties panel with Position set to Left, and the WNN's ? now sitting to the left of its diamond" width="541" height="251">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Place the rest</h3>
+      <p>Using this technique, place sufficient WNNs on your circuit.</p>
+      <figure>
+        <img src="05.png" alt="The simple circuit with a WNN, each showing a ?, placed on most of its wire runs" width="446" height="734">
+      </figure>
+      <div class="good"><span class="lead">Tip</span>Once you have a WNN oriented and formatted, you can copy and paste it around to suit similar orientations on other wires.</div>
+    </li>
+  </ol>
+
+  <h2>Part 3: Automatic numbering with Net Runner</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Run Net Runner</h3>
+      <p>For fully automated wire numbering, tap <kbd>F6</kbd> or choose <b>Wiring</b> &rsaquo; <b>Net Runner Auto Numbering</b>.</p>
+      <figure>
+        <img src="06.png" alt="The Wiring menu with Net Runner Auto Numbering, F6, ringed in green" width="284" height="193">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Agree to proceed</h3>
+      <p>Once fired, you will get a prompt to proceed. Net Runner renumbers every unassigned WNN across the whole project, and leaves any manual override alone.</p>
+      <figure>
+        <img src="07.png" alt="The Renumber Wires prompt: This will renumber all unassigned WNNs across the entire project. Manual override WNNs will not be changed. Do you want to continue? Yes or No" width="395" height="188">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Read the results</h3>
+      <p>Once completed, you will get a dialog with the outcome status.</p>
+      <figure>
+        <img src="08.png" alt="The Net Runner Results window: 8 nets, 7 WNNs found, with each net listed with its group and number, and two nets marked NO WNN" width="805" height="508">
+      </figure>
+      <p>Notice the first row: that Net has two WNNs but only one number, <em>0V-1</em>. Numbers belong to the Net, not to the WNN.</p>
+      <p>Note we also have 2 wires without WNNs &ndash; these, you should find, will be the End Cap wires to the 2P MCB. The moral here is to think carefully about the results and, as the dialog suggests, double-click the entry to navigate to the issue.</p>
+    </li>
+
+    <li>
+      <h3>Jump to the problem</h3>
+      <p>Double-clicking a <b>NO WNN</b> row takes you straight to the wire on the sheet and selects it.</p>
+      <figure>
+        <img src="09.png" alt="The results list with a NO WNN row selected and a blue arrow to the sheet, where the wire beneath one of the two End Caps is highlighted" width="712" height="238">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Save the sheets</h3>
+      <p>After Net Runner use, you will be prompted to save any sheet changes.</p>
+      <figure>
+        <img src="10.png" alt="The Net Runner prompt: Net Runner changed 1 sheet, and Allow Pending Edits is turned off. Yes saves now, No leaves the changes pending" width="390" height="226">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Tidy up</h3>
+      <p>We have a text overlap showing, so just scoot the <em>E-1</em> WNN off to the right.</p>
+      <figure>
+        <img src="11.png" alt="The E-1 label overlapping the N-400 label, with a red arrow pointing at the E-1 WNN" width="271" height="219">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Automated wire numbering is complete</h3>
+      <figure>
+        <img src="12.png" alt="The finished circuit with every WNN numbered: L1-100, N-400, E-1, 24V-1, 0V-1, 24V-2 and a second 0V-1" width="282" height="654">
+      </figure>
+      <p>Notice the 24V wiring carries two numbers, <em>24V-1</em> and <em>24V-2</em>: the MCB is a component, so it ends one Net and starts another. The two <em>0V-1</em> labels, on the other hand, sit on a single Net, so they share a number.</p>
+    </li>
+  </ol>
+
+  <div class="good"><span class="lead">Handy Tip</span>Regardless of how you achieve WNN numbering, you always have the option to manually override the annotated text, and to tick <b>Lock against Net Runner</b> too. This becomes handy when you want to preserve a WNN value written at the first release of a design, and now months later you are adding some new wires. Also handy if you do not want to use the numbering tools at all &ndash; and have a circuit you are fully capable of manually numbering.
+    <figure>
+      <img src="13.png" alt="The WNN properties panel with the Number field and the Lock against Net Runner checkbox, each marked with a blue arrow" width="461" height="456">
+    </figure>
+  </div>
+
+  <h2>Part 4: Manual Mode</h2>
+
+  <p>The alternative to Net Runner is Manual Mode, where you stay in charge of every number. From the <b>Wiring</b> menu choose <b>Manual Mode Numbering</b> (<kbd>Shift</kbd>+<kbd>F6</kbd>). What that gives us is a simple dialog with two main features.</p>
+
+  <figure>
+    <img src="14.png" alt="The Manual Wire Numbering dialog: a grid of every WNN with its location, group, current number and an editable Proposed # column" width="903" height="231">
+  </figure>
+
+  <ol>
+    <li>The ability to manually edit any WNN using the cell in the <b>Proposed #</b> column.</li>
+    <li>From the <b>Actions</b> menu, options to number any or all Wire Groups. Unlike Net Runner, this numbers every WNN individually and does not look at Nets: the Wire Group&rsquo;s start, increment, prefix and suffix are all followed, but two WNNs on the same Net get two different numbers.</li>
+  </ol>
+
+  <p>Nothing is written until you choose <b>Commit Changes</b>, and every number you change is then locked as a manual override. If you change your mind first, <b>Reset All Proposed</b> (<kbd>Ctrl</kbd>+<kbd>Z</kbd>) puts every Proposed # back to its current value. The Net column only shows a Net Name if you gave the wire one.</p>
+
+  <figure>
+    <img src="15.png" alt="The Actions menu: Auto-Number Group, Auto-Number All Groups, Commit Changes Ctrl+S, Reset All Proposed Ctrl+Z and Close Esc" width="311" height="226">
+  </figure>
+
+  <p>Manual Mode gives you complete granular control of wire numbers, ideal for small projects, projects that are of olden times and when some good old fashioned numbering therapy is in order.</p>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Looked at the <b>Wire Group Definitions</b> and the rules that build a number: prefix, start, increment, suffix, and the sheet number with <b>{S}</b> and <b>Restart / Sheet</b>.</li>
+    <li>Placed <b>WNNs</b> on the wires and set their position.</li>
+    <li>Numbered the circuit automatically with <b>Net Runner</b> (<kbd>F6</kbd>), read its results, followed a <b>NO WNN</b> row to the wire, and saved.</li>
+    <li>Saw that numbers belong to a <b>Net</b>, not to a WNN, and that a component ends one Net and starts another.</li>
+    <li>Met <b>Lock against Net Runner</b>, and <b>Manual Mode</b> (<kbd>Shift</kbd>+<kbd>F6</kbd>) for numbering entirely by hand.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>Until the next chapter, the program&rsquo;s help (<kbd>F1</kbd>) is the place to dig deeper into anything here; try searching for <em>Net Runner</em> or <em>Manual Wire Numbering</em>.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
