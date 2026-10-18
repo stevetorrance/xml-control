@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 6: Component Databases - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 6</p>
+
+  <h1>Chapter 6: Component Databases</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Find your way around the Component Database Manager: look through the STARTER database, understand the fields every component carries and the extra fields you can add yourself, edit a database&rsquo;s schema and categories, and add, copy and remove components.
+  </div>
+
+  <h2>Where we are</h2>
+
+  <p>Control Circuit is a data driven, data centric and data producing tool. After the electrical schematic itself, the most valuable thing any ECAD system gives you is data: a Bill of Materials, Component Lists, Purchasing Lists, and any number of schedules and reports. Getting data into and out of your ECAD system is critical.</p>
+
+  <p>XML Control Circuit, as the name suggests, saves and stores all circuit information in plain, human readable, Git diff friendly XML. That means easy edits, and easy automation for any form of data or report that is not built in. For this app the default storage of component database records is XML too. (Some XML Control apps additionally offer SQLite as an option.)</p>
+
+  <p>Control Circuit does not ship with <em>your</em> component databases: every user has house standards, preferred manufacturers, and data that already exists and can be imported. It does ship with one small generic database, <b>STARTER</b>, to get you going.</p>
+
+  <p>Moving data in and out is made simple with the built in CSV tools. Export a sample database to get the gist of the format, lay your own data out to match, then import it. Be aware of the practical limits of an XML database, which the program&rsquo;s help describes: about 2,000 components is comfortable, and 10,000 is the ceiling. You can create as many databases as you like.</p>
+
+  <p>Once you have a database, components are assigned to the symbols on your circuit, and one symbol may carry as many components as you like, each with a quantity of up to 9,999. Component data can be left out of all reports and output lists with a single checkbox on that symbol, while the data itself stays put in case you want it back. That way one design can be set up for &ldquo;options&rdquo; that change purchasing and assembly.</p>
+
+  <p>Symbols are identified by <b>Tags</b>, and a Tag belongs to a symbol with a Contact Role of <b>MAIN</b>. A MAIN symbol can be the parent of child contacts such as NO, NC and AUX, and these can carry component data of their own too, so even the options on a contactor&rsquo;s contact blocks can be switched in and out. That is the subject of the next chapter. This chapter is about the databases themselves.</p>
+
+  <h2>Part 1: Meet the Database Manager</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Open the Database Manager</h3>
+      <p>Choose <b>Tools</b> &rsaquo; <b>Component Databases&hellip;</b></p>
+      <figure>
+        <img src="01.png" alt="The Component Database Manager window: the Databases list on the left showing STARTER, the component list in the middle with Search and Category above it, and the General tab of the selected component on the right" width="887" height="594">
+      </figure>
+      <p>When you install Control Circuit a small database called <b>STARTER</b> is added for you. It holds around 120 components from well known global brands, with one maker chosen for each product line. There is no affiliation or sponsorship with any of them: they are simply the usual suspects in the world of electrical control and automation, there to give you a launch pad for your own databases. You can add and delete entries in STARTER as you please.</p>
+      <div class="warn"><b>Treat STARTER as examples</b> STARTER was put together with the help of AI, from distributor listings and datasheet copies, and it has not been checked against every manufacturer&rsquo;s own pages. Each component carries a <b>Check Status</b> that says how well it was confirmed (we meet it in Part 2). Whatever the status, confirm a part number and its ratings with the manufacturer before you order or build from it.</div>
+    </li>
+
+    <li>
+      <h3>Filter by category</h3>
+      <p>The first tool to try is the <b>Category</b> drop down, which filters the list. The number beside each category is how many components it holds.</p>
+      <figure>
+        <img src="02.png" alt="The Category drop down open, listing Show All with 120 components, then Unassigned and categories such as Circuit Breakers 13, Contactors 7 and Relays 13" width="386" height="358">
+      </figure>
+      <p>Here we have chosen Circuit Breakers:</p>
+      <figure>
+        <img src="03.png" alt="The component list filtered to the Circuit Breakers category, showing 3RV2 motor starter protectors, 5SL6 and 5SU1 breakers, 140M motor protectors and NF-CV moulded case breakers" width="379" height="318">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Use the Search bar</h3>
+      <p>Next comes the <b>Search</b> bar. It works on whichever category you are in, so you can narrow things down further.</p>
+      <figure>
+        <img src="04.png" alt="The word 3rv typed in the Search box with a green arrow, and the Circuit Breakers list narrowed to two 3RV2 motor starter protectors" width="468" height="141">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>Part 2: What a component holds</h2>
+
+  <p>On the right of the window, the <b>General</b> tab shows the fields that every component in every database carries. They are the logical minimum, and their use should be self evident.</p>
+
+  <figure>
+    <img src="05.png" alt="The General tab for a 3RV2011-1GA10: Manufacturer SIEMENS, Part No, Category Circuit Breakers, Description, Unit Price, Currency, Minimum Order Quantity, Lead Time, Supplier, Supplier Code and Last Updated" width="280" height="428">
+  </figure>
+
+  <p>For anything beyond those, such as Height, Width, Weight or Approvals, the <b>Supplemental</b> tab holds your own values. Supplemental fields belong to the database they are defined in, so each database can have a different set.</p>
+
+  <figure>
+    <img src="06.png" alt="The Supplemental tab listing two fields: Check Status with the value Corroborated, and Series with the value SIRIUS 3RV2" width="290" height="131">
+  </figure>
+
+  <p>STARTER carries two of its own. <b>Check Status</b> records how well each component has been confirmed, from <em>Verified</em> (checked against the manufacturer&rsquo;s own page) down to <em>Single source</em> (one listing only). <b>Series</b> names the product family.</p>
+
+  <h2>Part 3: Editing the schema</h2>
+
+  <p>You may have as many supplemental fields as you like. To add them we edit the database&rsquo;s <b>schema</b>, which is a fancy word for the master plan that defines how the database is organised. Choose <b>Tools</b> &rsaquo; <b>Edit Schema&hellip;</b></p>
+
+  <figure>
+    <img src="07.png" alt="The Edit Schema dialog: eight padlocked built-in fields, then two user fields CHECK and SERIES, with Add Field, Remove Field, Add Common Extras, Save Schema and Cancel buttons and a warning that removing a field clears its values from every entry" width="628" height="435">
+  </figure>
+
+  <p>There is a lot going on here, so we&rsquo;ll take it a step at a time.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>The padlocked fields</h3>
+      <p>The built in fields carry a small padlock. They belong to every database, and they cannot be removed or changed.</p>
+      <figure>
+        <img src="08.png" alt="The top of the schema list with a red box around the padlock icons beside Manufacturer, Part Number, Description, Supplier, Supplier Code, Currency, Price and Lead Time" width="436" height="219">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Your own fields, and their types</h3>
+      <p>Below the padlocked fields come the ones you add. In our example those are CHECK and SERIES. The <b>Type</b> column sets what kind of value a field will accept: String for text, Decimal, Integer, a URL, or an image reference.</p>
+      <figure>
+        <img src="09.png" alt="The Type drop down open on the Check Status row, offering String, Decimal, Integer, URL and ImageRef" width="306" height="273">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Stuck for inspiration?</h3>
+      <p>Tap <b>Add Common Extras</b> and the list is extended with fields that electrical designers commonly want: sizes, weight, mounting, voltage, current, power, IP rating, lifecycle, a datasheet link and so on. They show how the <b>Unit</b> column can be used too.</p>
+      <figure>
+        <img src="10.png" alt="The schema list after Add Common Extras, with new Physical, Electrical, Compliance and References fields such as Width in mm, Weight in kg, Rated Voltage in V and Rated Current in A, and the Add Common Extras button ringed in green" width="625" height="320">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Add, arrange and remove</h3>
+      <p>Use <b>+ Add Field</b> to add a new row, and the <b>up</b> and <b>down</b> arrows to move the selected row through the list. Select a row and tap <b>Remove Field</b> to delete it.</p>
+      <figure>
+        <img src="11.png" alt="A new Colour field added to the schema list, with a green arrow pointing at it and the up and down arrow buttons ringed in green" width="645" height="146">
+      </figure>
+      <div class="warn"><b>Removing a field cannot be undone</b> It clears that field&rsquo;s value from every entry in the database, as the warning at the foot of the dialog says.</div>
+    </li>
+
+    <li>
+      <h3>Save or cancel</h3>
+      <p>When you are done, press <b>Save Schema</b> to commit your edits, or <b>Cancel</b> to throw them away. Open the Supplemental tab again and the new fields are there, waiting for values.</p>
+      <figure>
+        <img src="12.png" alt="The Supplemental tab now listing Check Status, Series, Width, Height, Depth, Weight, Mounting Type, Rated Voltage, Rated Current, Power Rating, Heat Dissipation, IP Rating, Lifecycle Status, Alternative Part, Datasheet URL, Product Image, Colour, 3D Model Link and Symbol/Macro Name" width="285" height="477">
+      </figure>
+    </li>
+  </ol>
+
+  <div class="good"><span class="lead">Tip</span>Want the same supplemental fields in another database? Create a blank database and set up its schema fully. Then choose <b>File</b> &rsaquo; <b>Export to CSV&hellip;</b> with the depth set to <b>Full</b>, which writes every field in the schema, filled in or not. That file is your template: lay data out to match it, then use <b>File</b> &rsaquo; <b>New Database from CSV&hellip;</b> to build a database from it, supplemental fields included.</div>
+
+  <h2>Part 4: Categories, columns and sorting</h2>
+
+  <p>To add more categories, or tidy the ones you have, choose <b>Tools</b> &rsaquo; <b>Edit Categories&hellip;</b> You can add and remove categories and move them up and down the list, and the Category drop down and the General tab pick up your changes.</p>
+
+  <figure>
+    <img src="13.png" alt="The Manage Categories dialog: a list of the database categories with Add, Remove, Move Up and Move Down buttons, and Cancel and Save at the foot" width="369" height="345">
+  </figure>
+
+  <p>The component list always shows <b>ID</b>, <b>Part No</b> and <b>Description</b>. Want to see more of the General tab&rsquo;s fields in the list itself? Right click on the list and choose <b>Choose Columns&hellip;</b></p>
+
+  <figure>
+    <img src="14.png" alt="The right click menu on the component list with Choose Columns highlighted, above Reveal in Explorer, Rename Database and Reset Zoom" width="381" height="240">
+  </figure>
+
+  <p>Tick each field you want to display, then press <b>OK</b>.</p>
+
+  <figure>
+    <img src="15.png" alt="The Choose Columns dialog listing Manufacturer, Category, Unit Price, Currency, Min Order Qty, Lead Time, Supplier, Supplier Code and Last Updated, each with a checkbox" width="373" height="434">
+  </figure>
+
+  <figure>
+    <img src="16.png" alt="The Choose Columns dialog with Manufacturer, Category, Unit Price and Currency ticked" width="316" height="214">
+  </figure>
+
+  <p>Now the list shows your chosen columns, and the column headers can be used to sort it.</p>
+
+  <figure>
+    <img src="17.png" alt="The component list with Manufacturer, Category and Unit Price columns added, and a green box around the column headers" width="731" height="113">
+  </figure>
+
+  <h2>Part 5: Adding, copying and removing components</h2>
+
+  <p>Now that you know how a database is set up, let&rsquo;s look at its entries.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Add a component</h3>
+      <p>Select the database in the list on the left, then tap <b>Add Entry</b> on the toolbar. A small dialog asks for the details.</p>
+      <figure>
+        <img src="18.png" alt="The Add Component dialog for STARTER: Part number, Manufacturer, Category and Description boxes, an Add another after this one checkbox, and Add and Cancel buttons" width="444" height="426">
+      </figure>
+      <p>Only a part number is required. Complete as much of the rest as you like, then press <b>Add</b>. Nothing is created until you do, so <b>Cancel</b> leaves the database exactly as it was. The new component is selected and scrolled into view, ready for you to fill in the rest on the tabs.</p>
+    </li>
+
+    <li>
+      <h3>If the part number is already there</h3>
+      <p>The part number is checked as you type, and a part that is already in the database cannot be added a second time. Formatting does not fool it: <em>3rt2015 1bb41</em> and <em>3RT2015-1BB41</em> are the same part. The dialog tells you which component has it, and <b>Show it</b> closes the dialog and takes you to that component.</p>
+      <figure>
+        <img src="19.png" alt="The Add Component dialog with 5SL6116-7 typed in: a message says Already in this database as 5SL6116-7 (COMP_5147), and a Show it button is offered" width="444" height="148">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Adding several in a row</h3>
+      <p>To add more than one, tick <b>Add another after this one</b>. After each <b>Add</b> the dialog comes straight back, with the manufacturer and category kept and a line listing what you have added so far, which is a quick way to enter a run of parts from one maker. The <b>Cancel</b> button reads <b>Done</b> once you have added one; press it to stop. Each component is saved as you add it, and the last one added is scrolled into view and highlighted.</p>
+    </li>
+
+    <li>
+      <h3>Copy and delete</h3>
+      <p>To copy a component, select its row and tap <b>Copy Entry</b>. Everything comes across, including the supplemental fields, and the copy&rsquo;s part number ends in <em>-COPY</em> and is selected ready for you to type over. Nothing forces you to rename it, but a part number nobody can order is meant to be noticed, so give it one of its own before you move on. Copying is the quick way to enter a family of parts that differ by a rating or two.</p>
+      <p>To remove a component, select its row and tap <b>Delete Entry</b>. You are asked to confirm, and there is no undo.</p>
+    </li>
+
+    <li>
+      <h3>Saving</h3>
+      <p>On the <b>File</b> menu, <b>Autosave Active</b> is ticked by default, which means an edited component is saved as soon as you move off it. If you turn it off, a <b>Save Entry</b> button appears at the foot of the General tab, and if you forget it, you are asked whether to save or discard when you try to leave the component.</p>
+    </li>
+  </ol>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Opened the <b>Component Database Manager</b> and looked around <b>STARTER</b>, filtering by <b>Category</b> and finding parts with the <b>Search</b> bar.</li>
+    <li>Met the fields every component carries on the <b>General</b> tab, and the extra ones a database defines on the <b>Supplemental</b> tab.</li>
+    <li>Edited a <b>schema</b>: added fields, set their types, used <b>Add Common Extras</b>, and learned that removing a field clears its values.</li>
+    <li>Edited the <b>categories</b>, chose extra <b>columns</b> for the list and sorted it.</li>
+    <li>Added components with a part number check that spots duplicates, copied one, deleted one, and learned what <b>Autosave</b> does.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>Components are assigned to symbols, and symbols are identified by Tags. In the next chapter we look at <b>Tags</b>, <b>Contact Roles</b> and assigning <b>component data</b> to the symbols on a circuit. Until then, the program&rsquo;s help (<kbd>F1</kbd>) goes deeper into everything here; try searching for <em>Database Schema</em> or <em>Creating and Removing Components</em>.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
