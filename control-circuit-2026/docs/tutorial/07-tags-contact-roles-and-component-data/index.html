@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 7: Tags, Contact Roles and Component Data - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 7</p>
+
+  <h1>Chapter 7: Tags, Contact Roles and Component Data</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Give every symbol a unique Tag with Auto Numbering, link contacts to their parent coil so the Contact Tables and counter-references appear, learn what happens when you rename a Tag, and attach component data from a database to a symbol.
+  </div>
+
+  <h2>Where we are</h2>
+
+  <p>Each and every component, wire, terminal and resource in an electrical circuit should be uniquely identified. In Control Circuit all components carry a <b>Tag</b>: the uniquely identifying name of that item, and the thing assembly and purchasing information is attached to.</p>
+
+  <p>The <b>MAIN</b> element of a component, for example a switch, relay or lamp, generally holds the purchasing data. Control Circuit has a number of tools geared towards keeping Tags unique, and towards cross-referencing the MAIN element with its associated sub-elements: Normally Open (<b>NO</b>), Normally Closed (<b>NC</b>) and Auxiliary (<b>AUX</b>).</p>
+
+  <p>How Tag numbers and names are determined is a matter for your own house standard and preferences. They can be assigned by hand and locked, or generated automatically using standard conventions, which is where we start.</p>
+
+  <h2>Part 1: Symbol Auto Numbering</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Open Auto Numbering</h3>
+      <p>In its simplest form, we have our small example circuit and we choose <b>Project</b> &rsaquo; <b>Auto Number Symbols&hellip;</b> (<kbd>Alt</kbd>+<kbd>A</kbd>).</p>
+      <figure>
+        <img src="01.png" alt="The Project menu open with Auto Number Symbols, Alt+A, highlighted" width="374" height="160">
+      </figure>
+      <p>The form opens with its blank default layout, awaiting some choices.</p>
+      <figure>
+        <img src="02.png" alt="The Auto Numbering window beside the example circuit: Scope, Method, Filter View, an empty preview grid, and the Update Cross References after Re-numbering box ticked" width="1107" height="575">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Generate a preview, then apply it</h3>
+      <p>Right off the bat, just tap <b>Generate Preview</b> with the default settings untouched.</p>
+      <figure>
+        <img src="03.png" alt="The Auto Numbering preview grid listing each symbol with its Role, Current Tag and Proposed Tag" width="868" height="176">
+      </figure>
+      <p>Press <b>Apply</b> to write the new Tags back onto the symbols. You will then be asked whether to save: Auto Numbering has changed a sheet, and <b>Allow Pending Edits</b> is turned off. <b>Yes</b> saves now, <b>No</b> leaves the changes pending. Choose <b>Yes</b>.</p>
+      <figure>
+        <img src="04.png" alt="The Auto Numbering question: changed 1 sheet, Allow Pending Edits is turned off, Yes saves now and No leaves the changes pending" width="681" height="432">
+      </figure>
+      <p>Select any symbol now and its Properties panel shows the Tag that was applied.</p>
+      <figure>
+        <img src="05.png" alt="The Properties panel for a selected breaker showing Tag 1Q3B, a Lock Tag tick box and an Apply Tag button" width="560" height="317">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Assigning and locking your own Tag</h3>
+      <p>You may assign your own Tag and lock it in: type the Tag, press <b>Apply Tag</b> and tick <b>Lock Tag</b>. The numbering tool will then skip over it. Locking is also useful when you return to a design after a couple of years, want to insert a new symbol, and must not disturb the Tags already assigned.</p>
+    </li>
+
+    <li>
+      <h3>Scope</h3>
+      <p>Back in the Auto Numbering form we have a few options to play with. First, the <b>Scope</b>: we can number the whole project, or go incrementally, one sheet at a time with <b>Active Sheet</b>.</p>
+      <figure>
+        <img src="06.png" alt="The Scope drop down open with Entire Project and Active Sheet" width="856" height="112">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Method</h3>
+      <p>The <b>Method</b> drop down offers numbering schemes to suit the most common conventions.</p>
+      <figure>
+        <img src="07.png" alt="The Method drop down open: Sheet and Grid, Sequential, Page and Line (Grid/Euro), Page and Line (Ladder/US) and IEC 81346" width="858" height="134">
+      </figure>
+      <div class="note"><b>Grid references</b> The Grid methods are driven by the grid layout of the sheet&rsquo;s Border, for example A1, B4 or F8. Those values come from the Border itself, so they are dynamic. Borders are covered in a later chapter.</div>
+    </li>
+
+    <li>
+      <h3>Filter the list</h3>
+      <p>The <b>Filter View</b> narrows the list to the views you will use most. A full project renumber can involve thousands of symbols, so being able to filter them matters. <b>Duplicate Tags</b> and <b>Locked Symbols</b> are handy for tidying up, and <b>To Renumber</b> shows just what the run would change.</p>
+      <figure>
+        <img src="08.png" alt="The Filter View drop down open: All Symbols, Duplicate Tags, Locked Symbols and To Renumber, each with a count" width="872" height="111">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Override a proposed Tag</h3>
+      <p>However you view the list, you can override a proposed Tag at any time by editing its cell. The usual ways to edit apply (<kbd>F2</kbd>, a slow second click, and so on), or right-click and choose <b>Edit Tag</b>.</p>
+      <figure>
+        <img src="09.png" alt="Right-clicking a Proposed Tag cell opens a menu with Edit Tag, Unlock Tag, Lock Tag and Go to Symbol on Sheet" width="553" height="155">
+      </figure>
+      <p>The same menu locks and unlocks a Tag. <b>Go to Symbol on Sheet</b> closes the Auto Numbering form and takes you straight to that symbol.</p>
+      <figure>
+        <img src="10.png" alt="The same context menu with the Unlock Tag and Lock Tag entries outlined" width="264" height="113">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Leave Update Cross References ticked</h3>
+      <p>After a sheet or project wide numbering run, links between MAIN elements and their NO, NC and AUX sub-elements will most likely exist. Leave <b>Update Cross References after Re-numbering</b> ticked (it is by default) so a full cross reference update is done for good measure.</p>
+      <figure>
+        <img src="11.png" alt="The Update Cross References after Re-numbering tick box, ticked, beside the Apply and Cancel buttons" width="493" height="47">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>Part 2: Parent and child Tag links</h2>
+
+  <p>Typically a Tag belongs to a MAIN element, and a good example is a relay. The main part of the symbol is the coil, with its A1 and A2 connections, while its contacts 3/4 may be found on another sheet of the circuit. A large contactor may have eight NO and NC contacts spread around. For a push-button and lamp combination, the lamp would be an AUX element, and it too may be located elsewhere.</p>
+
+  <p>For that reason we need a way to link a MAIN element to its NO, NC and AUX elements, using the Tag as the primary connection, so that if the Tag changes the sub-elements follow, and so that the sheet reference mapping exists for the Contact Tables and counter-references to be printed.</p>
+
+  <p>All of these relationships are defined as <b>Contact Roles</b>. The MAIN element is the parent: it holds the <b>Contact Table</b>. The sub-elements are the children, and they carry the <b>counter-references</b>.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Place a coil and a couple of contacts</h3>
+      <p>Put a relay coil and two contacts on the sheet.</p>
+      <figure>
+        <img src="12.png" alt="A relay coil labelled K and two contacts labelled KA, one with pins 1 and 2 and one with pins 3 and 4" width="572" height="187">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Run Auto Numbering</h3>
+      <p>If we run Auto Numbering straight away, only the coil is picked up and offered a new Tag. The contacts are not picked up: they are not linked to a MAIN element yet, so there is nothing for them to inherit. Once they are linked, every later numbering run carries them along with their coil.</p>
+      <figure>
+        <img src="13.png" alt="The preview row for the new coil: Sheet 1, Contactor/Relay DC Coil, MAIN, current Tag K, proposed Tag 1K7C" width="851" height="43">
+      </figure>
+      <p>Because Update Cross References was ticked, the contacts now show that they do not know whom they belong to, and the relay coil displays no Contact Table, because until now it is not aware of any sub-elements.</p>
+      <figure>
+        <img src="14.png" alt="The coil now tagged 1K7C, with both contacts still labelled KA and showing (M) ??? beside them" width="724" height="208">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Browse for the parent coil</h3>
+      <p>Select a contact and press <b>Browse Parent Coils&hellip;</b> in the Cross Reference section of its Properties panel.</p>
+      <figure>
+        <img src="15.png" alt="A selected contact with its Cross Reference section in the Properties panel: Role, Group, the Browse Parent Coils button, Role X and Role Y" width="540" height="214">
+      </figure>
+      <p>For our simple example the dialog is not very exciting, but once you have hundreds or thousands of MAIN elements these tools become very handy. The list shows every available MAIN element and what it already has attached, and you can search for coils by Tag.</p>
+      <figure>
+        <img src="16.png" alt="The Select Parent Coil / Group dialog listing the one available coil, 1K7C, with its Referenced Contacts, Comment, Symbol, Location and Group columns" width="758" height="460">
+      </figure>
+      <p>The small circle in the first column is empty when the coil has no sub-element assigned yet. Click that column header to sort the coils by it; every column header sorts. If you try to assign a contact whose pins, for example 3/4, are already assigned to the selected coil, you will be warned.</p>
+    </li>
+
+    <li>
+      <h3>Press Apply</h3>
+      <p>After choosing the MAIN coil you must press <b>Apply</b>.</p>
+      <figure>
+        <img src="17.png" alt="The contact's Group now reads 1K7C, with a green arrow pointing at the Apply button" width="530" height="240">
+      </figure>
+      <p>Assign the second contact likewise. The contacts take the coil&rsquo;s Tag as soon as you press <b>Apply</b>, but the Contact Table and counter-references still need a cross reference run.</p>
+      <figure>
+        <img src="18.png" alt="The coil and both contacts all labelled 1K7C, with the contacts still showing (M) ???" width="600" height="198">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Update the cross references</h3>
+      <p>All the Tags are assigned, so we do not need Auto Numbering this time. We only need a cross reference run: choose <b>Project</b> &rsaquo; <b>Update Symbol/Cross References</b> (<kbd>Alt</kbd>+<kbd>R</kbd>), and press <b>OK</b> when it finishes.</p>
+      <figure>
+        <img src="19.png" alt="The Contact Cross-References results: Contacts Linked 2 of 2, Parent Coils 1, Issues 0, and the coil now showing a Contact Table beside it" width="624" height="450">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Move the Contact Table</h3>
+      <p>If (when!) you need to move the Contact Table, marked by the <b>M</b> diamond, use the <b>Role X</b> and <b>Role Y</b> values to reposition it, then press <b>Apply</b>.</p>
+      <figure>
+        <img src="20.png" alt="The coil's Cross Reference properties with Role X and Role Y, and a green arrow to the M diamond that marks the Contact Table" width="561" height="215">
+      </figure>
+      <div class="note"><b>Handy tip</b> Wherever you see a diamond glyph, whether for a Tag, a Contact Reference or anything similar, it can be repositioned. Look for the matching X and Y values in the Properties panel, and be sure to press <b>Apply</b>!</div>
+    </li>
+  </ol>
+
+  <h2>Part 3: Relabelling a Tag</h2>
+
+  <p>There is one thing to be aware of. By default the Tag of the MAIN element is the source of the <b>Group</b> name, and the Group name is what binds every element together. Change the Tag by hand, say to BOB, then run a cross reference update: BOB propagates to the contacts, but <b>1K7C remains the Group name and the link</b>. That is deliberate. The link survives a rename, so nothing comes adrift.</p>
+
+  <figure>
+    <img src="21.png" alt="A contact tagged BOB whose Group still reads 1K7C" width="536" height="211">
+  </figure>
+
+  <p>You can of course change a Group name by hand, but the engine cannot then resolve it to the sub-elements, so the next cross reference run shows a list of issues to alert you.</p>
+
+  <figure>
+    <img src="22.png" alt="The Cross Reference results listing two errors: Contact Group 1K7C has no Parent Coil (MAIN)" width="871" height="70">
+  </figure>
+
+  <p>Double-click a row to jump to that element. Then either use the <b>Group</b> drop down to select a Group, or use <b>Browse Parent Coils</b> to re-attach it to the MAIN element you want.</p>
+
+  <h2>Part 4: Options and navigation</h2>
+
+  <p>In the Project Properties, the <b>Drawing</b> tab has a <b>Contact Tables</b> size adjustment that scales the text of the contact tables and counter-references. Use it to suit your sheet paper size and the way your circuit is presented.</p>
+
+  <figure>
+    <img src="23.png" alt="Project Settings and Properties, Drawing tab, with the Contact Tables size scale drop down set to 1x (Standard) outlined" width="802" height="609">
+  </figure>
+
+  <p>Control Circuit is all about getting around easily. Whether you are editing, in Presentation Mode, or in the Web Portal and Smart PDF outputs, click a contact reference to move between the MAIN element and its sub-elements. In the editor, right-click the reference you want, tap the text, and off you go.</p>
+
+  <figure>
+    <img src="24.png" alt="A Contact Table for BOB with a right-click menu offering Go to contact 3/4" width="519" height="297">
+  </figure>
+
+  <h2>Part 5: Adding component data</h2>
+
+  <p>Component data can be assigned to any symbol, MAIN or otherwise. Typically we assign it to MAIN elements, but for flexibility we are not restricted, and instead there is an <b>Exclude from BoM</b> option. With it, design and purchasing options are fully supported in the editor and in all reports and outputs.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Expand Component Data</h3>
+      <p>Select the relay coil, then expand the <b>Component Data</b> section of its Properties panel.</p>
+      <figure>
+        <img src="25.png" alt="A selected coil with the Component Data section expanded: Exclude from BoM, Move Up, Move Down, Qty, an empty list, and Add and Remove buttons" width="616" height="288">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Select a component</h3>
+      <p>Tap <b>Add&hellip;</b> to open the Select Component dialog. Choose the database (it is <b>STARTER</b> by default), type <em>relay</em> in <b>Search</b>, scroll to the part you want, for example the OMRON G2R series, and press <b>Select Component</b>.</p>
+      <figure>
+        <img src="26.png" alt="The Select Component dialog on the STARTER database, searching for relay, with an OMRON G2R-1-SN power relay selected" width="534" height="402">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Adjust it</h3>
+      <p>Once added, select the component in the list to change its <b>Quantity</b> directly, move it up or down the list if you have added more than one, or remove it completely.</p>
+      <figure>
+        <img src="27.png" alt="The Component Data list showing 1x OMRON G2R-1-SN 24DC G2R power relay, SPDT" width="285" height="296">
+      </figure>
+      <div class="note"><b>Keep it, but hide it</b> To keep the component data yet leave it out of all reports, outputs and automated forms such as the Bill of Materials, tick <b>Exclude from BoM</b> instead. The data stays tucked away in the symbol and can be switched back on at any time.</div>
+    </li>
+  </ol>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Numbered symbols with <b>Auto Numbering</b>, choosing a <b>Scope</b>, a <b>Method</b> and a <b>Filter View</b>, and learned to edit, lock and unlock Tags.</li>
+    <li>Met <b>Contact Roles</b>: a MAIN element holds the <b>Contact Table</b>, and its NO, NC and AUX children carry the counter-references.</li>
+    <li>Linked contacts to a coil with <b>Browse Parent Coils</b>, and ran a cross reference update (<kbd>Alt</kbd>+<kbd>R</kbd>).</li>
+    <li>Saw that renaming a Tag leaves the <b>Group</b> as the link, and what to do when a Group cannot be resolved.</li>
+    <li>Added <b>component data</b> to a symbol from the STARTER database, and met <b>Exclude from BoM</b>.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>In the next chapter we look at the basic features of the Symbol Editor, and at how Tags are added, configured and given their Contact Role in the first place.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
