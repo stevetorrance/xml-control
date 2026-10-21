@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 8: Symbol Editor Basics - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 8</p>
+
+  <h1>Chapter 8: Symbol Editor Basics</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Find your way around the Symbol Editor, create your own symbol library, build a small symbol with Pins and a Tag, add data Fields to it, and use it on a Sheet.
+  </div>
+
+  <h2>Where we are</h2>
+
+  <p>The built in <b>Symbol Editor</b> provides the tools to create and modify both the symbol libraries and the symbols within them. It also features DXF import of basic symbols, with formatting rules to suit Control Circuit, and with the PRO license, the ability to export high quality PDF symbol library reports suitable for customer and internal document standards.</p>
+
+  <p>A symbol is simply a collection of primitives such as circles, lines and rectangles, held in a small XML snippet that can be dropped readily onto a Sheet. As symbols are primarily there to convey electrical components, they also carry text, the primary one being the <b>Tag</b> of the symbol once it is in use on a Sheet.</p>
+
+  <p>There are many additional elements that make a symbol smarter, the chief one being the <b>Field</b>. Fields are pre-defined variable placeholders, for example KW, AMPS or FLC. In the Symbol Editor they appear as placeholder text, but on a Sheet they become dynamic and can be populated with specific values for each symbol, ready for reports and other outputs.</p>
+
+  <p>In this chapter we cover the basics: the use and management of libraries, creating a symbol, and adding Pins, a Tag and Fields.</p>
+
+  <h2>Part 1: Getting around</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Open the Symbol Editor</h3>
+      <p>With Control Circuit open, tap <kbd>F12</kbd> or choose <b>Symbols</b> &rsaquo; <b>Open Symbol Editor&hellip;</b></p>
+      <figure>
+        <img src="01.png" alt="The Symbol Editor open on a new blank symbol, with the library tree on the left, the drawing tools beside the canvas and the Symbol properties on the right" width="1142" height="746">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Use the dedicated help</h3>
+      <p>The Symbol Editor is quite comprehensive. For thorough detail of every feature, function and tool, refer to its own help section in the pane on the right-hand side.</p>
+      <figure>
+        <img src="02.png" alt="The Symbol Editor Help tab showing the contents tree and the Welcome to the Symbol Editor topic, with the Locked button at the top right" width="452" height="652">
+      </figure>
+      <p>The help has two modes. When <b>Locked</b> is displayed you can browse and search the help freely. When <b>Live</b> is displayed, the help follows you: hover over or click a menu and the matching topic appears.</p>
+    </li>
+
+    <li>
+      <h3>Meet the shipped libraries</h3>
+      <p>There are three shipped libraries: <b>IEC_BASIC</b>, <b>NFPA_BASIC</b> and <b>TERMS_BASIC</b>. As the names suggest, they are only there to get you started. You cannot save changes to a symbol in these libraries, but you can readily modify any symbol and, when you save, you will be prompted to <b>Save As</b> into a custom library.</p>
+      <p>You can create any number of libraries with any number of symbols, within the practical limits of actually finding them, so perhaps 200 symbols per library is a good number. Above the library tree is a <b>Filter</b> box that quickly narrows the list.</p>
+    </li>
+  </ol>
+
+  <h2>Part 2: Symbol properties</h2>
+
+  <p>A symbol has two primary areas of importance, and the first is its own <b>Symbol</b> properties.</p>
+
+  <figure>
+    <img src="03.png" alt="The Symbol properties of the 3P Contactor Contact Set: ID, Name, Keywords, Usage, Series, Cat, Type, Tag Seed, Role, W, H and Status, with the Re-Center, Fit Bounding Box, Apply and Save Symbol buttons" width="971" height="542">
+  </figure>
+
+  <ul>
+    <li><b>ID</b> is the most important value. It is how the symbol is identified within the library, much like a filename, so it must be unique.</li>
+    <li><b>Name</b> is how the symbol appears in the library listing, what you will see in the explorer.</li>
+    <li><b>Cat</b> (Category) and <b>Type</b> are useful for sorting.</li>
+    <li><b>Tag Seed</b> pre-seeds the Tag when the symbol is pulled onto a Sheet. Very important.</li>
+    <li><b>Role</b> sets the default Contact Role, as met in the previous chapter: <b>MAIN</b>, <b>NO</b>, <b>NC</b> or <b>AUX</b>, depending on the function of the component.</li>
+    <li><b>W</b> and <b>H</b> are the <b>Bounding Box</b> (BB). On a Sheet the BB is the highlighted perimeter displayed when the symbol is selected. In the Symbol Editor it is the green dotted rectangle running from the red origin cross to the extents of all the primitives. Text objects are not included in the BB.</li>
+    <li><b>Status</b>: if you have started one or more symbol designs, they are works in progress, so set the status accordingly. These symbols are marked in the tree, and they can be searched for in the library regardless of which section they are in.</li>
+  </ul>
+
+  <p>Two buttons help with the layout. <b>Re-Center</b> moves the artwork up or down so it sits vertically in the middle of the BB. <b>Fit Bounding Box</b> constrains the BB to the limits of the primitives, so do this before a save.</p>
+
+  <p>Press <b>Apply</b> to accept changes, and <b>Save Symbol</b> when you want them written to the library.</p>
+
+  <h2>Part 3: Pin properties</h2>
+
+  <p>A symbol is only recognised by Control Circuit as an electrical component if it has one or more points where a wire can attach. These points are called <b>Pins</b>, and they are the second area of importance.</p>
+
+  <figure>
+    <img src="04.png" alt="The Pin properties panel: ID, Label, Type, Dir, End Prep, X, Y, Font-size, OffX, OffY and Block Size, with a green circle around the selected pin on the canvas" width="722" height="400">
+  </figure>
+
+  <ul>
+    <li><b>ID</b> is the primary displayed text and, like a filename, must be fully unique within this symbol. It could be L1, A1, BRN and so on.</li>
+    <li><b>Label</b> is the secondary text. It need not be unique, but should be something useful such as +24V or RST. In the circuit editor the ID and Label can be selectively shown or hidden for different scenarios.</li>
+    <li><b>Type</b> chooses the sort of connection visually depicted to suit your symbol: Default (block), Plug, Socket, Screw or Cage Clamp.</li>
+    <li><b>Dir</b> is the direction of a small arrow glyph showing where the incoming wire should arrive from. For example, if set to North, the incoming wire should arrive from the north.</li>
+    <li><b>End Prep</b> is how you intend this Pin&rsquo;s connection to be terminated or prepared. It becomes valuable in the Wire Schedule reports, and is entirely optional.</li>
+  </ul>
+
+  <figure>
+    <img src="05.png" alt="The End Prep drop down open: not set, Ferrule, Pin Crimp, Fork Crimp, Ring Crimp, Twin Ferrule, Compression Lug, Bimetallic Lug, Solder, Tinned, Bare End, Blade (Male), Receptacle (Female), IDC / Punch Down, Flying Lead and Do Not Terminate" width="241" height="234">
+  </figure>
+
+  <p>The next five values (<b>X</b>, <b>Y</b>, <b>Font-size</b>, <b>OffX</b> and <b>OffY</b>) are the Pin&rsquo;s position and the format and position of its text. Last comes <b>Block Size</b>, which sets the size of the connection drawn for the chosen Type, where 1.0 is the default size of a block.</p>
+
+  <p>Whenever you make a change, press <b>Apply</b>.</p>
+
+  <h2>Part 4: Creating a symbol</h2>
+
+  <p>So, let&rsquo;s dive in and make a custom symbol.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Create a new library</h3>
+      <p>Press the <b>+</b> button to the right of the current library name and enter any unique name you choose.</p>
+      <figure>
+        <img src="06.png" alt="The plus button beside the library list outlined, with a green arrow to the New Library dialog containing the identifier CUSTOM_LIB" width="626" height="266">
+      </figure>
+      <div class="warn"><b>Avoid shipped names</b> If you enter IEC_BASIC, a User version of that library is created, so it is best to avoid names that look like the shipped libraries.</div>
+    </li>
+
+    <li>
+      <h3>Start a blank symbol</h3>
+      <p>We are now in a shiny new empty library. If any existing symbol is showing, close it with <b>File</b> &rsaquo; <b>Close Symbol</b>, or for completeness choose <b>File</b> &rsaquo; <b>New Symbol</b> to start afresh.</p>
+      <p>Set some basic values for <b>ID</b>, <b>Name</b> and <b>Cat</b>, and be sure to tick <b>Work in Progress</b>. Remember that the <b>Tag Seed</b> matters: it is what the symbol&rsquo;s Tag starts life as on a Sheet, so choose one that suits the device. Pick one from the list, or type your own. Only the code itself is saved, so after a reload the box shows just the letter, here <b>U</b>. Press <b>Apply</b> and then <b>Save Symbol</b>. You will be warned that there are no Pins. That is fine for now, so press <b>Yes</b>.</p>
+      <figure>
+        <img src="07.png" alt="The Symbol properties filled in: ID SYM_ALPHA, Name My Alpha Device, Tag Seed U, W 6.0, H 10.0, Work in Progress ticked, and Save Symbol marked with an asterisk" width="321" height="420">
+      </figure>
+      <p>As we ticked Work in Progress, we can now see the effect in the library explorer: the symbol is listed in its category and also in a <b>Work in Progress</b> group at the top.</p>
+      <figure>
+        <img src="08.png" alt="The library tree for CUSTOM_LIB (User) with a Work in Progress group and a Black Box category, both listing My Alpha Device marked WIP" width="254" height="136">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Place a Pin</h3>
+      <p>Next, let&rsquo;s drop a connection Pin onto the symbol. Hover over any tool icon to see its purpose. When you get to <b>Place Circuit Pin</b>, press it, then click on the red origin cross.</p>
+      <figure>
+        <img src="09.png" alt="The Place Circuit Pin tool in the toolbar with its tooltip showing" width="220" height="198">
+      </figure>
+      <div class="note"><b>Missed the cross?</b> If you miss, you will get an off grid warning. That is fine: just proceed, then grab the Pin and move it to the centre of the red cross.</div>
+      <p>Enter the values as required: here a Pin ID of <b>A1</b>, a Label of <b>+</b> and a Direction of North.</p>
+      <figure>
+        <img src="10.png" alt="The Place Pin dialog with Pin ID A1, Label plus and Direction North, the ID and Label fields outlined" width="425" height="208">
+      </figure>
+      <p>You should have something like this. Tap <kbd>Esc</kbd> to put the Pin tool away, or press the Pointer icon at the top of the toolbar.</p>
+      <figure>
+        <img src="11.png" alt="The new Pin A1 sitting on the red origin cross with its plus label" width="291" height="223">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Copy it to make the second Pin</h3>
+      <p>Hover over the Pin&rsquo;s block and it glows yellow; select it and it turns orange. Press <kbd>Ctrl</kbd>+<kbd>C</kbd> then <kbd>Ctrl</kbd>+<kbd>V</kbd> to copy and paste, then use the keyboard arrows to move the copy until <b>X</b> is 0 and <b>Y</b> is 10.</p>
+      <div class="warn"><b>Important!</b> For Pins to connect correctly they should always sit on a 5 mm grid and pitch.</div>
+      <figure>
+        <img src="12.png" alt="The copied pin A1_Copy selected in orange below the original, with the Pin properties showing X 0.0 and Y 10.0 and a green arrow pointing at them" width="608" height="414">
+      </figure>
+      <p>With the copied Pin still selected, update its parameters as required (here an ID of <b>A2</b>, a Label of <b>-</b> and a Direction of South), then tap <b>Apply</b>.</p>
+      <figure>
+        <img src="13.png" alt="The copied pin's properties changed to ID A2, Label minus and Dir South" width="329" height="131">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Draw the body</h3>
+      <p>Use the line and rectangle tools to complete a layout as desired.</p>
+      <figure>
+        <img src="14.png" alt="Green arrows pointing at the line and rectangle tools, beside a rectangle drawn between pins A1 and A2 with a dashed red bounding box" width="275" height="282">
+      </figure>
+      <p>You can see the bounding box has turned red, meaning some primitives are outside it. Now is the time to press <b>Fit Bounding Box</b> to sort that out.</p>
+    </li>
+  </ol>
+
+  <h2>Part 5: Adding Fields</h2>
+
+  <p>Now for Fields. The default and most critical one is for the Tag.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Add the Tag field</h3>
+      <p>Press the <b>Field</b> tool, click down anywhere, then select <b>TAG</b> (the default) and press <b>OK</b>.</p>
+      <figure>
+        <img src="15.png" alt="The Add Data-Bound Field dialog with the Field name TAG chosen, and a green arrow pointing at the Field tool" width="470" height="395">
+      </figure>
+      <p>As the dialog notes, field values are resolved by Control Circuit once an actual instance of the symbol is placed on a Sheet. Press <kbd>Esc</kbd> to put the Field tool away, then select the <b>[TAG]</b> placeholder to see its properties.</p>
+      <figure>
+        <img src="16.png" alt="The Text / Field properties for the TAG placeholder: X, Y, Font-size, Anchor, Rotation, Colour and Field" width="717" height="281">
+      </figure>
+      <div class="note"><b>Note</b> Once a particular system field such as TAG has been used on a symbol, it no longer shows in the selection list.</div>
+    </li>
+
+    <li>
+      <h3>Add a couple more</h3>
+      <p>There are lots of Field values built in, and you can add some custom ones too (see <b>Tools</b> &rsaquo; <b>Configure</b> &rsaquo; <b>Field Values</b>). Add a couple more Fields, any you like, and then we will see how they behave on a Sheet.</p>
+      <figure>
+        <img src="17.png" alt="The symbol with the placeholders [TAG], [VOLTAGE] and [CURRENT] stacked beside it" width="430" height="352">
+      </figure>
+      <p>Save your symbol and close the Symbol Editor (<kbd>F12</kbd> closes it too).</p>
+    </li>
+  </ol>
+
+  <h2>Part 6: Using your symbol</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Select your library</h3>
+      <p>Back in the main editor, open the <b>Symbols</b> tab and ensure your new custom library is selected.</p>
+      <figure>
+        <img src="18.png" alt="The Symbols tab with the library drop down open, CUSTOM_LIB (User) ticked above IEC_BASIC, NFPA_BASIC and TERMS_BASIC" width="445" height="156">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Fill in the Field values</h3>
+      <p>Drag the symbol onto the Sheet, select it and expand the <b>Fields</b> section of its Properties panel. Now you can enter specific values for that symbol. Be sure to press <b>Apply</b> after any update!</p>
+      <figure>
+        <img src="19.png" alt="The placed symbol selected, with the Fields section open showing empty VOLTAGE and CURRENT entries and an Apply button" width="655" height="257">
+      </figure>
+      <p>Until the symbol is numbered, its Tag shows the <b>Tag Seed</b> (the U here) rather than a finished Tag.</p>
+      <div class="note"><b>Handy tip</b> Control Circuit&rsquo;s engines do not themselves collect any data from custom Field values, but it is a trivial matter to write a script that parses the Sheet XML files and aggregates the information in these Fields.</div>
+    </li>
+
+    <li>
+      <h3>Recall the last symbol</h3>
+      <p>Back in the Symbol Editor, if you want your last symbol to be recalled automatically the next time it opens, tick <b>Options</b> &rsaquo; <b>Recall Symbol</b>.</p>
+      <figure>
+        <img src="20.png" alt="The Symbol Editor Options menu with Recall Symbol ticked and outlined" width="260" height="112">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Mark the symbol as finished</h3>
+      <p>And for completeness: when the design is done, untick the symbol&rsquo;s <b>Work in Progress</b> box, press <b>Apply</b> and save. The library explorer then shows it as a completed symbol, and the Work in Progress group disappears.</p>
+      <figure>
+        <img src="21.png" alt="The library tree showing My Alpha Device under Black Box with no Work in Progress group, and a green arrow from it to the Work in Progress tick box, now unticked" width="567" height="248">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Opened the <b>Symbol Editor</b> and met its dedicated help, in <b>Locked</b> and <b>Live</b> modes.</li>
+    <li>Learned the Symbol properties (<b>ID</b>, <b>Name</b>, <b>Tag Seed</b>, <b>Role</b>, <b>Bounding Box</b>, <b>Status</b>) and the Pin properties (<b>ID</b>, <b>Label</b>, <b>Type</b>, <b>Dir</b>, <b>End Prep</b>).</li>
+    <li>Created a <b>custom library</b> and a <b>work in progress</b> symbol with two Pins on the 5 mm grid.</li>
+    <li>Added the <b>TAG</b> Field and others, then filled in their values on a Sheet.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>That is a whirlwind tour of the Symbol Editor and of creating a symbol. There is much more to discover, but for today we will wrap up.</p>
+  <p>In the next chapter we turn to the <b>Border Manager</b>: how a Sheet&rsquo;s Border is built and managed using our interactive XML and WYSIWYG editor, and including the grid references that drive the Grid numbering methods we met in Chapter 7.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
