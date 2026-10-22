@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 9: The Border Editor and Manager - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 9</p>
+
+  <h1>Chapter 9: The Border Editor and Manager</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Choose the Border for a project, then open the Border Manager, make your own copy of a shipped Border, and customise its grid zones, logo area and title block Fields.
+  </div>
+
+  <h2>Where we are</h2>
+
+  <p>The <b>Border</b> is a single, project wide template made up of graphics, images and dynamically populated text that is common to every Sheet in the circuit. It can carry a company logo, title block information, and all the lines and formatting that make your drawings look professional and well organised.</p>
+
+  <figure>
+    <img src="01.png" alt="A finished Sheet, SS01 AHU Multi-Speed Ventilation Fan, showing the Border: grid reference letters and numbers around the edge, and a title block along the bottom with a logo, project, title, drawn by, date, sheet and revision" width="967" height="686">
+  </figure>
+
+  <p>The <b>Border Manager</b> lets you create new Borders and modify existing ones, using an integrated XML text editor and a WYSIWYG style editor side by side. That gives you granular control over the position of every graphic and text field.</p>
+
+  <p>Control Circuit ships with some standard Borders. You can use them as they are, or readily modify them and save the result as your own custom Border.</p>
+
+  <p>In this chapter we will select a Border for a project, then customise one to show off the tools available.</p>
+
+  <h2>Part 1: Selecting the Border</h2>
+
+  <p>There are two ways to choose the Border for a project.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>In the New Project wizard</h3>
+      <p>The <b>Standards &amp; defaults</b> page has a <b>Selected border</b> section where you can pick one of the common sizes, or choose <b>More&hellip;</b> to browse them all.</p>
+      <figure>
+        <img src="02.png" alt="The New Project wizard Standards and defaults page with the Selected border section outlined, offering A0 Landscape, A2 Landscape, A3 Landscape (selected), A3 Portrait, A4 Landscape and More" width="685" height="495">
+      </figure>
+    </li>
+
+    <li>
+      <h3>In an existing project</h3>
+      <p>Choose <b>Project</b> &rsaquo; <b>Project Properties&hellip;</b>, open the <b>Drawing</b> tab, and pick from the drop down list.</p>
+      <figure>
+        <img src="03.png" alt="The Drawing tab of Project Settings and Properties with the Border drop down list open, showing A0 Landscape through A4 Portrait plus Blank A3 and Blank A4 with no title block" width="387" height="298">
+      </figure>
+    </li>
+  </ol>
+
+  <div class="note"><b>Project wide</b> The Border applies to every Sheet in the project. As the wizard says, it is a project-wide setting.</div>
+
+  <h2>Part 2: The Border Manager</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Open the Border Manager</h3>
+      <p>Choose <b>Tools</b> &rsaquo; <b>Manage Borders&hellip;</b></p>
+      <figure>
+        <img src="04.png" alt="The Border Editor window with the Borders list on the left, an empty XML Editor at the top right and an empty Live Preview below it" width="1106" height="716">
+      </figure>
+      <p>The shipped Borders are listed on the left. They all carry a padlock, which means they can be used as sources for your own customisation but cannot be altered themselves. You can of course create a Border from scratch, but why would you? Use a template!</p>
+    </li>
+
+    <li>
+      <h3>Select A3 Landscape</h3>
+      <p>Click <b>A3 Landscape</b> in the list.</p>
+      <figure>
+        <img src="05.png" alt="A3 Landscape selected in the list, with its XML in the XML Editor and the rendered Border in the Live Preview" width="1116" height="714">
+      </figure>
+      <p>The top right pane is the <b>XML Editor</b>: the plain text XML that describes the Border layout. The bottom right pane is the <b>Live Preview</b>: the visual (WYSIWYG) render of that very same text. They are two editors pointing at the same Border, so edit one and the other updates.</p>
+      <div class="note"><b>Note</b> The XML notation is closely related to HTML, with a much more focused subset of features. Consult the Help reference for the elements that are actually supported.</div>
+    </li>
+
+    <li>
+      <h3>Select an element from either side</h3>
+      <p>As an example, click into the <b>Zones</b> text in the XML Editor and the Zone strips are selected in the Live Preview. You can select any element how you like, and you can edit any element how you like too: in text, or with the mouse and arrow keys.</p>
+      <figure>
+        <img src="06.png" alt="The HZones line selected in the XML Editor with a green arrow to the highlighted column strips along the top and bottom of the Live Preview" width="876" height="611">
+      </figure>
+      <p>For moving shapes like lines and rectangles the visual editor is probably more convenient. For changing text values the XML editor may serve you better. You have the choice.</p>
+    </li>
+
+    <li>
+      <h3>Zoom in and out</h3>
+      <p>As with the main canvas in the circuit editor, you can use the common mouse features to pan and zoom the Live Preview.</p>
+      <figure>
+        <img src="07.png" alt="The Live Preview zoomed in on the top left of the title block, showing the logo area, the PROJECT and TITLE labels and the column strip numbers" width="688" height="311">
+      </figure>
+      <p>You can also zoom the XML Editor to change its font size.</p>
+      <figure>
+        <img src="08.png" alt="The XML Editor shown at a larger font size" width="1101" height="348">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Nudge a shape with the arrow keys</h3>
+      <p>Selecting a rectangle in the Live Preview selects the matching XML in the text editor. Use the arrow keys to nudge it around and the new co-ordinates update in the text automatically.</p>
+      <figure>
+        <img src="09.png" alt="The LogoArea element selected in the XML Editor and the matching blue rectangle highlighted in the Live Preview, with a green arrow showing it moving" width="488" height="500">
+      </figure>
+      <p>As it happens, this particular rectangle has a special function: it is the <b>Logo Area</b>. If you want to put a company logo on a Border, this is the built in object for the purpose. We will come back to it.</p>
+    </li>
+  </ol>
+
+  <h2>Part 3: Make your own copy</h2>
+
+  <p>A shipped Border is locked, so first let us create a custom one that we can actually edit.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Duplicate the Border</h3>
+      <p>With <b>A3 Landscape</b> still selected, tap <b>Duplicate</b> on the toolbar.</p>
+      <figure>
+        <img src="10.png" alt="The Duplicate toolbar button outlined, with a green arrow to the Duplicate Border dialog asking for a new border ID, pre-filled with A3_Landscape_Copy" width="532" height="280">
+      </figure>
+      <p>The dialog asks for a new Border ID. This is the unique ID of the Border, rather like a filename. Give it something useful and press <b>OK</b>. I named mine <code>A3_Landscape_FRED</code>. What shows in the list is the <b>display name</b>, which at this point is still &ldquo;A3 Landscape (Copy)&rdquo;. We will change that next.</p>
+    </li>
+
+    <li>
+      <h3>Open Properties &amp; Page Setup</h3>
+      <p>Right-click the new Border in the list and choose <b>Properties &amp; Page Setup&hellip;</b></p>
+      <figure>
+        <img src="11.png" alt="The right-click menu on A3 Landscape (Copy) with Properties and Page Setup outlined, above Delete Border, Export Border XML and Open Borders Folder in Explorer" width="379" height="226">
+      </figure>
+      <p>From here we can edit everything to do with our custom Border.</p>
+    </li>
+
+    <li>
+      <h3>General &amp; Page Size</h3>
+      <p>On the <b>General &amp; Page Size</b> tab we can change the <b>Display Name</b> if required, plus the page dimensions and orientation.</p>
+      <figure>
+        <img src="12.png" alt="The General and Page Size tab of Border Properties and Page Setup showing the Border ID A3_Landscape_FRED, the Display Name outlined, the paper size and dimensions, and a live layout preview" width="768" height="508">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Drawing Area &amp; Zones</h3>
+      <p>The <b>Drawing Area &amp; Zones</b> tab holds the usable drawing area and the all important <b>Grid Reference Zones</b>.</p>
+      <figure>
+        <img src="13.png" alt="The Drawing Area and Zones tab with the Grid Reference Zones section outlined: horizontal columns count 12 and vertical rows count 8, each with a strip size and position" width="767" height="507">
+      </figure>
+      <p>These are the actual values that the Auto Numbering engine uses to build the grid reference part of symbol names, on the circuit Sheets, when Auto Numbering by grid is required (see Chapter 7). You may set up to 50 Horizontal Zones and up to 26 Vertical Zones.</p>
+      <p>When you change these and press <b>Apply</b>, the Zones in the XML are updated too. You can also edit the values directly in the XML for the same result.</p>
+      <figure>
+        <img src="14.png" alt="The HZones and VZones elements in the XML Editor, now with 24 columns labelled 1 to 24 and 20 rows labelled A to T" width="853" height="55">
+      </figure>
+      <div class="warn"><b>Caution</b> Be careful to make sure the H and V <code>count</code> values are accurately reflected in the list of text values supplied in <code>labels</code>, or strange things will happen!</div>
+    </li>
+
+    <li>
+      <h3>Logo Area</h3>
+      <p>The <b>Logo Area</b> tab has various options, including whether to use the Logo Area at all. Bear in mind you can use <code>&lt;Image /&gt;</code> placeholders as an alternative.</p>
+      <figure>
+        <img src="15.png" alt="The Logo Area tab with Enable Dedicated Logo Area Slot in Title Block ticked, the slot coordinates and size, a Fitment Mode drop down set to Contain, and Default Bottom-Left and Align to Bottom-Right buttons" width="770" height="507">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Add or clear the logo</h3>
+      <p>To actually add your logo, choose <b>Logo</b> &rsaquo; <b>Set Logo&hellip;</b> from the toolbar. A dialog opens so you can browse to a suitable image file. To remove the logo, choose <b>Logo</b> &rsaquo; <b>Clear Logo</b>.</p>
+      <figure>
+        <img src="16.png" alt="The Logo toolbar drop down open in the Border Editor, showing Set Logo and Clear Logo, outlined in green" width="627" height="115">
+      </figure>
+      <div class="note"><b>The logo belongs to the Border</b> It is stored with the Border, not the project, so you can keep one Border per customer, each with its own branding. The image path is absolute, so keep the file somewhere stable. If it moves, or the project is opened on a machine where the path does not exist, the logo will quietly not draw.</div>
+      <p>As mentioned, extra images can be added with the <code>&lt;Image /&gt;</code> element, placed inside the <code>&lt;Graphics&gt;</code> block. For example:</p>
+      <pre>&lt;Image x="6" y="258" width="58" height="33" src="logo.png" fitment="Contain" /&gt;</pre>
+      <p>The <code>src</code> is looked for beside the Border&rsquo;s own XML file first, then as a full path, so an image kept beside the Border travels with it. <code>fitment</code> is <b>Contain</b>, <b>Cover</b>, <b>Stretch</b> or <b>Centre</b>.</p>
+    </li>
+  </ol>
+
+  <h2>Part 4: Fields</h2>
+
+  <p>To populate project specific values into the title block (or any other area) we use <b>Fields</b>. A Field&rsquo;s <code>name</code> corresponds directly to a project wide value. The Fields are found as a block of elements at the bottom of the XML text.</p>
+
+  <figure>
+    <img src="17.png" alt="The Fields block in the XML: ProjectName, SheetTitle, DrawnBy, Date, SheetNum, Revision and Standard, each with a position, font size and maximum width" width="754" height="125">
+  </figure>
+
+  <p>To move a Field, or change its font size, simply edit the element&rsquo;s XML and the preview updates live. To cycle through all the elements of the Border, Fields included, put the caret in the text of any element and its graphic highlights. Now move the caret up or down with the arrow keys and the highlight follows along.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Insert a new Field</h3>
+      <p>Suppose we want to add a new one? There are tools for that. From the toolbar tap <b>Insert Field&hellip;</b>, then scroll to (or filter for) the token you need and press <b>Insert Token</b>.</p>
+      <figure>
+        <img src="18.png" alt="The Insert Field dialog with a filter box and a tree of tokens grouped by Electrical and Power, then Governance and Sign-off, with AccountManager selected" width="451" height="563" style="max-width:420px;height:auto">
+      </figure>
+      <p>New Fields are always added after the last Field in the list, wherever the caret is. The new element appears in the Fields block and its graphic appears on the Border.</p>
+      <figure>
+        <img src="19.png" alt="A new AccountManager Field element at the end of the Fields block, with a green arrow to the new text it adds to the title block in the Live Preview" width="580" height="189">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Remove a Field</h3>
+      <p>To remove a Field, delete its element from the XML text.</p>
+      <div class="note"><b>Names that do not match</b> If you type in a Field with a name like &ldquo;Alice&rdquo;, the Border cannot resolve the name, so the actual text &ldquo;Alice&rdquo; is displayed instead.</div>
+    </li>
+  </ol>
+
+  <p>There is another way to add Fields, covered in the next part.</p>
+
+  <h2>Part 5: Reference resources</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>The data-bound Fields</h3>
+      <p>In the Border Manager, choose <b>Help</b> &rsaquo; <b>Border Template &amp; Fields Reference&hellip;</b> to open a resource to assist you.</p>
+      <p>The <b>Data-Bound Fields</b> tab lists every Field available in the project, together with its current actual value.</p>
+      <figure>
+        <img src="20.png" alt="The Border Template and Field Reference dialog on the Data-Bound Fields tab, listing Name, Category, Actual Value, Description and Sample Tag for fields such as ProjectTitle, ProjectName and ProjectDate, with Copy Field Name and Copy Field Tag buttons" width="721" height="550">
+      </figure>
+      <p>Double-click any row to insert the full Field element into the Border you are editing. Or use <b>Copy &lt;Field&gt; Tag</b> to put it on the Windows Clipboard, for example:</p>
+      <pre>&lt;Field name="ProjectTitle" x="10" y="10" fontSize="5.0" anchor="Left" /&gt;</pre>
+      <p>The copy options matter when you are rolling your own Border templates outside of the editor.</p>
+    </li>
+
+    <li>
+      <h3>The XML schema</h3>
+      <p>For that purpose, the <b>XML Syntax &amp; Schema</b> tab is a reference for creating your own Borders outside of this editor.</p>
+      <figure>
+        <img src="21.png" alt="The XML Syntax and Schema tab showing a commented complete Border template with the DrawingArea, Zones and LogoArea elements" width="722" height="546">
+      </figure>
+      <p>Press <b>Copy Complete XML Template</b>, paste it into a text editor, then use the copy buttons on the previous tab to collect the Field elements you would like to include.</p>
+    </li>
+  </ol>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Chose a project&rsquo;s <b>Border</b> in the New Project wizard and in <b>Project Properties</b>.</li>
+    <li>Opened the <b>Border Manager</b> and met its linked XML Editor and Live Preview.</li>
+    <li><b>Duplicated</b> a locked shipped Border into one of your own.</li>
+    <li>Set the <b>grid reference zones</b> that Auto Numbering uses, and met the <b>Logo Area</b>.</li>
+    <li>Moved, added and removed title block <b>Fields</b>, and found the <b>Fields Reference</b> and XML schema.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>That completes the introduction to Border templates and the Border Manager. Control Circuit supports Borders up to A0 in size, though most folks will be using A3, possibly A4, so that is the extent of the shipped templates for now. As you have seen, the tools make it easy to create your own custom templates as you need them.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
