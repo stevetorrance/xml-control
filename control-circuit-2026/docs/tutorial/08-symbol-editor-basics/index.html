@@ -27,7 +27,7 @@
 
   <p>There are many additional elements that make a symbol smarter, the chief one being the <b>Field</b>. Fields are pre-defined variable placeholders, for example KW, AMPS or FLC. In the Symbol Editor they appear as placeholder text, but on a Sheet they become dynamic and can be populated with specific values for each symbol, ready for reports and other outputs.</p>
 
-  <p>In this chapter we cover the basics: the use and management of libraries, creating a symbol, and adding Pins, a Tag and Fields.</p>
+  <p>In this chapter we cover the basics: the use and management of libraries, creating a symbol, and adding Pins, a Contact Role, a Tag and Fields.</p>
 
   <h2>Part 1: Getting around</h2>
 
@@ -69,7 +69,7 @@
     <li><b>Name</b> is how the symbol appears in the library listing, what you will see in the explorer.</li>
     <li><b>Cat</b> (Category) and <b>Type</b> are useful for sorting.</li>
     <li><b>Tag Seed</b> pre-seeds the Tag when the symbol is pulled onto a Sheet. Very important.</li>
-    <li><b>Role</b> sets the default Contact Role, as met in the previous chapter: <b>MAIN</b>, <b>NO</b>, <b>NC</b> or <b>AUX</b>, depending on the function of the component.</li>
+    <li><b>Role</b> sets the default Contact Role, as met in the previous chapter: <b>MAIN</b>, <b>NO</b>, <b>NC</b> or <b>AUX</b>, depending on the function of the component. More on this in Part 5.</li>
     <li><b>W</b> and <b>H</b> are the <b>Bounding Box</b> (BB). On a Sheet the BB is the highlighted perimeter displayed when the symbol is selected. In the Symbol Editor it is the green dotted rectangle running from the red origin cross to the extents of all the primitives. Text objects are not included in the BB.</li>
     <li><b>Status</b>: if you have started one or more symbol designs, they are works in progress, so set the status accordingly. These symbols are marked in the tree, and they can be searched for in the library regardless of which section they are in.</li>
   </ul>
@@ -169,7 +169,29 @@
     </li>
   </ol>
 
-  <h2>Part 5: Adding Fields</h2>
+  <h2>Part 5: Contact Roles in a symbol</h2>
+
+  <p>If we know that a certain symbol will usually represent a certain Contact Role, we may optionally choose that role and set it as the default in the symbol. When the symbol is brought onto a Sheet, its <b>Role</b> will show something like <b>None (Inherit: MAIN)</b>. If you leave the Role out at the symbol stage you can still choose one on the Sheet, and if you do set one in the symbol you can still change it on the Sheet.</p>
+
+  <p>Once a Role has been selected in the Symbol Editor, a diamond glyph is shown on the symbol. The <b>M</b> denotes <b>MAIN</b>, and the <b>CT</b> beneath it stands for the <b>Contact Table</b>, which a MAIN element carries. You can mouse down on the diamond and move it to suit. Once the symbol is in use on a Sheet you will also have <b>Role X</b> and <b>Role Y</b> values to fine tune the position if required.</p>
+
+  <figure>
+    <img src="15.png" alt="The Role drop down set to MAIN, with a green arrow to the orange M diamond and its CT text below the symbol" width="512" height="437">
+  </figure>
+
+  <p>In the next example the Role is set to <b>NO</b> (Normally Open), so the diamond displays an <b>O</b>. Normally Closed shows a <b>C</b> and AUX shows an <b>A</b>.</p>
+
+  <figure>
+    <img src="16.png" alt="The Role drop down set to NO, with a green arrow to the orange O diamond" width="451" height="200">
+  </figure>
+
+  <p>Finally, here is a symbol with an assigned Contact Role once it has been brought onto a Sheet. As this is a MAIN element, you will notice that <b>Browse Parent Coils&hellip;</b> is greyed out: only the child roles (NO, NC and AUX) need to find a parent.</p>
+
+  <figure>
+    <img src="17.png" alt="A placed symbol with its Cross Reference section showing Role None (Inherit: MAIN), a greyed Browse Parent Coils button, Role X 0.0 and Role Y 14.0, and a green arrow to the M diamond" width="558" height="246">
+  </figure>
+
+  <h2>Part 6: Adding Fields</h2>
 
   <p>Now for Fields. The default and most critical one is for the Tag.</p>
 
@@ -178,11 +200,11 @@
       <h3>Add the Tag field</h3>
       <p>Press the <b>Field</b> tool, click down anywhere, then select <b>TAG</b> (the default) and press <b>OK</b>.</p>
       <figure>
-        <img src="15.png" alt="The Add Data-Bound Field dialog with the Field name TAG chosen, and a green arrow pointing at the Field tool" width="470" height="395">
+        <img src="18.png" alt="The Add Data-Bound Field dialog with the Field name TAG chosen, and a green arrow pointing at the Field tool" width="470" height="395">
       </figure>
       <p>As the dialog notes, field values are resolved by Control Circuit once an actual instance of the symbol is placed on a Sheet. Press <kbd>Esc</kbd> to put the Field tool away, then select the <b>[TAG]</b> placeholder to see its properties.</p>
       <figure>
-        <img src="16.png" alt="The Text / Field properties for the TAG placeholder: X, Y, Font-size, Anchor, Rotation, Colour and Field" width="717" height="281">
+        <img src="19.png" alt="The Text / Field properties for the TAG placeholder: X, Y, Font-size, Anchor, Rotation, Colour and Field" width="717" height="281">
       </figure>
       <div class="note"><b>Note</b> Once a particular system field such as TAG has been used on a symbol, it no longer shows in the selection list.</div>
     </li>
@@ -191,20 +213,20 @@
       <h3>Add a couple more</h3>
       <p>There are lots of Field values built in, and you can add some custom ones too (see <b>Tools</b> &rsaquo; <b>Configure</b> &rsaquo; <b>Field Values</b>). Add a couple more Fields, any you like, and then we will see how they behave on a Sheet.</p>
       <figure>
-        <img src="17.png" alt="The symbol with the placeholders [TAG], [VOLTAGE] and [CURRENT] stacked beside it" width="430" height="352">
+        <img src="20.png" alt="The symbol with the placeholders [TAG], [VOLTAGE] and [CURRENT] stacked beside it" width="430" height="352">
       </figure>
       <p>Save your symbol and close the Symbol Editor (<kbd>F12</kbd> closes it too).</p>
     </li>
   </ol>
 
-  <h2>Part 6: Using your symbol</h2>
+  <h2>Part 7: Using your symbol</h2>
 
   <ol class="steps">
     <li>
       <h3>Select your library</h3>
       <p>Back in the main editor, open the <b>Symbols</b> tab and ensure your new custom library is selected.</p>
       <figure>
-        <img src="18.png" alt="The Symbols tab with the library drop down open, CUSTOM_LIB (User) ticked above IEC_BASIC, NFPA_BASIC and TERMS_BASIC" width="445" height="156">
+        <img src="21.png" alt="The Symbols tab with the library drop down open, CUSTOM_LIB (User) ticked above IEC_BASIC, NFPA_BASIC and TERMS_BASIC" width="445" height="156">
       </figure>
     </li>
 
@@ -212,7 +234,7 @@
       <h3>Fill in the Field values</h3>
       <p>Drag the symbol onto the Sheet, select it and expand the <b>Fields</b> section of its Properties panel. Now you can enter specific values for that symbol. Be sure to press <b>Apply</b> after any update!</p>
       <figure>
-        <img src="19.png" alt="The placed symbol selected, with the Fields section open showing empty VOLTAGE and CURRENT entries and an Apply button" width="655" height="257">
+        <img src="22.png" alt="The placed symbol selected, with the Fields section open showing empty VOLTAGE and CURRENT entries and an Apply button" width="655" height="257">
       </figure>
       <p>Until the symbol is numbered, its Tag shows the <b>Tag Seed</b> (the U here) rather than a finished Tag.</p>
       <div class="note"><b>Handy tip</b> Control Circuit&rsquo;s engines do not themselves collect any data from custom Field values, but it is a trivial matter to write a script that parses the Sheet XML files and aggregates the information in these Fields.</div>
@@ -222,7 +244,7 @@
       <h3>Recall the last symbol</h3>
       <p>Back in the Symbol Editor, if you want your last symbol to be recalled automatically the next time it opens, tick <b>Options</b> &rsaquo; <b>Recall Symbol</b>.</p>
       <figure>
-        <img src="20.png" alt="The Symbol Editor Options menu with Recall Symbol ticked and outlined" width="260" height="112">
+        <img src="23.png" alt="The Symbol Editor Options menu with Recall Symbol ticked and outlined" width="260" height="112">
       </figure>
     </li>
 
@@ -230,7 +252,7 @@
       <h3>Mark the symbol as finished</h3>
       <p>And for completeness: when the design is done, untick the symbol&rsquo;s <b>Work in Progress</b> box, press <b>Apply</b> and save. The library explorer then shows it as a completed symbol, and the Work in Progress group disappears.</p>
       <figure>
-        <img src="21.png" alt="The library tree showing My Alpha Device under Black Box with no Work in Progress group, and a green arrow from it to the Work in Progress tick box, now unticked" width="567" height="248">
+        <img src="24.png" alt="The library tree showing My Alpha Device under Black Box with no Work in Progress group, and a green arrow from it to the Work in Progress tick box, now unticked" width="567" height="248">
       </figure>
     </li>
   </ol>
@@ -240,6 +262,7 @@
     <li>Opened the <b>Symbol Editor</b> and met its dedicated help, in <b>Locked</b> and <b>Live</b> modes.</li>
     <li>Learned the Symbol properties (<b>ID</b>, <b>Name</b>, <b>Tag Seed</b>, <b>Role</b>, <b>Bounding Box</b>, <b>Status</b>) and the Pin properties (<b>ID</b>, <b>Label</b>, <b>Type</b>, <b>Dir</b>, <b>End Prep</b>).</li>
     <li>Created a <b>custom library</b> and a <b>work in progress</b> symbol with two Pins on the 5 mm grid.</li>
+    <li>Gave a symbol a default <b>Contact Role</b>, and saw it inherited on a Sheet.</li>
     <li>Added the <b>TAG</b> Field and others, then filled in their values on a Sheet.</li>
   </ul>
 
