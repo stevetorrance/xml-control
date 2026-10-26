@@ -55,7 +55,7 @@
     </li>
   </ol>
 
-  <div class="note"><b>Project wide</b> The Border applies to every Sheet in the project. As the wizard says, it is a project-wide setting.</div>
+  <div class="note"><b>Project wide</b> The Border applies to every Sheet in the project. As the wizard says, it is a project-wide setting. The project also keeps its own copy of the Border, refreshed each time you save, so it still draws if the Border is later removed from your library, or the project is opened on a machine that never had it.</div>
 
   <h2>Part 2: The Border Manager</h2>
 
@@ -169,7 +169,7 @@
       <figure>
         <img src="16.png" alt="The Logo toolbar drop down open in the Border Editor, showing Set Logo and Clear Logo, outlined in green" width="627" height="115">
       </figure>
-      <div class="note"><b>The logo belongs to the Border</b> It is stored with the Border, not the project, so you can keep one Border per customer, each with its own branding. The image path is absolute, so keep the file somewhere stable. If it moves, or the project is opened on a machine where the path does not exist, the logo will quietly not draw.</div>
+      <div class="note"><b>The logo belongs to the Border</b> It is stored with the Border, not the project, so you can keep one Border per customer, each with its own branding. The image path is absolute, so keep the file somewhere stable. If it moves, or the project is opened on a machine where the path does not exist, the logo will quietly not draw. The exception is a project whose Border is missing from the library: it carries a copy of the logo image along with its copy of the Border, and draws that.</div>
       <p>As mentioned, extra images can be added with the <code>&lt;Image /&gt;</code> element, placed inside the <code>&lt;Graphics&gt;</code> block. For example:</p>
       <pre>&lt;Image x="6" y="258" width="58" height="33" src="logo.png" fitment="Contain" /&gt;</pre>
       <p>The <code>src</code> is looked for beside the Border&rsquo;s own XML file first, then as a full path, so an image kept beside the Border travels with it. <code>fitment</code> is <b>Contain</b>, <b>Cover</b>, <b>Stretch</b> or <b>Centre</b>.</p>
