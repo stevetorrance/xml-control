@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 12: Understanding Terminals - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 12</p>
+
+  <h1>Chapter 12: Understanding Terminals</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Understand Terminal Nodes, Terminal Groups and Terminal Instances, set up a rail with the Terminal Group Manager, validate it, number it, and convert a multi-tier terminal symbol into a Terminal Instance that shares the same rail.
+  </div>
+
+  <h2>Where we are</h2>
+
+  <p>Every electrical circuit usually has terminals: one or more unique termination points that connect two wires together, for great convenience in assembly and maintenance. Control Circuit has <b>Terminal Nodes</b> for this purpose, and they are found on the Tool Palette.</p>
+
+  <p>As a control system or panel gets larger we usually start to include many terminal rails: perhaps a common 24VDC and a common 0VDC, Interconnection Wires, mains voltages, external safety signals and more. These rails can grow to many hundreds of terminals per bank, with designations like <b>-X1</b>, <b>-X2</b> or <b>-XMAIN</b>, where each individual connection point has an index number, like <b>-X1:12</b> and <b>-X1:13</b>. Just as a good design uniquely identifies every wire, it should uniquely define where each wire is connected to.</p>
+
+  <figure>
+    <img src="01.jpg" alt="A photograph of a panel terminal rail with numbered white markers from 1 to 35 along a single row of grey terminal blocks, blue and multi-coloured wires with ferrules entering from above and below" width="624" height="447">
+  </figure>
+
+  <p>The Terminal function in Control Circuit lets you assign <b>Terminal Groups</b> (the rails), supports optional auto-numbering conventions, and decides whether or not a Terminal acts like a <b>boundary</b>, so that a wire number changes as it passes through that rail. There are many more options besides.</p>
+
+  <p>We can readily use Terminal Nodes throughout a condensed circuit design for ease of design, and we can assign those terminals to groups. But what if we want to represent complex or multi-tiered terminal blocks? That is where <b>Terminal Instances</b> come into play.</p>
+
+  <p>Essentially, a Terminal Instance starts life as a regular symbol with sufficient Pins to convey the layout and visual representation of the terminal block you need. If we give that symbol a Tag Seed of <b>X</b> and pull it into a circuit Sheet, Control Circuit offers to convert it into a Terminal Instance and, at the same time, assign it to an existing Group.</p>
+
+  <p>In this manner, both Terminal Nodes and Terminal Instances can share the same groups, numbering, validation checks and outputs. One example is the Terminal List Form automation, which can be included in your circuit.</p>
+
+  <figure>
+    <img src="02.png" alt="Three representations side by side: a physical three-deck terminal block with poles labelled A, MA, TA, TB, MB and B; three Terminal Nodes, each with a pair of legs; and a six-pole Terminal Instance symbol" width="848" height="377">
+  </figure>
+
+  <div class="good"><span class="lead">The key difference</span> A <b>Terminal Node</b> can have its legs set, manually or automatically, to any text you like: A, B, X1 and so on. A <b>Terminal Instance</b> has its legs (its Pins) set by design in the Symbol Editor.</div>
+
+  <p>Two words will come up a lot. A <b>pole</b> is one connection point on a terminal block. A <b>tier</b> is a level of the block, usually a pair of poles such as A and B, as you can see in the three-deck block above, where each deck is a tier.</p>
+
+  <p>A Terminal Node has just two legs, so it represents one tier. A four pole terminal with two tiers is therefore drawn as two consecutive Terminal Nodes: the first fills tier one, the next fills tier two, and both share one terminal number. A Terminal Instance, on the other hand, is a single symbol that carries every pole of the block in one go.</p>
+
+  <h2>Part 1: Terminal Groups</h2>
+
+  <p>Whilst we may apply terminal references directly by hand to create our design, you will want the built in <b>Terminal Group Manager</b> if any form of validation and automation is required.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Open the Manager</h3>
+      <p>From the <b>Terminals</b> menu choose <b>Manage Terminal Groups&hellip;</b></p>
+      <figure>
+        <img src="03.png" alt="The Terminal Groups, Manage Rail Definitions dialog with an empty list and columns for ID, Tag, Comment, Layout, Mounting, Start number, Label Format, Boundary, Pin Manifest and Preview" width="868" height="398">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Add a Group</h3>
+      <p>Tap <b>Add</b> to add a new Group, a rail in effect. A new default group appears, and a live drawing of the block is shown on the right.</p>
+      <figure>
+        <img src="04.png" alt="A new Terminal Group, TG001, with Tag -X1, comment New Terminal Rail, Layout 4POLE, Vertical mounting, Start number 1 and Label Format G:N:P, with a four-pole preview of the block on the right" width="867" height="397">
+      </figure>
+      <p>Let&rsquo;s look at the options in more detail.</p>
+      <ul>
+        <li><b>ID</b> is an internal name to uniquely identify the group.</li>
+        <li><b>Tag</b> is how you refer to the rail in the real world. <b>-X1</b> is the default, so change it to whatever suits.</li>
+        <li><b>Comment</b> is a meaningful note, if required.</li>
+      </ul>
+    </li>
+
+    <li>
+      <h3>Layout</h3>
+      <p>Choose the <b>Layout</b>. This is the physical shape of the terminal block as it appears in the real world.</p>
+      <figure>
+        <img src="05.png" alt="The Layout drop down open with 4POLE selected, listing 1POLE, 2POLE, 2POLEN, 3POLE, 3POLE1L, 4POLE, 4POLE1Q, 4POLE2L, 5POLE, 6POLE, 6POLE3L, 6POLEN, 8POLE2Q and further layouts, down to DISC, FLATBUS, FUSED, PE and SENSOR3L" width="107" height="351">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Mounting</h3>
+      <p><b>Mounting</b> is Vertical or Horizontal. This is purely for how the Terminal List Form will construct and lay out the terminal list diagram, if you choose later to add such an output to your project. The layout builds an overview of the physical terminals and displays what wires are attached, or none, as the case may be. For example:</p>
+      <figure>
+        <img src="06.png" alt="A terminal list drawing for rails -X3 and -X4: each terminal is a numbered block, with the wire and its destination listed on the A side to the left and the B side to the right, and n/c shown where nothing is attached" width="798" height="276">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Start number, label format and boundary</h3>
+      <p><b>Start #</b> is the index of the first terminal block. If we had three terminals of the four pole variety and Start # was 1, they would be numbered 1, 2 and 3, with each terminal carrying all four of its poles, for example <b>X1:2:A</b>.</p>
+      <p>The <b>Label Format</b> default is <code>{G}:{N}:{P}</code>, where <code>{G}</code> is the tag, <code>{N}</code> is the terminal number and <code>{P}</code> is the pole.</p>
+      <p>The <b>Boundary</b> checkbox determines what happens when automatic wire numbering traces a wire to this terminal. Does it pass through and keep the same number, like a flat bus? Or does it increment and take the next number as the wire leaves the other side of the terminal? If the latter, then Boundary is ticked, which would be probable for commoning terminals. Again, this is house convention and yours to decide.</p>
+    </li>
+  </ol>
+
+  <h2>Part 2: The Pin Manifest</h2>
+
+  <p>The layout you chose provides the pole names and arrangement by default, but we can change that readily by typing our own <b>Pin Manifest</b>.</p>
+
+  <figure>
+    <img src="07.png" alt="The Pin Manifest cell holding X1/X2,X3/X4 with a preview reading X1:1:X1, X1, X2, X3, X4, and an arrow pointing to the block drawing, which now shows four poles named X1, X2, X3 and X4 in two tiers" width="362" height="317">
+  </figure>
+
+  <p>The convention is that poles on the same tier are joined with a <b>/</b>, and tiers are separated by a <b>,</b>. So <code>X1/X2,X3/X4</code> describes two tiers of two poles each. Whatever you enter, the graphic updates to show exactly what you have.</p>
+
+  <p>This is how a Terminal Node gets its leg texts. We have used the names X1 to X4 here just to make the effect obvious, so you will see them on the Terminal Nodes in the next steps, but A/B, TA/TB and the like are the usual names. A Terminal Instance is different: its pins were named when the symbol was designed, so the manifest has to agree with them, as we see later.</p>
+
+  <div class="note"><b>Important</b> The terminal and wire numbering engines do not evaluate the <em>order</em> of the Pin Manifest, but they do require that any Terminal Instance has a matching set of Pins, regardless of the order they are drafted in.</div>
+
+  <p>So, we now have a configured <b>-X1</b> group, and it is a four pole type. Press <b>Save</b>.</p>
+
+  <h2>Part 3: Assigning, validating and numbering</h2>
+
+  <p>Whenever you have done any work with terminals, it is useful to know the overall status of what is what.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Validate</h3>
+      <p>Choose <b>Terminals</b> &rsaquo; <b>Validate Terminals</b>, then press the <b>Validate</b> button.</p>
+      <figure>
+        <img src="08.png" alt="The Terminal Validation and Audit dialog listing four warnings: three terminals have no group assigned, and group -X1 has no terminals assigned" width="690" height="498">
+      </figure>
+      <p>From the messages we can see that three terminals have not been assigned to a group, and in fact -X1 has no terminals assigned either. Double-clicking a row takes you to that terminal. <b>Close</b> the dialog.</p>
+    </li>
+
+    <li>
+      <h3>Assign the terminals</h3>
+      <p>If we select the first Terminal Node and look at its properties, we see it has not been assigned.</p>
+      <figure>
+        <img src="09.png" alt="A Terminal Node selected on the Sheet, with its properties showing Terminal Group set to Unassigned" width="585" height="273">
+      </figure>
+      <p>We can change that. Select <b>-X1</b> as the Terminal Group, then be sure to press <b>Apply Terminal Changes</b>.</p>
+      <figure>
+        <img src="10.png" alt="The Terminal Node properties with the Terminal Group drop down set to -X1 New Terminal Rail" width="351" height="212">
+      </figure>
+      <p>We have two other Terminal Nodes, so we do the same for those.</p>
+    </li>
+
+    <li>
+      <h3>Validate again</h3>
+      <p>If we now revalidate the terminals, our messages have changed. The terminals are in the group, but they are unnumbered.</p>
+      <figure>
+        <img src="11.png" alt="The validation list now showing three warnings for group -X1, each saying the terminal is unnumbered and to run Terminal Numbering" width="674" height="107">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Run Terminal Numbering</h3>
+      <p>Now choose <b>Terminals</b> &rsaquo; <b>Run Terminal Numbering</b>, then tap <b>Generate Preview</b>. You can limit the run to one Group or leave it on All Groups. The sweep order, which decides the sequence the terminals are numbered in, is set in <b>Project</b> &rsaquo; <b>Project Properties</b>.</p>
+      <figure>
+        <img src="12.png" alt="The Terminal Numbering dialog, widened to show a Status column: the terminals to be renumbered are marked Renumber, but the last -X1 row is shown in red with dashes for its proposed number and tag, and the Status Incomplete" width="1069" height="562">
+      </figure>
+      <p>As you see, we have an issue. The last row is shown in red, has no proposed number, and its <b>Status</b> reads <b>Incomplete</b>. It is simply because we have a four pole configuration, yet we are asking the engine to deal with six poles on the circuit: there is a tier missing. Go ahead and press <b>Apply</b> for now.</p>
+      <figure>
+        <img src="13.png" alt="Three Terminal Nodes on the Sheet: the first two are labelled -X1:1 and carry poles X1, X2 and X3, X4, while the third has poles named TA and TB and no number" width="196" height="145">
+      </figure>
+      <p>The first two terminals numbered up, but the third did not. The engine is looking for two tiers for every four pole terminal, and we have drawn only one and a half pairs of poles.</p>
+    </li>
+
+    <li>
+      <h3>Spot the problem</h3>
+      <p>Run <b>Validate Terminals</b> again and it tells us exactly what is wrong.</p>
+      <figure>
+        <img src="12b.png" alt="The Terminal Validation and Audit dialog with one warning for group -X1: incomplete position 2, one of two tiers drawn, add the missing terminal node" width="689" height="496">
+      </figure>
+      <p>We have drawn only three Terminal Nodes, six poles, so one tier of position 2 is missing, as the Issue says. Let&rsquo;s add the missing terminal node and run the numbering again.</p>
+      <figure>
+        <img src="14.png" alt="Four Terminal Nodes on the Sheet, with the Terminal Numbering dialog open in front showing the proposed numbers: the new node pairs with the unnumbered one to become -X1:2" width="709" height="419">
+      </figure>
+      <p>Once applied, all is well.</p>
+      <figure>
+        <img src="15.png" alt="Four Terminal Nodes labelled -X1:1, -X1:1, -X1:2 and -X1:2, each carrying its pole names" width="574" height="169">
+      </figure>
+    </li>
+  </ol>
+
+  <div class="note"><b>Two nodes, one terminal</b> That is why -X1:1 appears twice above. A four pole terminal is two Terminal Nodes sharing one number, and it is by design.</div>
+
+  <p>So we have covered the essence of how Terminal Groups and numbering work, hopefully enough insight to give you the gist of things. Next, we will see how to create a Terminal Instance from a symbol and include it in our project.</p>
+
+  <h2>Part 4: Terminal Instances</h2>
+
+  <p>As mentioned, a Terminal Instance has its legs set by design, so we start with a regular symbol and design them in.</p>
+
+  <figure>
+    <img src="16.png" alt="A six pole terminal symbol open in the Symbol Editor, with poles A, MA, TA, TB, MB and B, a Tag placeholder below it, and the symbol properties with the Tag Seed outlined: X, Terminal Block" width="520" height="554">
+  </figure>
+
+  <p>The important parts are that it has a <b>Tag Seed</b> of <b>X</b> and a <b>[Tag]</b> Field present as a minimum. On top of that, it needs the correct number of Pins, with the Pin IDs matching the poles of the Group you expect to use the Terminal Instance with, for example A/B, TA/TB, and so on.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Place the symbol</h3>
+      <p>Return to the Sheet editor and select a library with Terminals. The shipped <b>TERMS_BASIC</b> library has some for us, and we will choose a six pole vertical version.</p>
+      <figure>
+        <img src="17.png" alt="The symbol list showing the terminal blocks in the library, and a six pole terminal symbol placed on the Sheet with an arrow pointing at it" width="590" height="414">
+      </figure>
+      <p>Once on the Sheet, look at its properties and expand the <b>Terminal</b> section if required. The Group is still unselected.</p>
+      <figure>
+        <img src="18.png" alt="The properties of the placed terminal symbol, with the Terminal section showing the Group drop down set to Select group and the Convert to Terminal Instance button pointed out" width="692" height="358">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Add a six pole Group</h3>
+      <p>We know we need a six pole Group for this one, so let&rsquo;s go to the Terminal Group Manager and add one. Just change the Layout to <b>6POLE</b>. The poles it names are the same as the symbol&rsquo;s pins, so the Pin Manifest can stay empty.</p>
+      <figure>
+        <img src="19.png" alt="The Terminal Groups dialog with a second group, TG002 with Tag -X2 and Layout 6POLE, highlighted, and its preview showing three tiers: A and B, MA and MB, TA and TB" width="1053" height="469">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Convert</h3>
+      <p>Back in the terminal symbol&rsquo;s properties, select the <b>-X2</b> group, then tap <b>Convert to Terminal Instance</b>.</p>
+      <figure>
+        <img src="20.png" alt="The Confirm Conversion dialog asking to convert this symbol to a Terminal Instance assigned to -X2, noting that the symbol instance will be replaced and that this can be undone with Ctrl+Z" width="766" height="191">
+      </figure>
+      <p>The conversion takes place, and the reference <b>-X2</b> is immediately applied, although the terminal still needs numbering.</p>
+      <figure>
+        <img src="21.png" alt="A Conversion Complete message reporting the symbol was converted to a Terminal Instance in group -X2 and to run Terminal Numbering, with -X2 now shown below the symbol" width="570" height="234">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Number it</h3>
+      <p>So we run Terminal Numbering once again. The Terminal Instance appears in the same list as the Terminal Nodes.</p>
+      <figure>
+        <img src="22.png" alt="The Terminal Numbering dialog listing the new -X2 Terminal Instance proposed as number 1, alongside the four -X1 Terminal Nodes already numbered" width="688" height="596">
+      </figure>
+      <p>The -X2 six pole terminal is now numbered up.</p>
+      <figure>
+        <img src="23.png" alt="The six pole Terminal Instance with the label -X2:1 below it" width="198" height="535">
+      </figure>
+    </li>
+  </ol>
+
+  <div class="note"><b>The poles are in the symbol</b> You will notice the Terminal Instance does not have the A/B detail of the Terminal Node. It is just block number 1 as a whole, so the symbol graphic itself should display the A/B and so on. When you design the symbol, use fonts and spacing to suit your needs. The example symbol used very small fonts.</div>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Met the three representations of a terminal: the physical block, the <b>Terminal Node</b> and the <b>Terminal Instance</b>.</li>
+    <li>Created a rail in the <b>Terminal Group Manager</b>: Tag, Layout, Mounting, Start #, Label Format and Boundary, and customised the <b>Pin Manifest</b>.</li>
+    <li>Assigned Terminal Nodes to a Group and used <b>Validate Terminals</b> to find unassigned, unnumbered and incomplete terminals.</li>
+    <li>Ran <b>Terminal Numbering</b>, and fixed a missing tier.</li>
+    <li>Converted a symbol with a Tag Seed of X into a <b>Terminal Instance</b> that shares a Group with the Terminal Nodes.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>That is a getting started guide for Terminal Groups, Terminal Nodes, Terminal Instances and Terminal Numbering.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
