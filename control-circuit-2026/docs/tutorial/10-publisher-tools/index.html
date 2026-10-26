@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 10: The Publisher Tools - Control Circuit 2026 Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">Control Circuit 2026</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 10</p>
+
+  <h1>Chapter 10: The Publisher Tools (Web Portal &amp; Smart PDF)</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Understand the three layers of a Sheet and what each is for, then tour the Print Preview, Web Portal, Smart PDF and DXF Portfolio outputs and the options each one gives you.
+  </div>
+
+  <h2>Where we are</h2>
+
+  <p>The Publisher Tools are the licensed output features of Control Circuit. The Evaluation and Home versions do not expose them, nor give access to their dialogs and settings. For that reason this chapter goes through the settings, so that you know what to expect and what options are available.</p>
+
+  <p>The Publisher Tools provide four extra features:</p>
+
+  <ul>
+    <li><b>Web Portal</b> <em>(Pro)</em>. Workshop-ready web pages, or a whole web site, with virtual markup tools and data, jump links, deep search, cross references and data displays.</li>
+    <li><b>Smart PDF</b> <em>(Standard and Pro)</em>. The Web Portal in effect, if slightly less flashy: a whole dynamic PDF with jump links, cross references and data displays.</li>
+    <li><b>DXF Portfolio</b> <em>(Pro)</em>. Outputs the circuit as an array of DXF (R12) formatted drawings. Not smart, but useful for editing a circuit Sheet manually in the future, where Control Circuit may not be installed.</li>
+    <li><b>Symbol Library Export PDF</b> <em>(Pro)</em>. Creates a professional PDF document of a set of symbols from any library, in a format that is presentable to a customer, or just suits your internal document standards. That one is covered in the next chapter.</li>
+  </ul>
+
+  <h2>Part 1: Three layers of happiness</h2>
+
+  <p>Let&rsquo;s recap for a moment. Control Circuit uses three layers for every Sheet. They are <b>Schematic</b>, <b>Annotation</b> and <b>Rubber Stamp</b>, and they are rendered in that order.</p>
+
+  <p>On the <b>Schematic</b> layer all our actual electrical circuit design takes place. The various engines evaluate all the components, wires, nodes and data on this layer for the purpose of our engineering.</p>
+
+  <p>The <b>Annotation</b> layer provides a surface for all manner of optional images, text, call-outs and such. Perhaps assembly notes, &ldquo;gotchas&rdquo;, or observations that you want your internal crew to be aware of but not necessarily your customer, which is why this layer can be shown or hidden.</p>
+
+  <p>Annotation serves another unique purpose: <b>Forms</b>. Forms, such as the Bill of Materials, Component Lists and the Sheet Index (tabulated structures that are filled in by the Control Circuit engines) are only allowed on this layer.</p>
+
+  <p><b>Sheet 0</b> is our universal, project wide <b>Rubber Stamp</b> layer. On it we put anything that needs to be stamped atop every Sheet: perhaps an angled &ldquo;Draft Only&rdquo; or &ldquo;Confidential&rdquo; text, a brand image, or even a block to obscure part of every Sheet. The Rubber Stamp layer can also be shown or hidden.</p>
+
+  <p>Where these layers come into their element is in the printed and published outputs. At that point we choose what gets shown or hidden, and what data gets included or excluded, so we have granular control of who gets what depending on the target audience.</p>
+
+  <div class="note"><b>Keys</b> In the Sheet editor press <b>F2</b> for the Schematic layer and <b>F3</b> for the Annotation layer. Press and hold <b>F4</b> to preview them together.</div>
+
+  <p>With that, let&rsquo;s dive in with a real working example.</p>
+
+  <h2>Part 2: Building up the layers</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>The Schematic layer</h3>
+      <p>We have already seen how to create circuits on the Schematic layer, so we will not dwell here.</p>
+      <figure>
+        <img src="10.png" alt="A Sheet in the editor with the Schematic layer active, showing a finished circuit" width="1341" height="976">
+      </figure>
+    </li>
+
+    <li>
+      <h3>The Annotation layer</h3>
+      <p>Switch to the Annotation layer, then we will add some content: say, some component images and some notes.</p>
+      <figure>
+        <img src="11.png" alt="The same Sheet with the Annotation layer active: the background has changed colour and the schematic is blurred" width="1339" height="989">
+      </figure>
+      <p>Firstly though, did you see the background change and the schematic blur? That is a feature, provided to give a ready visual clue as to which layer you are on. You can set background colours or images as you prefer. Choose <b>Tools</b> &rsaquo; <b>Personalize Workspace</b> to set this up.</p>
+      <p>Now that we are on this layer, add some content.</p>
+      <figure>
+        <img src="12.png" alt="The Annotation layer with component images and note boxes added around the circuit" width="1182" height="728">
+      </figure>
+      <p>Save the Sheet, then press and hold <b>F4</b> to see how both layers look together in preview.</p>
+      <figure>
+        <img src="13.png" alt="The Sheet in preview mode with the Schematic and Annotation layers shown together and sharp" width="1188" height="738">
+      </figure>
+    </li>
+
+    <li>
+      <h3>The Rubber Stamp layer</h3>
+      <p>At the root of the Project Explorer is the built in <b>Sheet 0</b>, the Rubber Stamp Sheet. Double-click it to open. Again, the background colour comes from Personalize Workspace and could be an image if you wish.</p>
+      <figure>
+        <img src="14.png" alt="Sheet 0, the Rubber Stamp sheet, open in the editor with its own background colour" width="826" height="362">
+      </figure>
+      <p>You might notice it defaults to Preview (F4), as neither the Schematic nor the Annotation layer options are valid on this Sheet.</p>
+      <p>Add a text object and configure it to something useful, like &ldquo;Draft&rdquo;.</p>
+      <figure>
+        <img src="15.png" alt="A large angled text object reading Draft for Approval placed on Sheet 0" width="929" height="391">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Showing the stamp in the editor</h3>
+      <p>Now we have some Rubber Stamp content, let&rsquo;s see how to display it while editing. Switch back to a Schematic Sheet, then from the <b>View</b> menu check <b>Rubber Stamp Layer</b>.</p>
+      <figure>
+        <img src="16.png" alt="The View menu with Rubber Stamp Layer checked" width="376" height="192">
+      </figure>
+      <p>The default opacity is 40%. Adjust it with <b>View</b> &rsaquo; <b>Rubber Stamp Alpha</b>, where a lower value means more transparency for every text, primitive and object rendered from the Rubber Stamp layer.</p>
+      <figure>
+        <img src="17.png" alt="The Rubber Stamp Alpha sub menu offering 10 percent to 90 percent" width="566" height="383">
+      </figure>
+      <p>Here it is rendered at 40%.</p>
+      <figure>
+        <img src="18.png" alt="A Sheet with the Draft stamp showing faintly over the circuit at 40 percent" width="729" height="533">
+      </figure>
+      <div class="warn"><b>Editor only, and not quite</b> The blur you see on the layer you are <em>not</em> editing is purely an editor aid for quickly seeing which layer you are on. It never appears in printed or published output. The stamp <em>opacity</em> is different: it is a project setting, and Print Preview, the Web Portal and Smart PDF all draw the stamp at that same opacity. If you want a bold stamp on paper, raise the Rubber Stamp Alpha first.</div>
+    </li>
+  </ol>
+
+  <p>So, we have enough layer content to progress with. We will start with Print Preview.</p>
+
+  <h2>Part 3: Print Preview</h2>
+
+  <p>Print Preview is built into every version of Control Circuit from Evaluation upwards. It gives us a baseline for regular, day to day output.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Page Setup</h3>
+      <p>Choose <b>File</b> &rsaquo; <b>Page Setup&hellip;</b> (<b>Ctrl+Alt+P</b>). This is a regular printing dialog, but be aware of the need to tick <b>Rubber Stamp</b> in the Layer Selection for it to be included.</p>
+      <figure>
+        <img src="19.png" alt="The Page Setup dialog with the Layer Selection section outlined and an arrow pointing at the unticked Rubber Stamp option" width="440" height="634">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Print Preview</h3>
+      <p>For a finished pre-print review choose <b>File</b> &rsaquo; <b>Print Preview&hellip;</b> (<b>Ctrl+Shift+P</b>).</p>
+      <figure>
+        <img src="20.png" alt="The Print Preview window showing a finished Sheet with the Schematic and Annotation content and the Rubber Stamp" width="1132" height="787">
+      </figure>
+      <p>The Print Preview supports regular zoom in and out, and grab to pan gestures. From here we can print to a printer, or more usually to a PDF. That will be a regular PDF though, with no smart features like jump links or data pop-ups. Hence the option of <b>Smart PDF Export</b>, which we come to later.</p>
+    </li>
+  </ol>
+
+  <h2>Part 4: The Web Portal</h2>
+
+  <p>The Web Portal is the flagship output renderer included with a Pro licence of Control Circuit. It can produce a fully standalone HTML web page or, for larger projects, a full web site, of a single Sheet or the entire circuit.</p>
+
+  <p>Once in this format we have all the power of HTML5, CSS and JavaScript to leverage jump links, display options and colour rendering options, deep cross-Sheet search, data display panels and much more. The premium feature is full <b>Markup Mode</b>, where we can toss our traditional highlighter pens out and use &ldquo;virtual pens&rdquo; to mark off the circuit as it is assembled and wired in the shop.</p>
+
+  <h3>Destination and scope</h3>
+
+  <p>To get started choose <b>Publish</b> &rsaquo; <b>Web Publisher&hellip;</b></p>
+
+  <figure>
+    <img src="30.png" alt="The Web Publisher dialog on its Destination and Scope tab with the Export Format and Destination section outlined: Single HTML file, Multi-File Local Portal and Web Server Directory" width="646" height="585">
+  </figure>
+
+  <p>The most important section on the <b>Destination &amp; Scope</b> tab is the Export Format. There are three:</p>
+
+  <ul>
+    <li><b>Single HTML file.</b> Everything in one file. Handy to email, ideal for a small project.</li>
+    <li><b>Multi-File Local Portal.</b> A folder, for offline use or a USB stick, with no server needed.</li>
+    <li><b>Web Server Directory.</b> A folder of SVG assets, for a web server or intranet.</li>
+  </ul>
+
+  <p>Essentially all outputs are constructed the same way, but web browsers have limits. Some readily crash if a single HTML file with all its assets is over, say, 100&nbsp;MB. For this reason, depending on your project size, the Web Publisher will very robustly compel you to change output format at times. It is also a choice on your side, depending on the environment you want to publish to.</p>
+
+  <p>For an example of a 400+ Sheet project, here is the warning.</p>
+
+  <figure>
+    <img src="31.png" alt="A warning that exporting this many sheets into a single HTML file will exceed 100 MB, recommending the Multi-File Local Portal" width="585" height="213">
+  </figure>
+
+  <h3>Your first publish</h3>
+
+  <p>Without further ado, press <b>Publish</b> and let&rsquo;s see what we get out of the box. You should get a confirmation of completion quickly.</p>
+
+  <figure>
+    <img src="32.png" alt="The Web Publisher confirmation message reporting the portal was published" width="617" height="244">
+  </figure>
+
+  <p>Your default browser should open. We clicked in the navigation bar to the Sheet we have been working on; otherwise it starts at Sheet 1.</p>
+
+  <figure>
+    <img src="33.png" alt="The published Web Portal open in a browser, showing the Sheet with the tool bar across the top" width="1760" height="1209">
+  </figure>
+
+  <p>For a local help guide, tap the <b>?</b> at the top right end of the tool bar.</p>
+
+  <figure>
+    <img src="34.png" alt="The Web Portal's built in help panel open over the Sheet" width="962" height="909">
+  </figure>
+
+  <p>It is very comprehensive, and covers all the tools and their functions.</p>
+
+  <h3>Search and jump links</h3>
+
+  <p>Regardless of project size, the Search Bar will find matches and partial matches in every Sheet. For example:</p>
+
+  <figure>
+    <img src="35.png" alt="Search results listed in the Web Portal for a typed search" width="247" height="489">
+  </figure>
+
+  <p>Also, all Interruption Nodes, Contact Tables and cross references are live. Click on any of them and a target reticle will be displayed. If the target is on another Sheet you will be transported there first.</p>
+
+  <figure>
+    <img src="36.png" alt="A contact table cross reference clicked in the Web Portal, with a target reticle shown on the destination" width="443" height="376">
+  </figure>
+
+  <p>If you browse to Sheets which have a search target, marching ants are displayed around those targets.</p>
+
+  <figure>
+    <img src="36b.png" alt="Search targets on a Sheet outlined by marching ants" width="532" height="317">
+  </figure>
+
+  <div class="note"><b>Handy tip</b> To change the target reticle and marching ants colour, tap the <b>Jump:</b> colour button on the tool bar for choices.</div>
+
+  <h3>Markup Mode</h3>
+
+  <p>Once you have selected a marker pen you can start to mark off your circuit. This markup data is stored in the local browser.</p>
+
+  <figure>
+    <img src="37.png" alt="A wire highlighted in the current marker pen colour in the Web Portal" width="408" height="231">
+  </figure>
+
+  <p>At any time you can switch markers. Perhaps another team member is picking up the work, perhaps to denote a new session, or for rework and billing.</p>
+
+  <figure>
+    <img src="38.png" alt="The marker pen colour choices on the Web Portal tool bar" width="383" height="214">
+  </figure>
+
+  <div class="note"><b>Handy tip</b> The marker tools work for components too, not just wires. Click on a component symbol and a glow in the current pen colour is added.</div>
+
+  <h3>Original, Light and Dark modes</h3>
+
+  <p>Until now we have been looking at the render in Original mode.</p>
+
+  <figure>
+    <img src="39.png" alt="The Original, Light and Dark mode buttons on the Web Portal tool bar, with Original selected" width="177" height="43">
+  </figure>
+
+  <p>Let&rsquo;s try Dark mode.</p>
+
+  <figure>
+    <img src="40.png" alt="The Sheet rendered in Dark mode, with a dark background and light lines" width="1120" height="786">
+  </figure>
+
+  <p>As we used the default settings, images render well but have no theme compliance. Below is the default output for images in Dark mode, for example.</p>
+
+  <figure>
+    <img src="41.png" alt="A component image in Dark mode still showing its original light coloured background" width="508" height="375">
+  </figure>
+
+  <p>Instead, on the <b>Theme &amp; Styling</b> tab we can choose to set all images to <b>Grayscale</b>, or even transform them all to &ldquo;duo-tone&rdquo; with <b>Tinted to theme colors</b>, using the Dark and Light theme foreground and background colours we set.</p>
+
+  <figure>
+    <img src="42.png" alt="The Theme and Styling tab with the Images in Light/Dark drop down open: Original colors, Grayscale and Tinted to theme colors (BG/FG)" width="622" height="396">
+  </figure>
+
+  <p>With these settings:</p>
+
+  <figure>
+    <img src="43.png" alt="The Theme and Styling tab with a pale cyan background and navy foreground for the Light theme, a dark green background and pale green foreground for the Dark theme, and Tinted to theme colors selected" width="615" height="250">
+  </figure>
+
+  <p>We then get this in Light mode&hellip;</p>
+
+  <figure>
+    <img src="44.png" alt="The Sheet in Light mode with its images tinted navy on pale cyan, the light theme colours" width="567" height="396">
+  </figure>
+
+  <p>&hellip;and this in Dark mode.</p>
+
+  <figure>
+    <img src="45.png" alt="The Sheet in Dark mode with its images tinted pale green on dark green, the dark theme colours" width="555" height="410">
+  </figure>
+
+  <h3>Component data pop-up</h3>
+
+  <p>If you included the component BOM data in the publisher output, a single click on a Tag pops up the component data for the selected symbol, if it has any attached. If it has none, the message says so.</p>
+
+  <figure>
+    <img src="46.png" alt="A component data pop-up beside the clicked Tag 5S10E, listing Qty, Part Number, Manufacturer and Description, with N, M, L and XL size buttons in its title bar" width="402" height="394">
+  </figure>
+
+  <p>Use the <b>N</b> (Normal, as shown) to <b>XL</b> size buttons on the pop-up to enlarge it, right up to a full screen display that can be read across the room.</p>
+
+  <h3>Advanced Features</h3>
+
+  <p>On the <b>Advanced Features</b> tab we have some useful options that let us select what gets rendered, depending on the target audience.</p>
+
+  <p>A significant option is <b>Clear Browser Markup storage on first load</b>. Whilst markup can be cleared in the browser with the button provided (shown when the Eraser tool is selected), this option lets you force that clearance, taking away any reliance on the shop floor guys. It has multiple uses, including the issue of a revised circuit that needs to be started from scratch.</p>
+
+  <figure>
+    <img src="50.png" alt="The Advanced Features tab with the Clear Browser Markup storage on first load option outlined" width="642" height="581">
+  </figure>
+
+  <p>The second significant option is <b>Customer Review Only</b>. Ever lost a job because you sent too much detail? Reduce the doubt with this feature. It unticks and disables the technician markup highlighters and the component BOM data, so neither reaches the customer.</p>
+
+  <h3>Metadata</h3>
+
+  <p>Finally, the <b>Metadata</b> tab lets you embed information in the published portal, either as an HTML comment or as a JSON block. Type your own text and use tags such as <code>{project}</code>, <code>{revision}</code> or <code>{field:Name}</code> to have details filled in automatically when you publish. The tags <code>{timestamp}</code>, <code>{author}</code> and <code>{date}</code> are there too, and any tag the Publisher does not recognise is left as typed. The text can be up to 4,000 characters.</p>
+
+  <figure>
+    <img src="51.png" alt="The Metadata tab with the HTML Comment embed mode, some typed text containing tags, and the Quick Tags buttons below" width="644" height="583">
+  </figure>
+
+  <p>The method is to write your text, then tap one of the Quick Tags buttons to insert the relevant tag. Once published, right-click the page in the web browser and choose <b>View Page Source</b> (or similar) to see it.</p>
+
+  <figure>
+    <img src="52.png" alt="The browser's page source showing the metadata comment with the tags replaced by the project's real values" width="492" height="192">
+  </figure>
+
+  <div class="warn"><b>Visible to anyone</b> Metadata is plain text in the page source, so anyone with the portal can read it. Keep anything confidential out of it.</div>
+
+  <h3>Is the published portal safe?</h3>
+
+  <p>Web pages can contain hidden instructions as well as visible text. A malicious drawing could try to sneak those instructions in through something as ordinary as a label or a Sheet title. The Web Publisher converts the text from your drawing into harmless plain text before it goes into the page, so your browser shows it and never obeys it.</p>
+
+  <p>We do not just assume that works. Our automated tests play the attacker: they fill every text field in a project with deliberately hostile content, publish it, and check that the structure of the finished page is exactly what a clean project would produce, with nothing smuggled in. If a new text field is added to the software later, the tests attack it automatically.</p>
+
+  <h2>Part 5: Smart PDF</h2>
+
+  <p>The Smart PDF Export tool takes your circuit to the next level in PDF terms, with jump links and component data pop-ups. It includes pretty much the prime features of the Web Portal, but within the limits and format of PDF viewers.</p>
+
+  <p>To get started choose <b>Publish</b> &rsaquo; <b>Smart PDF Export&hellip;</b></p>
+
+  <figure>
+    <img src="60.png" alt="The Smart PDF Export dialog with destination path, sheet selection, layers and features to export, and a Target Link Action drop down set to Zoom and Center on Target (Fit Box)" width="489" height="498">
+  </figure>
+
+  <p>There are far fewer options to choose from here, as the PDF format itself drives the output. Select the layers as required, including Rubber Stamp.</p>
+
+  <p>The Cross-Reference Navigation (jump links) are not the most elegant thing in the world, a limitation of PDF, so experiment and see what works best for your needs.</p>
+
+  <p>Once you press <b>Export</b> you should get a confirmation.</p>
+
+  <figure>
+    <img src="61.png" alt="The Smart PDF Export dialog reporting the export completed" width="492" height="498">
+  </figure>
+
+  <p>Then your default viewer should open and display the result.</p>
+
+  <figure>
+    <img src="62.png" alt="The exported Smart PDF open in a PDF viewer" width="1441" height="853">
+  </figure>
+
+  <p>If you click on a Tag which has component data you should get a pop-up listing that information.</p>
+
+  <figure>
+    <img src="63.png" alt="A component data pop-up listing the details for a clicked Tag in the PDF" width="455" height="327">
+  </figure>
+
+  <div class="note"><b>Jump links</b> They work, but without the landing reticle. Instead the page zooms in and pans to the target to assist.</div>
+
+  <h2>Part 6: DXF Portfolio</h2>
+
+  <p>As we all know, there is a Bob in the future who will welcome discovering an electrical circuit in DXF format that he can open and modify with basic tools, to add some relay or lamp! Control Circuit provides the <b>DXF Portfolio</b> to output the Sheets into raw DXF format, as single files in a folder. There is no smartness here, just pure primitives in a file.</p>
+
+  <p>To get started choose <b>Publish</b> &rsaquo; <b>DXF Portfolio&hellip;</b></p>
+
+  <figure>
+    <img src="70.png" alt="The DXF Portfolio Export dialog with output folder, sheet selection, and layer options for the Border and Title Block and the Annotation Layer" width="488" height="408">
+  </figure>
+
+  <p>The options should be self-explanatory. The Schematic layer is always exported, and the Border and Annotation layers are your choice. There is no Rubber Stamp option because the stamp is not part of any one Sheet, it is the project wide Sheet 0 that other outputs overlay on each page, and the Portfolio is a plain set of drawings, one per Sheet.</p>
+
+  <div class="warn"><b>No images</b> Images are not exported, for maximum compatibility. That includes any component images you placed on the Annotation layer earlier in this chapter.</div>
+
+  <p>Tap <b>Export</b> when you are done.</p>
+
+  <figure>
+    <img src="71.png" alt="The DXF Portfolio Export dialog reporting the export completed" width="593" height="411">
+  </figure>
+
+  <p>Windows Explorer will then open to show the DXF files produced.</p>
+
+  <h2>What you just did</h2>
+  <ul class="recap">
+    <li>Recapped the three layers, <b>Schematic</b>, <b>Annotation</b> and <b>Rubber Stamp</b>, and how F2, F3 and F4 get you around them.</li>
+    <li>Used <b>Page Setup</b> and <b>Print Preview</b>, remembering to tick <b>Rubber Stamp</b>.</li>
+    <li>Published a <b>Web Portal</b> and met search, jump links, Markup Mode, Dark mode, image tinting, the Advanced Features and Metadata.</li>
+    <li>Exported a <b>Smart PDF</b> with jump links and component data pop-ups.</li>
+    <li>Output a <b>DXF Portfolio</b> for editing later in any CAD package.</li>
+  </ul>
+
+  <h2>Next</h2>
+  <p>We have covered the essentials of the Publisher Tools. In the next chapter we look at the remaining Pro licence feature, the Symbol Library PDF Export.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial contents</a> &middot; <a href="../../../">Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
