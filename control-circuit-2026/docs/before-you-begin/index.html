@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Before You Begin - Control Circuit 2026</title>
+  <link rel="icon" href="../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial/tutorial.css">
+  <style>
+    pre {
+      overflow-x: auto; padding: 0.8rem 1rem; font-size: 0.82rem; line-height: 1.5;
+      border: 1px solid var(--rule); border-radius: 6px; background: rgba(127, 127, 127, 0.08);
+    }
+    code { font-size: 0.92em; }
+  </style>
+</head>
+<body>
+  <p class="crumbs"><a href="../../">Control Circuit 2026</a> &rsaquo; Before You Begin</p>
+
+  <h1>Before You Begin</h1>
+  <p class="tagline">Two things worth knowing before you draw a single wire.</p>
+
+  <p>Most of what you will learn in the Tutorial is about <em>how</em> to use the program. These two are about something bigger: what happens to your work. They shape the whole design of Control Circuit, and they are the reason a project you finish today is still a project you can use in ten years&rsquo; time.</p>
+
+  <h2>1. Everything a Sheet needs lives in the Sheet</h2>
+
+  <div class="good"><span class="lead">No calling home</span> As you edit and save a Sheet, every symbol and all of its component data is embedded in it. Nothing is looked up later.</div>
+
+  <p>Picture it. It is some years from now. A customer rings: the plant needs a modification, and could you dig out the drawings? The symbol library you drew from has since been replaced. The component database was on a laptop that is long gone.</p>
+
+  <p>With Control Circuit, that does not matter. Open the project and every symbol is exactly as you left it, with its graphics, its pins and its Tag Seed. Every component still carries its part number, its manufacturer and its description. The Sheet already holds all of it, so there is nothing to go and find, and nothing to go missing.</p>
+
+  <p>That is why the program only offers actions such as <b>Update Selected Symbol from Library</b> as something <em>you</em> choose to do, when the library is still to hand and you want the newer version. Control Circuit will never quietly change an existing drawing because a library moved on underneath it.</p>
+
+  <div class="note"><b>What travels with the project</b> The project folder also carries its own copies of your Forms, your Wire Types and your Terminal Layouts. One thing is referred to by name rather than copied: the Border. The shipped Borders are always there, but if you have made a custom Border of your own, keep a copy of it alongside any project you archive.</div>
+
+  <p><b>What this means for you:</b> archive a finished project and you have archived the whole thing. Hand it to a colleague, or to a customer, and it opens the same on their machine as it did on yours.</p>
+
+  <h2>2. Plain text you can read, search and script</h2>
+
+  <div class="good"><span class="lead">Your data is yours</span> Every Sheet and Project is saved as plain, human readable XML. No proprietary container, and nothing you need our software to open.</div>
+
+  <p>XML (Extensible Markup Language) is just text with a clear structure. This is a small piece of a real Sheet, the embedded definition of a terminal symbol:</p>
+
+<pre>&lt;Symbol id="TERM_DECK3_6P_AB_MB_TB_V"
+        name="3-Deck Terminal A/MA/TA/TB/MB/B Vert"
+        category="Terminals" tagSeed="X"
+        componentType="Terminal Block"
+        librarySource="TERMS_BASIC"&gt;
+  &lt;BoundingBox width="5" height="30" y="-2.5" /&gt;
+  &lt;Pins&gt;
+    &lt;Pin id="A"  label="A"  x="0" y="0"  direction="West" /&gt;
+    &lt;Pin id="MA" label="MA" x="0" y="5"  direction="West" /&gt;
+    ...</pre>
+
+  <p>You can read it, and so can any tool you already own. That brings some real advantages.</p>
+
+  <ul>
+    <li><b>Use any text editor.</b> Search every Sheet for a part number. Find and replace a manufacturer name across a whole project. Fix a stray value directly in the source file when that is quicker than hunting for it in the program.</li>
+    <li><b>Use version control.</b> Because the files are plain text with one element per line, a tool such as Git can show you exactly what changed between two revisions of a Sheet, line by line. Your design history becomes something you can actually read.</li>
+    <li><b>Build your own reports.</b> The built in reports and forms cover the common needs. But your business may want something they do not offer: every manufacturer across all your projects, a cost roll-up by supplier, a list of every terminal on every panel you have ever built. With plain XML, a short script can find, collect and summarise exactly that, in the way that matters to you.</li>
+  </ul>
+
+  <div class="warn"><b>Edit a copy</b> Hand editing is powerful, and the program will not stop you from making a mistake in a file you changed yourself. Work on a copy, and keep your original safe until you have opened the result and checked it.</div>
+
+  <p><b>What this means for you:</b> you are never locked in. The information in your designs is always reachable, with or without Control Circuit.</p>
+
+  <h2>Ready?</h2>
+  <p>With those two ideas in mind, you are ready to start. <a href="../tutorial/">Begin the Tutorial</a>, or <a href="../installation/">go back to the installation guide</a> if you have not set up yet.</p>
+
+  <footer>
+    <p><a href="../../">Back to Control Circuit 2026</a></p>
+  </footer>
+</body>
+</html>
