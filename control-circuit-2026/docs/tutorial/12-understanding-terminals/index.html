@@ -26,7 +26,7 @@
   <p>As a control system or panel gets larger we usually start to include many terminal rails: perhaps a common 24VDC and a common 0VDC, Interconnection Wires, mains voltages, external safety signals and more. These rails can grow to many hundreds of terminals per bank, with designations like <b>-X1</b>, <b>-X2</b> or <b>-XMAIN</b>, where each individual connection point has an index number, like <b>-X1:12</b> and <b>-X1:13</b>. Just as a good design uniquely identifies every wire, it should uniquely define where each wire is connected to.</p>
 
   <figure>
-    <img src="01.jpg" alt="A photograph of a panel terminal rail with numbered white markers from 1 to 35 along a single row of grey terminal blocks, blue and multi-coloured wires with ferrules entering from above and below" width="624" height="447">
+    <img src="01.jpg" alt="A photograph of a panel terminal rail, with blue wires carrying numbered ferrules landing on grey multi-tier terminal blocks with white number markers and red bridging links" width="1000" height="750">
   </figure>
 
   <p>The Terminal function in Control Circuit lets you assign <b>Terminal Groups</b> (the rails), supports optional auto-numbering conventions, and decides whether or not a Terminal acts like a <b>boundary</b>, so that a wire number changes as it passes through that rail. There are many more options besides.</p>
@@ -86,7 +86,7 @@
       <h3>Mounting</h3>
       <p><b>Mounting</b> is Vertical or Horizontal. This is purely for how the Terminal List Form will construct and lay out the terminal list diagram, if you choose later to add such an output to your project. The layout builds an overview of the physical terminals and displays what wires are attached, or none, as the case may be. For example:</p>
       <figure>
-        <img src="06.png" alt="A terminal list drawing for rails -X3 and -X4: each terminal is a numbered block, with the wire and its destination listed on the A side to the left and the B side to the right, and n/c shown where nothing is attached" width="798" height="276">
+        <img src="06.png" alt="A terminal list drawing for rails -X3 and -X4: each numbered terminal block shows the wire and its destination on the A and TA side to the left, and on the B and TB side to the right, with branch and sheet references" width="913" height="272">
       </figure>
     </li>
 
@@ -155,7 +155,7 @@
       <figure>
         <img src="12.png" alt="The Terminal Numbering dialog, widened to show a Status column: the terminals to be renumbered are marked Renumber, but the last -X1 row is shown in red with dashes for its proposed number and tag, and the Status Incomplete" width="1069" height="562">
       </figure>
-      <p>As you see, we have an issue. The last row is shown in red, has no proposed number, and its <b>Status</b> reads <b>Incomplete</b>. It is simply because we have a four pole configuration, yet we are asking the engine to deal with six poles on the circuit: there is a tier missing. Go ahead and press <b>Apply</b> for now.</p>
+      <p>As you see, we have an issue. The last row is shown in red, has no proposed number, and its <b>Status</b> reads <b>Incomplete</b>, followed by the tier it needs. It is simply because we have a four pole configuration, yet we are asking the engine to deal with six poles on the circuit: there is a tier missing. Go ahead and press <b>Apply</b> for now.</p>
       <figure>
         <img src="13.png" alt="Three Terminal Nodes on the Sheet: the first two are labelled -X1:1 and carry poles X1, X2 and X3, X4, while the third has poles named TA and TB and no number" width="196" height="145">
       </figure>
@@ -181,11 +181,13 @@
 
   <div class="note"><b>Two nodes, one terminal</b> That is why -X1:1 appears twice above. A four pole terminal is two Terminal Nodes sharing one number, and it is by design.</div>
 
+  <div class="good"><span class="lead">Every tier needs something placed</span> Whenever a rail is declared with several tiers, such as a four pole <b>A/B,TA/TB</b>, every terminal position on it needs a Terminal Node or Terminal Instance for <em>each</em> of those tiers, or the engine cannot number that position. A six pole rail needs three tiers at every position, and so on. A single Terminal Instance that carries every pole in one symbol covers all of its tiers by itself, but Terminal Nodes carry one tier apiece.<br><br>If the circuit only uses one tier of a terminal, for example when the second deck is spare, drop a Terminal Node for the other tier onto the sheet, give it the same Group, and leave it unconnected. The engine is satisfied, and the terminal then appears in the Terminal List and Terminal Schedule, so the spare way is on record rather than forgotten.</div>
+
   <p>So we have covered the essence of how Terminal Groups and numbering work, hopefully enough insight to give you the gist of things. Next, we will see how to create a Terminal Instance from a symbol and include it in our project.</p>
 
   <h2>Part 4: Terminal Instances</h2>
 
-  <p>As mentioned, a Terminal Instance has its legs set by design, so we start with a regular symbol and design them in.</p>
+  <p>As mentioned, a Terminal Instance has its legs set by design, so we start with a regular symbol and design them in. The advantage here, by creating a symbol for our required terminal type, is that we can lay out the terminal as a visual representation of the real world device, and for our added convenience, we can also set the direction of the connection Pins to de-clutter our schematic.</p>
 
   <figure>
     <img src="16.png" alt="A six pole terminal symbol open in the Symbol Editor, with poles A, MA, TA, TB, MB and B, a Tag placeholder below it, and the symbol properties with the Tag Seed outlined: X, Terminal Block" width="520" height="554">
