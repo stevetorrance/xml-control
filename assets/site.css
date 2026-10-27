@@ -25,17 +25,14 @@ body {
   background: var(--bg);
 }
 
-/* Banner artwork has a light background baked in, so it sits on its own
-   white panel -- deliberate in dark mode rather than a floating white slab. */
+/* Banner artwork is a self-contained navy and gold panel, so it needs no
+   backing in either colour scheme. */
 .banner {
   display: block;
   width: 100%;
-  max-width: 30rem;
   height: auto;
-  background: #fff;
   border-radius: 10px;
-  padding: 0.5rem;
-  box-sizing: border-box;
+  box-shadow: 0 6px 18px rgba(8, 20, 50, 0.25);
 }
 
 .tagline {
