@@ -35,6 +35,24 @@ body {
   box-shadow: 0 6px 18px rgba(8, 20, 50, 0.25);
 }
 
+.shot {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+  margin: 1.5rem auto 0;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(8, 20, 50, 0.18);
+}
+
+.soon {
+  font-weight: 700;
+  font-style: italic;
+  color: #b45309;
+}
+@media (prefers-color-scheme: dark) { .soon { color: #f0a050; } }
+
 .tagline {
   color: var(--muted);
   margin-top: 0.75rem;
