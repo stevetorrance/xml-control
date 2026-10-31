@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Overview - SentinelSCADA</title>
+  <link rel="icon" href="../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../docs/tutorial/tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../">SentinelSCADA</a> &rsaquo; Overview</p>
+
+  <h1>SentinelSCADA Overview</h1>
+  <p class="tagline">A web-based SCADA platform. Build screens in your browser, run them on any device on your network.</p>
+
+  <h2>What it is</h2>
+  <p>SentinelSCADA runs as a background Windows service, managed from a tray application, and is used entirely through a web browser. There is no client software to install. Live tag data reaches the browser over a WebSocket, so screens update as the process does.</p>
+
+  <h2>Key ideas</h2>
+  <ul>
+    <li><b>Projects</b> &mdash; a self-contained SCADA configuration holding its screens, tags, device connections and security settings.</li>
+    <li><b>Tags</b> &mdash; named data points, such as a temperature, a valve state or a setpoint, bound to devices.</li>
+    <li><b>Screens</b> &mdash; the visual pages of your HMI, built in the web designer from gauges, trend charts, indicators and control panels.</li>
+    <li><b>Drivers</b> &mdash; connect to devices. Modbus TCP and the built-in AstroPLC (IEC 61131-3 Structured Text) are supported today.</li>
+    <li><b>Alarms</b> &mdash; high-high, high, low and low-low limits on any tag, with alarm banner and summary widgets for your screens. Operators acknowledge alarms in Run mode, and every acknowledgement is recorded in the audit trail.</li>
+    <li><b>Alarm dispatch</b> &mdash; a companion Telegram service takes alarms to people's phones. It messages whoever is on call from your shift rota, and operators can acknowledge with a tap. If nobody does within a time set by the alarm's severity, it escalates to the backup operator, then the manager, and an acknowledgement stops the escalation. It can also post to a shared group for awareness.</li>
+  </ul>
+
+  <h2>Security that scales</h2>
+  <ul>
+    <li><b>XML mode</b> &mdash; zero setup, for development and isolated networks.</li>
+    <li><b>SQLite mode</b> &mdash; an encrypted database with a tamper-evident audit trail, for production sites.</li>
+    <li><b>Keycloak mode</b> &mdash; enterprise sign-in with a cryptographically signed audit trail, for regulated industries.</li>
+  </ul>
+  <p>A project can be promoted to a stronger mode but never moved back down. Five roles (Anonymous, Guest, Operator, Engineer and Admin) control what each person can do.</p>
+
+  <h2>21 CFR Part 11 readiness</h2>
+  <p>In pharmaceuticals, biotech, medical devices and cosmetics, electronic records and signatures fall under Title 21 CFR Part 11. SentinelSCADA is built with those technical controls in mind, and ships a published statement that maps each Part 11 requirement to what the software does.</p>
+
+  <h3>Audit trail you can trust</h3>
+  <ul>
+    <li><b>Everything is recorded</b> &mdash; tag writes, logins, failed logins, user changes, configuration and recipe changes, security-tier changes, project switches and shutdown. Each entry holds who, when (UTC), what, the old and new value, the reason, and the signature status.</li>
+    <li><b>Append-only</b> &mdash; history is never overwritten. A correction is a new row, and the database itself refuses edits and deletes.</li>
+    <li><b>Tamper-evident</b> &mdash; each record is cryptographically chained to the one before it, so removing, reordering or truncating rows is detected. The server checks this at start-up and refuses to run if the audit database has been tampered with.</li>
+    <li><b>Can't be switched off</b> &mdash; in Keycloak mode the audit trail is always on.</li>
+  </ul>
+
+  <h3>Electronic signatures</h3>
+  <ul>
+    <li><b>Sign on the action</b> &mdash; tags can be marked as requiring a signature. The operator re-enters their password and gives a reason before the write happens.</li>
+    <li><b>Only the genuine owner</b> &mdash; the signer must be the logged-in user, so one operator can't sign as another.</li>
+    <li><b>Signature and record are bound</b> &mdash; the signed event is written as a single audit row inside the chain, so a signature can't be lifted onto another record.</li>
+    <li><b>Failed attempts are logged</b> &mdash; rejected signatures are recorded, with growing delays on repeated failures.</li>
+  </ul>
+
+  <h3>Access and safeguards</h3>
+  <ul>
+    <li><b>Server-side roles</b> &mdash; every state-changing request is checked against the user's role on the server, not just hidden in the browser.</li>
+    <li><b>Live data is gated too</b> &mdash; in Keycloak mode the live-values connection is refused to anyone not signed in, and closed if their session ends.</li>
+    <li><b>Write limits</b> &mdash; each writable tag can carry a minimum, maximum and step. Out-of-range values are rejected and logged, never silently clamped.</li>
+    <li><b>Sessions</b> &mdash; idle timeouts end the session, so the next signing needs a full sign-in. Kiosk mode suits locked-down operator terminals.</li>
+    <li><b>One-way security ratchet</b> &mdash; a project can't be quietly moved to a weaker security regime.</li>
+  </ul>
+
+  <h3>Honest about the boundaries</h3>
+  <p>The FDA does not certify software, so no vendor can honestly sell a &ldquo;Part 11 compliant&rdquo; product. SentinelSCADA provides the technical controls; compliance is achieved when you validate the installed system. Our statement says plainly which controls are in the software and which belong to you:</p>
+  <ul>
+    <li><b>Provided</b> &mdash; Operational Qualification test protocols to help with your validation.</li>
+    <li><b>Yours</b> &mdash; IQ/OQ/PQ on your installation, locking down the data folder, identity proofing, training and SOPs, backup and retention, and your predicate-rule requirements.</li>
+  </ul>
+  <p>For a regulated deployment, use <b>Keycloak mode</b> with HTTPS throughout. For home, non-regulated and other everyday scenarios, the XML and SQLite modes have you covered.</p>
+
+  <footer>
+    <p><a href="../">Back to SentinelSCADA</a></p>
+  </footer>
+</body>
+</html>

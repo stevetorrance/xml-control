@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Licensing - SentinelSCADA</title>
+  <link rel="icon" href="../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <style>
+    .crumbs { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .scroll { overflow-x: auto; margin: 1.2rem 0; }
+    table.matrix { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    table.matrix th, table.matrix td { padding: 0.5rem 0.65rem; border: 1px solid var(--rule); text-align: center; }
+    table.matrix th:first-child, table.matrix td:first-child { text-align: left; }
+    table.matrix thead th { background: rgba(31, 111, 178, 0.08); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+    table.matrix td:first-child { font-weight: 600; }
+    .fine { font-size: 0.88rem; color: var(--muted); }
+    .fine p { margin: 0.3rem 0; }
+    .edition { margin-top: 1.8rem; }
+    .edition h3 { margin-bottom: 0.2rem; }
+    .edition p { margin: 0.2rem 0 0.5rem; }
+    .edition ul { margin-top: 0.3rem; }
+    .edition li { margin-bottom: 0.25rem; }
+  </style>
+</head>
+<body>
+  <p class="crumbs"><a href="../">SentinelSCADA</a> &rsaquo; Licensing</p>
+
+  <h1>Licensing</h1>
+  <p class="tagline">SentinelSCADA offers a tiered licensing model tailored to different operational scales, from personal education to plant-wide industrial deployments.</p>
+
+  <h2>Summary matrix</h2>
+
+  <div class="scroll">
+    <table class="matrix">
+      <thead>
+        <tr><th>Capability / Limit</th><th>Evaluation</th><th>Home</th><th>Professional</th><th>Clipper</th><th>TradeWinds</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Max Tags</td><td>64</td><td>512</td><td>4,096</td><td>16,384</td><td>Unlimited</td></tr>
+        <tr><td>Max Active Drivers</td><td>4</td><td>8</td><td>64</td><td>128</td><td>240</td></tr>
+        <tr><td>Max Web Clients</td><td>1</td><td>4</td><td>16</td><td>64</td><td>Unlimited</td></tr>
+        <tr><td>XML &amp; SQLite DB</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Keycloak (CFR Part 11)&nbsp;&dagger;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Alarm Dispatcher&nbsp;*</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Commercial Use</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>PDF Watermark</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+        <tr><td>History Retention</td><td>7 days</td><td>30 days</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+        <tr><td>Session Runtime Limit</td><td>240 min</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fine">
+    <p>&dagger; Keycloak (CFR Part 11) mode requires Docker and Keycloak configuration. An IT professional will normally be required.</p>
+    <p>* Uses Telegram Messenger.</p>
+    <p>Clipper and TradeWinds Editions require appropriate server-rated hardware and setup for enterprise scaling and security.</p>
+  </div>
+
+  <h2>Evaluation mode</h2>
+  <p>By default, SentinelSCADA runs in <b>Evaluation mode</b> if no licence key is installed. Evaluation mode is fully functional for development and testing, with the following limits:</p>
+  <ul>
+    <li><b>Runtime limit</b> &mdash; a cumulative 240 minutes of Run and Kiosk mode time per server session. Once it expires, connected clients exit Run Mode and return to Design Mode. Restarting the server resets the timer.</li>
+    <li><b>Tags</b> &mdash; up to 64.</li>
+    <li><b>Drivers</b> &mdash; up to 4 active device drivers.</li>
+    <li><b>Web clients</b> &mdash; 1 concurrent connection.</li>
+    <li><b>History</b> &mdash; 7 days maximum.</li>
+    <li><b>Reports</b> &mdash; generated PDFs carry an Evaluation Mode watermark.</li>
+    <li><b>Security</b> &mdash; Keycloak (CFR Part 11) integration is not available; XML and SQLite modes only.</li>
+  </ul>
+
+  <h2>Licensed editions</h2>
+  <p>A valid licence key removes the session runtime restriction and unlocks operational capacity according to the edition.</p>
+
+  <div class="edition">
+    <h3>Home Edition</h3>
+    <p>For personal use, hobbyist projects and education.</p>
+    <ul>
+      <li>Up to 512 tags, 8 active device drivers and 4 concurrent web clients.</li>
+      <li>30 days of history.</li>
+      <li>Standard PDF reports, with no watermark.</li>
+      <li>XML and SQLite security modes.</li>
+    </ul>
+  </div>
+
+  <div class="edition">
+    <h3>Professional Edition</h3>
+    <p>The baseline tier for single machines and standard utility facilities. A solid step up from Home for growing deployments.</p>
+    <ul>
+      <li>Up to 4,096 tags, 64 active device drivers and 16 concurrent web clients.</li>
+      <li>Unlimited history.</li>
+      <li>Standard PDF reports, with no watermark.</li>
+      <li>XML and SQLite security modes. Keycloak support begins at Clipper.</li>
+    </ul>
+  </div>
+
+  <div class="edition">
+    <h3>Clipper Edition</h3>
+    <p>The high-performance tier, for large process lines and multi-system integration.</p>
+    <ul>
+      <li>Up to 16,384 tags, 128 active device drivers and 64 concurrent web clients.</li>
+      <li>Unlimited history.</li>
+      <li>Standard PDF reports, with no watermark.</li>
+      <li>All security modes: XML, SQLite and Keycloak (CFR Part 11).</li>
+    </ul>
+  </div>
+
+  <div class="edition">
+    <h3>TradeWinds Edition</h3>
+    <p>The enterprise tier, for large facilities and plant-wide control architectures.</p>
+    <ul>
+      <li>Unlimited tags, constrained only by the host hardware. Up to 240 active device drivers and unlimited concurrent web clients.</li>
+      <li>Unlimited history.</li>
+      <li>Standard PDF reports, with no watermark.</li>
+      <li>All security modes: XML, SQLite and Keycloak (CFR Part 11).</li>
+    </ul>
+  </div>
+
+  <p>A licence is hardware-locked to the host system. For licence transfers or requests, contact XML Control &mdash; Software &amp; Automation.</p>
+
+  <footer>
+    <p><a href="../">Back to SentinelSCADA</a></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 1: Getting Started - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 1</p>
+
+  <h1>Chapter 1: Getting Started</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Understand what SentinelSCADA is, how its two parts fit together, the security and display modes you will meet, and where to find help.
+    A short read, and nothing to install or prepare.
+  </div>
+
+  <p>SentinelSCADA is a web-server based SCADA/HMI solution built with simplicity in mind. It has the tools and features you would expect from a professional-grade SCADA application: screens, buttons, switches, animations, device drivers, tag-based data from real and simulated PLCs, a logic scripting tool (AstroPLC), alarms, a data historian, audit trailing, robust security and more. It is all laid out in a simple, and we hope intuitive, format that is a pleasure to use at every level of need, from home automation to production and industrial installations.</p>
+
+  <div class="warn"><b>Important</b> SentinelSCADA is a single-server installation. If you need fail-over and total redundancy for a highly critical application, please investigate the many excellent, well-established offerings in the automation space.</div>
+
+  <h2>System architecture</h2>
+
+  <p>The application has two parts: an ASP.NET web server back end running as a Windows Service on the host PC, and a browser-based front end, where all design and rendering take place. That can be a single local browser, or many clients connected over your LAN.</p>
+
+  <p>The two parts have very distinct purposes. The server side, and all of its configuration, is reached from a <b>tray icon</b>.</p>
+  <figure>
+    <img src="01.png" alt="The SentinelSCADA server tray icon menu" width="263" height="327">
+    <figcaption>The server tray icon menu.</figcaption>
+  </figure>
+
+  <p>The client side, meaning interface design and the per-project configuration, is all reached from your primary web browser: the one running on the server PC itself.</p>
+  <figure>
+    <img src="02.png" alt="The web client showing the New Project page" width="1621" height="983">
+    <figcaption>The web client, here at the start of a new project.</figcaption>
+  </figure>
+
+  <p>Every project has access control in the form of user accounts with roles such as Admin, Engineer and Guest. These roles are what permit design and configuration, the selective use of buttons and switches, and even whether the server may be switched to a different project, which is then loaded and served instead.</p>
+
+  <h2>Security modes</h2>
+
+  <p>The next most important idea is the security model, for both the server and its clients. SentinelSCADA has three modes of operational security. They are set <b>per project</b>, from the web client under <b>Security &gt; Security Settings&hellip;</b></p>
+  <figure>
+    <img src="03.png" alt="The Security menu with the Security Settings option" width="223" height="258">
+  </figure>
+
+  <ul>
+    <li><b>XML mode</b> &mdash; a simple text-based model for non-critical, already physically secured, or home use.</li>
+    <li><b>SQLite mode</b> &mdash; a step up. All user data, historian logs and so on are held in a relational database, with full encryption, tamper detection and audit trails.</li>
+    <li><b>Keycloak mode</b> &mdash; the top tier: secure single sign-on, full encryption, HTTPS, and everything needed for Title 21 CFR Part 11 readiness, as our documentation sets out. With Keycloak, SentinelSCADA does no authentication of its own; the Keycloak server handles all of it. That server may be cloud-based or, for on-premise convenience, run in a Docker container. A later chapter demonstrates such a setup.</li>
+  </ul>
+  <figure>
+    <img src="04.png" alt="The project security mode dialog" width="565" height="641">
+  </figure>
+
+  <h2>Display modes</h2>
+
+  <p>The SCADA interface has three basic display modes, and each has a profound effect on both the server and the client experience.</p>
+  <figure>
+    <img src="05.png" alt="The view modes menu offering Design, Run and Kiosk" width="210" height="170">
+  </figure>
+
+  <ul>
+    <li><b>Design Mode</b> &mdash; fully design and configure your project: screens, widgets, drivers, tags, alarms and so on. Any connected client sees a banner such as &ldquo;System in Design Mode&rdquo; so it is clear what state the system is in. Live and dummy tag data keep updating as you work.</li>
+    <li><b>Run Mode</b> &mdash; all the live working features become active: users logging in and out, data logging, and direct access to connected devices such as PLCs for binary and value commands and adjustments. The whole system is live. Connected clients see live screens and, according to their access rights, can adjust real-world values.</li>
+    <li><b>Kiosk Mode</b> &mdash; the mode intended for real-world use, including public spaces. All the design mechanisms are hidden and users get the pure interface as you intended it. They can navigate by the jump buttons and links you provided, watch trend charts, and see the alarm history and the active and acknowledged alarms. Users can still log in and out, using dedicated on-screen widgets, to gain access to controls. Alternatively, screens can also be auto-selected by a Tag value, or even rotated on a timed interval &mdash; requiring no intervention.</li>
+  </ul>
+
+  <div class="note"><b>Good to know</b> A project can be set to start straight into Kiosk Mode, and to require a user with Admin or Engineer status to leave it. That is one of the many options and settings available.</div>
+
+  <h2>Getting help</h2>
+
+  <p>As well as these tutorials, each part of the system has its own help. From the web client, choose <b>Help (User Guide)</b>. It is a thorough reference and is fully searchable.</p>
+  <figure>
+    <img src="06.png" alt="The User Guide displayed in the web client" width="984" height="646">
+  </figure>
+
+  <p>For the server service, choose <b>Help (Server Guide)</b> from the tray icon.</p>
+  <figure>
+    <img src="07.png" alt="The Help (Server Guide) entry on the tray icon menu" width="246" height="127">
+  </figure>
+
+  <p>It covers several important topics, including a Getting Started guide, alarm management with Telegram, Keycloak Docker setup and more, and it can also be searched by keyword.</p>
+  <figure>
+    <img src="08.png" alt="The Server Guide with its list of topics" width="1017" height="749">
+  </figure>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li>SentinelSCADA has a <b>server</b> (a Windows Service, managed from the tray icon) and a <b>web client</b> (where you design and run).</li>
+    <li>Security is set per project: <b>XML</b>, <b>SQLite</b> or <b>Keycloak</b>.</li>
+    <li>There are three display modes: <b>Design</b>, <b>Run</b> and <b>Kiosk</b>.</li>
+    <li>Help is in two places: <b>Help (User Guide)</b> in the client and <b>Help (Server Guide)</b> on the tray icon.</li>
+  </ul>
+
+  <p>That is a brief introduction to what SentinelSCADA is, some basic concepts, and how to find help. In the following chapters we will walk through setting up a project and touch on the most important aspects of getting from design to real-world application.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
