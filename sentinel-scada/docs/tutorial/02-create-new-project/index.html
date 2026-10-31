@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 2: Create a New Project - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 2</p>
+
+  <h1>Chapter 2: Create a New Project</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Start and stop SentinelSCADA properly, create a new project, find your way around the client, and build a first working screen: a gauge showing a value from the built-in Modbus Simulator.
+  </div>
+
+  <p>In this chapter we create a new project and set some basic parameters. Before we do that, we need to know how to start and stop SentinelSCADA.</p>
+
+  <h2>Part 1: Starting and stopping</h2>
+
+  <h3>Starting</h3>
+  <p>After installation with the Haggis Installer you will have a desktop shortcut to <b>SentinelLauncher</b>. It is critical that you start this app, and not SentinelServer.</p>
+  <figure>
+    <img src="01.png" alt="The SentinelLauncher desktop shortcut, not SentinelServer" width="245" height="184">
+  </figure>
+  <p>SentinelLauncher starts the tray icon process and, among other duties, manages SentinelServer: restarts, project switching and the like.</p>
+  <p>Once started, your default web browser opens at the localhost address and port you have configured. External clients on the local LAN must open a browser at the static IP address and port of the server PC.</p>
+
+  <h3>Stopping</h3>
+  <p>To stop the server, find the tray icon, right-click it and choose <b>Quit Sentinel Server</b>.</p>
+  <figure>
+    <img src="02.png" alt="The tray icon menu with the Quit Sentinel Server option" width="233" height="304">
+  </figure>
+  <p>What happens next depends on how the loaded project is configured, in particular its security mode (XML, SQLite or Keycloak). In a plain XML mode project, by default you are simply asked &ldquo;are you sure?&rdquo;. It may take a moment for the dialog to appear, as the Launcher has some checks to make first.</p>
+  <figure>
+    <img src="03.png" alt="The default shutdown confirmation dialog" width="474" height="535">
+  </figure>
+
+  <div class="warn"><b>Warning</b> Always use the SentinelLauncher tray options to start and stop the server. If you do not, orphaned SentinelServer and SentinelLauncher processes are left running in Windows, and they become very tricky to manage from then on.</div>
+
+  <p>Depending on how your project is set up, you may need to supply an Admin or Engineer credential to stop the server. In Keycloak mode, which is highly administered and audited, you must also supply a valid reason for the shutdown. That reason is cryptographically logged against your user name in a tamper-proof database, as part of the audit trail.</p>
+
+  <h2>Part 2: Where your projects live</h2>
+
+  <p>SentinelLauncher and SentinelServer run from Program Files, but your working data is stored in an <code>%APPDATA%</code> folder for the Windows account in use. That includes every project, with its sub-folders, that you create or import.</p>
+  <figure>
+    <img src="04.png" alt="The SentinelSCADA folder under the user's Roaming AppData, with the projects folder highlighted" width="761" height="399">
+  </figure>
+  <p>If you dig around you will find that the vast majority of the files are JSON, including project files, screen layouts and user settings. There are many security-related key files and plenty of SVG image files, and there will be some Structured Text (ST) logic files once you start using the relevant features. The only XML files relate to XML mode security.</p>
+
+  <h2>Part 3: Create a new project</h2>
+
+  <p>The first time you open the web client you will find the <b>default</b> project. This is an empty, blank template to get you started, and you are free to edit and build on it. Today we use it as the starting point for creating a new project, to see how the process works.</p>
+  <figure>
+    <img src="05.png" alt="The default project open in the browser, an empty screen" width="1621" height="984">
+  </figure>
+
+  <ol class="steps">
+    <li>
+      <h3>Choose New project&hellip;</h3>
+      <p>From the <b>Project</b> menu, choose <b>New project&hellip;</b></p>
+      <figure>
+        <img src="06.png" alt="The Project menu with the New project option" width="230" height="265">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Log in</h3>
+      <p>You are greeted with a log-in request. The <em>current</em> project (default) wants you to log in before you can proceed. You are not creating a login for the new project: you are showing that you have the authority to create a new project and unload the existing one, bearing in mind that other clients may be connected to it.</p>
+      <p>The default credentials are:</p>
+      <table class="three">
+        <tr><th>Username</th><th>Password</th></tr>
+        <tr><td>admin</td><td>admin</td></tr>
+        <tr><td>engineer</td><td>engineer</td></tr>
+        <tr><td>operator</td><td>operator</td></tr>
+        <tr><td>guest</td><td>guest</td></tr>
+      </table>
+      <p>Type <b>admin</b> for the Username and <b>admin</b> for the Password.</p>
+      <div class="warn"><b>Change these</b> These defaults belong to a new, XML mode project and are the same for everyone. They are fine for learning, but change them before any real deployment.</div>
+      <figure>
+        <img src="07.png" alt="The log-in dialog asking for an Admin or Engineer credential" width="463" height="363">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Name the project</h3>
+      <p>Be as creative as you like, but observe the character limits and conventions shown on the dialog. We are using <b>BoilerHouse</b>. A name is required, and the dialog tells you if it is missing.</p>
+      <figure>
+        <img src="08.png" alt="The New Project dialog with a message saying a project title is required" width="463" height="287">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Create &amp; Switch</h3>
+      <p>Press <b>Create &amp; Switch</b>. You are asked to confirm the intended action. If you press <b>Cancel</b> you go back to the naming dialog.</p>
+      <figure>
+        <img src="09.png" alt="The final confirmation before creating the project and switching to it" width="435" height="250">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Confirm the switch</h3>
+      <p>A browser pop-up now confirms that the new project will be loaded and that any clients will be disconnected, where one of those clients is you. Press <b>OK</b>.</p>
+      <figure>
+        <img src="10.png" alt="The browser pop-up saying the server will restart to load the new project, with one client connected" width="464" height="220">
+      </figure>
+      <div class="note"><b>Good to know</b> If you press <b>Cancel</b> at this point you stay on the <b>default</b> project, but the new project has already been created on disk.</div>
+      <p>The server runs through a lot of processes to make the switch.</p>
+      <figure>
+        <img src="11.png" alt="The switching to new project progress message" width="394" height="155">
+      </figure>
+    </li>
+  </ol>
+
+  <h3>Switching to another project later</h3>
+  <p>At any time, you can choose another project from <b>Project &gt; Select Project&hellip;</b></p>
+  <figure>
+    <img src="12.png" alt="The Select Project dialog listing the available projects" width="727" height="377">
+  </figure>
+  <p>If you are challenged for Admin or Engineer credentials&hellip;</p>
+  <figure>
+    <img src="13.png" alt="A message saying you must be logged in" width="458" height="180">
+  </figure>
+  <p>&hellip;choose <b>Security &gt; Log In&hellip;</b></p>
+  <figure>
+    <img src="14.png" alt="The Security menu with the Log In option" width="215" height="259">
+  </figure>
+  <p>Enter your credentials.</p>
+  <figure>
+    <img src="15.png" alt="The Admin credentials dialog" width="394" height="357">
+  </figure>
+  <p>Then try the switch again.</p>
+
+  <div class="note"><b>Security</b> After a switch, if you have closed the web browser, you must use SentinelLauncher to open the web client locally. This is a security feature, and one of the many purposes of SentinelLauncher.</div>
+  <figure>
+    <img src="16.png" alt="The reminder to open the browser from SentinelLauncher" width="392" height="91">
+  </figure>
+
+  <h2>Part 4: Find your way around</h2>
+
+  <p>One way or another, you should now have your new project open and ready to explore. At the top right of the client are the <b>status pills</b>:</p>
+  <ul>
+    <li>The <b>first</b> shows the current <b>Project \ Screen</b>. <em>default</em> is also the name of the first screen loaded whenever a project is loaded, whether for editing or for automated, real-world use.</li>
+    <li>The <b>second</b> shows the <b>user name and authority level</b> of the current user.</li>
+    <li>The <b>third</b> shows the <b>link status</b> between the client and the ASP.NET server. It tells you that the server is reachable, not the state of any device.</li>
+  </ul>
+  <figure>
+    <img src="17.png" alt="The three status pills: BoilerHouse \ default, admin (Admin), and SERVER ONLINE" width="487" height="69">
+  </figure>
+
+  <h3>View modes</h3>
+  <p>By default we are in Design Mode. As in Chapter 1, Design Mode is for everything to do with design and configuration, Run Mode is live working with ready access to all the tools, and Kiosk Mode is the full-flight, public-facing presentation for the real world. You change modes from the <b>View</b> menu.</p>
+  <figure>
+    <img src="18.png" alt="The View menu offering Design, Run and Kiosk modes" width="221" height="172">
+  </figure>
+
+  <div class="warn"><b>Do not choose Kiosk Mode yet</b> Kiosk Mode locks the display, and at this point you have no way back. The only way out is to stop the server from the tray icon, close the browser and restart everything. We put that right in the next chapter.</div>
+
+  <h3>The Toolbox</h3>
+  <p>A SCADA/HMI project is made up of screens, widgets, drivers and data, user and security configuration.</p>
+  <p>On the left is the <b>Toolbox</b>. Its sections group widgets by function. A widget is simply a control you drag from the Toolbox onto a screen, then configure in the <b>Properties Panel</b> on the right. Clicking a section closes the others and lists the widgets it holds.</p>
+  <figure>
+    <img src="19.png" alt="A Toolbox section expanded, listing its widgets" width="268" height="743">
+  </figure>
+  <p>There are a lot of widgets, with a lot of settings. Type any widget name into the help system search bar for detailed information about it and its settings.</p>
+  <p>To place a widget, drag it onto the screen. We will use a <b>Gauge</b>.</p>
+  <figure>
+    <img src="20.png" alt="A Gauge widget dragged onto the screen" width="539" height="296">
+  </figure>
+  <p>With the gauge selected, the Properties Panel shows collapsible sections that group related settings. The most important basic properties are <b>LABEL</b> and <b>DATA TAG BIND</b>.</p>
+  <figure>
+    <img src="21.png" alt="The primary properties of the gauge, including Label and Data Tag Bind" width="286" height="513">
+  </figure>
+  <p>The label is what is displayed beside the widget, if anything. The default here is &ldquo;GaugeWidget&rdquo;; you could change it to &ldquo;LPHW Flow Temp&rdquo; or anything else that conveys the gauge's purpose. The label is a useful reference for you, the designer. However, once a widget has been bound to a Tag, the Tag name replaces that text, if you entered any.</p>
+  <p>The Data Tag Bind is the value the gauge displays. It can come from the built-in Modbus Simulator, a real Modbus device, or another networked source set up in the driver configuration. Let's go and get a source value.</p>
+
+  <h2>Part 5: Set up the Modbus Sim driver</h2>
+
+  <p>With no hardware attached, you can still set up and test a SentinelSCADA project. A comprehensive Modbus device simulator is included, with an array of self adjusting values (both ramping and random), and also a user-adjustable range of binary, word, double-word and floating-point values.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Open Device/Tag Setup</h3>
+      <p>From the <b>System</b> menu choose <b>Device/Tag Setup&hellip;</b></p>
+      <figure>
+        <img src="22.png" alt="The System menu with the Device/Tag Setup option" width="216" height="138">
+      </figure>
+      <p>With no devices or tags yet, our new project's dialog looks like this.</p>
+      <figure>
+        <img src="23.png" alt="The empty Device/Tag Setup dialog" width="865" height="480">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Add a device</h3>
+      <p>Press <b>+ Add Device</b>. In the dialog that opens, choose <b>Modbus SIM</b> from the <b>DRIVER TYPE</b> list.</p>
+      <figure>
+        <img src="24.png" alt="The DRIVER TYPE list with Modbus SIM chosen" width="831" height="334">
+      </figure>
+      <p>The device settings change to show the options for Modbus SIM.</p>
+      <figure>
+        <img src="25.png" alt="The Modbus SIM device options" width="834" height="398">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Save with the starter tags</h3>
+      <p>Leave <b>Add Example Starter Tags</b> ticked and press <b>Save Device</b>.</p>
+      <figure>
+        <img src="26.png" alt="The confirmation that the example starter tags were added" width="500" height="221">
+      </figure>
+      <p>The dialog now shows the 16 tags that were added. They are a mix of tags that change on their own, such as values that ramp up and down and binaries that toggle between 1 and 0, which give you test values. There are also user values that you can set, perhaps with a Knob widget, and read back with a Gauge. The options are extensive and well rounded to help you design your project.</p>
+      <figure>
+        <img src="27.png" alt="The Device/Tag Setup dialog showing the new device and its tags" width="858" height="673">
+      </figure>
+      <p>A unique Device ID has been assigned. This safeguards against duplicate device names, even for different devices. For now, we focus on the simulated <b>Boiler_Temp</b> value.</p>
+      <figure>
+        <img src="28.png" alt="The Boiler_Temp tag in the list" width="810" height="88">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Reload the SCADA engine</h3>
+      <p>Press <b>Close &amp; Reload SCADA Engine</b>. This reloads the driver system and the data system, and updates every list that needs to know about the new device and tags. A message confirms success.</p>
+      <figure>
+        <img src="29.png" alt="The message confirming the SCADA engine was reloaded" width="463" height="165">
+      </figure>
+    </li>
+  </ol>
+
+  <h2>Part 6: Bind the gauge to the tag</h2>
+
+  <p>Finally, bind the simulated tag value to the gauge. Select the gauge, then in its properties open the <b>Data Tag Bind</b> list and choose <b>Boiler_Temp</b>.</p>
+  <figure>
+    <img src="30.png" alt="The Data Tag Bind list with Boiler_Temp being chosen" width="290" height="162">
+  </figure>
+  <p>The gauge label updates at once and the value starts changing. It keeps updating, as the Modbus SIM engine regenerates the value continuously.</p>
+  <figure>
+    <img src="31.png" alt="The gauge now labelled Boiler_Temp and showing a live value" width="211" height="199">
+  </figure>
+
+  <div class="warn"><b>Save the screen now</b> At this point you must save the screen with <b>File &gt; Save Screen</b> before doing anything else. Edits are lost if you jump into another display mode or switch screens.</div>
+  <figure>
+    <img src="32.png" alt="The File menu with Save Screen" width="208" height="262">
+  </figure>
+  <p>The screen save is confirmed to you.</p>
+  <figure>
+    <img src="33.png" alt="The message confirming the screen was saved" width="457" height="158">
+  </figure>
+
+  <div class="note"><b>Labels and tags</b> A label that is not bound shows your own text. Once a widget is data bound, it shows the <em>tag name</em> in Design and Run Modes. That is deliberate: as you build, you can see which tag is assigned to each widget. In Kiosk Mode that information is not shown. You place a text label for whatever you want your audience to read.</div>
+  <figure>
+    <img src="34.png" alt="The screen as it appears in Kiosk Mode, without tag names" width="1044" height="328">
+  </figure>
+
+  <p>If you did choose <b>View &gt; Kiosk Mode</b>, you are locked into the display with no way back, as described earlier. Stop the server from the tray icon, close the browser and restart everything. We sort that out in the next chapter.</p>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li>Always start and stop with <b>SentinelLauncher</b> and its tray icon, never SentinelServer directly.</li>
+    <li>Projects live in your Windows <code>%APPDATA%</code> folder, mostly as JSON files.</li>
+    <li><b>Project &gt; New project&hellip;</b> needs an Admin or Engineer log-in, to unload the current project.</li>
+    <li>The status pills show the project and screen, the current user, and the server link.</li>
+    <li>Widgets go on a screen from the <b>Toolbox</b> and are configured in the <b>Properties Panel</b>.</li>
+    <li>The Modbus SIM driver gives you working test tags, with no hardware.</li>
+    <li>Save the screen with <b>File &gt; Save Screen</b> before changing mode or screen.</li>
+  </ul>
+
+  <p>We have created a starter project, added a gauge, and bound it to a tag from a Modbus Simulator that we also added. In the next chapter we add a Session Panel widget, which lets people log in to the project and in turn lets us leave Kiosk Mode on demand.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
