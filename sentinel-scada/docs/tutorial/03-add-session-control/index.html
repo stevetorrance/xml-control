@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 3: Add Session Control - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 3</p>
+
+  <h1>Chapter 3: Add Session Control</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Add a Session Panel widget so people can log in, log out and leave Kiosk Mode, then take a first look at the security settings.
+  </div>
+
+  <p>In the previous chapter we saw that we can switch our screen from Design Mode to Kiosk Mode, but that there was no way to exit that mode. We can switch between Design and Run and back again, because the menu bar remains visible. In Kiosk Mode it does not. So, we have a multi-purpose widget for that: the <b>Session Panel</b>.</p>
+
+  <h2>Part 1: Make some floor space</h2>
+
+  <p>First though, let's continue with our BoilerHouse project and make some room. Select, or multi-select, the top and bottom Text Widgets and press <kbd>Del</kbd>. Alternatively, when more than one widget is selected the Properties Panel shows a <b>GROUP SELECTION</b> section: press the <b>Delete Selection</b> button there.</p>
+  <figure>
+    <img src="01.png" alt="Two Text Widgets selected, with the Delete Selection button highlighted in the Group Selection section of the Properties Panel" width="1303" height="659">
+  </figure>
+  <p>After this we could move and resize the BoilerHouse banner too.</p>
+
+  <h2>Part 2: Add the Session Panel widget</h2>
+
+  <p>From the Toolbox, expand the <b>Controls</b> section, then select and drag a <b>Session Panel</b> widget onto the screen.</p>
+  <figure>
+    <img src="02.png" alt="The Session Panel widget dragged from the Controls section of the Toolbox onto the screen" width="608" height="355">
+  </figure>
+
+  <p>Without further ado, choose <b>View &gt; Kiosk Mode</b>. Instantly we have two features available as buttons on the Session Panel:</p>
+  <ul>
+    <li><b>Log in</b>: with this we can literally log in at any of the user levels.</li>
+    <li><b>Exit Kiosk</b>: with which we can exit back into Design Mode.</li>
+  </ul>
+  <figure>
+    <img src="03.png" alt="The Session Panel in Kiosk Mode, showing Not logged in with Log in, Log out and Exit Kiosk buttons" width="254" height="218">
+  </figure>
+  <p>If the Exit Kiosk button label looks truncated, simply widen the Session Panel widget.</p>
+
+  <p>Tap the <b>Exit Kiosk</b> button.</p>
+  <figure>
+    <img src="04.png" alt="The Exit Kiosk Mode confirmation: Are you sure to exit Kiosk Mode? Yes or No" width="398" height="210">
+  </figure>
+
+  <p>You will notice that you have not been asked to authenticate your user role. That is simply because this is a new XML mode project, and we have not set a switch to require any authentication.</p>
+
+  <div class="note"><b>Note</b> The intention with SentinelSCADA is to give you a frictionless start. In due course, and as your needs demand, we can enforce authentication for just about every aspect of the interface, all the way to Keycloak Mode, which has no wiggle room for untracked or uncontrolled behaviour.</div>
+
+  <p>For now, press <b>Yes</b> and we are back in Design Mode.</p>
+
+  <p>If you select the Session Panel and browse the Properties Panel you will see a good range of options to customise this widget.</p>
+  <figure>
+    <img src="05.png" alt="The Properties Panel for the Session Panel widget" width="586" height="816">
+  </figure>
+  <p>We can readily create users, manage passwords, assign roles, even add avatars for all users under the <b>Security &gt; User Management&hellip;</b> option. That is a subject for a later chapter.</p>
+
+  <div class="warn"><b>Save the screen now</b> Save the screen with <b>File &gt; Save Screen</b> before going any further. Should you subsequently log in, the system treats this as a new session, and the screen is reloaded, discarding any unsaved edits.</div>
+  <p>Should you have any pending edits, an orange dot displays after the screen name at the top of the window.</p>
+  <figure>
+    <img src="06.png" alt="The project and screen status pill, BoilerHouse \ default, with an orange dot showing unsaved edits" width="214" height="62">
+  </figure>
+
+  <h2>Part 3: Security settings</h2>
+
+  <p>We should have a quick look at the security settings for orientation. Choose <b>Security &gt; Security Settings&hellip;</b> and you are presented with a dialog with three tabs.</p>
+
+  <h3>Security Level</h3>
+  <figure>
+    <img src="07.png" alt="The Security Settings dialog, Security Level tab, offering XML, SQLite and Keycloak with XML (Standard) current" width="563" height="640">
+  </figure>
+  <p>The first tab, <b>Security Level</b>, holds the security mode. Essentially you can only ever ratchet up the mode. You can never roll back, so choose carefully when the extra security of a higher mode becomes essential.</p>
+  <div class="warn"><b>Before Keycloak</b> Before choosing Keycloak Mode you must do all the required Keycloak setup (Docker container, configuration and so on) beforehand, or your project will be trapped in no man's land.</div>
+
+  <h3>Authentication &amp; Timeout</h3>
+  <p>Select the second tab, <b>Authentication &amp; Timeout</b>.</p>
+  <figure>
+    <img src="08.png" alt="The Authentication and Timeout tab, with the Require Login checkbox, inactivity timeouts per role, and the message that a valid Administrator session is required" width="568" height="885">
+  </figure>
+  <p>Here we find the <b>Require Login (Authentication)</b> checkbox, which is unticked by default. This is the switch we referred to earlier. Once ticked, users must be logged in to do certain things, for example, exit Kiosk Mode.</p>
+  <p>Below it, <b>Enable Inactivity Timeout</b> (which requires Authentication to be enabled) manages how long each role can remain logged in before being logged out after a period of inactivity. The defaults are:</p>
+  <table class="three">
+    <tr><th>Role</th><th>Timeout (minutes)</th></tr>
+    <tr><td>Admin</td><td>15</td></tr>
+    <tr><td>Engineer</td><td>60</td></tr>
+    <tr><td>Operator</td><td>15</td></tr>
+    <tr><td>Guest</td><td>30</td></tr>
+  </table>
+  <p>Each can be adjusted to suit your site. The third tab, <b>Logging &amp; Audit</b>, is covered in a later chapter.</p>
+
+  <h3>Logging in to change settings</h3>
+  <p>One final note is the message at the bottom of the dialog: &ldquo;A valid Administrator session is required to modify security configurations. Please log in.&rdquo; As we saw in the previous chapter, the default user name <b>admin</b> with password <b>admin</b> will let you apply these settings.</p>
+  <div class="warn"><b>Change these</b> Be sure to change these defaults before putting a system into production.</div>
+  <p>To do this, close the Security dialog and be sure you have saved any screen changes. Then choose <b>Security &gt; Log In&hellip;</b>, log in, and return to the Security Settings dialog, where you will find all controls and buttons enabled.</p>
+  <p>As an aside, if you did go and log in as Admin you may have noticed the Session Panel widget has updated accordingly. It shows the logged-in user and role, and only <b>Log out</b> remains active. The <b>Log in</b> and <b>Exit Kiosk</b> buttons are greyed out.</p>
+  <figure>
+    <img src="09.png" alt="The Session Panel showing admin with the Admin role, with only the Log out button active" width="231" height="206">
+  </figure>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li>The <b>Session Panel</b> widget (Controls section of the Toolbox) lets people log in and out and exit Kiosk Mode back into Design Mode.</li>
+    <li>In a new XML mode project no authentication is enforced, so <b>Exit Kiosk</b> only asks &ldquo;are you sure?&rdquo;.</li>
+    <li>Save the screen with <b>File &gt; Save Screen</b> before logging in. A log-in starts a new session and reloads the screen.</li>
+    <li>An orange dot after the screen name means there are unsaved edits.</li>
+    <li><b>Security &gt; Security Settings&hellip;</b> holds the security level (raise only, never lower) and the <b>Require Login</b> and inactivity timeout settings.</li>
+    <li>Changing security settings needs a valid Administrator session: log in first with <b>Security &gt; Log In&hellip;</b>.</li>
+  </ul>
+
+  <p>In this chapter we have introduced the widget that lets your users log in and out of the running SCADA application, and exit Kiosk Mode back into Design Mode. In the real world you would tightly control these features, especially if the SCADA is public facing in a factory or concourse environment. We have other tools and features to help you build the granular access control you need, which we will look at in due course.</p>
+  <p>In the next chapter we show you how to set up screen defaults and choose a colour theme for your system.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
