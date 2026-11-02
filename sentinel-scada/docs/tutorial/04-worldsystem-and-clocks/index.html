@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 4: WorldSystem and Clocks - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 4</p>
+
+  <h1>Chapter 4: WorldSystem and Clocks</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Add the WorldSystem driver, then use a Clock widget as a real-time clock in any time zone, and as a count up or count down timer, while learning why the Tag data type matters.
+  </div>
+
+  <p>SentinelSCADA includes a comprehensive MODBUS/TCP driver for the most common connection to many PLCs and similar hardware I/O devices, and a MODBUS Simulator with a pre-selection of automated and user set values for immediate testing of your screen widgets. It also includes an IEC 61131-3 Ed.2 Structured Text logic engine in the form of the included AstroPLC, with which you can perform any logic, calculation or other PLC type functionality. And finally, for hardware abstraction of server PC values such as Date, Time, Calendar, CPU Load and other such values, there is the <b>WorldSystem</b> driver.</p>
+
+  <p>What combination of drivers you choose is entirely up to your project needs. If you want to display the server's Date or Day of Week, or drive a Clock widget from the real time, then WorldSystem is for you. (A Clock widget used as a timer needs only a numeric tag, from any driver.)</p>
+
+  <p>This chapter details the process of setting that up, and points out the importance of using the correct Tag data types in different scenarios.</p>
+
+  <h2>Part 1: Add the WorldSystem driver</h2>
+
+  <p>We return to our BoilerHouse project as a reference.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Open Device/Tag Setup</h3>
+      <p>From the <b>System</b> menu choose <b>Device/Tag Setup&hellip;</b>, then in the dialog that follows press <b>+ Add Device</b>.</p>
+      <figure>
+        <img src="01.png" alt="The Device/Tag Setup dialog with the Add Device button" width="864" height="253">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Choose WorldSystem</h3>
+      <p>In the <b>DRIVER TYPE</b> drop down select <b>WorldSystem</b>.</p>
+      <figure>
+        <img src="02.png" alt="The DRIVER TYPE drop down with WorldSystem chosen" width="788" height="196">
+      </figure>
+      <p>Once an internal driver such as WorldSystem has been added it cannot be added again. External drivers, such as MODBUS TCP, can be added as many times as your licence permits.</p>
+      <div class="note"><b>Note</b> An OPC UA driver is on the horizon, and will be fully included once it becomes available.</div>
+    </li>
+
+    <li>
+      <h3>Name it and keep the starter tags</h3>
+      <p>The dialog adapts to the driver type. Give the new driver a useful <b>Name</b>, and be sure to leave <b>ADD EXAMPLE STARTER TAGS</b> ticked. This is important.</p>
+      <figure>
+        <img src="03.png" alt="The WorldSystem device named World with Add Example Starter Tags ticked" width="794" height="228">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Save the device</h3>
+      <p>Press <b>Save Device</b>. A message confirms that the starter tags have been added.</p>
+      <figure>
+        <img src="04.png" alt="The confirmation that the example starter tags were added" width="489" height="210">
+      </figure>
+      <p>If you scroll down in the lower Tags section you will see the new tags appended.</p>
+      <figure>
+        <img src="05.png" alt="The new WorldSystem tags, including DateTime.Local and DayOfWeek, highlighted in the Tags list" width="836" height="308">
+      </figure>
+    </li>
+  </ol>
+
+  <div class="note"><b>Mind the tag type</b> Take a moment to look at the type shown in square brackets after each tag. <code>DateTime.Local</code> and <code>DayOfWeek</code> are <b>[String]</b> tags: text, ready formatted for display. They are ideal for a Data Label widget, but a Clock widget cannot use them. A Clock needs a plain number, and for that we have the <code>UnixEpoch</code> tag, which we meet shortly. Choosing the right tag data type for the job is a theme you will meet again and again in SentinelSCADA.</div>
+
+  <p>For a full list of the WorldSystem tags, see the World System Driver topic in the built-in help.</p>
+
+  <p>Press <b>Close &amp; Reload SCADA Engine</b> to restart the driver system and make all tags available. There is a confirmation pop-up.</p>
+  <figure>
+    <img src="06.png" alt="The message confirming the SCADA engine was reconfigured" width="453" height="150">
+  </figure>
+
+  <h2>Part 2: Add a Clock widget</h2>
+
+  <p>From the Toolbox, expand the <b>Display &amp; Data</b> section, then select the <b>Clock</b> and drag it onto the screen. (It is dropped on top of the gauge here, but we will move it afterwards.)</p>
+  <figure>
+    <img src="07.png" alt="A Clock widget dragged onto the screen, on top of the gauge" width="588" height="308">
+  </figure>
+
+  <p>The Clock widget has various settings and functionality beyond a simple clock face.</p>
+
+  <p>You will notice that, without any configuration, it should already be displaying your local time. This is the first <em>fall back</em>: in the absence of any other setting, just use the local time, which might be all you need. The same fall back applies to the Time Zone setting, as we shall see.</p>
+
+  <p>Move the clock to the top right of the screen and select it. Let's look at its properties, which will also show us generally how widget properties are arranged.</p>
+  <figure>
+    <img src="08.png" alt="The Properties Panel for a new Clock widget, showing Identification and Binding with Data Tag Bind set to None" width="575" height="580">
+  </figure>
+
+  <h2>Part 3: Bind the clock to UnixEpoch</h2>
+
+  <p>The clock needs a numeric value for its data source, whether you use it as a traditional clock or as a timer display. The value must be a number representing <b>seconds</b>.</p>
+
+  <p>When using it as a regular clock, that value should be the <b>UnixEpoch</b>: the number of seconds since 00:00:00 UTC on Thursday, 1 January 1970. The relevance is that, no matter what time zone you may be representing, that value is the same, on this day, at this moment, everywhere. That in turn makes it easy for us to apply a time zone.</p>
+
+  <p>For example, say you want a screen that looks like the traditional three clocks showing the time in New York, London and Tokyo. Add three clocks, bind them all to UnixEpoch, set the three different time zones, and you are done.</p>
+  <figure>
+    <img src="09.png" alt="A world map with three analogue clocks labelled New York, London and Tokyo" width="971" height="610">
+    <figcaption>A sample screen, not part of our BoilerHouse project, but built from exactly these steps.</figcaption>
+  </figure>
+
+  <p>Firstly then, select <b>UnixEpoch</b> from our WorldSystem driver as the bound tag.</p>
+  <figure>
+    <img src="10.png" alt="Data Tag Bind set to UnixEpoch (WorldSystem:14)" width="285" height="311">
+  </figure>
+
+  <h2>Part 4: Set a time zone</h2>
+
+  <p>Next, assuming we want to set a specific time zone, expand the <b>Geometry &amp; Limits</b> section and find the <b>TIME ZONE (IANA)</b> textbox. Here we put a specific location, using a place name rather than abbreviations such as EST or BST. For example <code>America/New_York</code>, <code>Europe/London</code> and <code>Asia/Tokyo</code>. A valid example looks like this:</p>
+  <figure>
+    <img src="11.png" alt="The Time Zone box containing Europe/London" width="283" height="90">
+  </figure>
+
+  <p>If the textbox is left blank, the clock uses the local time of the browser it is displayed in: the fall back again.</p>
+
+  <div class="note"><b>Info</b> For a master list of locations visit the <a href="https://www.iana.org/time-zones" target="_blank" rel="noopener">Internet Assigned Numbers Authority (IANA) Time Zone Database page</a>.</div>
+
+  <p>If, by chance, you enter an invalid location, for example <code>Arizona/Tombstone</code>, you are cautioned with an exclamation mark on the clock itself.</p>
+  <figure>
+    <img src="12.png" alt="A clock showing a red exclamation mark, with the invalid time zone Arizona/Tombstone in the Properties Panel" width="549" height="256">
+  </figure>
+
+  <h2>Part 5: Display modes and timer mode</h2>
+
+  <p>The clock widget has two display modes: clock face <b>Analogue</b>, and LED style <b>Digital</b>. Simply select the <b>DISPLAY MODE</b> you need.</p>
+
+  <p>When the clock's data tag is a PLC integer, the clock can act as a count down or count up timer display. For this, any numeric tag that counts seconds will do: for example, a <code>UserWord</code> register from the Modbus Simulator, as used here, or a register your PLC logic increments once a second.</p>
+  <figure>
+    <img src="13.png" alt="A digital clock showing 00:00:20, with Show Seconds and Timer Mode Display ticked" width="582" height="330">
+  </figure>
+
+  <p>Normally we need to tick <b>Show Seconds</b> and <b>Timer Mode Display</b> as a minimum for this effect.</p>
+
+  <div class="warn"><b>Timer Mode</b> If you do not set Timer Mode Display, an offset is added (one hour for London, because the UK was on British Standard Time all year round in 1970, the epoch's year), as the clock still thinks it is referring to a time zone. You can also defeat this by setting the time zone to <code>UTC</code>. With Timer Mode Display set, the TIME ZONE setting is simply ignored and the value is shown as a plain count of seconds.</div>
+
+  <p>The <b>Show Numerals</b> and <b>Show AM/PM</b> options are for analogue clocks. <b>7-Segment Style</b> and <b>Ghost Unlit Segments</b> are for digital displays.</p>
+  <figure>
+    <img src="14.png" alt="The Digital display options: Show Numerals, Show AM/PM, 7-Segment Style and Ghost Unlit Segments" width="808" height="160">
+  </figure>
+
+  <p>As with most widgets, the <b>Styling &amp; Appearance</b> section offers a multitude of customisation settings for titles, locations, fonts, sizes and colours.</p>
+  <figure>
+    <img src="15.png" alt="The Styling and Appearance section of the Clock properties" width="278" height="821">
+  </figure>
+
+  <div class="warn"><b>Save the screen</b> Whenever there are changes to a screen, the orange dot, which we met in the last chapter, is there to remind us to use <b>File &gt; Save Screen</b>.</div>
+  <figure>
+    <img src="16.png" alt="The screen status pill with an orange dot showing the screen needs saving" width="510" height="66">
+  </figure>
+  <p>For the most part the system will try to help us not to accidentally leave a screen with unsaved changes, but good practice helps too.</p>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li>The <b>WorldSystem</b> driver gives us the server's date, time and other values as tags. Add it with the example starter tags.</li>
+    <li>Mind the tag type: <b>String</b> tags such as <code>DateTime.Local</code> suit a Data Label, while a Clock needs a numeric tag, <code>UnixEpoch</code> for a real clock.</li>
+    <li>Set the <b>TIME ZONE</b> with an IANA name such as <code>Europe/London</code>. Leave it blank for local time.</li>
+    <li>For a count up or count down timer, bind any numeric seconds tag and set <b>Timer Mode Display</b>. The time zone is ignored.</li>
+  </ul>
+
+  <p>In this chapter we discovered the Clock widget and its display modes, attaching it to a valid tag, and setting a specific time zone using the IANA method. In the next chapter we will be discovering Project Properties, UI themes and setting Screen defaults.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
