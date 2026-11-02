@@ -38,9 +38,9 @@
         <tr><th>Capability / Limit</th><th>Evaluation</th><th>Home</th><th>Professional</th><th>Clipper</th><th>TradeWinds</th></tr>
       </thead>
       <tbody>
-        <tr><td>Max Tags</td><td>64</td><td>512</td><td>4,096</td><td>16,384</td><td>Unlimited</td></tr>
+        <tr><td>Max Tags</td><td>64</td><td>512</td><td>4,096</td><td>16,384</td><td>Unlimited&nbsp;&Dagger;</td></tr>
         <tr><td>Max Active Drivers</td><td>4</td><td>8</td><td>64</td><td>128</td><td>240</td></tr>
-        <tr><td>Max Web Clients</td><td>1</td><td>4</td><td>16</td><td>64</td><td>Unlimited</td></tr>
+        <tr><td>Max Web Clients</td><td>1</td><td>4</td><td>16</td><td>64</td><td>Unlimited&nbsp;&Dagger;</td></tr>
         <tr><td>XML &amp; SQLite DB</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
         <tr><td>Keycloak (CFR Part 11)&nbsp;&dagger;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>Yes</td><td>Yes</td></tr>
         <tr><td>Alarm Dispatcher&nbsp;*</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
@@ -55,6 +55,7 @@
   <div class="fine">
     <p>&dagger; Keycloak (CFR Part 11) mode requires Docker and Keycloak configuration. An IT professional will normally be required.</p>
     <p>* Uses Telegram Messenger.</p>
+    <p>&Dagger; Unlimited means SentinelSCADA imposes no licence limit. Practical capacity depends on your server hardware, your network, and how many tags change how often.</p>
     <p>Clipper and TradeWinds Editions require appropriate server-rated hardware and setup for enterprise scaling and security.</p>
   </div>
 
@@ -110,7 +111,7 @@
     <h3>TradeWinds Edition</h3>
     <p>The enterprise tier, for large facilities and plant-wide control architectures.</p>
     <ul>
-      <li>Unlimited tags, constrained only by the host hardware. Up to 240 active device drivers and unlimited concurrent web clients.</li>
+      <li>No licence limit on tags or concurrent web clients, constrained only by your server hardware and network. Up to 240 active device drivers.</li>
       <li>Unlimited history.</li>
       <li>Standard PDF reports, with no watermark.</li>
       <li>All security modes: XML, SQLite and Keycloak (CFR Part 11).</li>
