@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 6: Screen Properties - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 6</p>
+
+  <h1>Chapter 6: Screen Properties</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Learn the settings that belong to a single screen: its size, background colour and image, the access level needed to open it, and the alignment grid.
+  </div>
+
+  <p>In the last chapter we looked at Project Properties, which apply to the whole project. Screen Properties are different: they apply to <b>one screen only</b>. They cover the screen's size, background colour and image, the access level required to open it, and the alignment grid.</p>
+
+  <p>Screen Properties appear in the Properties panel on the right of the designer, under <b>SCREEN SETTINGS</b>, whenever no widget is selected. Click an empty part of the canvas to bring them up.</p>
+  <figure>
+    <img src="01.png" alt="The Screen Settings panel showing sheet comment, canvas size, background colour and image, layout, opacity, access level and the align grid option" width="291" height="788">
+  </figure>
+
+  <h2>Part 1: Comment and size</h2>
+
+  <dl>
+    <dt>Sheet Comment</dt>
+    <dd>A short note (up to 80 characters) describing the screen, for example <code>Overview of process line A</code>. It is documentation only and does not affect how the screen runs.</dd>
+    <dt>Canvas Width (px) and Canvas Height (px)</dt>
+    <dd>The size of this screen's drawing area in pixels. Each can be set from 200 to 4000, in either direction, which covers a 4K display in landscape or portrait. For a portrait panel, simply make the height larger than the width: a 1080 x 1920 portrait screen is width <code>1080</code>, height <code>1920</code>. New screens start at the sizes set on the <b>UI &amp; Screen Defaults</b> tab of Project Properties, which we met in the last chapter.</dd>
+  </dl>
+
+  <h2>Part 2: Background colour and image</h2>
+
+  <dl>
+    <dt>Background Color</dt>
+    <dd>The solid colour behind the widgets on this screen. Click the swatch to pick a colour; the hex value is shown beside it, for example <code>#B7D7F0</code>.</dd>
+  </dl>
+
+  <h3>Background image</h3>
+
+  <p>You can also place a picture behind the widgets, such as a P&amp;ID diagram, a plant photo or a floor plan. Click the <b>&hellip;</b> button beside <b>BACKGROUND IMAGE URL</b> to open a file picker, and choose an image from your computer.</p>
+  <figure>
+    <img src="02.png" alt="A Windows file picker showing three boiler house image files" width="726" height="164">
+  </figure>
+
+  <p>Supported formats are <b>PNG</b>, <b>JPG</b> (JPEG), <b>GIF</b> and <b>WEBP</b>. Any other type, including SVG and BMP, is refused with an <em>Unsupported file type</em> message.</p>
+
+  <p>The image is uploaded to the server and stored under the project's own resources folder, and the box fills in with its address, for example:</p>
+  <p><code>api/resources/BoilerHouse/boilerhouse_3_639293822358590258.jpg</code></p>
+
+  <div class="note"><b>Note</b> The long number added to the end of the file name is the upload time. It means uploading two files with the same name never overwrites the first.</div>
+
+  <h3>Layout and opacity</h3>
+
+  <p><b>BG IMAGE LAYOUT</b> controls how the image fills the screen.</p>
+  <figure>
+    <img src="03.png" alt="The BG Image Layout drop down listing Zoom Cover, Zoom Contain, Stretch, Centre, Tile and Remove Image" width="293" height="309">
+  </figure>
+
+  <dl>
+    <dt>Zoom (Cover)</dt>
+    <dd>Scales the image to fill the whole screen, keeping its proportions. Edges may be cropped. This is the default.</dd>
+    <dt>Zoom (Contain)</dt>
+    <dd>Scales the image so all of it is visible, keeping its proportions. Bars of the background colour may show.</dd>
+    <dt>Stretch</dt>
+    <dd>Stretches the image to the exact screen size. Proportions may be distorted.</dd>
+    <dt>Centre</dt>
+    <dd>Places the image at its original size in the middle of the screen.</dd>
+    <dt>Tile</dt>
+    <dd>Repeats the image across the screen.</dd>
+    <dt>Remove Image</dt>
+    <dd>Clears the background image.</dd>
+  </dl>
+
+  <p><b>BG IMAGE OPACITY</b> sets how solid the image is, from <code>0</code> (invisible) to <code>1</code> (fully opaque). The default is <code>0.5</code>. Lower values keep the image from competing with the widgets.</p>
+
+  <figure>
+    <img src="04.png" alt="The BoilerHouse screen with a boiler room picture behind the gauge, clock, session panel and navigation link" width="1014" height="666">
+    <figcaption>Zoom (Cover) at 0.5 opacity, with the widgets still on top.</figcaption>
+  </figure>
+
+  <h2>Part 3: Access Level</h2>
+
+  <p><b>ACCESS LEVEL</b> is the minimum user role needed to open the screen: Anonymous, Guest, Operator, Engineer or Admin. <b>Anonymous</b>, the default, means no login is required.</p>
+
+  <div class="warn"><b>Authentication required</b> The Access Level is only enforced when <b>Require Authentication</b> is ticked in <b>Security &gt; Security Settings</b> (we first looked at the security settings in <a href="../03-add-session-control/">Chapter 3</a>). Without it, everyone is treated as having access and the setting has no visible effect.</div>
+
+  <p>In Run mode, a Screen Link widget that points to a screen the current user is not cleared for is greyed out and disabled, with no explanation shown. In Design mode the links always look normal, so they stay editable.</p>
+
+  <p>For example, with the Settings screen set to <b>Engineer</b>, Require Authentication ticked and the project in Run mode, a user logged in as Operator sees the link to Settings greyed out, while the links to Overview and Alarms work normally.</p>
+  <figure>
+    <img src="05.png" alt="Three Screen Link buttons: Overview and Alarms active, Settings greyed out" width="231" height="249">
+  </figure>
+
+  <p>The Screen Swapper follows the same rule. With Require Authentication on, it skips any screen in its sequence that the current user is not cleared to open. See the Screen Swapper section in <a href="../05-project-properties/">Chapter 5</a>.</p>
+
+  <h2>Part 4: Show Align Grid</h2>
+
+  <p>When <b>SHOW ALIGN GRID</b> is ticked, the alignment grid (the dots) is shown on this screen in Design mode, to help you line up and snap widgets. It overrides the project default for this screen only. The grid is a design-time aid and is not shown in Run or Kiosk mode.</p>
+
+  <div class="warn"><b>Save the screen</b> Screen Properties are saved with the screen, so remember <b>File &gt; Save Screen</b> when you have changed them.</div>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li>Screen Properties apply to <b>one screen</b>. Select an empty part of the canvas to see them under <b>SCREEN SETTINGS</b>.</li>
+    <li>A screen has a <b>size</b>, a <b>background colour</b> and an optional <b>background image</b> (PNG, JPG, GIF or WEBP), with a layout and an opacity.</li>
+    <li><b>Access Level</b> sets the role needed to open a screen. It only takes effect with <b>Require Authentication</b> on, and greys out Screen Links the user cannot use.</li>
+    <li>The <b>align grid</b> is a Design mode aid and can be turned off per screen.</li>
+  </ul>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

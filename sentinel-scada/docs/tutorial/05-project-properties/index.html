@@ -52,7 +52,7 @@
     <dt>Project Time Zone</dt>
     <dd>The time zone the site operates in, for example <code>America/Chicago</code>, recorded for reference in the project documentation. It is informational only: it does not change how timestamps are generated or displayed. It is free text and is not validated.</dd>
     <dt>Screenshot Resolution</dt>
-    <dd>The screen size used when capturing each screen for the documentation PDF (default 1920 x 1080). It does not restrict screen sizes in the designer or at runtime.</dd>
+    <dd>The screen size used when capturing each screen for the documentation PDF (default 1920 x 1080). The list includes portrait sizes, such as 1080 x 1920 and 2160 x 3840, for portrait panels. It does not restrict screen sizes in the designer or at runtime.</dd>
     <dt>SentinelSCADA Version</dt>
     <dd>The platform version the project was built with. Read-only.</dd>
   </dl>
@@ -106,7 +106,7 @@
 
   <dl>
     <dt>Width (px) and Height (px)</dt>
-    <dd>The default size of a newly created screen (shown here: 960 x 600).</dd>
+    <dd>The default size of a newly created screen (shown here: 960 x 600). Each can be 200 to 4000; a value outside that range is adjusted to the nearest limit when you save. For a portrait panel, make the height larger than the width, for example 1080 x 1920.</dd>
     <dt>Background Colour</dt>
     <dd>The default background colour of a new screen. Click the swatch to pick a different colour.</dd>
     <dt>Show Align Grid by default</dt>
@@ -168,6 +168,8 @@
   </figure>
 
   <p>The swapper needs at least <b>two screens</b> in the sequence; with fewer it will not start.</p>
+
+  <div class="note"><b>Access Level</b> The swapper respects each screen's Access Level, which we meet in the next chapter. When <b>Require Authentication</b> is on, it only shows screens the current user is cleared to open. In Time Mode, screens the user cannot open are skipped; if none are open to them, the current screen is held until someone with enough access logs in. In Tag Mode, if the tag names a screen the user cannot open, the current screen is held.</div>
 
   <ul>
     <li>The <b>right arrow</b> adds the selected screen to the sequence, and the <b>left arrow</b> removes it.</li>
