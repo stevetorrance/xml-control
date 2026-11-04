@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 7: Add a Screen and Navigation - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 7</p>
+
+  <h1>Chapter 7: Add a Screen and Navigation</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Create a second screen called Settings, then add Navigation Link widgets so an operator can move between screens at runtime.
+  </div>
+
+  <p>So far our BoilerHouse project has lived on a single screen. Real projects have many: an overview, a page for alarms, a page for settings, and so on. In this chapter we add a second screen, <b>Settings</b>, and give the operator a way to move between the two. We will build on Settings with some controls in a later chapter.</p>
+
+  <h2>Part 1: Create a new screen</h2>
+
+  <ol class="steps">
+    <li>
+      <h3>Start a new screen</h3>
+      <p>From the <b>File</b> menu choose <b>New Screen</b>.</p>
+      <figure>
+        <img src="01.png" alt="The File menu with New Screen highlighted" width="216" height="267">
+      </figure>
+      <p>The canvas resets to the default size and background we set in Project Properties in <a href="../05-project-properties/">Chapter 5</a>.</p>
+      <div class="warn"><b>Save first</b> New Screen discards any unsaved changes to the screen you were on. The orange dot we met in <a href="../04-worldsystem-and-clocks/">Chapter 4</a> is the reminder to use <b>File &gt; Save Screen</b> before you start.</div>
+    </li>
+
+    <li>
+      <h3>Name it Settings</h3>
+      <p>Now choose <b>File &gt; Save Screen As&hellip;</b> and name the screen <code>Settings</code>.</p>
+      <figure>
+        <img src="02.png" alt="The Save HMI Screen As dialog with the screen name Settings" width="384" height="211">
+      </figure>
+      <p>Screen names may contain letters, numbers, underscores and hyphens. Anything else, including spaces, is quietly removed from the name.</p>
+    </li>
+  </ol>
+
+  <div class="note"><b>Name already in use?</b> If a screen with that name already exists, Sentinel asks before replacing it. Choose <b>OK</b> to replace the existing screen, or <b>Cancel</b> to go back and pick a different name. If you already have a screen called Settings in your own project, use a different name here, or choose Cancel, so you do not overwrite it.</div>
+  <figure>
+    <img src="03.png" alt="A prompt saying a screen named Settings already exists and asking whether to replace it" width="456" height="174">
+  </figure>
+
+  <h2>Part 2: Add a Navigation Link</h2>
+
+  <p>We need a way to get to Settings from our main screen. Open the main screen, then from the Toolbox open the <b>Controls</b> section, choose the <b>Navigation Link</b> and drag it onto the canvas.</p>
+  <figure>
+    <img src="04.png" alt="The Controls section of the Toolbox with the Navigation Link highlighted and a link dropped on the canvas" width="553" height="349">
+  </figure>
+
+  <p>With the link selected, its properties appear in the Properties panel:</p>
+
+  <dl>
+    <dt>Button Text</dt>
+    <dd>The label on the link, for example <code>Settings</code>.</dd>
+    <dt>Action</dt>
+    <dd>What the link does when clicked. For this we use <code>screen</code>.</dd>
+    <dt>Target Screen</dt>
+    <dd>The screen to go to: choose <code>Settings</code>.</dd>
+  </dl>
+  <figure>
+    <img src="05.png" alt="The Properties panel with Button Text set to Settings, Action set to screen and Target Screen set to Settings" width="284" height="553">
+  </figure>
+
+  <h3>Link Style</h3>
+
+  <dl>
+    <dt>Button</dt>
+    <dd>A filled button. This is the default look.</dd>
+    <dt>Text</dt>
+    <dd>A plain text label.</dd>
+    <dt>Hotspot</dt>
+    <dd>An invisible clickable area. Draw it over an image or symbol to make that part of the screen a link.</dd>
+  </dl>
+
+  <h3>Arrow</h3>
+
+  <dl>
+    <dt>After text</dt>
+    <dd>A right arrow after the label. This is the default.</dd>
+    <dt>Before text</dt>
+    <dd>A left arrow before the label.</dd>
+    <dt>None</dt>
+    <dd>No arrow.</dd>
+  </dl>
+  <figure>
+    <img src="06.png" alt="The Link Style and Arrow drop downs, with the Arrow list open showing After text, Before text and None" width="278" height="209">
+  </figure>
+
+  <p>The Arrow setting applies to the Button and Text styles. A Hotspot has no label, so the setting is hidden for it. When you change a link's Action to <code>login</code>, <code>logout</code> or <code>exitKiosk</code>, the arrow turns off by itself, since an arrow suggests going somewhere, and it comes back if you change the Action back to <code>screen</code>. A choice you made deliberately, such as Before text, is never changed.</p>
+
+  <div class="note"><b>Always on top</b> A Navigation Link always sits on top of every other widget on the screen. There are no Layer Order controls for it, and it does not need any: wherever you place it, even over an image, a symbol or a Hotspot's target, its click area stays reachable and can never end up hidden underneath something else.</div>
+
+  <div class="warn"><b>Save the screen</b> Be sure to save the screen now, with <b>File &gt; Save Screen</b>.</div>
+
+  <h2>Part 3: Link back again</h2>
+
+  <p>A one-way trip is not much use. We need a counter link on the target screen, and we can take a short cut here: select the link you just made and copy it with <kbd>Ctrl</kbd>+<kbd>C</kbd>.</p>
+
+  <p>Open your new Settings screen, paste, and set the link's <b>Target Screen</b> to the main screen so the operator can return. In our example the link is labelled <code>Home</code> and points at the <code>default</code> screen. A left arrow suits a link that goes back, so set its <b>Arrow</b> to <b>Before text</b> and it reads <code>&larr; Home</code>.</p>
+  <figure>
+    <img src="07.png" alt="A link with Button Text Home, Action screen and Target Screen default" width="257" height="189">
+  </figure>
+
+  <div class="note"><b>Tip</b> For a consistent navigation bar, place the links in the same position on every screen. Once you have built one, copy and paste it between screens rather than building it again.</div>
+
+  <h2>Part 4: Try it in Run Mode</h2>
+
+  <p>Navigation Links only act in Run Mode. In Design Mode, clicking a link just selects it so you can edit it.</p>
+
+  <p>Switch to Run Mode from the <b>View</b> menu and click the Settings link. The screen changes. Click the link on Settings to come back.</p>
+
+  <p>Edits you make in Design Mode stay on the canvas when you switch to Run Mode to try them out, and the orange unsaved dot stays on. Clicking a link loads another screen, which would replace them, so if the screen has unsaved changes Sentinel asks first:</p>
+  <figure>
+    <img src="08.png" alt="The Unsaved changes prompt with Save, Discard and Cancel buttons" width="383" height="255">
+  </figure>
+
+  <dl>
+    <dt>Save</dt>
+    <dd>Saves the screen, then goes to the linked screen.</dd>
+    <dt>Discard</dt>
+    <dd>Throws the changes away and goes on to the linked screen.</dd>
+    <dt>Cancel</dt>
+    <dd>Stays on this screen, so you can go back to Design Mode and save it yourself.</dd>
+  </dl>
+
+  <p>You will not lose work by accident. A screen that has never been saved has no name to save under, so for that case the prompt has no Save button and suggests <b>File &gt; Save Screen As&hellip;</b> first.</p>
+
+  <h2>Part 5: Other link actions</h2>
+
+  <p>A Navigation Link does not have to change screen. Its <b>Action</b> can also be:</p>
+
+  <dl>
+    <dt>login</dt>
+    <dd>Open the login dialog.</dd>
+    <dt>logout</dt>
+    <dd>Log out the current session. The canvas keeps running.</dd>
+    <dt>exitKiosk</dt>
+    <dd>Leave Kiosk Mode.</dd>
+  </dl>
+
+  <p>These are never access-gated, since they are not tied to a target screen. We met login and logout from the Session Panel in <a href="../03-add-session-control/">Chapter 3</a>.</p>
+
+  <h2>Part 6: Who sees what</h2>
+
+  <p>Two settings control who can use a link:</p>
+
+  <dl>
+    <dt>Visibility Level</dt>
+    <dd>On the link itself: the minimum role needed to even see it.</dd>
+    <dt>Access Level</dt>
+    <dd>On the target screen: the minimum role needed to open it. This is the Screen Property from <a href="../06-screen-properties/">Chapter 6</a>.</dd>
+  </dl>
+
+  <p>A link can be visible to everyone but greyed out for every user below a certain access level, such as Engineer, as in Chapter 6's example. See <a href="../06-screen-properties/">Chapter 6</a> for the full walk-through.</p>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li><b>File &gt; New Screen</b> starts a fresh screen from the project defaults; <b>Save Screen As&hellip;</b> names it, and asks before replacing a screen that already has that name.</li>
+    <li>A <b>Navigation Link</b> with Action <code>screen</code> and a Target Screen moves the operator between screens in Run Mode, and always sits on top of other widgets.</li>
+    <li>Put a link on each screen so the operator can get back, and copy a finished navigation bar between screens.</li>
+    <li>The <b>Arrow</b> can go after the text, before it, or be left off. Links can also log in, log out or leave Kiosk Mode.</li>
+    <li><b>Visibility Level</b> is on the link; <b>Access Level</b> is on the target screen.</li>
+  </ul>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
