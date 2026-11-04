@@ -89,3 +89,8 @@ table.three th, table.three td { text-align: left; vertical-align: top; padding:
 table.three th { background: rgba(31, 111, 178, 0.08); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 table.three .opt { font-size: 0.75rem; color: var(--muted); font-weight: normal; border: 1px solid var(--rule); border-radius: 4px; padding: 0 0.3rem; margin-left: 0.3rem; }
 @media (max-width: 640px) { table.three { font-size: 0.85rem; } table.three th, table.three td { padding: 0.4rem; } }
+
+/* Field description lists (e.g. Project Properties chapter). */
+dl { margin: 0.8rem 0; }
+dt { font-weight: 700; margin-top: 0.8rem; }
+dd { margin: 0.2rem 0 0 1.2rem; }

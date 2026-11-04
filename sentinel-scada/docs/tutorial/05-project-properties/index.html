@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 5: Project Properties - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 5</p>
+
+  <h1>Chapter 5: Project Properties</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Learn what each Project Properties tab does, choose a UI theme, set the defaults for new screens and the startup mode, set up the Screen Swapper for unattended displays, and generate the project documentation PDF.
+  </div>
+
+  <p>Project Properties cover the project's details, such as project name, customer and site, through to how the project functions: screen defaults, the UI theme and the Screen Swapper. These settings apply to the <b>whole project</b>. The project details become valuable when we look at the documentation PDF generator, which we also do in this chapter.</p>
+
+  <p>Screen Properties, the size, colour, background image and access level of each individual screen, get a chapter of their own next.</p>
+
+  <p>We continue with our BoilerHouse project. From the <b>Project</b> menu choose <b>Project Properties&hellip;</b></p>
+
+  <h2>Part 1: General &amp; Info</h2>
+
+  <p>These are descriptive record-keeping fields. They appear on the title sheet of the project documentation and do not change runtime behaviour.</p>
+  <figure>
+    <img src="01.png" alt="The General and Info tab of Project Properties" width="565" height="780">
+  </figure>
+
+  <dl>
+    <dt>Project Name</dt>
+    <dd>The project's identifier. Read-only; it cannot be changed from this dialog.</dd>
+    <dt>Customer Name</dt>
+    <dd>The customer or organisation the system was built for.</dd>
+    <dt>Facility Location</dt>
+    <dd>The site or building where the system is installed, for example <code>Building A, Line 2</code>.</dd>
+    <dt>Lead Engineer</dt>
+    <dd>The person responsible for the project's design.</dd>
+    <dt>Plant Area / Department</dt>
+    <dd>The process area the project covers, for example <code>Wastewater Treatment</code>.</dd>
+    <dt>Installation Date</dt>
+    <dd>The date the system was installed on site (<code>YYYY-MM-DD</code>).</dd>
+    <dt>Commissioning Date</dt>
+    <dd>The date the system was commissioned and put into service (<code>YYYY-MM-DD</code>).</dd>
+    <dt>Project Version</dt>
+    <dd>The revision number of this project, maintained manually by the engineer (default <code>1.0.0</code>).</dd>
+    <dt>Project Time Zone</dt>
+    <dd>The time zone the site operates in, for example <code>America/Chicago</code>, recorded for reference in the project documentation. It is informational only: it does not change how timestamps are generated or displayed. It is free text and is not validated.</dd>
+    <dt>Screenshot Resolution</dt>
+    <dd>The screen size used when capturing each screen for the documentation PDF (default 1920 x 1080). It does not restrict screen sizes in the designer or at runtime.</dd>
+    <dt>SentinelSCADA Version</dt>
+    <dd>The platform version the project was built with. Read-only.</dd>
+  </dl>
+
+  <div class="note"><b>Saving</b> All tabs of Project Properties are saved together with the <b>Save Settings</b> button. If authentication is enabled for the project, editing and saving require the Engineer or Admin role; other users see the fields read-only. If authentication is not enabled, anyone with access to the designer can edit these settings. <b>Close</b> closes the dialog and discards unsaved changes.</div>
+
+  <h2>Part 2: Comments &amp; Notes</h2>
+
+  <p>On the next tab we can enter some useful notes about the project. Notes are limited to 240 characters; the counter under the box shows how many remain. They are printed on the title sheet of the documentation PDF, which we generate at the end of this chapter.</p>
+  <figure>
+    <img src="02.png" alt="The Comments and Notes tab with an empty notes box and 240 characters remaining" width="565" height="501">
+  </figure>
+
+  <h2>Part 3: UI &amp; Screen Defaults</h2>
+
+  <p>Here we set the web interface colour theme and the defaults applied whenever a new screen is added.</p>
+  <figure>
+    <img src="03.png" alt="The UI and Screen Defaults tab of Project Properties" width="567" height="873">
+  </figure>
+
+  <h3>UI theme</h3>
+
+  <p>The <b>UI THEME</b> sets the colour theme for the whole Sentinel client: menus, panels, dialogs and the screen surround. The theme is saved with the project, so every user who opens it sees the same look.</p>
+  <figure>
+    <img src="04.png" alt="The UI Theme drop down listing Dark, Light, High Contrast and the nine styled themes" width="533" height="403">
+  </figure>
+
+  <p>The choices are Dark (the default), Light and High Contrast, followed by Sea Scape, Midnight Blue, Midnight City, Mountain Vista, Pastel Paradise, Star Trek LCARS, Winter Wonderland, Arizona Golden Hour and Submarine Command.</p>
+
+  <p>Arizona Golden Hour is a favourite:</p>
+  <figure>
+    <img src="05.png" alt="The BoilerHouse screen in the Arizona Golden Hour theme" width="800" height="477">
+  </figure>
+
+  <h3>Authentication banner and Kiosk session pill</h3>
+
+  <dl>
+    <dt>Show authentication banner in Run / Kiosk Mode</dt>
+    <dd>When ticked, the banner showing the logged-in user and login status is displayed in Run or Kiosk Mode. Untick it for a cleaner operator screen. Default: ticked.</dd>
+    <dt>Kiosk Session Pill</dt>
+    <dd>The small avatar and username overlay shown in a corner of the screen in Kiosk Mode while someone is logged in.</dd>
+    <dt>Screen Position</dt>
+    <dd>Where the pill appears: Top Left, Top Center, Top Right (default), Bottom Left, Bottom Center or Bottom Right. Choose a spot that does not cover your widgets.</dd>
+    <dt>Show session pill in Kiosk Mode</dt>
+    <dd>When ticked, the pill is displayed in Kiosk Mode. Untick it to hide it completely. Default: ticked.</dd>
+  </dl>
+
+  <h3>New Screen Defaults</h3>
+
+  <p>These values are applied whenever <b>New Screen</b> is used. Screens that are already saved are not affected.</p>
+
+  <dl>
+    <dt>Width (px) and Height (px)</dt>
+    <dd>The default size of a newly created screen (shown here: 960 x 600).</dd>
+    <dt>Background Colour</dt>
+    <dd>The default background colour of a new screen. Click the swatch to pick a different colour.</dd>
+    <dt>Show Align Grid by default</dt>
+    <dd>When ticked, the alignment grid is switched on in the designer for new screens, helping to line up and snap widgets. Default: ticked.</dd>
+  </dl>
+
+  <h3>Startup Behaviour</h3>
+
+  <p>This automatically enters a mode when the server starts or restarts, which is ideal for unattended panels that must recover on their own after a power loss or reboot. It requires a valid licence. Without one the control is locked, and it can only be changed by Engineer-level users or above.</p>
+
+  <dl>
+    <dt>None (Design Mode)</dt>
+    <dd>Starts in the designer, with no automatic mode change. This is the default.</dd>
+    <dt>Run Mode</dt>
+    <dd>Starts straight into Run mode, so the project is live without anyone pressing Run.</dd>
+    <dt>Kiosk Mode (Allows F11)</dt>
+    <dd>Starts in Kiosk mode, the full-screen operator view. The user can still toggle full screen with <kbd>F11</kbd>.</dd>
+    <dt>Kiosk Mode (Locks Windows)</dt>
+    <dd>Starts in Kiosk mode with the operator locked in (a "hard" kiosk), so they cannot leave the screen or switch Windows applications.</dd>
+  </dl>
+
+  <h2>Part 4: Screen Swapper</h2>
+
+  <p>Suppose you have a concourse-type installation: no user interaction required, you just want to sequence through a select set of screens over and over. Or perhaps now and then someone can interact and follow a screen trail, then after some inactivity the automated sequence starts again. That is the Screen Swapper.</p>
+
+  <div class="note"><b>Note</b> The Screen Swapper runs in Kiosk Mode only. It is available in XML and SQLite security modes, but not in Keycloak mode.</div>
+
+  <div class="note"><b>Why not Keycloak?</b> Keycloak mode is the enterprise, 21 CFR Part 11 mode. There is no anonymous or view-only access: someone must sign in before anything is shown, and every action is recorded against that signed-in person. Sessions also expire after a period of inactivity, at which point the client is sent back to the Keycloak login. A swapper exists to run unattended, with nobody there to sign in or to keep a session alive. In this mode that would either be undone by the inactivity timeout, or it would leave a signed-in session running with nobody watching, which is the very situation the timeout is there to prevent. For this reason the Swapper is deliberately disabled in Keycloak mode, and the whole Screen Swapper tab is greyed out.</div>
+
+  <figure>
+    <img src="06.png" alt="The Screen Swapper tab of Project Properties" width="567" height="874">
+  </figure>
+
+  <h3>Enable and advance mode</h3>
+
+  <p>Tick <b>ENABLE SCREEN SWAPPER</b> to turn it on. Untick it to stop automatic cycling; the other settings are kept but not used while it is off. Then choose what decides when the display moves on:</p>
+
+  <dl>
+    <dt>Time Mode</dt>
+    <dd>Cycles through the screens in the order of the Swapper Sequence, showing each for its own dwell time. After the last screen it returns to the first.</dd>
+    <dt>Tag Mode</dt>
+    <dd>A bound integer tag's value selects which screen to show, by its index in the Swapper Sequence (0-based, so 0 is the first screen in the list, 1 the second, and so on). This follows a PLC-driven process, so the PLC decides which screen is displayed. Choose the tag from the <b>Index Tag (integer)</b> drop down that appears when you select Tag Mode; only integer tags are listed. In this mode each screen's time becomes its <b>Min Stable Time</b>: how long the tag must hold that index before the screen changes. This stops the display flickering if the tag value changes briefly.</dd>
+  </dl>
+
+  <figure>
+    <img src="07.png" alt="Tag Mode selected, with the Index Tag drop down listing the available integer tags" width="546" height="359">
+    <figcaption>Selecting Tag Mode reveals the Index Tag drop down, listing the integer tags available in the project.</figcaption>
+  </figure>
+
+  <div class="note"><b>Tag Mode values</b> The swapper always shows a sensible screen. A tag value of 0 or below shows the first screen, and a value above the last index shows the last screen. If the tag has no value yet, for example before communications are established, the swapper holds the current screen. Because index 0 is shown whenever the tag is 0, make the first screen in the sequence a sensible home or overview screen.</div>
+
+  <h3>Screen sequence</h3>
+
+  <p>Add screens from the <b>Available Screens</b> list on the left, order them in the <b>Swapper Sequence</b> on the right, and set how long each is shown (1 to 999 seconds).</p>
+
+  <figure>
+    <img src="08.png" alt="Time Mode with the default and Overview screens added to the Swapper Sequence, each set to 30 seconds" width="537" height="222">
+    <figcaption>A Time Mode example: the <code>default</code> and <code>Overview</code> screens in the sequence, each shown for 30 seconds.</figcaption>
+  </figure>
+
+  <p>The swapper needs at least <b>two screens</b> in the sequence; with fewer it will not start.</p>
+
+  <ul>
+    <li>The <b>right arrow</b> adds the selected screen to the sequence, and the <b>left arrow</b> removes it.</li>
+    <li>The <b>up and down arrows</b> move the selected screen earlier or later. In Time Mode this changes the display order; in Tag Mode it changes the screen's index number.</li>
+  </ul>
+
+  <h3>Crossfade and behaviour</h3>
+
+  <dl>
+    <dt>Crossfade Duration</dt>
+    <dd>How long, in milliseconds, the fade between two screens takes (shown: 1000 ms). Enter <code>0</code> for an instant cut with no fade.</dd>
+    <dt>Operator interaction suspends swapping for [ ] seconds</dt>
+    <dd>When ticked, swapping pauses as soon as an operator touches or clicks the screen, so the display does not change while they are using it. Swapping resumes automatically after the stated number of seconds with no further activity (shown: 20 seconds). Untick it if the swapper should keep running regardless of operator activity.</dd>
+  </dl>
+
+  <h2>Part 5: Generate the project documentation</h2>
+
+  <p>Once you have finished with the Project Properties dialog, choose <b>Save Settings</b> and/or <b>Close</b>, and we can take a quick peek at the built-in documentation output. A good project works as intended; a great project is well documented, so that future you has a reference to go to, or a customer can preview the design before committing to the effort.</p>
+
+  <ol class="steps">
+    <li>
+      <h3>Open the generator</h3>
+      <p>From the <b>Project</b> menu choose <b>Generate Docs&hellip;</b> The dialog is mostly self-explanatory. Choose Landscape or Portrait pages, <b>Whole Project</b> or <b>Current Screen Only</b>, and tick the sections you want: Title Sheet, Table of Contents, HMI Screen Layout Renders (with an option to include un-assigned widgets), Device &amp; Driver Setup, Tag &amp; Variable Database, Alarm Configurations, Recipe Sets and Text Lookup Dictionaries.</p>
+      <figure>
+        <img src="09.png" alt="The Generate Project Documentation dialog" width="508" height="745">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Generate the PDF</h3>
+      <p>For an instant example, just press <b>Generate PDF</b>. The progress bar shows the generation progress. It will take some time, so please stand by.</p>
+      <figure>
+        <img src="10.png" alt="The progress bar reading Preparing screen captures at 20 percent" width="471" height="178">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Save it</h3>
+      <p>When ready you are prompted with a <b>Save As</b> dialog.</p>
+      <figure>
+        <img src="11.png" alt="The Save As dialog proposing Project_Documentation_BoilerHouse.pdf" width="358" height="57">
+      </figure>
+    </li>
+
+    <li>
+      <h3>Review the PDF</h3>
+      <p>Once saved, the dialog closes and you are returned to the designer. To review the PDF, find where you saved it and open it there. As a basic example, it contains all the information you selected, fully indexed with clickable links and tables.</p>
+      <figure>
+        <img src="12.png" alt="A page from the PDF showing the default screen layout and a widget bindings table" width="835" height="860">
+      </figure>
+    </li>
+  </ol>
+
+  <div class="note"><b>Tip</b> In the widget bindings table, any widget not yet bound to a tag is flagged <em>un-assigned</em> in red. That makes the PDF a handy checklist for finding unfinished work.</div>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li><b>General &amp; Info</b> and <b>Comments &amp; Notes</b> are record-keeping fields that feed the documentation PDF.</li>
+    <li>The <b>UI theme</b>, <b>New Screen Defaults</b> and <b>Startup Mode</b> are set once for the whole project. Startup Mode needs a valid licence.</li>
+    <li>The <b>Screen Swapper</b> cycles screens in Kiosk Mode, either on a timer or driven by a PLC tag.</li>
+    <li><b>Project &gt; Generate Docs</b> produces an indexed PDF of the whole project.</li>
+  </ul>
+
+  <p>In this chapter we made a deep dive into Project Properties and the documentation PDF it feeds. In the next chapter we will look at Screen Properties: the settings that apply to each individual screen.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
