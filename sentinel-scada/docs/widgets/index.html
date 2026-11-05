@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Widget Summary - SentinelSCADA</title>
+  <link rel="icon" href="../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <link rel="stylesheet" href="widgets.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../">SentinelSCADA</a> &rsaquo; Widget Summary</p>
+
+  <h1>Widget Summary</h1>
+  <p class="tagline">Every widget in the Toolbox, with the same glyph you see on its button, and what it is for.</p>
+
+  <p>There are 27 widgets, in four groups that match the Toolbox in the designer. Display widgets only show data. Control widgets write to tags and take effect on live equipment as soon as an operator uses them.</p>
+
+  <h2>Process &amp; Symbols</h2>
+  <p class="tagline">Equipment and drawing pieces for building a process picture (a P&amp;ID-style screen).</p>
+  <div class="widget-list">
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#60a5fa" stroke-width="2"/><polygon points="9,8 9,16 16,12" fill="#60a5fa"/></svg></div>
+      <div class="wtext">
+        <h3>Feed Pump</h3>
+        <p>Built-in pump symbol, ready to drop on a screen with no file to upload. A <b>Shape</b> property swaps the artwork in place (pump, motor pump, centrifugal blower, box fan) without losing its tag binding, colours or size. It shows running or stopped from its bound tag, and can optionally write back to toggle that tag when clicked.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><polygon points="2,6 2,18 12,12" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.5"/><polygon points="22,6 22,18 12,12" fill="#3b82f6" stroke="#3b82f6" stroke-width="1.5"/><line x1="12" y1="12" x2="12" y2="4" stroke="#64748b" stroke-width="2"/><line x1="8" y1="4" x2="16" y2="4" stroke="#64748b" stroke-width="3"/></svg></div>
+      <div class="wtext">
+        <h3>Control Valve</h3>
+        <p>Built-in valve symbol with several shapes (gate valve, globe valve, butterfly damper, air damper). Shows open or closed from its bound tag so operators can see the state of the line at a glance, and can optionally toggle the tag on click.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3" fill="none" stroke="#60a5fa" stroke-width="2"/><line x1="4" y1="9" x2="20" y2="9" stroke="#60a5fa" stroke-width="1.5"/><line x1="4" y1="15" x2="20" y2="15" stroke="#60a5fa" stroke-width="1.5"/></svg></div>
+      <div class="wtext">
+        <h3>Storage Tank</h3>
+        <p>A built-in storage tank symbol for vessels, hoppers and reservoirs, with a level indicator built in, so the fill level follows its bound tag and operators can see how full the tank is at a glance. Use it as the anchor of a process picture, with pipes running in and out.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12" stroke="#a78bfa" stroke-width="4" stroke-linecap="round"/><circle cx="4" cy="12" r="2" fill="#fff"/><circle cx="20" cy="12" r="2" fill="#fff"/></svg></div>
+      <div class="wtext">
+        <h3>Line / Pipe</h3>
+        <p>A straight, thick, coloured line used to represent pipework, or just as a divider or connector. It can run horizontally, vertically or diagonally, and its thickness is adjustable. Bind it to a tag and it changes colour with the tag: one colour for active (1) and another for inactive (0), on top of its default colour, so a run of Line / Pipe widgets shows at a glance which pipes are carrying flow on a P&amp;ID-style screen.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2" fill="rgba(129, 140, 248, 0.25)" stroke="#818cf8" stroke-width="2.5"/><circle cx="4" cy="5" r="1.5" fill="#fff"/><circle cx="20" cy="5" r="1.5" fill="#fff"/><circle cx="20" cy="19" r="1.5" fill="#fff"/><circle cx="4" cy="19" r="1.5" fill="#fff"/></svg></div>
+      <div class="wtext">
+        <h3>Rectangle</h3>
+        <p>A rectangle with adjustable corner radius, border and default fill. Bound to a tag, its fill switches between an active (1) and an inactive (0) colour, so it can double as a simple status block. Also handy for panels, equipment housings and coloured backing areas that organise a busy screen into zones.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8" ry="6" fill="rgba(16, 185, 129, 0.25)" stroke="#10b981" stroke-width="2.5"/><circle cx="12" cy="6" r="1.5" fill="#fff"/><circle cx="20" cy="12" r="1.5" fill="#fff"/><circle cx="12" cy="18" r="1.5" fill="#fff"/><circle cx="4" cy="12" r="1.5" fill="#fff"/></svg></div>
+      <div class="wtext">
+        <h3>Ellipse / Circle</h3>
+        <p>An ellipse or circle with border and default fill. Bound to a tag, its fill switches between an active (1) and an inactive (0) colour, which makes it a ready-made indicator lamp. Also useful for round vessels, motor outlines and decorative shapes.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><polyline points="3,17 9,7 15,13 21,5" fill="none" stroke="#f43f5e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="17" r="2" fill="#fff" stroke="#f43f5e" stroke-width="1"/><circle cx="9" cy="7" r="2" fill="#fff" stroke="#f43f5e" stroke-width="1"/><circle cx="15" cy="13" r="2" fill="#fff" stroke="#f43f5e" stroke-width="1"/><circle cx="21" cy="5" r="2" fill="#fff" stroke="#f43f5e" stroke-width="1"/></svg></div>
+      <div class="wtext">
+        <h3>Polyline</h3>
+        <p>An open multi-point line, so pipes can bend around corners. Drag the points to reshape it. Like the straight Line / Pipe, it takes an active (1) and an inactive (0) colour from its bound tag.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><polygon points="12,3 20,8 20,16 12,21 4,16 4,8" fill="rgba(251, 191, 36, 0.25)" stroke="#fbbf24" stroke-width="2.5" stroke-linejoin="round"/><circle cx="12" cy="3" r="1.5" fill="#fff"/><circle cx="20" cy="8" r="1.5" fill="#fff"/><circle cx="20" cy="16" r="1.5" fill="#fff"/><circle cx="12" cy="21" r="1.5" fill="#fff"/><circle cx="4" cy="16" r="1.5" fill="#fff"/><circle cx="4" cy="8" r="1.5" fill="#fff"/></svg></div>
+      <div class="wtext">
+        <h3>Polygon</h3>
+        <p>A closed multi-point shape with border and fill, which switches between an active (1) and an inactive (0) colour from its bound tag. Use it for irregular vessels, hoppers, arrows, buildings or zone outlines that a rectangle or ellipse can't describe.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="none" stroke="#f472b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="wtext">
+        <h3>Symbol SVG</h3>
+        <p>Places your own custom SVG artwork on the canvas and drives its on/off state from a tag. You can supply separate SVG files for the on and off states and the widget swaps between them, set an on colour and an off colour (for example green when running, grey when stopped), and add an optional glow effect to make an active item stand out. It is the only widget that accepts SVG content, and scripts and external references are stripped on import. Reach for it when the built-in shapes don't cover your equipment.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2" fill="none" stroke="#34d399" stroke-width="2"/><circle cx="8.5" cy="8.5" r="2" fill="#34d399"/><path d="M2 17l5-5 5 5 3-3 7 7" fill="none" stroke="#34d399" stroke-width="2" stroke-linejoin="round"/></svg></div>
+      <div class="wtext">
+        <h3>Image Widget</h3>
+        <p>A static raster image (PNG, JPG, GIF or WEBP), with an optional second image shown when its bound tag is 1. Good for logos, photographs, site plans and backgrounds. It does not accept SVG: use Symbol SVG for vector artwork.</p>
+      </div>
+    </div>
+  </div>
+  <h2>Display &amp; Data</h2>
+  <p class="tagline">Widgets that show information. They only read: they never write to a tag.</p>
+  <div class="widget-list">
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#3b82f6">12.3</text></svg></div>
+      <div class="wtext">
+        <h3>Data Label</h3>
+        <p>Shows the live value of a bound tag in a styled box with a title, pre-text and suffix (for example a unit such as &deg;C or bar), a value format pattern to control the decimal places, and your choice of fonts and colours. It can also act as a quick entry field: with Allow Control Write on, an operator taps the value in Kiosk Mode to type in a new one on a numeric keypad. The workhorse of any screen.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#fff">Abc</text></svg></div>
+      <div class="wtext">
+        <h3>Text Widget</h3>
+        <p>Fixed text that never changes at run time: titles, headings, notes and captions. It has a transparent background option so labels can sit on top of symbols. For text that changes with a tag, use a Data Label or Text Lookup instead.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="13" r="9" fill="none" stroke="#10b981" stroke-width="2"/><path d="M5.5 18.5 A9 9 0 0 1 18.5 18.5" fill="none" stroke="#334155" stroke-width="2"/><path d="M5.5 18.5 A9 9 0 0 1 18.5 18.5" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="9 19"/><line x1="12" y1="13" x2="16" y2="9" stroke="#f1f5f9" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="13" r="1.5" fill="#475569"/></svg></div>
+      <div class="wtext">
+        <h3>Gauge</h3>
+        <p>A classic 270&deg; analog dial for a single process variable. Three colour zones (for example green, amber and red) show whether the reading is healthy at a glance, and the face, needle and ticks can all be recoloured to suit your theme.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/><line x1="12" y1="12" x2="12" y2="7" stroke="#f1f5f9" stroke-width="1.6" stroke-linecap="round"/><line x1="12" y1="12" x2="15.3" y2="13.6" stroke="#f1f5f9" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="1" fill="#f59e0b"/></svg></div>
+      <div class="wtext">
+        <h3>Clock</h3>
+        <p>Two jobs in one. It can show the live time of day in any time zone, analogue or digital, or act as a process timer driven from a PLC, counting up or down like a stopwatch. A clock in each time zone is a quick way to show a multi-site operation.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="5" rx="1" fill="#ef4444"/><rect x="4" y="9" width="16" height="5" rx="1" fill="#1e293b" stroke="#475569" stroke-width="1"/><rect x="4" y="16" width="16" height="5" rx="1" fill="#10b981"/></svg></div>
+      <div class="wtext">
+        <h3>Andon</h3>
+        <p>A stack of two to five lights that each switch on when the bound tag meets a condition, like the tower light on a production line. It gives operators a plain red, amber or green status that can be read from across the room.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2" fill="#1e293b" stroke="#eab308" stroke-width="2"/><path d="M4 12h16" stroke="#eab308" stroke-width="1" stroke-dasharray="2 2"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#eab308">Ticker</text></svg></div>
+      <div class="wtext">
+        <h3>Ticker Tape</h3>
+        <p>A horizontally scrolling text strip, either fixed text or fed from a string tag. Place it along the bottom of a screen for rolling status messages, shift notices or plant announcements.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="#1e293b" stroke="#14b8a6" stroke-width="2"/><text x="7" y="10" font-family="monospace" font-size="7" font-weight="bold" fill="#14b8a6">42</text><line x1="6" y1="13" x2="18" y2="13" stroke="#14b8a6" stroke-width="1.2"/><text x="7" y="20" font-family="sans-serif" font-size="6.5" font-weight="bold" fill="#5eead4">Mixing</text></svg></div>
+      <div class="wtext">
+        <h3>Text Lookup</h3>
+        <p>Turns a numeric tag value into readable text using a project-wide dictionary, so a state code of 3 reads as &ldquo;Mixing&rdquo; rather than a bare number. Entries can carry their own colour or blink, and one dictionary can serve many widgets.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="#38bdf8" stroke-width="2"/><rect x="6" y="12" width="3" height="6" fill="#38bdf8"/><rect x="11" y="8" width="3" height="10" fill="#38bdf8"/><rect x="16" y="14" width="3" height="4" fill="#38bdf8"/></svg></div>
+      <div class="wtext">
+        <h3>Bar/Pie Chart</h3>
+        <p>Compares several current tag values side by side, as bars or as pie segments. It is best for showing how things are split or ranked right now, such as tank levels or the load on each pump. It shows current values only, not history.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="#a78bfa" stroke-width="2"/><path d="M6 16l4-6 4 4 4-8" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="wtext">
+        <h3>Trend Chart</h3>
+        <p>A rolling live line plot of one or more tags against time, with colour-coded series and a legend. It makes it easy to see which way a process variable is heading. It plots a live buffer rather than the historian, so use a report for stored history.</p>
+      </div>
+    </div>
+  </div>
+  <h2>Controls</h2>
+  <p class="tagline">Widgets that act. They write to tags, and so to live equipment, the moment an operator uses them.</p>
+  <div class="widget-list">
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="4" fill="none" stroke="#10b981" stroke-width="2"/><circle cx="9" cy="12" r="3" fill="#10b981"/></svg></div>
+      <div class="wtext">
+        <h3>Button / Switch</h3>
+        <p>Writes a discrete on or off to a tag. It works as a momentary push button, a toggle, or a fixed Set On or Set Off, and its face lights to match the tag's current value. It disappears entirely for users who don't have write permission for the tag.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#fb923c" stroke-width="2"/><line x1="12" y1="12" x2="16" y2="8" stroke="#fb923c" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="2" fill="#fb923c"/></svg></div>
+      <div class="wtext">
+        <h3>Analog Knob</h3>
+        <p>A rotary control for a continuous setpoint, such as a speed or temperature target. Dragging moves the value smoothly without sudden jumps, and the value is written when the operator lets go. It greys out into a read-only display for users without write permission.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="4" rx="2" fill="none" stroke="#6366f1" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="#6366f1"/></svg></div>
+      <div class="wtext">
+        <h3>Analog Slider</h3>
+        <p>A linear control for a continuous setpoint, horizontal or vertical, with snap steps and an optional live value label. Like the knob, it writes on release and becomes a read-only display for users without write permission.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="4" fill="none" stroke="#3b82f6" stroke-width="2"/><line x1="8" y1="12" x2="16" y2="12" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/><polyline points="13 9 16 12 13 15" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="wtext">
+        <h3>Navigation Link</h3>
+        <p>A button that switches to another screen in Run Mode, the building block of any navigation bar. Each link has an arrow option and a visibility level, so operators can be kept out of restricted screens or shown the link greyed out.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/><circle cx="9" cy="9" r="3" fill="none" stroke="#60a5fa" stroke-width="1.5"/><path d="M4 20c0-3 2-5 5-5s5 2 5 5" fill="none" stroke="#60a5fa" stroke-width="1.5"/><rect x="14" y="7" width="6" height="2" rx="1" fill="#334155"/><rect x="14" y="11" width="4" height="2" rx="1" fill="#334155"/></svg></div>
+      <div class="wtext">
+        <h3>Session Panel</h3>
+        <p>Shows who is logged in, with an avatar and a role badge, and offers Log In, Log Out and Exit Kiosk buttons as the situation allows. Put one on a screen so operators can sign in without leaving the display.</p>
+      </div>
+    </div>
+  </div>
+  <h2>Alarms &amp; Recipes</h2>
+  <p class="tagline">Widgets for abnormal conditions and for loading sets of setpoints in one go.</p>
+  <div class="widget-list">
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2" fill="#7f1d1d" stroke="#ef4444" stroke-width="2"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#fff">&#9888; ALARM</text></svg></div>
+      <div class="wtext">
+        <h3>Alarm Banner</h3>
+        <p>A prominent strip showing the highest-priority active alarm and the alarm count, coloured by severity. It keeps an alarm visible whichever screen is showing, and clicking it opens the Alarm Summary.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2" fill="none" stroke="#fbbf24" stroke-width="2"/><line x1="6" y1="8" x2="18" y2="8" stroke="#fbbf24" stroke-width="2"/><line x1="6" y1="13" x2="18" y2="13" stroke="#fbbf24" stroke-width="2"/><line x1="6" y1="18" x2="18" y2="18" stroke="#fbbf24" stroke-width="2"/></svg></div>
+      <div class="wtext">
+        <h3>Alarm Summary</h3>
+        <p>A scrollable table of current and recent alarms. Operators with the right permission can acknowledge alarms in place, and in a 21 CFR Part 11 setup each acknowledgement goes into the audit trail.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2" fill="none" stroke="#10b981" stroke-width="2"/><circle cx="8" cy="8" r="1.5" fill="#10b981"/><circle cx="8" cy="13" r="1.5" fill="#10b981"/><circle cx="8" cy="18" r="1.5" fill="#10b981"/><line x1="12" y1="8" x2="18" y2="8" stroke="#10b981" stroke-width="2"/><line x1="12" y1="13" x2="18" y2="13" stroke="#10b981" stroke-width="2"/><line x1="12" y1="18" x2="18" y2="18" stroke="#10b981" stroke-width="2"/></svg></div>
+      <div class="wtext">
+        <h3>Recipe Control</h3>
+        <p>Lets an operator choose a recipe and send all of its setpoints to the equipment in a single write, so a product changeover is one action rather than a dozen. It works in two steps. <b>Staging</b> is read-only: the widget compares the proposed recipe values with the live process tags and shows each one with its deviation and a Matched or Mismatch status, turning a row green when it matches. That lets the operator wait for the plant to cool down or warm up from the previous batch before anything is written. <b>Download</b> then writes every value in one go, after a confirmation prompt and, where the tags or Part 11 mode require it, an electronic signature.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p><a href="../../">Back to SentinelSCADA</a></p>
+  </footer>
+</body>
+</html>

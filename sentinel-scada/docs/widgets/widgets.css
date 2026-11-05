@@ -1,0 +1,48 @@
+.crumbs {
+  margin: 0 0 1.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.widget-list {
+  margin-top: 1rem;
+}
+
+.widget {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.widget:last-child {
+  border-bottom: 0;
+}
+
+/* Tile echoes the toolbox button the glyph comes from. Some glyphs carry their
+   own dark fills, so the tile stays light in both colour schemes. */
+.glyph {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  background: #f4f7fb;
+  border: 1px solid #d4dce6;
+  border-radius: 10px;
+}
+
+.wtext h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.wtext p {
+  margin: 0;
+}
+
+@media (max-width: 30rem) {
+  .glyph { width: 3.25rem; height: 3.25rem; }
+}
