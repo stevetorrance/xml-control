@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 9: Symbol SVG - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 9</p>
+
+  <h1>Chapter 9: Symbol SVG</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Bring your own vector artwork onto a screen with the Symbol SVG widget, and know when to use it instead of the Image widget or a built-in object.
+  </div>
+
+  <p>The built-in pumps, valves and tanks from <a href="../08-process-graphics/">Chapter 8</a> cover common equipment. Every plant also has things they do not: a company logo, a special machine, a symbol from your own P&amp;ID library. The <b>Symbol SVG</b> widget lets you drop in any vector artwork of your own. SVG is a vector format, so the artwork stays sharp at any size, from a small icon to a full-width or even full screen diagram, and it can change with a tag just like the built-in objects.</p>
+
+  <p>For this tutorial we will continue with our BoilerHouse project, though on the Settings screen we added in <a href="../07-add-screen-and-navigation/">Chapter 7</a>. From the <b>File</b> menu choose <b>Load Screen&hellip;</b>, select <code>Settings</code> and press <b>Load Screen</b>.</p>
+
+  <h2>Part 1: Add a Symbol SVG</h2>
+
+  <p>From the Toolbox, in the <b>Process &amp; Symbols</b> group, drag a <b>Symbol SVG</b> onto the canvas.</p>
+  <figure>
+    <img src="01.png" alt="The Symbol SVG item in the Toolbox, with an arrow to an empty Symbol SVG widget on the canvas reading No SVG Selected" width="543" height="196">
+  </figure>
+
+  <p>Its properties are in two sections. In <b>Geometry &amp; Limits</b>:</p>
+
+  <dl>
+    <dt>Width / Height</dt>
+    <dd>Size in pixels.</dd>
+    <dt>Orientation</dt>
+    <dd>Up, Down, Left or Right. Custom symbols default to Up, meaning exactly as uploaded.</dd>
+    <dt>Flip Horizontal</dt>
+    <dd>Mirrors the artwork before Orientation is applied.</dd>
+  </dl>
+
+  <p>In <b>Styling &amp; Appearance</b>:</p>
+
+  <dl>
+    <dt>Off SVG File</dt>
+    <dd>The symbol file. Click the <b>&hellip;</b> button, choose an <code>.svg</code> file (up to 5 MB), and it uploads to the current project.</dd>
+    <dt>On SVG File</dt>
+    <dd>Optional. A second file shown when the bound tag is on. If left blank, the Off file is used for both.</dd>
+    <dt>Color Mode</dt>
+    <dd>How the On and Off colours are used (Part 3).</dd>
+    <dt>Color (Off) / Color (On) / Glow Color (Active)</dt>
+    <dd>The colours that Color Mode applies.</dd>
+  </dl>
+  <figure>
+    <img src="02.png" alt="The Styling and Appearance section of the Properties panel showing Off SVG File, On SVG File, Color Mode, Color (Off), Color (On) and Glow Color (Active)" width="279" height="610">
+  </figure>
+
+  <h2>Part 2: Off and On files</h2>
+
+  <p>Bind the widget to a tag and it switches between its Off and On appearance as the tag changes.</p>
+
+  <p>An example: a fire bell drawn as two files, one grey (off) and one lit red (on). Upload the grey file as the Off SVG and the red lit file as the On SVG, bind the widget to a tag, our demo tag <code>Pulse_10s</code> here for expedience, and the bell alternates as the tag changes.</p>
+
+  <p>Alarm bell, normal:</p>
+  <figure>
+    <img src="03.png" alt="The fire alarm bell in its grey Standby state, with the Off and On SVG files set in the Properties panel" width="771" height="484">
+  </figure>
+
+  <p>Alarm bell, active:</p>
+  <figure>
+    <img src="04.png" alt="The fire alarm bell in its red Active state" width="759" height="482">
+  </figure>
+
+  <h3>SVG sources and tools</h3>
+
+  <p>To source or create SVGs we have a wealth of resources, from online open source libraries and paid content, through SVG editing tools, and quite simply, we can ask any modern AI agent such as Claude or Gemini to produce the raw SVG files to the specification and prompt we provide. There are of course editors too, free and paid.</p>
+
+  <p>XML Control's <a href="../../../../simplevg/">SimpleVG</a> is another tool to consider: a browser-based vector editor built for SCADA and HMI diagrams, which reads and writes plain SVG files, and can also export PNG for use in the Image widget (discussed below).</p>
+
+  <h2>Part 3: Colour modes</h2>
+
+  <p><b>Color Mode</b> controls how the colour properties are applied to the artwork:</p>
+
+  <dl>
+    <dt>None</dt>
+    <dd>The artwork keeps its own colours.</dd>
+    <dt>Color Override</dt>
+    <dd>Recolours the symbol to the Off or On colour per state.</dd>
+    <dt>Glow Aura</dt>
+    <dd>Adds a glow in the Glow Color while the symbol is active.</dd>
+  </dl>
+  <figure>
+    <img src="05.png" alt="The bell in its active state with a red glow, and Color Mode set to Glow Aura with the Glow Color set to red" width="769" height="423">
+  </figure>
+
+  <div class="note"><b>Glow only</b> If chosen, the glow colour only affects the shape outlines and drop shadows. It does not change internal shape colours.</div>
+
+  <h2>Part 4: Orientation and Flip</h2>
+
+  <p>Every symbol has an <b>Orientation</b> that turns it in 90 degree steps. The turn is around the symbol's own centre; it does not redraw the artwork or change the widget's size or position. Custom symbols start at Up, exactly as uploaded.</p>
+
+  <p>Some artwork is a true mirror image rather than a rotation. For that, tick <b>Flip Horizontal</b>. Flip mirrors the artwork first, and Orientation then turns the mirrored result, so the four Orientation steps behave the same whether Flip is on or off.</p>
+
+  <h2>Part 5: Keep your artwork clean</h2>
+
+  <p>Symbols are cleaned automatically when they are drawn, with nothing to configure. For predictable results:</p>
+
+  <ul>
+    <li><b>Keep the file self-contained.</b> Anything that points outside the file (an external image, an external link, a CSS <code>@import</code>) is removed. The rest of the symbol still draws; only that part is lost. This keeps symbols portable on isolated plant networks and stops them making outbound requests.</li>
+    <li><b>No scripts or event handlers.</b> Script tags and attributes such as <code>onclick</code> are removed.</li>
+    <li><b>References inside the file are kept.</b> Gradients, filters and local shapes referred to by an id in the same file all work.</li>
+    <li><b>Fonts may not match.</b> Text uses whatever fonts the panel PC has. Convert text to outlines before exporting, or put a Text widget on top.</li>
+    <li><b>Use unique class names</b>, for example <code>.acme-pump-body</code>, not <code>.body</code>. Style classes apply across the whole canvas, so a common name can clash with another symbol's.</li>
+  </ul>
+
+  <p>If a symbol looks wrong after import, a missing background or an unstyled shape, check it for external references first.</p>
+
+  <h2>Part 6: Symbol SVG or Image?</h2>
+
+  <p>Each widget accepts only its own file types, up to 5 MB per file.</p>
+
+  <dl>
+    <dt>Symbol SVG</dt>
+    <dd>SVG only. Vector, so it stays sharp at any size.</dd>
+    <dt>Image widget</dt>
+    <dd>PNG, JPG, GIF and WEBP. SVG is refused.</dd>
+  </dl>
+
+  <p>Use Symbol SVG for logos, equipment and anything drawn. Use the Image widget for photographs. The Image widget also has an Off Image and an optional On Image for a tag-driven change, like the Symbol.</p>
+  <figure>
+    <img src="06.png" alt="The Styling and Appearance section of the Properties panel for an Image widget, showing Off Image, On Image, Fit, Corner Radius, Opacity, Inactive Opacity and Grayscale When Inactive" width="275" height="648">
+  </figure>
+
+  <h3>When should I use which?</h3>
+
+  <dl>
+    <dt>Built-in pump, valve, tank</dt>
+    <dd>Common equipment, ready to use (<a href="../08-process-graphics/">Chapter 8</a>).</dd>
+    <dt>Symbol SVG</dt>
+    <dd>Your own drawn artwork, or an exact match to a P&amp;ID standard.</dd>
+    <dt>Image widget</dt>
+    <dd>Photographs and raster pictures.</dd>
+  </dl>
+
+  <h3>Styling the Image widget</h3>
+
+  <p>Unlike the Symbol, the Image widget's picture cannot be recoloured, but its Styling &amp; Appearance section has options for how it is shown:</p>
+
+  <dl>
+    <dt>Fit</dt>
+    <dd>How the picture fills the widget. <code>Contain</code> (the default) shows all of it with its proportions kept. <code>Cover</code> fills the box and crops any overhang. <code>Stretch</code> fills the box and distorts the picture. <code>None</code> shows it at natural size, centred.</dd>
+    <dt>Corner Radius (%)</dt>
+    <dd>Rounds the corners, from 0 to 50. At 50 a square picture becomes a circle. Best seen with Cover or Stretch.</dd>
+    <dt>Opacity (%)</dt>
+    <dd>How solid the picture is, 100 down to 0.</dd>
+    <dt>Inactive Opacity (%)</dt>
+    <dd>The opacity used instead while the bound tag is not active, so you can dim a picture when its equipment is off.</dd>
+    <dt>Grayscale When Inactive</dt>
+    <dd>Draws the picture in greys while the tag is not active. Colour then means &ldquo;running&rdquo; or &ldquo;needs attention&rdquo;, in the spirit of ISA-101.</dd>
+  </dl>
+
+  <div class="note"><b>Needs a tag</b> The two Inactive options need a tag bound. They work with a single Off Image, so you do not need a second picture to get a dim or grey &ldquo;off&rdquo; state.</div>
+
+  <p>Here is the section with its default options:</p>
+  <figure>
+    <img src="07.png" alt="A lamp picture in its lit state, with the Image widget options at their defaults" width="558" height="455">
+  </figure>
+
+  <p>Here the same lamp has a Corner Radius of 20, an Inactive Opacity of 40 and Grayscale When Inactive ticked. While the tag is off the lamp is dimmed, grey and softly rounded; when the tag turns on it returns to full colour.</p>
+  <figure>
+    <img src="08.png" alt="The same lamp dimmed and grey with rounded corners, with Corner Radius 20, Inactive Opacity 40 and Grayscale When Inactive ticked" width="585" height="453">
+  </figure>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li><b>Symbol SVG</b> brings in your own vector artwork. Upload an Off file and, optionally, an On file, then bind a tag.</li>
+    <li><b>Color Mode</b> can recolour a symbol or add a glow; <b>Orientation</b> and <b>Flip</b> turn and mirror it.</li>
+    <li>Symbols are cleaned automatically, so keep them self-contained, with no external references or scripts, and unique class names.</li>
+    <li>SVG goes in Symbol SVG; PNG, JPG, GIF and WEBP go in the Image widget.</li>
+    <li>The Image widget has Fit, Corner Radius and Opacity options, plus a dimmed or greyscale look while its tag is inactive.</li>
+  </ul>
+
+  <p>So far our screens have run on the simulator. In the next chapter we will add a real Modbus device and set up some tags for real.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
