@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 10: Add a Modbus Device - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 10</p>
+
+  <h1>Chapter 10: Add a Modbus Device</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Connect a real Modbus/TCP device on your network, add two tags to it, and operate them from a switch and a knob on a screen.
+  </div>
+
+  <p>Until now we have relied on the Modbus Simulator for tags to develop our ideas with. In this chapter we add a real Modbus/TCP device on the local network. For our example the target is an FX3U-ENET Ethernet interface attached to a Mitsubishi FX3G PLC, but any Modbus/TCP device works the same way.</p>
+
+  <p>Open your BoilerHouse project, then choose <b>System</b> &gt; <b>Device/Tag Setup&hellip;</b></p>
+
+  <h2>Part 1: Add the device</h2>
+
+  <p>Press the <b>+ Add Device</b> button. If you have followed the tutorial so far you will already see a Modbus Simulator and a WorldSystem device in the list. We can have one of each of those, one AstroPLC (the logic engine), and then as many Modbus devices as we need, up to 240 devices in total under the licence limit. When OPC UA arrives, it will share that same limit.</p>
+  <figure>
+    <img src="01.png" alt="The Devices list in Device/Tag Setup showing the Modbus Simulator and World System devices, with the Add Device button highlighted" width="821" height="312">
+  </figure>
+
+  <p>The <b>Driver Type</b> list defaults to <b>Modbus TCP</b>. The Simulator and World System entries are greyed out because they are already in the project.</p>
+  <figure>
+    <img src="02.png" alt="The Driver Type list open, showing Modbus TCP, Modbus SIM and World System (both marked already in project), and AstroPLC" width="755" height="308">
+  </figure>
+
+  <p>In our example the device is at IP address <code>192.168.8.70</code> and serves Modbus on port <code>1502</code>. Enter the details for your own device, and give it a name that will mean something to you later. We called ours <code>FX3G</code>.</p>
+  <figure>
+    <img src="03.png" alt="The new Modbus TCP device form with Name FX3G, IP Host 192.168.8.70, Port 1502 and Unit ID 1 highlighted, plus Poll 1000, Address Offset and 32/64-bit Word Order" width="774" height="541">
+  </figure>
+
+  <dl>
+    <dt>Unit ID</dt>
+    <dd>The Modbus TCP driver is a multi-device interface. You might have sixteen devices, each with its own IP address, or one IP address with sixteen slave devices routed through it, and the Unit ID tells them apart. It is a required setting and defaults to <code>1</code>, which suits most devices that have an address to themselves. Any valid Unit ID can be used, even for a one-to-one connection, so set whatever your device is configured to answer to. If several devices sit behind one address, each needs its own valid Unit ID, for example 1, 2, 3, 10 and 20.</dd>
+    <dt>Poll (ms)</dt>
+    <dd>How often the driver fetches data from the device. Keep it high enough for the device to answer reliably, but not so low that requests pile up. Think about how many devices, and how many tags per device, you really need to read each second. SentinelSCADA has been tested with 240 devices and around 6,000 tags in total.</dd>
+    <dt>Address Offset</dt>
+    <dd>Do the internal Modbus stores start at 0 or at 1? Is a holding register 40000 or 40001? Manufacturers have used both conventions over the decades. <b>As Set</b> uses addresses exactly as you enter them, and <b>Subtract One</b> shifts everything down by one for devices whose documentation is 1-based. If you are not sure, try each until valid data comes back.</dd>
+    <dt>32/64-bit Word Order</dt>
+    <dd>For values that span several registers, some devices send the most significant word first and some the least. <b>LoHi</b> is the default; switch to <b>HiLo</b> if multi-register values read back scrambled. Single-register values are not affected.</dd>
+  </dl>
+
+  <p>Press <b>Save Device</b> when you are done. The new device joins the list, though you may need to scroll the list to see it. Use <b>Edit</b> to change a device later. <b>Del</b> removes it, and any tags attached to it, after a warning prompt.</p>
+  <figure>
+    <img src="04.png" alt="The device list with the new FX3G device at 192.168.8.70:1502 highlighted" width="801" height="209">
+  </figure>
+
+  <h2>Part 2: Add a tag</h2>
+
+  <p>For our example we need just two tags: a binary (on/off) value and a 16-bit word value. In the lower part of the dialog, press <b>+ Add Tag</b>.</p>
+  <figure>
+    <img src="05.png" alt="The Tags list with the Add Tag button highlighted" width="817" height="300">
+  </figure>
+
+  <p>There are a lot of settings here. This is where tags earn their keep: everything from scaling to data logging to alarm levels is set in this form. Do not worry about most of them for now.</p>
+  <figure>
+    <img src="06.png" alt="The new tag form with its default options" width="809" height="828">
+  </figure>
+
+  <div class="note"><b>Select the device first</b> Two things to note here. (1) Choose the target <b>Device</b> before anything else. (2) The small <b>?</b> help button beside Register Group opens an addressing overview that is specific to the device type you chose, so if you have not selected your device yet, the help may seem irrelevant.</div>
+  <figure>
+    <img src="07.png" alt="The tag form with the Device selection marked 1 and the help button marked 2" width="802" height="831">
+  </figure>
+
+  <p>We selected a Modbus TCP device, so this is the help we get. It is worth reading until you have the swing of it: the register groups and their address ranges, how multi-register values are stored, and what Address Offset and Word Order do.</p>
+  <figure>
+    <img src="08.png" alt="The Modbus TCP Standard Addressing help, listing Coil, Discrete Input, Input Register and Holding Register ranges" width="587" height="699">
+  </figure>
+
+  <p>Let us set up the binary tag first. We will call it <code>PlantExtend</code> and say it is a button the occupants can press to start, or extend, the heating for a preset time. That makes it a <b>Coil</b>. Enter the <b>Tag Name/ID</b>, choose the <b>Coil</b> register group and, for our PLC, address <code>10</code>. Complete the other settings as required.</p>
+  <figure>
+    <img src="09.png" alt="The tag form with Tag Name PlantExtend, Device FX3G, Register Group Coil, Address 10 and Type Coil highlighted" width="809" height="352">
+  </figure>
+
+  <p>Press <b>Save Tag</b> (1), then <b>Close &amp; Reload SCADA Engine</b> (2).</p>
+  <figure>
+    <img src="10.png" alt="The Save Tag button marked 1 and the Close and Reload SCADA Engine button marked 2" width="816" height="174">
+  </figure>
+
+  <h2>Part 3: A switch for PlantExtend</h2>
+
+  <p>We can set up and test the new tag straight away. On the screen, drag a <b>Button/Switch</b> from the <b>Controls</b> group of the Toolbox. With it selected, look at its properties.</p>
+  <figure>
+    <img src="11.png" alt="A Switch widget on the canvas with its Data Tag Bind box empty and a browse button beside it" width="564" height="116">
+  </figure>
+
+  <p>Set the bound tag to <code>PlantExtend</code>. There are two ways to find it. You can start typing in the <b>Data Tag Bind</b> box and the list narrows as you type, matching on name, address and device. You can type several words, so <code>plant coil</code> would find it too. Or press the <b>&hellip;</b> button beside the box for a fuller search dialog with device and type filters, and columns you can click to sort. That one comes into its own when a project has thousands of tags.</p>
+  <figure>
+    <img src="12.png" alt="The Select Data Tag dialog with extend typed in the search box, listing the ExtendMinutes and PlantExtend tags" width="764" height="338">
+  </figure>
+
+  <p>Choose the tag. The widget's label under the switch now shows the tag it is bound to.</p>
+  <figure>
+    <img src="13.png" alt="The switch with Data Tag Bind set to PlantExtend (Coil:10)" width="642" height="223">
+  </figure>
+
+  <div class="note"><b>Deleted a tag by mistake?</b> If a tag is later deleted in Device/Tag Setup, widgets bound to it keep their binding, so re-adding the tag reconnects them. In the meantime the label under the widget turns red with a warning symbol, and the Data Tag Bind box shows the name followed by <code>(missing tag)</code>.</div>
+
+  <p>Expand <b>Geometry &amp; Limits</b> and make sure <b>Mode</b> is <b>Toggle</b>, which is the default.</p>
+  <figure>
+    <img src="14.png" alt="The Mode list open, showing Toggle, Pulse, Write 1 and Write 0, with Toggle selected" width="619" height="232">
+  </figure>
+
+  <p>Let us assume that when we set this coil, the PLC runs the plant extension and then resets the coil itself at the end. Let us also assume that if the coil is reset from the screen, the extension stops. How the PLC is programmed is of course entirely up to you.</p>
+
+  <p>Finally, in <b>Styling &amp; Appearance</b>, change the <b>Button Text</b> to something meaningful. This is the text the operator sees on the switch.</p>
+  <figure>
+    <img src="15.png" alt="The Styling and Appearance section with Button Text set to Plant Extend and the switch showing that text" width="625" height="298">
+  </figure>
+
+  <p>Save the screen with <b>File</b> &gt; <b>Save Screen</b>, then choose <b>View</b> &gt; <b>Run Mode</b>.</p>
+
+  <h3>Try the toggle</h3>
+
+  <p>In Run Mode every widget's properties are still visible to us; in Kiosk Mode they are not, which is why Kiosk is the mode for operators. Click the switch once and it toggles the coil in the PLC, and the button colour follows the new state.</p>
+
+  <p>Clicking the switch also opens the <b>Manual Control</b> section in the properties panel, so we could equally operate the switch from there.</p>
+  <figure>
+    <img src="16.png" alt="The Plant Extend switch in Run Mode with the Actions section open, showing the Manual Control ON / Write 1 and OFF / Write 0 buttons and a Value box" width="620" height="301">
+  </figure>
+
+  <h2>Part 4: Extend minutes</h2>
+
+  <p>Now for the second tag. Open <b>System</b> &gt; <b>Device/Tag Setup&hellip;</b> again, press <b>+ Add Tag</b>, and remember to choose the <b>FX3G</b> device first. We will call it <code>ExtendMinutes</code>, with a <b>Holding Register</b> at address <code>40010</code> and a type of <b>Int16</b>.</p>
+
+  <p>There are many adjustments and features on a tag, but for how long to extend the heating, perhaps 15 to 90 minutes would be sensible limits. Set <b>Min Value</b> to <code>15</code>, <b>Max Value</b> to <code>90</code> and <b>Step</b> to <code>1</code>. As before, press <b>Save Tag</b>, then <b>Close &amp; Reload SCADA Engine</b>.</p>
+  <figure>
+    <img src="17.png" alt="The tag form with ExtendMinutes on device FX3G, Holding Register address 40010, type Int16, and Min Value 15, Max Value 90 and Step 1 highlighted" width="816" height="836">
+  </figure>
+
+  <p>Back on our screen, this time we will use an <b>Analog Knob</b>. Bind <code>ExtendMinutes</code> to it, using the same search box or browse button as before.</p>
+  <figure>
+    <img src="18.png" alt="An Analog Knob on the canvas with Data Tag Bind set to ExtendMinutes" width="616" height="272">
+  </figure>
+
+  <p>Save the screen with <b>File</b> &gt; <b>Save Screen</b>, choose <b>View</b> &gt; <b>Run Mode</b>, and try to adjust the value. Because the tag itself has limits, the system will not let us go outside them.</p>
+  <figure>
+    <img src="19.png" alt="A browser message reading Write failed: Value 10 is outside the permitted range [15, 90] for this tag" width="457" height="177">
+  </figure>
+
+  <p>We can avoid that message by giving the knob the same limits, and showing them on the knob also makes it easier to read. In <b>Geometry &amp; Limits</b>, set <b>Min Scale Value</b> to <code>15</code> and <b>Max Scale Value</b> to <code>90</code>, with a <b>Step Size</b> of <code>1</code> and no <b>Decimal Places</b>. Tick <b>Show Min/Max &amp; Ticks</b>.</p>
+  <figure>
+    <img src="20.png" alt="The knob showing 15 and 90 at its ends, with Min Scale Value 15, Max Scale Value 90, Step Size 1, Decimal Places 0 and Show Min/Max and Ticks ticked" width="644" height="510">
+  </figure>
+
+  <div class="note"><b>Two layers of limits</b> The tag's own Min and Max are the real protection, and they apply to every widget and every operator. The knob's limits just make the widget behave sensibly. Set both.</div>
+
+  <p>Finally, in <b>Styling &amp; Appearance</b>, give the knob a <b>Title Label</b> of <code>Extension Minutes</code>.</p>
+  <figure>
+    <img src="21.png" alt="The knob with the title Extension Minutes above it and the Title Label field highlighted" width="627" height="253">
+  </figure>
+
+  <p>Here is the finished result. There are many more settings to play with to get the look and feel you want, and we will leave those for you to explore.</p>
+  <figure>
+    <img src="22.png" alt="The finished Extension Minutes knob above the green Plant Extend switch" width="206" height="233">
+  </figure>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li>A Modbus/TCP device is added in <b>System</b> &gt; <b>Device/Tag Setup&hellip;</b> with its IP address, port and <b>Unit ID</b>; <b>Poll</b>, <b>Address Offset</b> and <b>Word Order</b> adapt it to the device.</li>
+    <li>Choose the <b>Device</b> before anything else on a new tag, and use the <b>?</b> button for the addressing help for that device type.</li>
+    <li>A <b>Coil</b> suits an on/off value and a <b>Holding Register</b> suits a number.</li>
+    <li>Save each tag, then <b>Close &amp; Reload SCADA Engine</b> to apply it.</li>
+    <li>Bind a widget by typing in <b>Data Tag Bind</b> or using the <b>&hellip;</b> browse dialog. A binding survives deleting its tag, flagged in red until the tag returns.</li>
+    <li>A tag's <b>Min</b> and <b>Max</b> limit what can be written; match the widget's own limits to them.</li>
+  </ul>
+
+  <p>This is the last chapter in the Getting Started series. Together, the ten chapters cover the essential steps to get up and running with SentinelSCADA, and we hope you now have a feel for how things work and how straightforward the methods are. That simplicity carries on through the rest of the screens, widgets and controls. There are more advanced setups to tackle should you need them, such as Keycloak and the Telegram Alarm Manager.</p>
+
+  <p>The built-in Web Help and Sentinel Launcher Help describe every feature and function in detail, and also include various examples. Training and direct support are also available if you need them; see the <a href="https://www.xml-control.com">XML Control website</a> for more.</p>
+
+  <p>Thank you for your interest in SentinelSCADA!</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
