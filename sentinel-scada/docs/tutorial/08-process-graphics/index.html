@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 8: Process Graphics - SentinelSCADA Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 8</p>
+
+  <h1>Chapter 8: Process Graphics</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Draw a process on a screen using the built-in graphic objects: a pump and some pipework that follow your tags.
+  </div>
+
+  <p>So far our screens have shown data: a gauge, a clock, a few links. A SCADA screen is usually also a picture of the plant: tanks, pumps, valves and the pipes between them, all changing colour as the process changes. In this chapter we meet the graphic objects built into the Toolbox. In the next chapter we bring in artwork of your own with the Symbol SVG widget.</p>
+
+  <h2>Part 1: The Process &amp; Symbols group</h2>
+
+  <p>In the Toolbox, open the <b>Process &amp; Symbols</b> group.</p>
+  <figure>
+    <img src="01.png" alt="The Process and Symbols group in the Toolbox, listing Feed Pump, Control Valve, Storage Tank, Line / Pipe, Rectangle, Ellipse / Circle, Polyline, Polygon, Symbol SVG and Image Widget" width="259" height="721">
+  </figure>
+
+  <dl>
+    <dt>Feed Pump</dt>
+    <dd>Ready-made pump artwork, in four shapes.</dd>
+    <dt>Control Valve</dt>
+    <dd>Ready-made valve artwork, in four shapes.</dd>
+    <dt>Storage Tank</dt>
+    <dd>A tank that fills to show a level.</dd>
+    <dt>Line / Pipe</dt>
+    <dd>A straight line: pipework, signal lines, dividers.</dd>
+    <dt>Rectangle</dt>
+    <dd>Equipment outlines, panels, grouping areas.</dd>
+    <dt>Ellipse / Circle</dt>
+    <dd>Circles and ovals.</dd>
+    <dt>Polyline</dt>
+    <dd>A multi-segment open line, for complex pipe routes.</dd>
+    <dt>Polygon</dt>
+    <dd>A closed multi-segment shape.</dd>
+    <dt>Symbol SVG</dt>
+    <dd>Your own vector artwork (next chapter).</dd>
+    <dt>Image Widget</dt>
+    <dd>A photograph or raster picture (next chapter).</dd>
+  </dl>
+
+  <p>In this chapter we will use just a pump and some pipes as essential examples. The other built-in types (valve, tank, shapes) work in exactly the same manner, so what you learn here applies to all of them. All of them are drawn by Sentinel itself. They stay sharp at any size, and they change appearance with the value of the tag they are bound to.</p>
+
+  <h2>Part 2: A pump</h2>
+
+  <p>Drag a <b>Feed Pump</b> onto the canvas. No file is needed; the artwork is built in.</p>
+  <figure>
+    <img src="02.png" alt="A Feed Pump symbol dropped on the canvas and selected" width="266" height="231">
+  </figure>
+
+  <p>Each Feed Pump and Control Valve has a <b>Shape</b> property that swaps the artwork in place. Your tag binding, colours and size are kept when you change it, so you can try each shape on the same placed widget.</p>
+
+  <dl>
+    <dt>Feed Pump shapes</dt>
+    <dd><code>Pump</code> (the default), <code>Motor Pump</code>, <code>Centrifugal Blower</code> and <code>Box Fan</code>.</dd>
+    <dt>Control Valve shapes</dt>
+    <dd><code>Gate Valve</code> (the default), <code>Globe Valve</code>, <code>Butterfly Damper</code> and <code>Air Damper</code>.</dd>
+  </dl>
+
+  <p>Select the pump you just placed and let us review its key properties.</p>
+  <figure>
+    <img src="03.png" alt="The Geometry and Limits section of the Properties panel showing Shape, Orientation, Flip Horizontal, Width, Height and Animate on Alarm" width="277" height="510">
+  </figure>
+
+  <dl>
+    <dt>Orientation</dt>
+    <dd>Up, Down, Left or Right: turns the symbol in 90 degree steps. Pumps and valves default to Right, the left-to-right flow convention.</dd>
+    <dt>Flip Horizontal</dt>
+    <dd>Mirrors the artwork. Some equipment is a true mirror image rather than a rotation, a blower whose housing curls the other way, for example.</dd>
+    <dt>Active Color / Inactive Color</dt>
+    <dd>The colour the whole symbol takes in each state.</dd>
+    <dt>Allow Control Write</dt>
+    <dd>When on, clicking the symbol at runtime writes the opposite state to the bound tag, subject to the tag's Min Write Role.</dd>
+    <dt>Animate on Alarm</dt>
+    <dd>Flashes the symbol while its tag is in an alarm.</dd>
+    <dt>Width / Height</dt>
+    <dd>Size in pixels.</dd>
+  </dl>
+
+  <p>For example, here the pump's orientation has been changed to point Left.</p>
+  <figure>
+    <img src="04.png" alt="The pump pointing left on the canvas, with the Orientation drop down set to Left" width="477" height="181">
+  </figure>
+
+  <h3>Bind it to a tag</h3>
+
+  <p>Bind the pump to a discrete (on/off) tag and it switches between Inactive and Active as the tag changes: stopped (grey) or running (green).</p>
+
+  <p>For brevity we will use one of the discrete tags provided as an example with the Modbus SIM device we added earlier: <code>Pulse_10s</code>. It alternates between 0 and 1 every 10 seconds, which gives us a handy animation to watch.</p>
+  <figure>
+    <img src="05.png" alt="The Identification and Binding section of the Properties panel with the Data Tag Bind set to Pulse_10s" width="282" height="236">
+  </figure>
+
+  <div class="note"><b>Not a drawing standard</b> The built-in shapes are meant to be immediately usable, not an exact copy of any one real-world drawing standard. For an exact match to your plant's P&amp;ID symbols, bring in your own artwork with Symbol SVG, which is the subject of the next chapter.</div>
+
+  <h2>Part 3: Pipes</h2>
+
+  <p>Using the same method we can quickly create any form of symbolic installation, for example to indicate the flow of hot water through a pipe. Pipework is drawn with the <b>Line / Pipe</b> widget, <b>Polyline</b> for routes with bends, and <b>Rectangle</b>, <b>Ellipse</b> and <b>Polygon</b> for equipment outlines.</p>
+
+  <dl>
+    <dt>Line / Pipe</dt>
+    <dd>Orientation can be Horizontal, Vertical, Diagonal Down or Diagonal Up. Line Thickness sets the pipe width.</dd>
+    <dt>Polyline</dt>
+    <dd>Click to add points, double-click to finish. Or edit the Points list (<code>x,y x,y ...</code>).</dd>
+    <dt>Rectangle</dt>
+    <dd>Corner Radius rounds the corners.</dd>
+    <dt>Ellipse</dt>
+    <dd>Circles and ovals.</dd>
+    <dt>Polygon</dt>
+    <dd>A closed shape from a list of points.</dd>
+  </dl>
+  <figure>
+    <img src="06.png" alt="Pipework drawn over the boiler room picture next to the pump, with each item labelled Pulse_10s" width="387" height="243">
+  </figure>
+
+  <h3>Colours</h3>
+
+  <dl>
+    <dt>Default Color / Border Color / Default Fill</dt>
+    <dd>The normal look.</dd>
+    <dt>Active Color (1) / Inactive Color (0)</dt>
+    <dd>The colour when the bound tag is 1 or 0. The Inactive Color is grey by default, in the spirit of the ISA-101 approach of keeping bright colour for things that need attention.</dd>
+  </dl>
+
+  <p>Bind a pipe to a tag and its colour follows the process: for example green while a pump is running and grey when it is not. A thick Line / Pipe in a process colour makes good pipework on a P&amp;ID-style screen.</p>
+
+  <h2>Part 4: Try it in Run Mode</h2>
+
+  <p>Switch to Run Mode from the <b>View</b> menu and the symbols take on their Active and Inactive colours as the tags change.</p>
+  <figure>
+    <img src="07.png" alt="The pump and pipework on the screen in Run Mode, shown in the Active green" width="398" height="230">
+  </figure>
+
+  <h2>Summary</h2>
+
+  <ul class="recap">
+    <li>The <b>Process &amp; Symbols</b> group holds the built-in pump, valve, tank, pipe and shape objects. They are drawn by Sentinel, stay sharp at any size and follow their bound tag.</li>
+    <li>Pumps and valves have several <b>Shapes</b>, <b>Orientation</b> and <b>Flip</b>; the tank shows a level with low and high alert colours; lines and shapes take Active and Inactive colours from a tag.</li>
+    <li>Changing a Shape keeps the binding, colours and size.</li>
+  </ul>
+
+  <p>In this chapter we drew a pump and some pipework that follow a tag. In the next chapter we will bring in your own artwork with the Symbol SVG widget, and see how it differs from the Image widget.</p>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
