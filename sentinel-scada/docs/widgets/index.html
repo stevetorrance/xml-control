@@ -15,7 +15,7 @@
   <h1>Widget Summary</h1>
   <p class="tagline">Every widget in the Toolbox, with the same glyph you see on its button, and what it is for.</p>
 
-  <p>There are 27 widgets, in four groups that match the Toolbox in the designer. Most display widgets only show data. Widgets that write to tags (the Controls group, Recipe Control, the Data Label when Allow Control Write is on, and the pump, valve and symbol widgets when click-to-toggle is on) take effect on live equipment as soon as an operator uses them - subject to the authentication settings in place.</p>
+  <p>There are 28 widgets, in four groups that match the Toolbox in the designer. Most display widgets only show data. Widgets that write to tags (the Controls group, Recipe Control, the Data Label when Allow Control Write is on, and the pump, valve and symbol widgets when click-to-toggle is on) take effect on live equipment as soon as an operator uses them - subject to the authentication settings in place.</p>
 
   <h2>Process &amp; Symbols</h2>
   <p class="tagline">Equipment and drawing pieces for building a process picture (a P&amp;ID-style screen).</p>
@@ -180,6 +180,13 @@
       <div class="wtext">
         <h3>Analog Slider</h3>
         <p>A linear control for a continuous setpoint, horizontal or vertical, with snap steps and an optional live value label. Like the knob, it writes on release and becomes a read-only display for users without write permission.</p>
+      </div>
+    </div>
+    <div class="widget">
+      <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2" fill="none" stroke="#14b8a6" stroke-width="2"/><rect x="8.5" y="7" width="7" height="10" fill="#14b8a6"/></svg></div>
+      <div class="wtext">
+        <h3>Mode Selector</h3>
+        <p>Chooses one of up to eight named positions, such as Hand / Off / Auto, Duty / Standby or Speed 1 / 2 / 3, each writing its own value to the bound tag. The lit position always follows the tag, with a dashed outline while a click waits to be confirmed, and each position can have its own colour. It can ask for confirmation before writing, and becomes a read-only display for users without write permission. Use a Button / Switch for plain on or off.</p>
       </div>
     </div>
     <div class="widget">
