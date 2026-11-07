@@ -10,10 +10,21 @@
   <link rel="stylesheet" href="../docs/tutorial/tutorial.css">
 </head>
 <body>
+  <a class="brand" href="../">
+    <picture>
+      <source srcset="../../assets/sentinel-horizontal-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="../../assets/sentinel-horizontal-light.png" alt="SentinelSCADA" width="768" height="181">
+    </picture>
+  </a>
   <p class="crumbs"><a href="../">SentinelSCADA</a> &rsaquo; Overview</p>
 
   <h1>SentinelSCADA Overview</h1>
-  <p class="tagline">A web-based SCADA platform. Build screens in your browser, run them on any device on your network.</p>
+  <p class="tagline">A web-based SCADA (Supervisory, Control &amp; Data Acquisition) platform. Build screens in your browser, run them on any device on your network.</p>
+
+  <figure class="wide-shot">
+    <img src="arizonaSunsetThemeExample.png" alt="The SentinelSCADA designer in the Arizona Golden Hour theme, with a screen of process widgets on the canvas" width="1769" height="1017">
+    <figcaption>The web designer, shown here in one of its many included colour themes.<br>Screen widgets shown are added when following the Getting Started tutorial as examples.</figcaption>
+  </figure>
 
   <h2>What it is</h2>
   <p>SentinelSCADA runs as a background Windows service, managed from a tray application, and is used entirely through a web browser. There is no client software to install. Live tag data reaches the browser over a WebSocket, so screens update as the process does.</p>
@@ -23,7 +34,7 @@
     <li><b>Projects</b> &mdash; a self-contained SCADA configuration holding its screens, tags, device connections and security settings.</li>
     <li><b>Tags</b> &mdash; named data points, such as a temperature, a valve state or a setpoint, bound to devices.</li>
     <li><b>Screens</b> &mdash; the visual pages of your HMI, built in the web designer from gauges, trend charts, indicators and control panels.</li>
-    <li><b>Drivers</b> &mdash; connect to devices. Modbus TCP and the built-in AstroPLC (IEC 61131-3 Structured Text) are supported today.</li>
+    <li><b>Drivers</b> &mdash; connect to devices. Modbus TCP and the built-in AstroPLC (IEC 61131-3 Structured Text) are supported today (OPC UA planned, and will be included when available).</li>
     <li><b>Alarms</b> &mdash; high-high, high, low and low-low limits on any tag, with alarm banner and summary widgets for your screens. Operators acknowledge alarms in Run mode, and every acknowledgement is recorded in the audit trail.</li>
     <li><b>Alarm dispatch</b> &mdash; a companion Telegram service takes alarms to people's phones. It messages whoever is on call from your shift rota, and operators can acknowledge with a tap. If nobody does within a time set by the alarm's severity, it escalates to the backup operator, then the manager, and an acknowledgement stops the escalation. It can also post to a shared group for awareness.</li>
   </ul>
