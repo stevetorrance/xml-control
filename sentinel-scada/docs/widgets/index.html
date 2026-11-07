@@ -15,7 +15,7 @@
   <h1>Widget Summary</h1>
   <p class="tagline">Every widget in the Toolbox, with the same glyph you see on its button, and what it is for.</p>
 
-  <p>There are 27 widgets, in four groups that match the Toolbox in the designer. Display widgets only show data. Control widgets write to tags and take effect on live equipment as soon as an operator uses them - subject to the authentication settings in place.</p>
+  <p>There are 27 widgets, in four groups that match the Toolbox in the designer. Most display widgets only show data. Widgets that write to tags (the Controls group, Recipe Control, the Data Label when Allow Control Write is on, and the pump, valve and symbol widgets when click-to-toggle is on) take effect on live equipment as soon as an operator uses them - subject to the authentication settings in place.</p>
 
   <h2>Process &amp; Symbols</h2>
   <p class="tagline">Equipment and drawing pieces for building a process picture (a P&amp;ID-style screen).</p>
@@ -38,7 +38,7 @@
       <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3" fill="none" stroke="#60a5fa" stroke-width="2"/><line x1="4" y1="9" x2="20" y2="9" stroke="#60a5fa" stroke-width="1.5"/><line x1="4" y1="15" x2="20" y2="15" stroke="#60a5fa" stroke-width="1.5"/></svg></div>
       <div class="wtext">
         <h3>Storage Tank</h3>
-        <p>A built-in storage tank symbol for vessels, hoppers and reservoirs, with a level indicator built in, so the fill level follows its bound tag and operators can see how full the tank is at a glance. Use it as the anchor of a process picture, with pipes running in and out.</p>
+        <p>A built-in storage tank symbol for vessels, hoppers and reservoirs, with a level indicator built in, so the fill level follows its bound tag, between minimum and maximum scale values you set for empty and full. Low and high alert thresholds switch the fill to warning colours, so operators can see how full the tank is, and when it needs attention, at a glance. Use it as the anchor of a process picture, with pipes running in and out.</p>
       </div>
     </div>
     <div class="widget">
@@ -87,12 +87,12 @@
       <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2" fill="none" stroke="#34d399" stroke-width="2"/><circle cx="8.5" cy="8.5" r="2" fill="#34d399"/><path d="M2 17l5-5 5 5 3-3 7 7" fill="none" stroke="#34d399" stroke-width="2" stroke-linejoin="round"/></svg></div>
       <div class="wtext">
         <h3>Image Widget</h3>
-        <p>A static raster image (PNG, JPG, GIF or WEBP), with an optional second image shown when its bound tag is 1. Good for logos, photographs, site plans and backgrounds. It does not accept SVG: use Symbol SVG for vector artwork.</p>
+        <p>A static raster image (PNG, JPG, GIF or WEBP), with an optional second image shown when its bound tag is 1. Fit, corner radius and opacity options are available, plus an optional dimmed or greyscale look while the bound tag is inactive. Good for logos, photographs, site plans and backgrounds. It does not accept SVG: use Symbol SVG for vector artwork.</p>
       </div>
     </div>
   </div>
   <h2>Display &amp; Data</h2>
-  <p class="tagline">Widgets that show information. They only read: they never write to a tag.</p>
+  <p class="tagline">Widgets that show information. They read tags and do not write, with one exception: a Data Label can accept typed-in values when Allow Control Write is on.</p>
   <div class="widget-list">
     <div class="widget">
       <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#3b82f6">12.3</text></svg></div>
@@ -159,7 +159,7 @@
     </div>
   </div>
   <h2>Controls</h2>
-  <p class="tagline">Widgets that act. They write to tags, and so to live equipment, the moment an operator uses them.</p>
+  <p class="tagline">Widgets that act. They write to tags, and so to live equipment, the moment an operator uses them. (Recipe Control, under Alarms &amp; Recipes, does the same.)</p>
   <div class="widget-list">
     <div class="widget">
       <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="4" fill="none" stroke="#10b981" stroke-width="2"/><circle cx="9" cy="12" r="3" fill="#10b981"/></svg></div>
