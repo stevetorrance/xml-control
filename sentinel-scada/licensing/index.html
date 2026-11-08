@@ -1,133 +1,644 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Licensing - SentinelSCADA</title>
-  <link rel="icon" href="../../favicon.ico" sizes="any">
-  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
-  <link rel="stylesheet" href="../../assets/site.css">
-  <style>
-    .crumbs { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
-    .scroll { overflow-x: auto; margin: 1.2rem 0; }
-    table.matrix { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
-    table.matrix th, table.matrix td { padding: 0.5rem 0.65rem; border: 1px solid var(--rule); text-align: center; }
-    table.matrix th:first-child, table.matrix td:first-child { text-align: left; }
-    table.matrix thead th { background: rgba(31, 111, 178, 0.08); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
-    table.matrix td:first-child { font-weight: 600; }
-    .fine { font-size: 0.88rem; color: var(--muted); }
-    .fine p { margin: 0.3rem 0; }
-    .edition { margin-top: 1.8rem; }
-    .edition h3 { margin-bottom: 0.2rem; }
-    .edition p { margin: 0.2rem 0 0.5rem; }
-    .edition ul { margin-top: 0.3rem; }
-    .edition li { margin-bottom: 0.25rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<title>Licensing - SentinelSCADA</title>
+<style>
+  /* House system, as control-circuit-2026/pricing.html: conductor-named tokens,
+     plain ground, offline system fonts only. */
+  :root{
+    --bg:#ffffff;
+    --sheet:#ffffff;
+    --sheet-alt:#f4f8fd;
+    --sheet-line:#d2e1f0;
+    --sheet-line-heavy:#b8cde3;
+    --ink:#14202e;
+    --ink-dim:#4d637b;
+    --ink-faint:#8197af;
+    --copper:#1e62b0;
+    --copper-light:#e6f0fa;
+    --copper-dim:#558ecb;
+    --live:#0088a8;
+    --live-light:#e5f6f9;
+    --earth:#2e854b;
+    --earth-light:#eaf6ee;
+    --amber:#b87414;
+    --amber-light:#fdf5e9;
+    --trunk:#8eaecf;
+    --danger:#c04938;
+    --card-shadow:0 4px 16px rgba(20,32,46,.05);
+    --radius:6px;
+    --radius-sm:4px;
+    --mono:'Cascadia Code',Consolas,'Segoe UI Mono','SF Mono',monospace;
+    --sans:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#141a20;
+      --sheet:#172130;
+      --sheet-alt:#1c293c;
+      --sheet-line:#273950;
+      --sheet-line-heavy:#344d6c;
+      --ink:#e6eef7;
+      --ink-dim:#a0b4cc;
+      --ink-faint:#5f7590;
+      --copper:#4da0ff;
+      --copper-light:#162b45;
+      --copper-dim:#3275c2;
+      --live:#26c6da;
+      --live-light:#12333d;
+      --earth:#4caf50;
+      --earth-light:#183321;
+      --amber:#ffb74d;
+      --amber-light:#3e2d14;
+      --trunk:#3d5677;
+      --danger:#ef5350;
+      --card-shadow:0 4px 16px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#141a20;
+    --sheet:#172130;
+    --sheet-alt:#1c293c;
+    --sheet-line:#273950;
+    --sheet-line-heavy:#344d6c;
+    --ink:#e6eef7;
+    --ink-dim:#a0b4cc;
+    --ink-faint:#5f7590;
+    --copper:#4da0ff;
+    --copper-light:#162b45;
+    --copper-dim:#3275c2;
+    --live:#26c6da;
+    --live-light:#12333d;
+    --earth:#4caf50;
+    --earth-light:#183321;
+    --amber:#ffb74d;
+    --amber-light:#3e2d14;
+    --trunk:#3d5677;
+    --danger:#ef5350;
+    --card-shadow:0 4px 16px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.55;
+  }
+
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding-inline:16px;
+    padding-block:40px 56px;
+  }
+
+  /* ---------- title block ---------- */
+  .brand{display:inline-block;margin-bottom:22px}
+  /* Same size as the other Sentinel pages: full width of their 48rem column. */
+  .brand{display:block;max-width:48rem}
+  .brand img{display:block;width:100%;height:auto}
+  .titleblock{margin-bottom:34px}
+  .tag{
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.14em;
+    color:var(--copper);
+    text-transform:uppercase;
+    background:var(--copper-light);
+    padding:3px 9px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--copper-dim);
+    display:inline-block;
+    margin-bottom:12px;
+  }
+  .titleblock h1{
+    font-size:clamp(28px,4.2vw,48px);
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:1.15;
+    margin:0 0 8px;
+    text-wrap:balance;
+  }
+  .lead{
+    margin:0;
+    color:var(--ink-dim);
+    font-size:17px;
+    max-width:66ch;
+  }
+  .lead b{color:var(--ink);font-weight:600}
+  .rule{
+    margin-top:26px;
+    height:2px;
+    border-radius:2px;
+    background:linear-gradient(90deg,var(--copper) 0%,var(--live) 30%,var(--earth) 70%,var(--sheet-line) 100%);
+  }
+  .tb-fields{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px 36px;
+    margin-top:16px;
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .tb-fields b{
+    color:var(--ink);
+    display:block;
+    font-size:13px;
+    margin-top:2px;
+    text-transform:none;
+    letter-spacing:0;
+    font-weight:600;
+  }
+
+  /* ---------- sections ---------- */
+  section{margin-bottom:44px}
+  .sec-id{
+    font-family:var(--mono);
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.14em;
+    color:var(--copper);
+    text-transform:uppercase;
+  }
+  h2{font-size:24px;font-weight:700;margin:4px 0 6px;letter-spacing:-.01em}
+  h2 .year{font-weight:400;font-size:16px;color:var(--ink-faint);letter-spacing:0;white-space:nowrap}
+  .sec-note{margin:0 0 20px;color:var(--ink-dim);max-width:70ch}
+  .sec-note b{color:var(--ink);font-weight:600}
+
+  /* ---------- tier cards ---------- */
+  .tiers{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:16px;
+  }
+  .tier{
+    background:var(--sheet);
+    border:1px solid var(--sheet-line);
+    border-left:5px solid var(--trunk);
+    border-radius:var(--radius);
+    box-shadow:var(--card-shadow);
+    padding:20px 18px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:13px;
+  }
+  .tier--lead{border-color:var(--copper-dim);border-left-color:var(--copper)}
+  .tier-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .tier-name{font-size:18px;font-weight:800;letter-spacing:.04em}
+  .flag{
+    font-family:var(--mono);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--amber);
+    background:var(--amber-light);
+    border:1px solid var(--amber);
+    border-radius:12px;
+    padding:2px 8px;
+    white-space:nowrap;
+  }
+  .price{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:28px;
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+    letter-spacing:-.02em;
+  }
+  .price small{
+    display:block;
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:11.5px;
+    color:var(--ink-faint);
+    margin-top:7px;
+    letter-spacing:0;
+  }
+  .who{margin:0;font-size:13.5px;color:var(--ink-dim);min-height:5em}
+  .allow{
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:600;
+    padding:8px 11px;
+    background:var(--sheet-alt);
+    border:1px solid var(--sheet-line);
+    border-radius:var(--radius-sm);
+    color:var(--ink);
+  }
+  .allow span{color:var(--ink-faint);font-weight:400;letter-spacing:.12em;font-size:10px;text-transform:uppercase}
+  ul.pts{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:13.5px}
+  ul.pts li{display:grid;grid-template-columns:15px 1fr;gap:7px;align-items:start;color:var(--ink-dim)}
+  ul.pts li b{font-weight:600;color:var(--ink)}
+  .mk{font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--earth)}
+  .mk.off{color:var(--ink-faint)}
+
+  /* ---------- support strip ---------- */
+  .companion{
+    margin-top:18px;
+    background:var(--sheet);
+    border:1px solid var(--live);
+    border-left:5px solid var(--live);
+    border-radius:var(--radius);
+    box-shadow:var(--card-shadow);
+    padding:20px 22px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px 28px;
+  }
+  .comp-say{flex:1 1 330px}
+  .comp-say h3{font-size:17px;font-weight:700;margin:0 0 5px;color:var(--live)}
+  .comp-say p{margin:0;font-size:13.5px;color:var(--ink-dim);max-width:64ch}
+  .comp-say p b{color:var(--ink);font-weight:600}
+  .comp-rates{display:flex;gap:10px;flex:none;flex-wrap:wrap}
+  .comp-rates > div{
+    background:var(--live-light);
+    border:1px solid var(--live);
+    border-radius:var(--radius-sm);
+    padding:9px 16px;
+    text-align:center;
+  }
+  .comp-rates span{
+    display:block;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    color:var(--ink-dim);
+    margin-bottom:2px;
+    text-transform:uppercase;
+  }
+  .comp-rates b{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:19px;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+  }
+
+  /* ---------- included grid ---------- */
+  .included{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .inc{
+    background:var(--sheet-alt);
+    border:1px solid var(--sheet-line);
+    border-radius:var(--radius-sm);
+    padding:14px 16px;
+  }
+  .inc h3{font-size:14px;font-weight:700;margin:0 0 4px}
+  .inc p{margin:0;font-size:12.5px;color:var(--ink-dim)}
+
+  /* ---------- comparison table ---------- */
+  .card{
+    background:var(--sheet);
+    border:1px solid var(--sheet-line);
+    border-radius:var(--radius);
+    box-shadow:var(--card-shadow);
+    padding:20px 22px;
+  }
+  .tscroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:680px}
+  thead th{
+    text-align:left;
+    padding:10px 14px;
+    background:var(--sheet-alt);
+    border-bottom:2px solid var(--sheet-line-heavy);
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    white-space:nowrap;
+  }
+  thead th:not(:first-child){text-align:center}
+  tbody th{
+    font-weight:400;
+    text-align:left;
+    padding:9px 14px;
+    border-bottom:1px solid var(--sheet-line);
+    color:var(--ink-dim);
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:9px 14px;
+    border-bottom:1px solid var(--sheet-line);
+    text-align:center;
+    font-family:var(--mono);
+    font-size:12px;
+    font-variant-numeric:tabular-nums;
+  }
+  tr.group th{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--copper);
+    background:var(--copper-light);
+    padding-top:9px;
+    padding-bottom:7px;
+  }
+  .col-lead{background:var(--copper-light)}
+  .yes{color:var(--earth);font-weight:700}
+  .no{color:var(--ink-faint)}
+  tbody tr:hover td,tbody tr:hover th{background:var(--sheet-alt)}
+  tbody tr:hover td.col-lead{background:var(--copper-light)}
+
+  /* ---------- terms ---------- */
+  dl.terms{margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}
+  dl.terms > div{
+    background:var(--sheet);
+    border:1px solid var(--sheet-line);
+    border-top:3px solid var(--copper-dim);
+    border-radius:var(--radius-sm);
+    padding:14px 16px;
+  }
+  dt{font-size:14px;font-weight:700;margin-bottom:4px}
+  dd{margin:0;font-size:13px;color:var(--ink-dim)}
+  dd b{color:var(--ink);font-weight:600}
+
+  .callout{
+    margin-top:20px;
+    background:var(--amber-light);
+    border:1px solid var(--amber);
+    border-left:5px solid var(--amber);
+    border-radius:var(--radius);
+    padding:16px 20px;
+  }
+  .callout h3{font-size:15px;font-weight:700;margin:0 0 6px;color:var(--amber)}
+  .callout p{margin:0 0 8px;font-size:13.5px;max-width:74ch;color:var(--ink-dim)}
+  .callout p:last-child{margin-bottom:0}
+  .callout b{color:var(--ink);font-weight:600}
+
+  /* ---------- footer title block ---------- */
+  .tblock{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+    background:var(--sheet);
+    border:1px solid var(--sheet-line-heavy);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .tb{padding:12px 16px;border-right:1px solid var(--sheet-line)}
+  .tb:last-child{border-right:0}
+  .tb span{
+    display:block;
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:3px;
+  }
+  .tb b{font-size:14px;font-weight:700}
+  .fine{margin:16px 0 0;font-size:12px;color:var(--ink-faint);max-width:82ch}
+</style>
 </head>
 <body>
+<div class="wrap">
+
   <a class="brand" href="../">
     <picture>
       <source srcset="../../assets/sentinel-horizontal-dark.png" media="(prefers-color-scheme: dark)">
       <img src="../../assets/sentinel-horizontal-light.png" alt="SentinelSCADA" width="768" height="181">
     </picture>
   </a>
-  <p class="crumbs"><a href="../">SentinelSCADA</a> &rsaquo; Licensing</p>
 
-  <h1>Licensing</h1>
-  <p class="tagline">SentinelSCADA offers a tiered licensing model tailored to different operational scales, from personal education to plant-wide industrial deployments.</p>
-
-  <h2>Summary matrix</h2>
-
-  <div class="scroll">
-    <table class="matrix">
-      <thead>
-        <tr><th>Capability / Limit</th><th>Evaluation</th><th>Home</th><th>Professional</th><th>Clipper</th><th>TradeWinds</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Max Tags</td><td>64</td><td>512</td><td>4,096</td><td>16,384</td><td>Unlimited&nbsp;&Dagger;</td></tr>
-        <tr><td>Max Active Drivers</td><td>4</td><td>8</td><td>64</td><td>128</td><td>240</td></tr>
-        <tr><td>Max Web Clients</td><td>1</td><td>4</td><td>16</td><td>64</td><td>Unlimited&nbsp;&Dagger;</td></tr>
-        <tr><td>XML &amp; SQLite DB</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-        <tr><td>Keycloak (CFR Part 11)&nbsp;&dagger;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>Yes</td><td>Yes</td></tr>
-        <tr><td>Alarm Dispatcher&nbsp;*</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-        <tr><td>Commercial Use</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
-        <tr><td>PDF Watermark</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
-        <tr><td>History Retention</td><td>7 days</td><td>30 days</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
-        <tr><td>Session Runtime Limit</td><td>240 min</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
-      </tbody>
-    </table>
+  <div class="titleblock">
+    <span class="tag">SentinelSCADA &middot; Licensing</span>
+    <h1>Choose by scale. Buy it once.</h1>
+    <p class="lead">SentinelSCADA offers a tiered licensing model tailored to different operational scales, from personal and educational use to small commercial installations, through to plant-wide industrial deployments including up to CFR Part 11 readiness for those that require it. Every edition is <b>perpetual</b>, and every edition comes with <b>email support</b>.</p>
+    <div class="rule"></div>
+    <div class="tb-fields">
+      <span>Model<b>Perpetual</b></span>
+      <span>Currency<b>GBP</b></span>
+      <span>Licensing<b>One key per server PC</b></span>
+      <span>Season<b>2026/7</b></span>
+    </div>
   </div>
 
-  <div class="fine">
-    <p>&dagger; Keycloak (CFR Part 11) mode requires Docker and Keycloak configuration. An IT professional will normally be required.</p>
-    <p>* Uses Telegram Messenger.</p>
-    <p>&Dagger; Unlimited means SentinelSCADA imposes no licence limit. Practical capacity depends on your server hardware, your network, and how many tags change how often.</p>
-    <p>Clipper and TradeWinds Editions require appropriate server-rated hardware and setup for enterprise scaling and security.</p>
+  <section>
+    <p class="sec-id">01 &middot; Editions</p>
+    <h2>Four editions, sized to the plant <span class="year">(2026/7 pricing)</span></h2>
+    <p class="sec-note">Every edition is a one-time purchase for one server PC. What separates them is the number of tags, drivers and web clients, how long history is kept, and whether you need <b>Keycloak (CFR Part 11)</b> security, which begins at Clipper.</p>
+
+    <div class="tiers">
+
+      <div class="tier">
+        <div class="tier-head"><div class="tier-name">EVALUATION</div><div class="flag">Free</div></div>
+        <div class="price">Free<small>No licence key needed</small></div>
+        <p class="who">Try it on a real project, and help us find the bugs.</p>
+        <div class="allow">64 <span>Tags</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span>Up to <b>4 drivers</b>, 1 web client</span></li>
+          <li><span class="mk">&#9679;</span><span>7 days of history</span></li>
+          <li><span class="mk off">&#9675;</span><span><b>240 minutes</b> of Run Mode per server session</span></li>
+          <li><span class="mk off">&#9675;</span><span>Watermarked PDF reports</span></li>
+          <li><span class="mk off">&#9675;</span><span>Non-commercial use</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <div class="tier-head"><div class="tier-name">HOME</div></div>
+        <div class="price">&pound;95<small>One time, perpetual</small></div>
+        <p class="who">Personal use, hobbyist projects and education. Concessions are available for students and education providers &mdash; contact us for more.</p>
+        <div class="allow">512 <span>Tags</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span>Up to <b>8 drivers</b>, 4 web clients</span></li>
+          <li><span class="mk">&#9679;</span><span>30 days of history</span></li>
+          <li><span class="mk">&#9679;</span><span>Unlimited Run Mode time</span></li>
+          <li><span class="mk">&#9679;</span><span>Standard PDF reports, no watermark</span></li>
+          <li><span class="mk off">&#9675;</span><span>Non-commercial use</span></li>
+        </ul>
+      </div>
+
+      <div class="tier tier--lead">
+        <div class="tier-head"><div class="tier-name">PROFESSIONAL</div><div class="flag">Commercial</div></div>
+        <div class="price">&pound;895<small>One time, perpetual</small></div>
+        <p class="who">The baseline tier for single machines and standard utility facilities. A solid step up from Home for growing deployments.</p>
+        <div class="allow">4,096 <span>Tags</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span><b>Commercial use</b></span></li>
+          <li><span class="mk">&#9679;</span><span>Up to <b>64 drivers</b>, 16 web clients</span></li>
+          <li><span class="mk">&#9679;</span><span>Unlimited history</span></li>
+          <li><span class="mk">&#9679;</span><span>XML and SQLite security modes</span></li>
+          <li><span class="mk off">&#9675;</span><span>Keycloak support begins at Clipper</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <div class="tier-head"><div class="tier-name">CLIPPER</div><div class="flag">CFR Part 11</div></div>
+        <div class="price">&pound;4,950<small>One time, perpetual</small></div>
+        <p class="who">The high-performance tier, for large process lines and multi-system integration.</p>
+        <div class="allow">16,384 <span>Tags</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span><b>Keycloak (CFR Part 11)</b> with XML and SQLite</span></li>
+          <li><span class="mk">&#9679;</span><span>Up to <b>128 drivers</b>, 64 web clients</span></li>
+          <li><span class="mk">&#9679;</span><span>Unlimited history</span></li>
+          <li><span class="mk">&#9679;</span><span>Commercial use</span></li>
+        </ul>
+      </div>
+
+      <div class="tier">
+        <div class="tier-head"><div class="tier-name">TRADEWINDS</div><div class="flag">No Practical Limits</div></div>
+        <div class="price">&pound;24,950<small>One time, perpetual</small></div>
+        <p class="who">The enterprise tier, for large facilities and plant-wide control architectures.</p>
+        <div class="allow">Unlimited <span>Tags</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span><b>Keycloak (CFR Part 11)</b> with XML and SQLite</span></li>
+          <li><span class="mk">&#9679;</span><span>Up to <b>240 drivers</b></span></li>
+          <li><span class="mk">&#9679;</span><span>No licence limit on web clients</span></li>
+          <li><span class="mk">&#9679;</span><span>Unlimited history, commercial use</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="companion">
+      <div class="comp-say">
+        <h3>Support, on every edition</h3>
+        <p><b>Email support</b> is included with every edition, Evaluation too: questions about using SentinelSCADA and bug reports, normally answered within <b>48 business hours</b>. For help on your own site, <b>on-site support</b> is available at the rate shown, plus travel, accommodation and expenses.</p>
+      </div>
+      <div class="comp-rates">
+        <div><span>On-site, per day</span><b>&pound;800</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-id">02 &middot; In every edition</p>
+    <h2>The same engine, from Home to TradeWinds</h2>
+    <p class="sec-note">The edition sets the capacity, not the quality. You are never missing a feature of the tool itself, only headroom.</p>
+    <div class="included">
+      <div class="inc"><h3>Email support</h3><p>Included with every edition, and free of any expiry. Questions and bug reports, normally answered within 48 business hours.</p></div>
+      <div class="inc"><h3>Bug reports welcome</h3><p>Evaluation is a testing tool as well as a trial. Bug reports from any edition are prioritised &mdash; please include your version number and the steps to reproduce.</p></div>
+      <div class="inc"><h3>Alarm Dispatcher</h3><p>Alarm notification is available in every edition, delivered through Telegram Messenger.</p></div>
+      <div class="inc"><h3>XML and SQLite security</h3><p>Both security modes are in every edition, with the audit trail protected by chained record hashes in SQLite mode.</p></div>
+      <div class="inc"><h3>PDF reports</h3><p>Standard PDF reports from Home upwards, with no watermark. Evaluation reports carry an Evaluation Mode note.</p></div>
+      <div class="inc"><h3>Perpetual</h3><p>A licence does not expire or need renewing. The licence you buy keeps working.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-id">03 &middot; Side by side</p>
+    <h2>What actually differs</h2>
+    <div class="card">
+      <div class="tscroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">&nbsp;</th>
+              <th scope="col">Evaluation</th>
+              <th scope="col">Home</th>
+              <th scope="col" class="col-lead">Professional</th>
+              <th scope="col">Clipper</th>
+              <th scope="col">TradeWinds</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="group"><th colspan="6" scope="colgroup">Price</th></tr>
+            <tr><th scope="row">Price (per server PC, 2026/7)</th><td>Free</td><td>&pound;95</td><td class="col-lead">&pound;895</td><td>&pound;4,950</td><td>&pound;24,950</td></tr>
+            <tr><th scope="row">Licence transfer fee</th><td class="no">&mdash;</td><td>&pound;40</td><td class="col-lead">&pound;200</td><td>&pound;200</td><td>&pound;200</td></tr>
+
+            <tr class="group"><th colspan="6" scope="colgroup">Capacity</th></tr>
+            <tr><th scope="row">Max tags</th><td>64</td><td>512</td><td class="col-lead">4,096</td><td>16,384</td><td>Unlimited</td></tr>
+            <tr><th scope="row">Max active drivers</th><td>4</td><td>8</td><td class="col-lead">64</td><td>128</td><td>240</td></tr>
+            <tr><th scope="row">Max web clients</th><td>1</td><td>4</td><td class="col-lead">16</td><td>64</td><td>Unlimited</td></tr>
+            <tr><th scope="row">History retention</th><td>7 days</td><td>30 days</td><td class="col-lead">Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+            <tr><th scope="row">Session runtime limit</th><td>240 min</td><td>Unlimited</td><td class="col-lead">Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+
+            <tr class="group"><th colspan="6" scope="colgroup">Security &amp; use</th></tr>
+            <tr><th scope="row">XML &amp; SQLite security</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+            <tr><th scope="row">Keycloak (CFR Part 11)</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead no">&mdash;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+            <tr><th scope="row">Commercial use</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+
+            <tr class="group"><th colspan="6" scope="colgroup">Output &amp; alerts</th></tr>
+            <tr><th scope="row">PDF watermark</th><td>Yes</td><td class="no">&mdash;</td><td class="col-lead no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+            <tr><th scope="row">Alarm Dispatcher</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+
+            <tr class="group"><th colspan="6" scope="colgroup">Keys &amp; support</th></tr>
+            <tr><th scope="row">Licence key activates</th><td class="no">&mdash;</td><td>1 server PC</td><td class="col-lead">1 server PC</td><td>1 server PC</td><td>1 server PC</td></tr>
+            <tr><th scope="row">Email support</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+            <tr><th scope="row">On-site support</th><td colspan="5">&pound;800 per day, plus travel, accommodation and expenses</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="sec-id">04 &middot; The licence, in plain words</p>
+    <h2>The small print, in one place</h2>
+    <dl class="terms">
+      <div>
+        <dt>Perpetual</dt>
+        <dd>A licence is a one-time purchase. It does not expire and does not need renewing. Prices on this page are for the <b>2026/7 season</b> and may change.</dd>
+      </div>
+      <div>
+        <dt>One key, one server PC</dt>
+        <dd>A licence is hardware-locked to the host system. A second server, such as a standby or test machine, needs its own licence.</dd>
+      </div>
+      <div>
+        <dt>Moving to a new server PC</dt>
+        <dd>A licence transfer is a fixed fee: <b>&pound;40</b> for Home, <b>&pound;200</b> for Professional, Clipper and TradeWinds.</dd>
+      </div>
+      <div>
+        <dt>Email support</dt>
+        <dd>Included with every edition. It covers <b>questions about using SentinelSCADA</b> and <b>bug reports</b>, which are welcome and prioritised. Replies are normally within 48 business hours. It does not cover building or reviewing your project.</dd>
+      </div>
+      <div>
+        <dt>On-site support</dt>
+        <dd>Help on your own site is <b>&pound;800 per day</b>, plus travel, accommodation and expenses.</dd>
+      </div>
+      <div>
+        <dt>Concessions</dt>
+        <dd>Concessions are available for students and education providers &mdash; contact us for more.</dd>
+      </div>
+      <div>
+        <dt>Keycloak (CFR Part 11)</dt>
+        <dd>Available from Clipper. It requires Docker and Keycloak configuration, and an IT professional will normally be needed.</dd>
+      </div>
+      <div>
+        <dt>Alarm Dispatcher</dt>
+        <dd>Alarm notifications are delivered using Telegram Messenger.</dd>
+      </div>
+      <div>
+        <dt>&ldquo;Unlimited&rdquo;</dt>
+        <dd>Unlimited means SentinelSCADA imposes no licence limit. Practical capacity depends on your server hardware, your network, and how many tags change how often.</dd>
+      </div>
+      <div>
+        <dt>Evaluation mode</dt>
+        <dd>With no licence key installed, SentinelSCADA runs in Evaluation mode. It is fully functional for development and testing, with the limits shown above. The 240-minute runtime counts cumulative Run and Kiosk time per server session; restarting the server resets it.</dd>
+      </div>
+    </dl>
+
+    <div class="callout">
+      <h3>Clipper and TradeWinds need proper hardware</h3>
+      <p>Clipper and TradeWinds editions require appropriate server-rated hardware and setup for enterprise scaling and security. Contact us if you would like to talk through a deployment before you buy.</p>
+    </div>
+  </section>
+
+  <div class="tblock">
+    <div class="tb"><span>Product</span><b>SentinelSCADA</b></div>
+    <div class="tb"><span>Model</span><b>Perpetual</b></div>
+    <div class="tb"><span>Currency</span><b>GBP</b></div>
+    <div class="tb"><span>Licensing</span><b>One key per server PC</b></div>
+    <div class="tb"><span>Season</span><b>2026/7</b></div>
   </div>
 
-  <h2>Evaluation mode</h2>
-  <p>By default, SentinelSCADA runs in <b>Evaluation mode</b> if no licence key is installed. Evaluation mode is fully functional for development and testing, with the following limits:</p>
-  <ul>
-    <li><b>Runtime limit</b> &mdash; a cumulative 240 minutes of Run and Kiosk mode time per server session. Once it expires, connected clients exit Run Mode and return to Design Mode. Restarting the server resets the timer.</li>
-    <li><b>Tags</b> &mdash; up to 64.</li>
-    <li><b>Drivers</b> &mdash; up to 4 active device drivers.</li>
-    <li><b>Web clients</b> &mdash; 1 concurrent connection.</li>
-    <li><b>History</b> &mdash; 7 days maximum.</li>
-    <li><b>Reports</b> &mdash; generated PDFs carry an Evaluation Mode watermark.</li>
-    <li><b>Security</b> &mdash; Keycloak (CFR Part 11) integration is not available; XML and SQLite modes only.</li>
-  </ul>
-
-  <h2>Licensed editions</h2>
-  <p>A valid licence key removes the session runtime restriction and unlocks operational capacity according to the edition.</p>
-
-  <div class="edition">
-    <h3>Home Edition</h3>
-    <p>For personal use, hobbyist projects and education.</p>
-    <ul>
-      <li>Up to 512 tags, 8 active device drivers and 4 concurrent web clients.</li>
-      <li>30 days of history.</li>
-      <li>Standard PDF reports, with no watermark.</li>
-      <li>XML and SQLite security modes.</li>
-    </ul>
-  </div>
-
-  <div class="edition">
-    <h3>Professional Edition</h3>
-    <p>The baseline tier for single machines and standard utility facilities. A solid step up from Home for growing deployments.</p>
-    <ul>
-      <li>Up to 4,096 tags, 64 active device drivers and 16 concurrent web clients.</li>
-      <li>Unlimited history.</li>
-      <li>Standard PDF reports, with no watermark.</li>
-      <li>XML and SQLite security modes. Keycloak support begins at Clipper.</li>
-    </ul>
-  </div>
-
-  <div class="edition">
-    <h3>Clipper Edition</h3>
-    <p>The high-performance tier, for large process lines and multi-system integration.</p>
-    <ul>
-      <li>Up to 16,384 tags, 128 active device drivers and 64 concurrent web clients.</li>
-      <li>Unlimited history.</li>
-      <li>Standard PDF reports, with no watermark.</li>
-      <li>All security modes: XML, SQLite and Keycloak (CFR Part 11).</li>
-    </ul>
-  </div>
-
-  <div class="edition">
-    <h3>TradeWinds Edition</h3>
-    <p>The enterprise tier, for large facilities and plant-wide control architectures.</p>
-    <ul>
-      <li>No licence limit on tags or concurrent web clients, constrained only by your server hardware and network. Up to 240 active device drivers.</li>
-      <li>Unlimited history.</li>
-      <li>Standard PDF reports, with no watermark.</li>
-      <li>All security modes: XML, SQLite and Keycloak (CFR Part 11).</li>
-    </ul>
-  </div>
-
-  <p>A licence is hardware-locked to the host system. For licence transfers or requests, contact XML Control &mdash; Software &amp; Automation.</p>
-
-  <footer>
-    <p><a href="../">Back to SentinelSCADA</a></p>
-  </footer>
+  <p class="fine">For licence transfers, concessions or other requests, contact XML Control &mdash; Software &amp; Automation.</p>
+</div>
+<footer style="max-width:1100px;margin:0 auto;padding:28px 16px 40px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:.9rem">
+  <p><a href="../">Back to SentinelSCADA</a></p>
+</footer>
 </body>
 </html>
