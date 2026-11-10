@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 200" width="560" height="200">
+  <title>SimpleVG - blue wave banner</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3182CE"/><stop offset="1" stop-color="#2A4E8F"/></linearGradient>
+    <clipPath id="clip"><rect width="560" height="200" rx="28"/></clipPath>
+  </defs>
+  <rect width="560" height="200" rx="28" fill="url(#bg)"/>
+  <g clip-path="url(#clip)">
+    <path d="M0 150 C70 118 140 182 210 150 S350 118 420 150 S520 182 560 150 V200 H0 Z" fill="rgba(255,255,255,.12)"/>
+    <path d="M0 164 C80 134 150 192 230 162 S370 132 440 164 S530 190 560 166 V200 H0 Z" fill="rgba(255,255,255,.18)"/>
+    <path d="M0 180 C90 156 160 200 240 178 S380 156 450 180 S540 198 560 184 V200 H0 Z" fill="rgba(255,255,255,.26)"/>
+  </g>
+  <g fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <!-- S: single Bezier path -->
+    <path d="M78 74 C72 54 34 56 36 80 C38 102 78 96 78 112 C78 138 36 138 30 120" stroke="#FFFFFF"/>
+    <!-- i -->
+    <line x1="110" y1="90" x2="110" y2="130"/>
+    <!-- m -->
+    <path d="M134 90 L134 130 M134 108 A18 18 0 0 1 170 108 L170 130 M170 108 A18 18 0 0 1 206 108 L206 130"/>
+    <!-- p -->
+    <path d="M232 90 L232 160"/><circle cx="252" cy="110" r="20"/>
+    <!-- l -->
+    <line x1="296" y1="58" x2="296" y2="130"/>
+    <!-- e -->
+    <path d="M318 110 L358 110 A20 20 0 1 0 352 124"/>
+    <!-- V -->
+    <path d="M376 58 L402 130 L428 58" stroke="#FBD38D"/>
+    <!-- G -->
+    <path d="M512 71 A36 36 0 1 0 512 117 L512 96 L486 96" stroke="#FBD38D"/>
+    <circle cx="110" cy="64" r="7" fill="#FFFFFF" stroke="none"/>
+  </g>
+  <!-- Bezier handles on the S -->
+  <g stroke="#FBD38D" stroke-width="3" fill="none"><line x1="78" y1="74" x2="72" y2="54"/><line x1="30" y1="120" x2="36" y2="138"/></g>
+  <g fill="#2A4E8F" stroke="#FBD38D" stroke-width="3"><circle cx="72" cy="54" r="5"/><circle cx="36" cy="138" r="5"/></g>
+</svg>
