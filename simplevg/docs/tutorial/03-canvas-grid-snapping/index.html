@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 3: Canvas, Grid and Snapping - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 3</p>
+
+  <h1>Chapter 3: Canvas, Grid and Snapping</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Control the view with the Grid, Snap and Ruler buttons, set the size of your drawing area on the Canvas tab, and move around with zoom and keyboard nudging.
+  </div>
+
+  <p>Good SCADA graphics are tidy: things line up, sit square and are the size you meant. This chapter covers the tools that make that easy.</p>
+
+  <h2>Part 1: Grid, Snap and Ruler</h2>
+
+  <p>Three toggle buttons sit in the menu bar, to the left of the theme button. A blue outline means the button is switched on.</p>
+  <figure>
+    <img src="01.png" alt="The Grid, Snap and Ruler toggle buttons in the menu bar, all switched on" width="600" height="48">
+  </figure>
+  <dl>
+    <dt>Grid</dt>
+    <dd>Shows or hides the dotted grid pattern on the canvas.</dd>
+    <dt>Snap</dt>
+    <dd>Turns magnetic snapping on or off. With Snap on, shapes you draw and move jump to the nearest grid line, so edges line up exactly.</dd>
+    <dt>Ruler</dt>
+    <dd>Shows or hides the pixel rulers along the top and left of the canvas, and the dashed centrelines through the middle.</dd>
+  </dl>
+  <p>Here is the canvas with the grid switched off. Snapping still works if Snap is on, but the dots are no longer drawn.</p>
+  <figure>
+    <img src="02.png" alt="The canvas with the Grid button switched off, showing a plain white canvas with a blue rectangle" width="1106" height="902">
+  </figure>
+  <p>And with the rulers switched off, you get the maximum drawing room.</p>
+  <figure>
+    <img src="03.png" alt="The canvas with the Ruler button switched off, with no rulers or centrelines" width="1106" height="902">
+  </figure>
+  <p>A good habit is to leave Grid and Snap on while building a diagram, and turn Snap off only for the odd small adjustment that needs to sit between grid lines.</p>
+
+  <h2>Part 2: The Canvas tab</h2>
+
+  <p>Click the <b>Canvas</b> tab at the top of the Inspector. Its first section, <b>DOCUMENT PROPERTIES</b>, controls the drawing area itself.</p>
+  <figure>
+    <img src="04.png" alt="The Canvas tab of the Inspector showing Canvas Width and Height, Grid Size, Show Centerlines and the default new element styles" width="362" height="552">
+  </figure>
+  <dl>
+    <dt>Canvas Width and Canvas Height</dt>
+    <dd>The size of the artboard in pixels. The default is 500 &times; 500.</dd>
+    <dt>Grid Size (px)</dt>
+    <dd>The spacing of the grid, and so the distance things snap by. The default is 10.</dd>
+    <dt>Show Centerlines and Centerline Color</dt>
+    <dd>The dashed lines through the middle of the canvas, useful for centring symbols.</dd>
+  </dl>
+  <p>Change the width to <b>800</b> and press <kbd>Tab</kbd>. The canvas grows at once, and the rulers follow.</p>
+  <figure>
+    <img src="05.png" alt="The canvas resized to 800 by 500, with the rulers now running to 800" width="1470" height="652">
+  </figure>
+
+  <div class="good"><span class="lead">Match the size to where it will be used</span>
+    If the drawing is going to sit on a SentinelSCADA screen, set the canvas to the size you want it to appear on that screen. It saves scaling later.</div>
+
+  <p>Further down the Canvas tab, <b>DEFAULT NEW ELEMENT STYLES</b> sets the fill colour, stroke colour and stroke width given to every new shape you draw. Set these once to match your house style and each shape starts out right.</p>
+
+  <div class="note"><b>Note</b> SimpleVG remembers your canvas size, grid size, default styles, and the Grid, Snap and Ruler settings in the browser, so they are still there next time you open it.</div>
+
+  <h2>Part 3: Zoom and the status bar</h2>
+
+  <p>The status bar under the canvas shows the canvas size, the pointer position in canvas pixels, and how many items are selected. At the right are the zoom controls.</p>
+  <figure>
+    <img src="06.png" alt="The status bar showing canvas size, pointer position, selection count and the zoom buttons 50%, 100%, 150%, 200%, minus, plus and Reset" width="1100" height="32">
+  </figure>
+  <p>Click <b>50%</b>, <b>100%</b>, <b>150%</b> or <b>200%</b> to jump to a zoom level, use <b>-</b> and <b>+</b> to step, and <b>Reset</b> to return to the default. Zoom in for fine work, and out to see the whole diagram.</p>
+
+  <h2>Part 4: Nudging with the keyboard</h2>
+
+  <p>Dragging gets a shape close. For the last pixel, select it and use the arrow keys:</p>
+  <ul>
+    <li><kbd>&uarr;</kbd> <kbd>&darr;</kbd> <kbd>&larr;</kbd> <kbd>&rarr;</kbd> nudge by 1 pixel.</li>
+    <li><kbd>Shift</kbd> plus an arrow key nudges by 10 pixels.</li>
+    <li><kbd>Ctrl</kbd>+<kbd>R</kbd> rotates the selection 15&deg; clockwise, and <kbd>Ctrl</kbd>+<kbd>U</kbd> rotates it 15&deg; anti-clockwise.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li><b>Grid</b>, <b>Snap</b> and <b>Ruler</b> in the menu bar toggle the dots, the magnetic snapping and the rulers.</li>
+    <li>The <b>Canvas</b> tab sets the canvas width and height, the grid size, and the default fill and stroke for new shapes.</li>
+    <li>The status bar shows size, pointer position and selection count, and holds the zoom controls.</li>
+    <li>Arrow keys nudge a selection by 1 pixel, or 10 with <kbd>Shift</kbd>.</li>
+  </ul>
+
+  <p>In the next chapter we bring in ready-made SCADA symbols from the libraries.</p>
+
+  <div class="nextprev">
+    <a href="../02-first-shapes/">&larr; Chapter 2: Your First Shapes</a>
+    <a href="../04-symbol-libraries/">Chapter 4: SCADA Symbol Libraries &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 7: Fills and Gradients - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 7</p>
+
+  <h1>Chapter 7: Fills and Gradients</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Move beyond flat colour: use linear and radial gradients, the built-in metal and LED presets, and the SCADA colour picker for exact colours.
+  </div>
+
+  <p>Flat colours are clear and quick, and they suit ISA-101 style screens. But gradients can make a pipe look cylindrical or a lamp look lit. SimpleVG builds them for you from any colour, and offers ready-made presets.</p>
+
+  <h2>Part 1: The three fill modes</h2>
+
+  <p>Draw a rectangle and look at <b>FILL &amp; STROKE</b> in the Inspector. At the top are three fill modes.</p>
+  <figure>
+    <img src="01.png" alt="A plain blue rectangle selected, with the Solid, Linear Gradient and Radial Gradient buttons in the Inspector" width="1470" height="572">
+  </figure>
+  <dl>
+    <dt>Solid</dt>
+    <dd>A single flat colour. This is the default.</dd>
+    <dt>Linear Gradient</dt>
+    <dd>A colour that changes along a straight line, like light along a cylinder. An <b>Angle</b> slider turns the direction.</dd>
+    <dt>Radial Gradient</dt>
+    <dd>A colour that changes outward from the centre, like a glowing lamp or a sphere.</dd>
+  </dl>
+
+  <h2>Part 2: Preset gradients</h2>
+
+  <p>Choose <b>Linear Gradient</b> and a <b>GRADIENT SETTINGS</b> section appears, with a preview bar and a row of presets: <b>Steel Pipe</b>, <b>Copper</b>, <b>Brass/Gold</b>, <b>Green LED</b>, <b>Red LED</b>, <b>Blue LED</b>, <b>Amber LED</b>, <b>Off/Gray LED</b> and <b>Water Flow</b>. Click <b>Steel Pipe</b> and the rectangle becomes a length of brushed steel.</p>
+  <figure>
+    <img src="02.png" alt="A rectangle filled with the Steel Pipe gradient, looking like a metal cylinder" width="1106" height="902">
+  </figure>
+  <p>Now draw a circle, choose <b>Radial Gradient</b>, and click <b>Green LED</b>. You have a lit indicator lamp.</p>
+  <figure>
+    <img src="03.png" alt="A circle with a Green LED radial gradient, looking like a glowing green lamp, beside the steel rectangle" width="1106" height="902">
+  </figure>
+
+  <div class="note"><b>Note</b> The pipe and LED presets are meant for the look of a finished symbol. If you are following ISA-101, keep to flat, muted colours and save bright colours for alarms.</div>
+
+  <h2>Part 3: Any colour, as a gradient</h2>
+
+  <p>You are not limited to the presets. In Linear or Radial mode, click any <b>SCADA Swatch</b> or pick a colour, and SimpleVG turns it into a three-stop metallic or glowing gradient automatically. Tick <b>Custom Stops</b> if you want to choose the start and end colours yourself.</p>
+
+  <h2>Part 4: The colour picker</h2>
+
+  <p>Click the colour box beside <b>Fill</b> (or <b>Stroke Color</b>) to open the SCADA colour picker.</p>
+  <figure>
+    <img src="04.png" alt="The SCADA colour picker popover showing a grid of basic colours, a hex colour box, More options, and Cancel and OK buttons" width="362" height="450">
+  </figure>
+  <ul>
+    <li>A grid of <b>basic colours</b> covers the main hues in light and dark tiers, plus a grayscale.</li>
+    <li>The <b>HEX</b> box takes an exact value such as <code>#3182CE</code>.</li>
+    <li><b>More options</b> adds Red, Green and Blue sliders for fine adjustment.</li>
+    <li>Changes preview live on the canvas. <b>OK</b> applies them and <b>Cancel</b> puts everything back.</li>
+  </ul>
+  <p>The <b>Opacity</b> slider below the swatches makes a fill partly transparent, from 100% down to 0%.</p>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li>Fill modes: <b>Solid</b>, <b>Linear Gradient</b> and <b>Radial Gradient</b>.</li>
+    <li>Presets such as Steel Pipe, Copper, the LED colours and Water Flow give instant realistic looks.</li>
+    <li>Any colour you pick in a gradient mode becomes a gradient automatically.</li>
+    <li>The SCADA colour picker gives basic colours, a hex box, RGB sliders and a live preview with OK and Cancel.</li>
+  </ul>
+
+  <p>In the next chapter we arrange shapes: layer order, alignment, flipping and circular patterns.</p>
+
+  <div class="nextprev">
+    <a href="../06-lines-and-curves/">&larr; Chapter 6: Lines and Curves</a>
+    <a href="../08-arranging-shapes/">Chapter 8: Arranging Shapes &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

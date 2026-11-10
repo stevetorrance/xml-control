@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 6: Lines and Curves - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 6</p>
+
+  <h1>Chapter 6: Lines and Curves</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Draw straight lines, multi-segment polylines and smooth B&eacute;zier curves, and style lines with thickness, dashes and arrowheads.
+  </div>
+
+  <p>Pipework, flow arrows, outlines and leader lines are all made of lines. SimpleVG gives you several tools for them, all in the <b>BASIC SHAPES</b> section of the Toolbox.</p>
+  <figure>
+    <img src="01.png" alt="The Basic Shapes section of the Toolbox listing Rectangle, Circle, Line, Polyline, Polygon, Star, Arrow, Arc, Bezier Pen, Freehand and Text" width="330" height="780">
+  </figure>
+
+  <h2>Part 1: A straight line with an arrowhead</h2>
+
+  <p>Choose the <b>Line</b> tool (<kbd>L</kbd>), then press and drag across the canvas. With Snap on, the ends land on grid points, so a horizontal drag gives a perfectly level line.</p>
+  <p>With the line selected, the Inspector offers the line styling controls:</p>
+  <ul>
+    <li><b>Stroke Width</b> sets the thickness. Try 4.</li>
+    <li><b>Stroke Dash</b> chooses Solid, Dashed, Long Dash or Dotted.</li>
+    <li><b>Start Marker</b> and <b>End Marker</b> add an end decoration: None, Arrow, Circle or Diamond. Set the End Marker to <b>Arrow</b> to make a flow arrow.</li>
+  </ul>
+  <figure>
+    <img src="02.png" alt="A thick dashed line with an arrowhead at its right end, with the Inspector showing the stroke and marker settings" width="1600" height="1000">
+  </figure>
+
+  <div class="note"><b>Note</b> There is also a dedicated <b>Arrow</b> tool in the Toolbox, which draws a line with an arrowhead already on its end.</div>
+
+  <h2>Part 2: Polylines</h2>
+
+  <p>A polyline is a chain of straight segments, ideal for pipe runs and outlines. Choose the <b>Polyline</b> tool (<kbd>P</kbd>) and <b>click</b> once for each corner. To finish, <b>double-click</b> the last point, or press <kbd>Enter</kbd>.</p>
+  <figure>
+    <img src="03.png" alt="A four-point zigzag polyline drawn on the canvas" width="1106" height="902">
+  </figure>
+  <p>The whole chain is one shape, so you can move it, colour it and give it markers as a single piece.</p>
+
+  <h2>Part 3: B&eacute;zier curves</h2>
+
+  <p>For smooth curves, use the <b>B&eacute;zier Pen</b> (<kbd>B</kbd>). Each point you place is a <b>node</b>:</p>
+  <ul>
+    <li><b>Click</b> to place a node with no curve handles, which makes a sharp corner.</li>
+    <li><b>Click and drag</b> to place a node and pull out its handles. The further you drag, the rounder the curve through that node.</li>
+    <li>Press <kbd>Enter</kbd> or double-click to finish the path.</li>
+  </ul>
+  <figure>
+    <img src="04.png" alt="A smooth curved path with its purple node handles visible, selected on the canvas" width="1470" height="652">
+  </figure>
+  <p>Select the finished curve with the Select tool and its nodes and handles appear as purple dots. Drag a node to move that point, or drag a handle to change the curve. Tick <b>Close Path Loop (Z)</b> in the Inspector to join the end back to the start and make a closed shape you can fill.</p>
+
+  <div class="good"><span class="lead">Take your time, and use undo</span>
+    Curves are about feel. If a curve is not right, press <kbd>Ctrl</kbd>+<kbd>Z</kbd> and try again, or select it and adjust the handles.</div>
+
+  <p>The other drawing tools work the same way: <b>Arc</b> (<kbd>A</kbd>) draws a curved segment, and <b>Freehand</b> traces whatever your pointer does.</p>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li><b>Line</b>: drag. <b>Polyline</b>: click each corner, double-click or <kbd>Enter</kbd> to finish. <b>B&eacute;zier Pen</b>: click for corners, click-drag for curves.</li>
+    <li>Stroke Width, Stroke Dash, and Start and End Markers in the Inspector style any line.</li>
+    <li>Select a B&eacute;zier path to edit its nodes and handles, and tick Close Path Loop to make a fillable shape.</li>
+  </ul>
+
+  <p>In the next chapter we make shapes look solid and realistic with gradient fills.</p>
+
+  <div class="nextprev">
+    <a href="../05-saving-and-exporting/">&larr; Chapter 5: Saving and Exporting</a>
+    <a href="../07-fills-and-gradients/">Chapter 7: Fills and Gradients &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

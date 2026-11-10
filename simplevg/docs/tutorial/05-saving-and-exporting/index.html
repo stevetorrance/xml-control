@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 5: Saving and Exporting - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 5</p>
+
+  <h1>Chapter 5: Saving and Exporting</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Save your drawing as an SVG file, choose which part of the canvas to export, export a PNG image, bring files back in, and look at the live SVG code.
+  </div>
+
+  <p>SimpleVG works directly in SVG, an open, plain-text vector format, so saving is simply writing out what you drew. We will use the valve and pumps from the last chapter.</p>
+
+  <h2>Part 1: Save SVG</h2>
+
+  <p>Click <b>Save SVG</b> in the menu bar. A dialog asks how much of the canvas to save.</p>
+  <figure>
+    <img src="01.png" alt="The Save / Export SVG Options dialog offering Full Canvas, Tight Extents of Shapes and Selected Entities Only" width="480" height="250">
+  </figure>
+  <dl>
+    <dt>Full Canvas</dt>
+    <dd>The whole artboard at its full size, including empty space. The dialog shows the current canvas size.</dd>
+    <dt>Tight Extents of Shapes (Auto-Crop)</dt>
+    <dd>Crops the file tightly around your artwork. This is usually what you want for a symbol or a graphic that will be placed on another screen.</dd>
+    <dt>Selected Entities Only</dt>
+    <dd>Saves only the shapes or groups you currently have selected, leaving the rest out. Handy for saving one symbol out of a larger drawing.</dd>
+  </dl>
+  <p>When you choose a cropped option, a <b>Padding Margin</b> setting lets you leave a little space around the artwork. Click <b>Save SVG</b> in the dialog to download the file.</p>
+
+  <div class="note"><b>Note</b> Saved files keep any SCADA tag information, gradients and clean SVG structure, so they can be opened and edited in SimpleVG again later.</div>
+
+  <h2>Part 2: Export a PNG image</h2>
+
+  <p>When you need a picture rather than a vector file, for a document or a slide, click <b>Export PNG</b>.</p>
+  <figure>
+    <img src="02.png" alt="The Export PNG Image Options dialog with background fill, canvas bounds and resolution multiplier choices" width="480" height="420">
+  </figure>
+  <dl>
+    <dt>Background Fill</dt>
+    <dd>Transparent (good for overlays), White, Dark, or a Custom colour.</dd>
+    <dt>Export Canvas Bounds</dt>
+    <dd>The same Full Canvas, Tight Extents and Selected Entities choices as the SVG dialog.</dd>
+    <dt>Resolution Multiplier</dt>
+    <dd>1&times; for the canvas size, 2&times; for crisp high-DPI screens, 4&times; for print quality.</dd>
+  </dl>
+
+  <h2>Part 3: Opening and importing</h2>
+
+  <p>There are two ways to bring an SVG file back in, and the difference matters.</p>
+  <dl>
+    <dt>Open SVG</dt>
+    <dd>Loads a file and <b>replaces</b> everything on the canvas. Use it to resume work on a drawing you saved earlier.</dd>
+    <dt>Import SVG</dt>
+    <dd>Adds a file to what you already have. It arrives as a single group, centred and scaled down if it is large. Use it to merge in icons or symbols from elsewhere. Ungroup it if you want to edit the individual parts.</dd>
+  </dl>
+
+  <h2>Part 4: The live SVG code</h2>
+
+  <p>Along the bottom of the window is the <b>Live SVG XML Source Code</b> drawer. Click <b>Expand</b> to open it and see the SVG that your drawing is made of.</p>
+  <figure>
+    <img src="03.png" alt="The Live SVG XML Source Code drawer expanded under the canvas, showing the SVG markup for the valve and two pumps" width="1600" height="1000">
+  </figure>
+  <p>The drawer works both ways. Draw on the canvas and the code updates. Edit the code and the canvas follows. This is covered properly in <a href="../11-live-svg-code/">Chapter 11</a>, but two buttons are worth knowing now:</p>
+  <ul>
+    <li><b>Find Selected</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>) jumps to and highlights the code for whatever is selected on the canvas.</li>
+    <li><b>Clean &amp; Format XML</b> tidies the code into neatly indented lines, and <b>Copy to Clipboard</b> copies it.</li>
+  </ul>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li><b>Save SVG</b> writes your drawing as an SVG file. Choose Full Canvas, Tight Extents or Selected Entities Only.</li>
+    <li><b>Export PNG</b> makes an image, with a choice of background and a 1&times;, 2&times; or 4&times; resolution.</li>
+    <li><b>Open SVG</b> replaces the canvas. <b>Import SVG</b> adds to it.</li>
+    <li>The <b>Live SVG XML</b> drawer shows and edits the underlying code, in both directions.</li>
+  </ul>
+
+  <p>That is the essentials covered: you can now draw, place symbols, set up your canvas and get your work out as SVG or PNG. The remaining chapters go deeper into lines, fills, arranging, tracing and tagging.</p>
+
+  <div class="nextprev">
+    <a href="../04-symbol-libraries/">&larr; Chapter 4: SCADA Symbol Libraries</a>
+    <a href="../06-lines-and-curves/">Chapter 6: Lines and Curves &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

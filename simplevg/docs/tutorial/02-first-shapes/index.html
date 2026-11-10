@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 2: Your First Shapes - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 2</p>
+
+  <h1>Chapter 2: Your First Shapes</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Draw a rectangle and an ellipse, change a fill colour, and add a text label, learning the select, draw and Inspector routine that everything else builds on.
+  </div>
+
+  <p>Start with a blank canvas. Click <b>New</b> in the menu bar if you have anything on it.</p>
+
+  <h2>Part 1: Open Basic Shapes</h2>
+
+  <p>In the Toolbox on the left, click the <b>BASIC SHAPES</b> heading to expand it. This section holds the drawing tools: Rectangle, Circle, Line, Polyline, Polygon, Star, Arrow, Arc, B&eacute;zier Pen, Freehand and Text.</p>
+  <figure>
+    <img src="01.png" alt="The Basic Shapes section of the Toolbox expanded, showing the Rectangle, Circle, Line and Polyline tools" width="330" height="420">
+  </figure>
+  <p>Each tool has a keyboard shortcut. Hover over a tool to see it, for example <kbd>R</kbd> for Rectangle and <kbd>C</kbd> for Circle.</p>
+
+  <h2>Part 2: Draw a rectangle</h2>
+
+  <p>Click the <b>Rectangle</b> tool, then press and drag on the canvas, and release. The rectangle appears with the default blue fill and a dark outline, and it stays selected, with handles around it.</p>
+  <figure>
+    <img src="02.png" alt="A blue rectangle drawn on the canvas, with the Inspector showing its position and size" width="1600" height="1000">
+  </figure>
+  <p>Notice that the shape lands on the grid. With <b>Snap</b> switched on in the menu bar, positions and sizes round to the 10 pixel grid, which keeps drawings tidy. Click <b>Snap</b> to turn it off if you need free placement.</p>
+
+  <h2>Part 3: Draw an ellipse</h2>
+
+  <p>Choose the <b>Circle</b> tool and drag out a second shape. Drag any shape and you get an ellipse. Hold <kbd>Shift</kbd> while dragging to constrain it to a perfect circle.</p>
+  <figure>
+    <img src="03.png" alt="A second shape drawn beside the rectangle, selected, with its handles and Inspector values" width="1600" height="1000">
+  </figure>
+
+  <h2>Part 4: Position and size with the Inspector</h2>
+
+  <p>With a shape selected, the <b>Element</b> tab of the Inspector shows its <b>X Position</b>, <b>Y Position</b>, <b>Width</b> and <b>Height</b>. Type new values into any of them and the shape follows, which is the way to place it exactly. You can also drag a shape to move it, drag a handle to resize it, or use the round handle above it to rotate it.</p>
+  <p>To pick a shape, choose the <b>Select</b> tool at the top of the Toolbox and click it.</p>
+
+  <h2>Part 5: Change the fill colour</h2>
+
+  <p>Select the ellipse. Under <b>FILL &amp; STROKE</b> in the Inspector are the <b>SCADA Swatches</b>, a row of colours chosen for process graphics, such as Alarm Red, Warning Yellow, Running Green and Process Amber. Click the amber swatch and the ellipse changes at once. Hover over any swatch to see its name.</p>
+  <figure>
+    <img src="04.png" alt="The ellipse now filled amber, with the amber swatch highlighted in the Inspector" width="1600" height="1000">
+  </figure>
+  <p>For any other colour, use the hex value box below the swatches. The Stroke Color and Stroke Width below it control the outline in the same way.</p>
+
+  <h2>Part 6: Add a text label</h2>
+
+  <p>Choose the <b>Text</b> tool and click on the canvas. A text label appears and is selected. In the Inspector, type your own wording into <b>Text Content</b>, here <i>Pump Room</i>. Font size and font family are alongside it.</p>
+  <figure>
+    <img src="05.png" alt="A Pump Room text label added below the shapes, with Text Content shown in the Inspector" width="1600" height="1000">
+  </figure>
+
+  <div class="note"><b>Note</b> Made a mistake? <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes it and <kbd>Ctrl</kbd>+<kbd>Y</kbd> redoes it, and the history goes back many steps, so feel free to experiment.</div>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li>Open <b>Basic Shapes</b> in the Toolbox, pick a tool, then drag on the canvas to draw.</li>
+    <li>Shapes snap to the grid while <b>Snap</b> is on. Hold <kbd>Shift</kbd> with the Circle tool for a perfect circle.</li>
+    <li>Use the <b>Select</b> tool to pick a shape, then the Inspector's Element tab to set position, size, fill and stroke.</li>
+    <li>The SCADA Swatches give one-click process colours.</li>
+    <li>The Text tool adds labels, edited through <b>Text Content</b>.</li>
+  </ul>
+
+  <p>In the next chapter we look at the canvas, the grid and snapping.</p>
+
+  <div class="nextprev">
+    <a href="../01-getting-started/">&larr; Chapter 1: Getting Started</a>
+    <a href="../03-canvas-grid-snapping/">Chapter 3: Canvas, Grid and Snapping &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

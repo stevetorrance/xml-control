@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 11: The Live SVG Code Drawer - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 11</p>
+
+  <h1>Chapter 11: The Live SVG Code Drawer</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Read the SVG that SimpleVG writes as you draw, edit it directly and watch the canvas follow, and use Find Selected and Clean &amp; Format to work with larger drawings.
+  </div>
+
+  <p>This is an advanced chapter. You never need the code to use SimpleVG, but being able to read and change it is a real strength: it lets you make exact edits, fix things the Inspector cannot reach, and see precisely what a SCADA system will be given.</p>
+
+  <h2>Part 1: Open the drawer</h2>
+
+  <p>Draw a rectangle and an ellipse, as in the earlier chapters. Along the very bottom of the window is a bar titled <b>Live SVG XML Source Code (2-Way Editing)</b>.</p>
+  <figure>
+    <img src="01.png" alt="The collapsed code drawer bar along the bottom of the window with Find Selected, Clean and Format XML, Copy to Clipboard and Expand buttons" width="1600" height="40">
+  </figure>
+  <p>Click <b>Expand</b> to open it. The same button now reads <b>Collapse</b>.</p>
+  <figure>
+    <img src="02.png" alt="The code drawer expanded under the canvas, showing the SVG source for a rectangle and an ellipse" width="1600" height="1000">
+  </figure>
+
+  <h2>Part 2: Reading the code</h2>
+
+  <p>The drawer shows the drawing as an SVG document. For our two shapes it looks like this:</p>
+  <pre><code>&lt;svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500"&gt;
+  &lt;rect x="60" y="80" width="140" height="80" fill="#3182CE" stroke="#2D3748" stroke-width="2"&gt;&lt;/rect&gt;
+  &lt;ellipse cx="320" cy="120" rx="40" ry="40" fill="#3182CE" stroke="#2D3748" stroke-width="2"&gt;&lt;/ellipse&gt;
+&lt;/svg&gt;</code></pre>
+  <ul>
+    <li>The outer <code>&lt;svg&gt;</code> is the canvas. Its <code>width</code>, <code>height</code> and <code>viewBox</code> match the canvas size from the Canvas tab.</li>
+    <li>Each shape is one element: <code>&lt;rect&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polygon&gt;</code>, <code>&lt;path&gt;</code>, <code>&lt;text&gt;</code> and so on. The Circle tool writes an <code>&lt;ellipse&gt;</code>.</li>
+    <li>The attributes are the Inspector values: <code>x</code> and <code>y</code> for position, <code>width</code> and <code>height</code> for size, <code>fill</code> and <code>stroke</code> for colour. An ellipse is described by its centre (<code>cx</code>, <code>cy</code>) and radii (<code>rx</code>, <code>ry</code>).</li>
+    <li>A <b>group</b>, such as a library symbol, appears as a <code>&lt;g&gt;</code> element with its parts nested inside, and it carries the id, class and <code>data-tag</code> from Chapter 10.</li>
+    <li>Shapes appear in stacking order. Later in the code means further in front.</li>
+  </ul>
+  <p>Only your artwork is shown. The grid, rulers, selection handles and any reference image from Chapter 9 are part of the editor, not of the drawing.</p>
+
+  <h2>Part 3: Edit the code</h2>
+
+  <p>The drawer works in both directions. Draw on the canvas and the code updates. Type in the code and the canvas updates, about half a second after you stop typing.</p>
+  <p>Try it. Click in the code, find <code>fill="#3182CE"</code> on the rectangle and change it to <code>fill="#E53935"</code>. The rectangle turns red.</p>
+  <figure>
+    <img src="03.png" alt="The rectangle on the canvas now red after its fill value was changed in the code drawer" width="1106" height="732">
+  </figure>
+  <p>You can add whole shapes too. Just before the closing <code>&lt;/svg&gt;</code>, type:</p>
+  <pre><code>&lt;circle cx="250" cy="300" r="40" fill="#4CAF50" stroke="#2D3748" stroke-width="2"&gt;&lt;/circle&gt;</code></pre>
+  <p>A green circle appears below the other two.</p>
+  <figure>
+    <img src="04.png" alt="A new green circle on the canvas, added by typing its code, with the code visible in the drawer" width="1106" height="732">
+  </figure>
+
+  <div class="note"><b>Note</b> Applying a code edit clears the current selection, so after typing you click a shape again to select it.</div>
+
+  <h3>When the code is not valid</h3>
+  <p>While you type, the code is often temporarily broken: a missing quote, a half-written tag. SimpleVG simply waits. The canvas keeps showing the last version that was valid, and updates again as soon as your code is well-formed. Nothing is lost by pausing mid-edit.</p>
+  <div class="warn"><b>Careful</b> If you leave the code broken and carry on drawing on the canvas, the code is rewritten from the canvas and your broken edit is replaced. Fix the code first.</div>
+
+  <h2>Part 4: Find Selected</h2>
+
+  <p>In a big drawing it is hard to know which lines of code belong to which shape. Select a shape on the canvas, then click <b>Find Selected</b> (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>). The drawer opens if it was closed, highlights the code for that shape and scrolls it into the middle of the view.</p>
+  <p>It looks for the element&rsquo;s <code>id</code>, <code>data-tag</code> or class first, and its type otherwise, so giving shapes ids (Chapter 10) makes them much easier to find.</p>
+
+  <h2>Part 5: Clean &amp; Format XML</h2>
+
+  <p>The code arrives as a single long line. Click <b>Clean &amp; Format XML</b> and SimpleVG tidies it, with one element per line and neat indentation.</p>
+  <figure>
+    <img src="06.png" alt="The code drawer after Clean and Format XML, with the svg element and each shape on its own indented line" width="1600" height="1000">
+  </figure>
+  <p>The formatting is done by SimpleVG&rsquo;s own server, so the app must be running for this button to work. It changes only the layout of the text, not the drawing.</p>
+
+  <h2>Part 6: Copy to Clipboard</h2>
+
+  <p><b>Copy to Clipboard</b> copies the whole code in one click. It is handy for pasting into another editor, a document or a bug report, or into a SCADA project that takes SVG as text.</p>
+
+  <div class="good"><span class="lead">A safe place to learn SVG</span>
+    Because the canvas shows every change straight away, the drawer is a friendly way to learn how SVG works. Change a number, see what moves. If it goes wrong, undo with <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</div>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li>The <b>Live SVG XML Source Code</b> drawer at the bottom of the window shows your drawing as SVG. <b>Expand</b> and <b>Collapse</b> open and close it.</li>
+    <li>Editing works both ways. Typed code is applied to the canvas shortly after you stop typing.</li>
+    <li>Invalid code does not change the canvas. It updates again once the code is well-formed.</li>
+    <li><b>Find Selected</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>) highlights the code for the selected shape.</li>
+    <li><b>Clean &amp; Format XML</b> tidies the layout, and <b>Copy to Clipboard</b> copies it all.</li>
+  </ul>
+
+  <p>That completes the SimpleVG tutorial. You can now draw, place and restyle symbols, arrange and trace, tag shapes, and work with the SVG itself. The built-in help (<kbd>F1</kbd>) has the full reference for everything you have seen.</p>
+
+  <div class="nextprev">
+    <a href="../10-scada-tagging/">&larr; Chapter 10: SCADA Tagging</a>
+    <a href="../">Tutorial contents &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

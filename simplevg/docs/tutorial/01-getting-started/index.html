@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 1: Getting Started - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 1</p>
+
+  <h1>Chapter 1: Getting Started</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Know what SimpleVG is, get it running, find your way around the workspace, and choose between the Light and Dark themes.
+  </div>
+
+  <p>SimpleVG is a lightweight vector graphics editor that runs in your browser. It is built for drawing SCADA and HMI diagrams, and it reads and writes plain SVG files, so whatever you draw is ready to use elsewhere, including in SentinelSCADA.</p>
+
+  <h2>Part 1: Start SimpleVG</h2>
+
+  <p>SimpleVG is a small web server that serves the editor to your browser. Start the SimpleVG application, then open your browser at <b>http://localhost:5123</b>. The editor loads straight away, with a blank canvas ready to draw on.</p>
+
+  <div class="note"><b>Note</b> 5123 is the default port. If something else on your computer already uses it, the port can be changed. See <b>Server &amp; Port Configuration</b> in the built-in help.</div>
+
+  <h2>Part 2: The workspace</h2>
+
+  <p>The editor is split into four regions.</p>
+  <figure>
+    <img src="01.png" alt="The SimpleVG editor in Light mode: menu bar across the top, toolbox on the left, the canvas in the centre and the Inspector on the right" width="1600" height="1000">
+  </figure>
+  <dl>
+    <dt>Menu bar (top)</dt>
+    <dd>File actions (New, Open, Save SVG, Export PNG), Undo and Redo, Copy, Paste, Group, Ungroup, the Format menu, and the Grid, Snap and Ruler toggles.</dd>
+    <dt>Toolbox (left)</dt>
+    <dd>The Select and Pan tools, the <b>ISA-101 Gray</b> checkbox, then collapsible sections: <b>Basic Shapes</b> for drawing, and ten libraries of ready-made SCADA symbols such as pipes, valves, motors and pumps.</dd>
+    <dt>Canvas (centre)</dt>
+    <dd>The artboard where you draw, with rulers and a grid, and zoom controls along the bottom. The status bar shows the canvas size, the pointer position and how many items are selected.</dd>
+    <dt>Inspector (right)</dt>
+    <dd>Properties of whatever is selected: position, size, fill, stroke and text, plus tabs for tracing a reference image, canvas settings and SCADA tagging.</dd>
+  </dl>
+  <p>Along the bottom is the <b>Live SVG XML Source Code</b> drawer, which we will meet in a later chapter.</p>
+
+  <h2>Part 3: Light and Dark mode</h2>
+
+  <p>SimpleVG opens in Light mode. If you prefer a darker workspace, for example in a control room or at night, use the theme button in the menu bar, just left of <b>Help</b>. It shows the theme you are in now: <b>Light</b> or <b>Dark</b>. Click it to switch.</p>
+  <figure>
+    <img src="02.png" alt="The SimpleVG editor in Dark mode" width="1600" height="1000">
+    <figcaption>The same workspace in Dark mode.</figcaption>
+  </figure>
+  <p>Your choice is remembered by the browser, so SimpleVG opens in the same theme next time. The theme only changes how the editor looks. It does not change your drawing or the SVG you save.</p>
+
+  <h2>Part 4: Finding help</h2>
+
+  <p>Click <b>Help</b> in the menu bar, or press <kbd>F1</kbd>, to open the built-in User Guide. It slides in from the right, with topics down the left and a search box at the top.</p>
+  <figure>
+    <img src="03.png" alt="The built-in help panel open over the right-hand side of the editor, showing the Welcome page and topic list" width="580" height="952">
+  </figure>
+  <p>The help is a reference to every tool, menu and shortcut. Press <kbd>F1</kbd> again, or the close button, to put it away.</p>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li>SimpleVG runs in your browser from a small local server, by default at <b>http://localhost:5123</b>.</li>
+    <li>The workspace is the menu bar, the Toolbox, the Canvas and the Inspector, with the Live SVG drawer along the bottom.</li>
+    <li>The theme button next to <b>Help</b> switches between Light and Dark, and the browser remembers your choice.</li>
+    <li>Press <kbd>F1</kbd> for the built-in help at any time.</li>
+  </ul>
+
+  <p>In the next chapter we draw our first shapes.</p>
+
+  <div class="nextprev">
+    <a href="../">&larr; Tutorial contents</a>
+    <a href="../02-first-shapes/">Chapter 2: Your First Shapes &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 9: Tracing an Image - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 9</p>
+
+  <h1>Chapter 9: Tracing an Image</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Place a sketch, photo or scanned drawing behind your work, and trace over it with the drawing tools to produce clean vector shapes.
+  </div>
+
+  <p>Often you start from something that already exists: a hand sketch of a plant layout, a scanned P&amp;ID, a logo or a photo of a machine. SimpleVG lets you put that picture on a background layer and draw over it.</p>
+
+  <h2>Part 1: The Trace Image tab</h2>
+
+  <p>Click the <b>Trace Image</b> tab at the top of the Inspector.</p>
+  <figure>
+    <img src="01.png" alt="The Trace Image tab of the Inspector with Load Image and Clear buttons and the controls greyed out" width="362" height="552">
+  </figure>
+  <p>The controls are greyed out until you load a picture. Click <b>Load Image</b> and choose a PNG, JPEG, SVG, WEBP or GIF file.</p>
+
+  <h2>Part 2: Place the reference</h2>
+
+  <p>The picture appears on its own layer, underneath everything you draw. It does not get in the way: clicks and drags pass straight through it, so you cannot select or move it by accident.</p>
+  <figure>
+    <img src="02.png" alt="A pale gray sketch of a tank, a pipe and a pump shown on the canvas behind the grid" width="1470" height="652">
+  </figure>
+  <p>The controls on the tab let you set it up:</p>
+  <dl>
+    <dt>Show Reference Image</dt>
+    <dd>Hide or show the picture, so you can check your vector work on its own.</dd>
+    <dt>Opacity</dt>
+    <dd>Fades the picture. Around 40 to 50 percent keeps it visible without drowning your lines.</dd>
+    <dt>Scale (Zoom)</dt>
+    <dd>Makes the picture larger or smaller, from 0.1&times; to 10&times;.</dd>
+    <dt>Offset X and Offset Y</dt>
+    <dd>Slides the picture so key points line up with the grid or centrelines.</dd>
+    <dt>Include in SVG / PNG Export</dt>
+    <dd>Off by default, so your saved files contain only your vector artwork.</dd>
+  </dl>
+
+  <h2>Part 3: Trace over it</h2>
+
+  <p>Now draw over the picture with the shapes from the earlier chapters. Here a <b>Rectangle</b> follows the tank, a <b>Polyline</b> follows the pipe and a <b>Circle</b> follows the pump. For curved outlines, the <b>B&eacute;zier Pen</b> is the best tool.</p>
+  <figure>
+    <img src="03.png" alt="Dark vector outlines drawn over the pale sketch, following the tank, the pipe and the pump" width="1470" height="652">
+  </figure>
+
+  <div class="good"><span class="lead">Keep Snap in mind</span>
+    With Snap on, points jump to the grid, which can pull your tracing slightly off the picture. Turn Snap off for the fiddly parts of a trace, or set a smaller grid size on the Canvas tab.</div>
+
+  <h2>Part 4: Check your work</h2>
+
+  <p>Untick <b>Show Reference Image</b> to see your tracing by itself.</p>
+  <figure>
+    <img src="04.png" alt="The traced outlines alone on the canvas with the reference sketch hidden" width="1106" height="902">
+  </figure>
+  <p>What remains is plain vector shapes. Colour them, group them, give them tags, and save the SVG as usual. The sketch is left out of the saved file unless you tick the export option.</p>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li>The <b>Trace Image</b> tab loads a picture onto a background layer that clicks pass through.</li>
+    <li>Use Opacity, Scale and Offset to make the picture easy to trace.</li>
+    <li>Trace with the Rectangle, Circle, Polyline and B&eacute;zier tools.</li>
+    <li>The reference is not saved with your SVG or PNG unless you choose to include it.</li>
+  </ul>
+
+  <p>In the last chapter we give shapes the names and tags a SCADA system can use.</p>
+
+  <div class="nextprev">
+    <a href="../08-arranging-shapes/">&larr; Chapter 8: Arranging Shapes</a>
+    <a href="../10-scada-tagging/">Chapter 10: SCADA Tagging &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

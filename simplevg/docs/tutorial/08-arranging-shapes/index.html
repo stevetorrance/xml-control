@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 8: Arranging Shapes - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 8</p>
+
+  <h1>Chapter 8: Arranging Shapes</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Control which shape sits in front, line shapes up with the Align tools, flip and mirror them, and repeat a shape around a circle with a Radial Array.
+  </div>
+
+  <p>Once a drawing has more than a few shapes, arranging them becomes the main job. Almost everything for it lives in the <b>Format</b> menu in the menu bar.</p>
+
+  <h2>Part 1: The Format menu and layer order</h2>
+
+  <p>Draw three overlapping rectangles in different colours, then click <b>Format</b>.</p>
+  <figure>
+    <img src="01.png" alt="The Format menu open, listing layer order, alignment, join paths, flip, mirror and radial array commands" width="600" height="560">
+  </figure>
+  <p>Shapes stack in the order they were drawn, with the newest in front. The first four commands change that:</p>
+  <dl>
+    <dt>Bring to Front / Send to Back</dt>
+    <dd>Move the selected shape to the very top or very bottom of the stack.</dd>
+    <dt>Bring Forward / Send Backward</dt>
+    <dd>Move it up or down by one step.</dd>
+  </dl>
+  <p>Select the blue rectangle at the back and choose <b>Bring to Front</b>. It now covers the others.</p>
+  <figure>
+    <img src="02.png" alt="Three overlapping rectangles with the blue one now in front of the orange and green ones" width="1106" height="902">
+  </figure>
+
+  <h2>Part 2: Aligning shapes</h2>
+
+  <p>The Format menu also holds <b>Align Left</b>, <b>Center</b>, <b>Right</b>, <b>Top</b>, <b>Middle</b> and <b>Bottom</b>. What they do depends on how many shapes are selected:</p>
+  <ul>
+    <li><b>Several shapes selected:</b> they line up with each other, using the edge or centre of the group.</li>
+    <li><b>One shape selected:</b> it lines up with the canvas, so you can centre it or push it to an edge.</li>
+  </ul>
+  <p>Press <kbd>Ctrl</kbd>+<kbd>A</kbd> to select everything, then choose <b>Align Top</b>.</p>
+  <figure>
+    <img src="03.png" alt="Three rectangles selected together and aligned along their top edges" width="1106" height="902">
+  </figure>
+  <div class="note"><b>Note</b> Hold <kbd>Shift</kbd> and click to add shapes to a selection one at a time.</div>
+
+  <h2>Part 3: Flip and mirror</h2>
+
+  <p><b>Flip Horizontal</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>) and <b>Flip Vertical</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd>) turn the selection over in place. The Inspector also has quick <b>Horiz</b> and <b>Vert</b> flip buttons.</p>
+  <p><b>Mirror / Symmetry Duplicate</b> goes a step further: it makes a mirrored <i>copy</i> beside the original, to the right, left, above or below, or across the centre. It is the quick way to build anything symmetrical, such as a pair of valves or a two-sided fitting. Draw one half, then mirror it.</p>
+
+  <h2>Part 4: Radial Array</h2>
+
+  <p>A Radial Array repeats a shape around a circle. It is perfect for fan blades, gauge tick marks, bolts around a flange or petals.</p>
+  <p>Draw one thin rectangle, select it and choose <b>Format &gt; Radial Array</b> (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>).</p>
+  <figure>
+    <img src="04.png" alt="The Radial Array dialog with the number of items, the span angle and the pivot origin" width="480" height="420">
+  </figure>
+  <dl>
+    <dt>Total Items</dt>
+    <dd>How many copies to make, including the original.</dd>
+    <dt>Total Span Angle</dt>
+    <dd>360 for a full circle, or less for part of one, such as 180 for a semicircle.</dd>
+    <dt>Pivot Origin</dt>
+    <dd>The point to circle around: the shape's own pivot marker, the centre of the canvas, or the bottom centre of the shape.</dd>
+  </dl>
+  <p>Click <b>Create Radial Pattern</b> and the copies are laid out evenly.</p>
+  <figure>
+    <img src="05.png" alt="Eight rectangles arranged evenly in a circle around the centre of the canvas" width="1106" height="902">
+  </figure>
+
+  <div class="good"><span class="lead">Move the pivot first</span>
+    Every selected shape shows an orange crosshair, its pivot. Drag it to where you want the pattern centred before opening the Radial Array dialog. Double-click it to reset it to the shape's centre.</div>
+
+  <p>You can also turn a selection a step at a time: <kbd>Ctrl</kbd>+<kbd>R</kbd> rotates 15&deg; clockwise and <kbd>Ctrl</kbd>+<kbd>U</kbd> rotates 15&deg; anti-clockwise, around the pivot.</p>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li>The <b>Format</b> menu holds layer order, alignment, flip, mirror, join paths and radial array.</li>
+    <li>Align works on the group when several shapes are selected, and on the canvas when one is.</li>
+    <li>Mirror makes a symmetrical copy. Radial Array repeats a shape around a pivot.</li>
+    <li>The orange pivot marker sets the centre for rotation and radial patterns.</li>
+  </ul>
+
+  <p>In the next chapter we trace over an existing picture to turn it into clean vector shapes.</p>
+
+  <div class="nextprev">
+    <a href="../07-fills-and-gradients/">&larr; Chapter 7: Fills and Gradients</a>
+    <a href="../09-tracing-an-image/">Chapter 9: Tracing an Image &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

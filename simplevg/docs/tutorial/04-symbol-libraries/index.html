@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 4: SCADA Symbol Libraries - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 4</p>
+
+  <h1>Chapter 4: SCADA Symbol Libraries</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Drop ready-made SCADA symbols onto the canvas, take a symbol apart and restyle it, and use ISA-101 Gray mode for muted, process-friendly colours.
+  </div>
+
+  <p>Below <b>Basic Shapes</b> in the Toolbox are ten libraries of ready-made symbols: Facilities, HVAC &amp; Ductwork, Knobs &amp; Switches, Lamps &amp; Indicators, Landscape, Meters &amp; Gauges, Motors &amp; Pumps, Pipes &amp; Connectors, Sensors, and Valves &amp; Vessels.</p>
+
+  <div class="note"><b>Note</b> The symbols are a source of inspiration and a quick start. Drop them on, restyle them, take them apart and combine them to make your own operational graphics.</div>
+
+  <h2>Part 1: Drop a symbol</h2>
+
+  <p>Click a library heading to expand it. Here is <b>MOTORS &amp; PUMPS</b>, which offers a Pump, an AC Motor, an Agitator and a Blower Fan.</p>
+  <figure>
+    <img src="01.png" alt="The Motors and Pumps section of the Toolbox expanded, showing Pump, AC Motor, Agitator and Blower Fan" width="330" height="560">
+  </figure>
+  <p>Click a symbol once and it is added to the canvas and selected. Do the same for a <b>Valve Body</b> from <b>VALVES &amp; VESSELS</b>, then drag the pump to the right of the valve to make room.</p>
+  <figure>
+    <img src="02.png" alt="A valve and a green pump placed on the canvas, with the pump selected" width="1106" height="902">
+  </figure>
+  <p>A symbol is a <b>group</b>: several shapes that move, resize and rotate as one. That is why one click gives you a complete pump.</p>
+
+  <h2>Part 2: Take a symbol apart</h2>
+
+  <p>Because symbols are groups, you can open them up. Select the pump and click <b>Ungroup</b> in the menu bar (or press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>). The pump becomes separate shapes: the casing, the outlet nozzle, the centre hub and the base.</p>
+  <p>Now click just the casing and pick the amber swatch in the Inspector. Only that part changes colour.</p>
+  <figure>
+    <img src="03.png" alt="The pump ungrouped, with the casing recoloured amber while the nozzle stays green" width="1470" height="652">
+  </figure>
+  <p>Press <kbd>Ctrl</kbd>+<kbd>G</kbd> to group the parts again once you are happy, so the pump moves as one.</p>
+
+  <h2>Part 3: ISA-101 Gray mode</h2>
+
+  <p>ANSI/ISA-101 is the standard for process HMIs. It recommends muted gray backgrounds and neutral symbol colours, so that real alarms stand out. SimpleVG has a one-click way to follow it.</p>
+  <p>At the top of the Toolbox, above the library sections, is the <b>ISA-101 Gray</b> checkbox. Tick it, then drop another pump. It arrives in neutral gray instead of the default green.</p>
+  <figure>
+    <img src="04.png" alt="With ISA-101 Gray ticked, a second pump placed on the canvas in neutral gray, beside the amber pump" width="1106" height="902">
+  </figure>
+
+  <div class="warn"><b>Scope</b> ISA-101 Gray applies to shapes and symbols <i>as you add them</i>. It does not change things already on the canvas. To convert a symbol that is already there, select it and click the <b>ISA-101 Gray</b> button in the Fill &amp; Stroke section of the Inspector.</div>
+
+  <p>The tick stays set until you clear it, so everything you add from then on is gray.</p>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li>Expand a library in the Toolbox and click a symbol to add it to the canvas.</li>
+    <li>Symbols are groups. <b>Ungroup</b> (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>) opens one up, and <kbd>Ctrl</kbd>+<kbd>G</kbd> puts it back together.</li>
+    <li>Select a part and use the Inspector to restyle just that part.</li>
+    <li>The <b>ISA-101 Gray</b> checkbox gives new shapes and symbols neutral gray colours. The Inspector button converts one that is already on the canvas.</li>
+  </ul>
+
+  <p>In the next chapter we save the work and export it for use elsewhere.</p>
+
+  <div class="nextprev">
+    <a href="../03-canvas-grid-snapping/">&larr; Chapter 3: Canvas, Grid and Snapping</a>
+    <a href="../05-saving-and-exporting/">Chapter 5: Saving and Exporting &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>

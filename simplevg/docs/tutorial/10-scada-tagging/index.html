@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter 10: SCADA Tagging - SimpleVG Tutorial</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SimpleVG</a> &rsaquo; <a href="../">Tutorial</a> &rsaquo; Chapter 10</p>
+
+  <h1>Chapter 10: SCADA Tagging</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Give a shape an ID, a class and a tag name on the SCADA Tagging tab, and see where those end up in the SVG, so that a system which reads them can find and animate it.
+  </div>
+
+  <p>A drawing on its own is just a picture. To make it part of a live screen, some systems need to be able to say &ldquo;this shape is valve FV101&rdquo; and change how it looks when the valve opens. In SVG that is done with attributes on the shapes, and the <b>SCADA Tagging</b> tab is where you set them.</p>
+
+  <div class="warn"><b>Before you start</b> SentinelSCADA does not use these tags for its own functionality. They are there so you can add tag information to your artwork for other systems that do read it. If you only plan to use your drawings in SentinelSCADA, you can safely skip this chapter.</div>
+
+  <h2>Part 1: The SCADA Tagging tab</h2>
+
+  <p>Drop a <b>Valve Body</b> onto the canvas, as in Chapter 4, then click the <b>SCADA Tagging</b> tab in the Inspector.</p>
+  <figure>
+    <img src="01.png" alt="The SCADA Tagging tab with a valve selected, showing empty Element ID, CSS Class and Custom Data Attribute fields" width="362" height="422">
+  </figure>
+  <p>The tab has three fields and a row of quick tags:</p>
+  <dl>
+    <dt>Element ID (<code>id</code>)</dt>
+    <dd>A unique name for this shape, such as <code>valve_01</code>.</dd>
+    <dt>CSS Class (<code>class</code>)</dt>
+    <dd>One or more class names. A host system, or a stylesheet, can use them to change how the shape looks, for example to show a running or alarm state.</dd>
+    <dt>Custom Data Attribute (<code>data-tag</code>)</dt>
+    <dd>The name of the PLC or SCADA tag this shape represents, such as <code>FV101_OPEN</code>.</dd>
+  </dl>
+
+  <h2>Part 2: Tag the valve</h2>
+
+  <p>Type <code>valve_01</code> into <b>Element ID</b> and <code>FV101_OPEN</code> into <b>Custom Data Attribute</b>. Then click the <b>scada-valve-open</b> chip under <b>QUICK SCADA CLASS TAGS</b> to add that class. The chips add a class without typing, and the other ones are <code>scada-status-running</code>, <code>scada-status-alarm</code>, <code>scada-status-warning</code> and <code>scada-animated-flow</code>.</p>
+  <figure>
+    <img src="02.png" alt="The SCADA Tagging tab with valve_01 as the ID, scada-symbol-valve scada-valve-open as the class and FV101_OPEN as the data tag" width="362" height="422">
+  </figure>
+  <p>Notice that the class field now reads <code>scada-symbol-valve scada-valve-open</code>. The symbol already carried its own class, and the chip added to it.</p>
+
+  <h2>Part 3: See it in the SVG</h2>
+
+  <p>Open the live code drawer from Chapter 5 and click <b>Find Selected</b>. The valve&rsquo;s group is highlighted, and the three attributes are right there.</p>
+  <figure>
+    <img src="03.png" alt="The Live SVG code drawer open, showing the valve group with class, id and data-tag attributes" width="1600" height="1000">
+  </figure>
+  <p>That is the whole mechanism. The SVG you save carries these names, so any system that reads them can look up <code>valve_01</code> or <code>FV101_OPEN</code> and drive the shape from live data. SimpleVG keeps the tags when you save, and when you open the file again later.</p>
+
+  <div class="note"><b>Note</b> Tagging is optional. A drawing with no tags is still a perfectly good SVG. Add tags only to the shapes that need to change.</div>
+
+  <h2>Recap</h2>
+  <ul class="recap">
+    <li>The <b>SCADA Tagging</b> tab sets a shape&rsquo;s <code>id</code>, <code>class</code> and <code>data-tag</code> attributes.</li>
+    <li>The quick class chips add common state classes with one click.</li>
+    <li>The Live SVG drawer, with <b>Find Selected</b>, shows exactly what was written.</li>
+    <li>Saved SVG files keep the tags, ready for any system that reads them. SentinelSCADA itself does not use them.</li>
+  </ul>
+
+  <p>In the final chapter we look at the live SVG code drawer in more depth: reading the code, editing it, and using it to find and tidy up shapes.</p>
+
+  <div class="nextprev">
+    <a href="../09-tracing-an-image/">&larr; Chapter 9: Tracing an Image</a>
+    <a href="../11-live-svg-code/">Chapter 11: The Live SVG Code Drawer &rarr;</a>
+  </div>
+
+  <footer>
+    <p><a href="../">Back to the Tutorial</a></p>
+  </footer>
+</body>
+</html>
