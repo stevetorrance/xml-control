@@ -178,8 +178,17 @@
   /* ---------- tier cards ---------- */
   .tiers{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    grid-template-columns:repeat(4,1fr);
     gap:16px;
+  }
+  /* Clipper and TradeWinds share the second row, two columns each. */
+  .tier--wide{grid-column:span 2}
+  @media (max-width:960px){
+    .tiers{grid-template-columns:repeat(2,1fr)}
+    .tier--wide{grid-column:span 1}
+  }
+  @media (max-width:560px){
+    .tiers{grid-template-columns:1fr}
   }
   .tier{
     background:var(--sheet);
@@ -193,13 +202,13 @@
     gap:13px;
   }
   .tier--lead{border-color:var(--copper-dim);border-left-color:var(--copper)}
-  .tier-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .tier-head{display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:nowrap}
   .tier-name{font-size:18px;font-weight:800;letter-spacing:.04em}
   .flag{
     font-family:var(--mono);
     font-size:10px;
     font-weight:600;
-    letter-spacing:.1em;
+    letter-spacing:.06em;
     text-transform:uppercase;
     color:var(--amber);
     background:var(--amber-light);
@@ -225,7 +234,8 @@
     margin-top:7px;
     letter-spacing:0;
   }
-  .who{margin:0;font-size:13.5px;color:var(--ink-dim);min-height:5em}
+  .who{margin:0;font-size:13.5px;color:var(--ink-dim);min-height:7.75em}
+  .tier--wide .who{min-height:0}
   .allow{
     font-family:var(--mono);
     font-size:12px;
@@ -428,7 +438,7 @@
 
   <section>
     <p class="sec-id">01 &middot; Editions</p>
-    <h2>Four editions, sized to the plant <span class="year">(2026/7 pricing)</span></h2>
+    <h2>Five editions, sized to the plant <span class="year">(2026/7 pricing)</span></h2>
     <p class="sec-note">Every edition is a one-time purchase for one server PC. What separates them is the number of tags, drivers and web clients, how long history is kept, and whether you need <b>Keycloak (CFR Part 11)</b> security, which begins at Clipper.</p>
 
     <div class="tiers">
@@ -448,7 +458,7 @@
       </div>
 
       <div class="tier">
-        <div class="tier-head"><div class="tier-name">HOME</div></div>
+        <div class="tier-head"><div class="tier-name">HOME</div><div class="flag">Personal</div></div>
         <div class="price">&pound;95<small>One time, perpetual</small></div>
         <p class="who">Personal use, hobbyist projects and education. Concessions are available for students and education providers &mdash; contact us for more.</p>
         <div class="allow">512 <span>Tags</span></div>
@@ -461,21 +471,35 @@
         </ul>
       </div>
 
-      <div class="tier tier--lead">
-        <div class="tier-head"><div class="tier-name">PROFESSIONAL</div><div class="flag">Commercial</div></div>
-        <div class="price">&pound;895<small>One time, perpetual</small></div>
-        <p class="who">The baseline tier for single machines and standard utility facilities. A solid step up from Home for growing deployments.</p>
-        <div class="allow">4,096 <span>Tags</span></div>
+      <div class="tier">
+        <div class="tier-head"><div class="tier-name">STANDARD</div><div class="flag">Commercial</div></div>
+        <div class="price">&pound;495<small>One time, perpetual</small></div>
+        <p class="who">The entry commercial tier, for small installations and single machines, when the project is for business use.</p>
+        <div class="allow">2,048 <span>Tags</span></div>
         <ul class="pts">
           <li><span class="mk">&#9679;</span><span><b>Commercial use</b></span></li>
-          <li><span class="mk">&#9679;</span><span>Up to <b>64 drivers</b>, 16 web clients</span></li>
+          <li><span class="mk">&#9679;</span><span>Up to <b>32 drivers</b>, 8 web clients</span></li>
           <li><span class="mk">&#9679;</span><span>Unlimited history</span></li>
           <li><span class="mk">&#9679;</span><span>XML and SQLite security modes</span></li>
           <li><span class="mk off">&#9675;</span><span>Keycloak support begins at Clipper</span></li>
         </ul>
       </div>
 
-      <div class="tier">
+      <div class="tier tier--lead">
+        <div class="tier-head"><div class="tier-name">PRO</div><div class="flag">Commercial</div></div>
+        <div class="price">&pound;1,895<small>One time, perpetual</small></div>
+        <p class="who">The mid-range tier for standard utility facilities and growing deployments. The same features as Standard, with four times the tags.</p>
+        <div class="allow">8,192 <span>Tags</span></div>
+        <ul class="pts">
+          <li><span class="mk">&#9679;</span><span><b>Commercial use</b></span></li>
+          <li><span class="mk">&#9679;</span><span>Up to <b>128 drivers</b>, 32 web clients</span></li>
+          <li><span class="mk">&#9679;</span><span>Unlimited history</span></li>
+          <li><span class="mk">&#9679;</span><span>XML and SQLite security modes</span></li>
+          <li><span class="mk off">&#9675;</span><span>Keycloak support begins at Clipper</span></li>
+        </ul>
+      </div>
+
+      <div class="tier tier--wide">
         <div class="tier-head"><div class="tier-name">CLIPPER</div><div class="flag">By arrangement</div></div>
         <div class="price">&pound;8,950<small>One time, perpetual<br>Available on request &mdash; contact us before ordering</small></div>
         <p class="who">The high-performance tier, for large process lines and multi-system integration.</p>
@@ -488,7 +512,7 @@
         </ul>
       </div>
 
-      <div class="tier">
+      <div class="tier tier--wide">
         <div class="tier-head"><div class="tier-name">TRADEWINDS</div><div class="flag">By arrangement</div></div>
         <div class="price">&pound;24,950<small>One time, perpetual<br>Available on request &mdash; contact us before ordering</small></div>
         <p class="who">The enterprise tier, for large facilities and plant-wide control architectures.</p>
@@ -543,36 +567,37 @@
               <th scope="col">&nbsp;</th>
               <th scope="col">Evaluation</th>
               <th scope="col">Home</th>
-              <th scope="col" class="col-lead">Professional</th>
+              <th scope="col">Standard</th>
+              <th scope="col" class="col-lead">Pro</th>
               <th scope="col">Clipper</th>
               <th scope="col">TradeWinds</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="group"><th colspan="6" scope="colgroup">Price</th></tr>
-            <tr><th scope="row">Price (per server PC, 2026/7)</th><td>Free</td><td>&pound;95</td><td class="col-lead">&pound;895</td><td>&pound;8,950</td><td>&pound;24,950</td></tr>
-            <tr><th scope="row">Licence transfer fee</th><td class="no">&mdash;</td><td>&pound;40</td><td class="col-lead">&pound;200</td><td>&pound;200</td><td>&pound;200</td></tr>
+            <tr class="group"><th colspan="7" scope="colgroup">Price</th></tr>
+            <tr><th scope="row">Price (per server PC, 2026/7)</th><td>Free</td><td>&pound;95</td><td>&pound;495</td><td class="col-lead">&pound;1,895</td><td>&pound;8,950</td><td>&pound;24,950</td></tr>
+            <tr><th scope="row">Licence transfer fee</th><td class="no">&mdash;</td><td>&pound;40</td><td>&pound;100</td><td class="col-lead">&pound;200</td><td>&pound;200</td><td>&pound;200</td></tr>
 
-            <tr class="group"><th colspan="6" scope="colgroup">Capacity</th></tr>
-            <tr><th scope="row">Max tags</th><td>64</td><td>512</td><td class="col-lead">4,096</td><td>16,384</td><td>Unlimited</td></tr>
-            <tr><th scope="row">Max active drivers</th><td>4</td><td>8</td><td class="col-lead">64</td><td>128</td><td>240</td></tr>
-            <tr><th scope="row">Max web clients</th><td>1</td><td>4</td><td class="col-lead">16</td><td>64</td><td>Unlimited</td></tr>
-            <tr><th scope="row">History retention</th><td>7 days</td><td>30 days</td><td class="col-lead">Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
-            <tr><th scope="row">Session runtime limit</th><td>240 min</td><td>Unlimited</td><td class="col-lead">Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+            <tr class="group"><th colspan="7" scope="colgroup">Capacity</th></tr>
+            <tr><th scope="row">Max tags</th><td>64</td><td>512</td><td>2,048</td><td class="col-lead">8,192</td><td>16,384</td><td>Unlimited</td></tr>
+            <tr><th scope="row">Max active drivers</th><td>4</td><td>8</td><td>32</td><td class="col-lead">128</td><td>128</td><td>240</td></tr>
+            <tr><th scope="row">Max web clients</th><td>1</td><td>4</td><td>8</td><td class="col-lead">32</td><td>64</td><td>Unlimited</td></tr>
+            <tr><th scope="row">History retention</th><td>7 days</td><td>30 days</td><td>Unlimited</td><td class="col-lead">Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
+            <tr><th scope="row">Session runtime limit</th><td>240 min</td><td>Unlimited</td><td>Unlimited</td><td class="col-lead">Unlimited</td><td>Unlimited</td><td>Unlimited</td></tr>
 
-            <tr class="group"><th colspan="6" scope="colgroup">Security &amp; use</th></tr>
-            <tr><th scope="row">XML &amp; SQLite security</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
-            <tr><th scope="row">Keycloak (CFR Part 11)</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead no">&mdash;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
-            <tr><th scope="row">Commercial use</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+            <tr class="group"><th colspan="7" scope="colgroup">Security &amp; use</th></tr>
+            <tr><th scope="row">XML &amp; SQLite security</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+            <tr><th scope="row">Keycloak (CFR Part 11)</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead no">&mdash;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+            <tr><th scope="row">Commercial use</th><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
 
-            <tr class="group"><th colspan="6" scope="colgroup">Output &amp; alerts</th></tr>
-            <tr><th scope="row">PDF watermark</th><td>Yes</td><td class="no">&mdash;</td><td class="col-lead no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
-            <tr><th scope="row">Alarm Dispatcher</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+            <tr class="group"><th colspan="7" scope="colgroup">Output &amp; alerts</th></tr>
+            <tr><th scope="row">PDF watermark</th><td>Yes</td><td class="no">&mdash;</td><td class="no">&mdash;</td><td class="col-lead no">&mdash;</td><td class="no">&mdash;</td><td class="no">&mdash;</td></tr>
+            <tr><th scope="row">Alarm Dispatcher</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
 
-            <tr class="group"><th colspan="6" scope="colgroup">Keys &amp; support</th></tr>
-            <tr><th scope="row">Licence key activates</th><td class="no">&mdash;</td><td>1 server PC</td><td class="col-lead">1 server PC</td><td>1 server PC</td><td>1 server PC</td></tr>
-            <tr><th scope="row">Email support</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
-            <tr><th scope="row">On-site support</th><td colspan="5">&pound;800 per day, plus travel, accommodation and expenses</td></tr>
+            <tr class="group"><th colspan="7" scope="colgroup">Keys &amp; support</th></tr>
+            <tr><th scope="row">Licence key activates</th><td class="no">&mdash;</td><td>1 server PC</td><td>1 server PC</td><td class="col-lead">1 server PC</td><td>1 server PC</td><td>1 server PC</td></tr>
+            <tr><th scope="row">Email support</th><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td><td class="col-lead yes">&#9679;</td><td class="yes">&#9679;</td><td class="yes">&#9679;</td></tr>
+            <tr><th scope="row">On-site support</th><td colspan="6">&pound;800 per day, plus travel, accommodation and expenses</td></tr>
           </tbody>
         </table>
       </div>
@@ -593,7 +618,7 @@
       </div>
       <div>
         <dt>Moving to a new server PC</dt>
-        <dd>A licence transfer is a fixed fee: <b>&pound;40</b> for Home, <b>&pound;200</b> for Professional, Clipper and TradeWinds.</dd>
+        <dd>A licence transfer is a fixed fee: <b>&pound;40</b> for Home, <b>&pound;100</b> for Standard, <b>&pound;200</b> for Pro, Clipper and TradeWinds.</dd>
       </div>
       <div>
         <dt>Email support</dt>
