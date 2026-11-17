@@ -26,13 +26,13 @@
 
   Design: ControlCircuit/Docs/UpdateCheckerBrief.md
 -->
-<versions schema="1" updated="2026-09-25">
+<versions schema="1" updated="2026-11-17">
 
   <product id="ControlCircuit" name="ControlCircuit">
-    <!-- Pre-release placeholder. Replace with the first public build when it ships. -->
-    <release channel="stable" major="1" version="1.0.267.0" date="2026-09-25">
-      <notes>Pre-release.</notes>
+    <release channel="stable" major="1" version="1.0.320.1521" date="2026-11-17">
+      <notes>Alpha release.</notes>
       <page>https://arizona.xml-control.com/controlcircuit/</page>
+      <sha256>82e1fcfb8166accd5aca6936f879b9f5ce551ac0f12080c6ffa17ce130baba24</sha256>
     </release>
   </product>
 
