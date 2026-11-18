@@ -145,6 +145,21 @@
   }
   .release-head h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
   .release-date{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint)}
+  /* Pre-release banner: delete the element in the card (and this rule) when the
+     product leaves alpha */
+  .stage{
+    display:inline-block;
+    margin-bottom:14px;
+    padding:3px 10px;
+    background:var(--copper-light);
+    border:1px solid var(--copper-dim);
+    border-radius:var(--radius);
+    color:var(--copper);
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
   .notes{color:var(--ink-dim);margin-bottom:18px;max-width:62ch}
   .notes:empty{display:none}
 
@@ -230,6 +245,7 @@
   </div>
 
   <div class="release" aria-live="polite">
+    <p class="stage"><b>ALPHA Release</b></p>
     <div class="release-head">
       <h2 id="release-version">Latest version</h2>
       <span class="release-date" id="release-date"></span>
@@ -237,7 +253,8 @@
     <p class="notes" id="release-notes"></p>
 
     <a class="btn" href="download/">Download for Windows</a>
-    <span class="file">ControlCircuit2026Setup.exe</span>
+    <span class="file"><span>ControlCircuit2026Setup.exe</span><span id="file-size"></span></span>
+    <span class="file"><b>Evaluation expires 31 March 2027</b></span>
 
     <div class="checksum" id="checksum" hidden>
       SHA-256
@@ -255,9 +272,10 @@
   </section>
 
   <section>
-    <span class="sec-id">Licensed</span>
-    <h3>Already bought a licence?</h3>
-    <p>Download the same installer. Your licence is a file, issued for your PC's Hardware ID: place it in the ControlCircuit installation folder, next to <b>ControlCircuit.exe</b>, and it unlocks your tier. <b>Help &gt; Licence Control</b> shows the Hardware ID to send when ordering, and confirms the licence once it is in place.</p>
+    <span class="sec-id">Licensing</span>
+    <h3>Acquiring a Licence</h3>
+    <p><b>Licences are not generally available until the software matures to at least BETA level.</b> Until then, use the evaluation above.</p>
+    <p>Once you have one, it is the same installer. Your licence is a file, issued for your PC's Hardware ID: place it in the ControlCircuit installation folder, next to <b>ControlCircuit.exe</b>, and it unlocks your tier. <b>Help &gt; Licence Control</b> shows the Hardware ID to send when ordering, and confirms the licence once it is in place.</p>
     <p><b>Keep a copy of your licence file somewhere safe.</b> Uninstalling ControlCircuit deletes the installation folder, licence file included.</p>
   </section>
 
@@ -330,6 +348,10 @@
 
         var notes = latest.getElementsByTagName("notes")[0];
         $("release-notes").textContent = notes ? notes.textContent.replace(/\s+/g, " ").trim() : "";
+
+        var size = latest.getElementsByTagName("size")[0];
+        var bytes = size ? parseInt(size.textContent.trim(), 10) : NaN;
+        if (bytes > 0) $("file-size").textContent = " · " + (bytes / 1048576).toFixed(2) + " MB";
 
         var sha = latest.getElementsByTagName("sha256")[0];
         var hash = sha ? sha.textContent.replace(/\s+/g, "").toLowerCase() : "";

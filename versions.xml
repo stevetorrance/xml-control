@@ -19,6 +19,8 @@
     page      opened in the browser; apps only open https pages on xml-control.com hosts.
     sha256    optional: the installer's SHA-256, shown on the download page. Apps
               ignore it. Lower-case hex, as certutil -hashfile prints it.
+    size      optional: the installer's size in bytes, shown on the download page as
+              MB. Apps ignore it. Take it from the file's Length, not the disk size.
 
   After editing, run the ControlCircuit test LiveManifest_IsReadable by name: a
   mistake here fails nowhere else, and an app meeting one says it couldn't read the
@@ -33,6 +35,7 @@
       <notes>Alpha release.</notes>
       <page>https://arizona.xml-control.com/controlcircuit/</page>
       <sha256>82e1fcfb8166accd5aca6936f879b9f5ce551ac0f12080c6ffa17ce130baba24</sha256>
+      <size>6847432</size>
     </release>
   </product>
 
