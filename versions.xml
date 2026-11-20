@@ -28,14 +28,14 @@
 
   Design: ControlCircuit/Docs/UpdateCheckerBrief.md
 -->
-<versions schema="1" updated="2026-11-17">
+<versions schema="1" updated="2026-11-20">
 
   <product id="ControlCircuit" name="ControlCircuit">
-    <release channel="stable" major="1" version="1.0.320.1521" date="2026-11-17">
+    <release channel="stable" major="1" version="1.0.323.1935" date="2026-11-20">
       <notes>Alpha release.</notes>
       <page>https://arizona.xml-control.com/controlcircuit/</page>
-      <sha256>82e1fcfb8166accd5aca6936f879b9f5ce551ac0f12080c6ffa17ce130baba24</sha256>
-      <size>6847432</size>
+      <sha256>088ad4b2a9cebb3a0c99de2df6866b3a9fbe045341d2c40ff2a5bbbe24dfea5d</sha256>
+      <size>8105583</size>
     </release>
   </product>
 
