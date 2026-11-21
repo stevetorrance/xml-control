@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 6: SQLite and Keycloak Modes - SentinelSCADA Server Setup</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../../tutorial/tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Server Setup Guide</a> &rsaquo; Part 6</p>
+
+  <h1>Part 6: SQLite and Keycloak Modes</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Understand the security ladder, move the server from XML mode to SQLite mode knowing exactly what changes and that it cannot be undone, and know where to find the Keycloak setup for regulated sites.
+  </div>
+
+  <div class="warn"><b>Draft</b> Outline only. Text and screenshots to follow.</div>
+
+  <h2>The security ladder</h2>
+  <p>SentinelSCADA has three security modes, in order: XML, SQLite and Keycloak. You can move up to a higher mode at any time, but never back down. This part takes you from XML to SQLite, and points to where Keycloak is set up.</p>
+
+  <h2>What SQLite mode adds</h2>
+  <p>User data and historian logs held in a database, with encryption, tamper detection and an audit trail.</p>
+
+  <h2>One way only</h2>
+  <div class="warn"><b>It cannot be undone</b> The server refuses to go back to XML mode. Take a snapshot or a backup first.</div>
+
+  <h2>Switching to SQLite</h2>
+  <p>Security &gt; Security Settings, choosing SQLite, and the confirmation.</p>
+
+  <h2>What happens to your users</h2>
+  <p>Existing users are carried across, with their roles. Why you should still check for default passwords afterwards.</p>
+
+  <h2>Checking the result</h2>
+  <p>The user list, roles, and where the audit trail is kept. The server refusing a move back to XML.</p>
+
+  <h2>Keycloak, for regulated sites</h2>
+  <p>Keycloak is the top of the ladder, for regulated use such as 21 CFR Part 11. An external identity provider handles sign-in and electronic signatures, and authentication, the inactivity timeout and the audit trail are always on. Setting it up is a job for your own IT team and is not covered in this guide. The Server Guide, opened from the tray menu with <b>Help (Server Guide)&hellip;</b>, describes the security modes and the Keycloak setup. Like the step to SQLite, moving to Keycloak cannot be undone, and Keycloak is not part of every edition.</p>
+
+  <h2>Checkpoint</h2>
+  <p>A server in SQLite mode, with users and roles intact, and a snapshot to take if you are using a virtual machine.</p>
+
+  <footer>
+    <p><a href="../05-https-and-certificates/">Previous: Part 5, HTTPS and Certificates</a> &middot; <a href="../">Back to the Server Setup Guide</a></p>
+  </footer>
+</body>
+</html>

@@ -42,7 +42,7 @@
     <img src="03.png" alt="An elevated PowerShell window running Prepare-SentinelHost.ps1 -OpenFirewall. After the I ACCEPT prompt it opens the firewall for TCP 5000 (HTTP) and 5443 (HTTPS), then shows the three runtimes as OK and the message Host is ready" width="980" height="513">
     <figcaption>Re-running the script with <code>-OpenFirewall</code> adds rules for ports 5000 and 5443.</figcaption>
   </figure>
-  <p>Port 5000 is the plain HTTP port that we use here. Port 5443 is for HTTPS, which we set up in <a href="../07-https-and-certificates/">Part 7</a>.</p>
+  <p>Port 5000 is the plain HTTP port that we use here. Port 5443 is for HTTPS, which we set up in <a href="../05-https-and-certificates/">Part 5</a>.</p>
 
   <h3>Find the server&rsquo;s address</h3>
   <p>The remote PC needs the server&rsquo;s IP address. There are two ways to find it. The first is to run <code>ipconfig</code> in PowerShell on the server and read the IPv4 address of the adapter on your network. In this guide that is the host-only adapter, <code>192.168.56.103</code>.</p>
@@ -63,7 +63,7 @@
     <img src="06.png" alt="A browser on the remote PC at 192.168.56.103:5000 showing the message Sentinel SCADA System currently in Design Mode - please standby" width="811" height="630">
     <figcaption>A remote browser while the server is in Design Mode.</figcaption>
   </figure>
-  <p>The browser warns <b>Not secure</b> because the address is plain HTTP. On a private network that is expected, and <a href="../07-https-and-certificates/">Part 7</a> adds HTTPS.</p>
+  <p>The browser warns <b>Not secure</b> because the address is plain HTTP. On a private network that is expected, and <a href="../05-https-and-certificates/">Part 5</a> adds HTTPS.</p>
   <p>The remote client stays on this screen until someone at the server itself chooses <b>View</b> &gt; <b>Run Mode</b>, as in Part 3. As soon as the server is in Run Mode, the remote browser shows the project. Since login is required, a banner invites the visitor to sign in.</p>
   <figure>
     <img src="07.png" alt="The remote browser showing the default project screen once the server is in Run Mode, with a banner reading This project requires authentication. Log in to access features" width="1064" height="810">
@@ -147,7 +147,7 @@
   <p>If you are using a virtual machine, shut down the guest and take a snapshot called <b>Remote access working</b>.</p>
 
   <footer>
-    <p><a href="../03-first-start-and-security/">Previous: Part 3, First Start and Security</a> &middot; <a href="../">Back to the Server Setup Guide</a> &middot; <a href="../05-simulator/">Next: Part 5, Trying It with a Simulator</a></p>
+    <p><a href="../03-first-start-and-security/">Previous: Part 3, First Start and Security</a> &middot; <a href="../">Back to the Server Setup Guide</a> &middot; <a href="../05-https-and-certificates/">Next: Part 5, HTTPS and Certificates</a></p>
   </footer>
 </body>
 </html>

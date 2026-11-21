@@ -50,7 +50,7 @@
     <li>Listening on all of the computer&rsquo;s network addresses (<code>0.0.0.0</code>) is what lets other computers connect. You need it for remote clients, and we set it in <a href="../04-remote-clients-and-autostart/">Part 4</a>.</li>
   </ul>
   <p>Leave it on <code>localhost</code> for now. Securing the server while only this machine can reach it means nobody else can connect before you have changed the default passwords.</p>
-  <p>The <b>HTTPS</b> section on the same tab is covered in <a href="../07-https-and-certificates/">Part 7</a>. Press <b>Cancel</b> to close the window without changing anything.</p>
+  <p>The <b>HTTPS</b> section on the same tab is covered in <a href="../05-https-and-certificates/">Part 5</a>. Press <b>Cancel</b> to close the window without changing anything.</p>
 
   <h2>Design Mode</h2>
   <p>Choose <b>Sentinel Web UI&hellip;</b> from the tray menu. The web client opens in your browser at <code>localhost:5000</code>, showing the starter project, named <code>default</code>, in <b>Design Mode</b>.</p>
@@ -68,7 +68,7 @@
   </figure>
 
   <h2>XML mode and authentication</h2>
-  <p>SentinelSCADA keeps its user accounts in a simple file on this computer. This is <strong>XML mode</strong>, and it is what a new installation uses. (<a href="../06-sqlite-mode/">Part 6</a> covers the next step up.)</p>
+  <p>SentinelSCADA keeps its user accounts in a simple file on this computer. This is <strong>XML mode</strong>, and it is what a new installation uses. (<a href="../06-sqlite-and-keycloak/">Part 6</a> covers the next step up.)</p>
   <p>A new installation has <strong>authentication switched off</strong>: anyone who can reach the server can use every feature without signing in. That suits a first look, but not a working system. We will switch it on now.</p>
   <div class="note"><strong>Sign in first.</strong> You cannot change security settings anonymously. A person has to be able to sign in before anything is changed, so you sign in with the built-in account first, and only then turn on &ldquo;Require login&rdquo;.</div>
 
