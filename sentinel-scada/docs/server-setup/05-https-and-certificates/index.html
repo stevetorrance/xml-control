@@ -19,38 +19,206 @@
     Encrypt the connection between the server and its browsers, so that passwords and live data cannot be read by anyone else on the network, and make every client trust the server&rsquo;s certificate.
   </div>
 
-  <div class="warn"><b>Draft</b> Outline only. Text and screenshots to follow.</div>
 
-  <p>This part assumes the server from <a href="../03-first-start-and-security/">Part 3</a> is working. It applies equally in XML mode and, later, in the SQLite mode covered in <a href="../06-sqlite-and-keycloak/">Part 6</a>.</p>
+  <p>This part assumes the server from <a href="../03-first-start-and-security/">Part 3</a> is working, and that other computers can reach it as set up in <a href="../04-remote-clients-and-autostart/">Part 4</a>. It applies equally in XML mode and, later, in the SQLite mode covered in <a href="../06-sqlite-and-keycloak/">Part 6</a>.</p>
 
   <h2>Why bother, on a private network?</h2>
-  <p>What HTTPS protects against, in plain terms, and what it does not: it encrypts the traffic, but you still need authentication on and the default passwords changed.</p>
+  <p>Without HTTPS, everything between a browser and the server travels as plain text: the passwords people type, and the live values on the screens. Anyone who can see that network traffic can read it. HTTPS encrypts the connection, and it lets the browser check that it is talking to your server and not to something pretending to be it.</p>
+  <p>HTTPS protects the connection and nothing else. You still need <b>Require login</b> switched on and the default passwords changed, as in Part 3.</p>
 
   <h2>Names, not addresses</h2>
-  <p>A certificate is issued for a name, and browsers check it against the address you type. Clients must browse by the server&rsquo;s host name, not its IP address.</p>
+  <p>A certificate is issued for names, and the browser compares them with the address you type. If you type a name that is not in the certificate, you get a warning. So clients must browse by the server&rsquo;s <strong>host name</strong>, such as <code>https://sentinel-srv:5443</code>, and not by its IP address.</p>
+  <p>This is why we named the server in <a href="../01-virtualbox-vm/#name-the-server">Part 1</a>: the certificate carries that name. Check yours now with <code>hostname</code>, and rename it before you make a certificate if you need to. A certificate made for a different name will not match.</p>
 
   <h2>Making a certificate</h2>
-  <p>Using <b>Generate New</b> in the Launcher, or the <code>New-SentinelCert.ps1</code> script, and choosing the names to include. Keep <code>localhost</code> in the list.</p>
+  <p>The Launcher can make a certificate for you. Open <b>Advanced Settings&hellip;</b> from the tray menu. The <b>HTTPS</b> section is at the bottom of the <b>Networking</b> tab.</p>
+  <figure>
+    <img src="01.png" alt="The Launcher Settings Networking tab with the HTTPS section highlighted. Enable HTTPS is unticked and the certificate path, password and buttons are greyed out" width="465" height="609">
+    <figcaption>The HTTPS section of the Networking tab.</figcaption>
+  </figure>
+  <p>Tick <b>Enable HTTPS</b> first. That unlocks the rest of the section. Then press <b>Generate New&hellip;</b>.</p>
+  <figure>
+    <img src="02.png" alt="The Enable HTTPS box ticked (step 1) and the Generate New button (step 2)" width="484" height="177">
+    <figcaption>Tick Enable HTTPS, then press Generate New.</figcaption>
+  </figure>
+  <p>The Generate Certificate window suggests everything you need:</p>
+  <figure>
+    <img src="03.png" alt="The Generate HTTPS Certificate window with the save path in the Tools folder, DNS names localhost and SENTINEL-SRV, two password boxes and a Trust certificate on this machine box ticked" width="425" height="431">
+    <figcaption>The Generate Certificate window.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>Save certificate to</strong> is the <code>Tools</code> folder of the installation, as <code>sentinel.pfx</code>.</li>
+    <li><strong>DNS Names</strong> lists the names the certificate is valid for. It suggests <code>localhost</code> and this computer&rsquo;s name. Keep <code>localhost</code>: the Launcher&rsquo;s own windows always use it. Add any other name that clients will type, separated by commas.</li>
+    <li><strong>Password</strong> and <strong>Confirm Password</strong> protect the certificate file. Choose a password, and keep it somewhere safe.</li>
+    <li><strong>Trust certificate on this machine</strong> makes this computer&rsquo;s own browser accept the certificate. Leave it ticked on the server.</li>
+  </ul>
+
+  <div class="warn"><strong>Looking after the certificate file.</strong> The <code>.pfx</code> file holds the server&rsquo;s private key. Remember three things:
+    <ul>
+      <li><strong>Always set a password.</strong> Programs in the installation folder can be read by every account on the computer, so the password is what protects the key. Never leave it blank.</li>
+      <li><strong>Keep a copy somewhere safe.</strong> The file lives inside the installation folder, and uninstalling or upgrading may remove it. Keep a copy of the <code>.pfx</code> and its password with your licence file.</li>
+      <li><strong>Never copy the <code>.pfx</code> to other computers.</strong> Other computers only need the public certificate, the <code>.cer</code> file that you export below. The <code>.pfx</code> must stay on the server.</li>
+    </ul>
+  </div>
+
+  <p>Press <b>Generate</b>. Because you asked for it to be trusted, Windows shows a security warning.</p>
+  <figure>
+    <img src="04.png" alt="A Windows Security Warning about installing a certificate for localhost, showing its thumbprint, with Yes and No buttons" width="411" height="381">
+    <figcaption>Windows asks before it trusts a new certificate.</figcaption>
+  </figure>
+  <p>The warning is Windows&rsquo; standard wording for any certificate that nothing else vouches for. It says that Windows cannot check where the certificate came from. That is true of every self-made certificate, and you made this one just now, so it is safe to choose <b>Yes</b>. Note the thumbprint; it identifies this certificate, and you will see it again.</p>
+  <figure>
+    <img src="05.png" alt="A message reading Certificate generated successfully, with the path, and the text The certificate path and password have been applied to Launcher Settings" width="387" height="213">
+    <figcaption>The certificate has been made.</figcaption>
+  </figure>
+  <p>The Launcher fills in the certificate path and its password for you.</p>
+  <figure>
+    <img src="06.png" alt="The HTTPS section with Enable HTTPS ticked, the certificate path filled in and the password dots filled in, both highlighted" width="457" height="295">
+    <figcaption>The path and password are filled in.</figcaption>
+  </figure>
+
+  <h3>If you prefer the command line</h3>
+  <p>The same certificate can be made with <code>New-SentinelCert.ps1</code> in the <code>Tools</code> folder. It is the script that the window above runs. Give it every name the certificate should cover:</p>
+  <pre><code>.\New-SentinelCert.ps1 -DnsName localhost,SENTINEL-SRV</code></pre>
+  <p>It asks for a password. Leave <code>-Password</code> off the command line so that it does not end up in your command history. Like the other scripts, read it before you run it.</p>
 
   <h2>Switching HTTPS on</h2>
-  <p>The Launcher&rsquo;s Advanced Settings: Enable HTTPS, the port (5443 by default), the certificate file and its password. Opening the firewall for the HTTPS port.</p>
+  <p>With the certificate path and password filled in, press <b>Save</b>. The Launcher asks to restart the server, because the change only takes effect when the server starts. Choose <b>Yes</b>.</p>
+  <figure>
+    <img src="07.png" alt="A Launcher Settings message reading Settings saved. Restart the server now to apply the new configuration? with Yes and No buttons" width="384" height="154">
+    <figcaption>The server restarts to start using HTTPS.</figcaption>
+  </figure>
+  <p>HTTPS listens on port <b>5443</b>, which the <code>-OpenFirewall</code> step in <a href="../04-remote-clients-and-autostart/">Part 4</a> already allowed through the firewall. Plain HTTP on port 5000 stays available for this computer itself.</p>
+  <p>Now open the web client on the server again, from the tray menu or at <code>https://localhost:5443</code>. The padlock shows that the browser trusts the certificate.</p>
+  <figure>
+    <img src="08.png" alt="A browser at https://localhost:5443 with a padlock and the SentinelSCADA title" width="369" height="171">
+    <figcaption>The web client over HTTPS, on the server.</figcaption>
+  </figure>
+  <p>The Launcher&rsquo;s Server Status window follows along. It now shows <code>https://localhost:5443</code> under its title, with the server online.</p>
+  <figure>
+    <img src="09.png" alt="The Server Status window showing https://localhost:5443, Online, project default, security mode XML, and one client from 127.0.0.1 not logged in" width="803" height="481">
+    <figcaption>Server Status over HTTPS.</figcaption>
+  </figure>
+  <p>The client is listed as <code>127.0.0.1</code>, where it was <code>::1</code> in Part 3. Both mean this computer.</p>
 
-  <h2>Trusting the certificate</h2>
-  <p>On the server: <b>Trust Certificate Locally</b>, and why the browser must be fully closed and reopened afterwards. On every other computer: exporting the public certificate with <b>Export Public Cert</b>, importing it, and where a hosts-file entry is needed for the name.</p>
+  <div class="warn"><strong>Close the browser completely after you trust a certificate.</strong> A browser decides what it trusts when it starts, and keeps running in the background after you close its window. Until it is fully closed, it will keep showing <strong>Not secure</strong>, even though the certificate is trusted. Close every window, then use the Task Manager or this command to be sure, and open the browser again:
+    <pre><code>Get-Process msedge, chrome -ErrorAction SilentlyContinue | Stop-Process -Force</code></pre>
+    Do this after each of these steps: generating a certificate with the <strong>Trust certificate on this machine</strong> box ticked, pressing <strong>Trust Certificate Locally</strong>, and importing the <code>.cer</code> file on another computer.</div>
+
+  <div class="warn"><strong>Restart the server after you replace a certificate.</strong> The server reads the certificate file only when it starts. If you generate a new certificate, the server carries on offering the old one until you restart it, and a computer that trusts only the new one will show a certificate error. After replacing a certificate: restart the server, press <strong>Trust Certificate Locally</strong> on the server, import the new <code>.cer</code> on every other computer, and fully close and reopen each browser.</div>
+
+  <h2>Letting another computer find the server by name</h2>
+  <p>Another computer must be able to turn the name <code>SENTINEL-SRV</code> into the server&rsquo;s address. On a network with name lookup (DNS), that happens by itself. On a small or isolated network, such as the VirtualBox set-up in this guide, it does not, and you add a line to the <b>hosts file</b> on each client computer.</p>
+  <p>On the client, start Notepad as administrator: press the Windows key, type <code>notepad</code>, right-click it and choose <b>Run as administrator</b>. Choose <b>File</b> &gt; <b>Open</b>, paste this path and press Enter. If the folder looks empty, change the file type to <b>All Files</b>.</p>
+  <pre><code>C:\Windows\System32\drivers\etc\hosts</code></pre>
+  <p>Add a line at the bottom, with the server&rsquo;s address, then a space or a Tab, then its name. Then save with Ctrl+S.</p>
+  <figure>
+    <img src="10.png" alt="The Windows hosts file open in Notepad, with the added line 192.168.56.103 SENTINEL-SRV at the bottom" width="723" height="505">
+    <figcaption>The hosts file, with the line for the server added at the bottom.</figcaption>
+  </figure>
+  <p>The address is the one you found in Part 4. If the server&rsquo;s address ever changes, change this line too.</p>
+
+  <h2>Checking that another computer can reach the server</h2>
+  <p>Before you work on certificates on a remote PC, check that it can find the server and reach its HTTPS port. Run these in PowerShell on the remote PC.</p>
+  <div class="note"><strong>Do not rely on ping.</strong> Windows Server blocks incoming ping by default, so <code>ping SENTINEL-SRV</code> usually gets no reply even when everything is working. A silent ping tells you nothing about SentinelSCADA. Use the two checks below instead.</div>
+  <p>First, check that the name finds the server. The answer should be the server&rsquo;s address:</p>
+  <pre><code>Resolve-DnsName SENTINEL-SRV</code></pre>
+  <pre><code>Name          Type   TTL   Section    IPAddress
+----          ----   ---   -------    ---------
+SENTINEL-SRV  A      ...   Answer     192.168.56.103</code></pre>
+  <p>If the name is not found, or gives the wrong address, correct the entry in the hosts file.</p>
+  <p>Second, check that the HTTPS port answers:</p>
+  <pre><code>Test-NetConnection SENTINEL-SRV -Port 5443</code></pre>
+  <pre><code>ComputerName     : SENTINEL-SRV
+RemoteAddress    : 192.168.56.103
+RemotePort       : 5443
+InterfaceAlias   : Ethernet 2
+SourceAddress    : 192.168.56.1
+TcpTestSucceeded : True</code></pre>
+  <p><code>TcpTestSucceeded : True</code> means the name resolves, the firewall rule for port 5443 is in place and the server is listening. If it says <code>False</code>, check that the firewall rules from <a href="../04-remote-clients-and-autostart/">Part 4</a> are in place, that the server was restarted after you switched HTTPS on, and that the address is the right one.</p>
+
+  <h2>Trusting the certificate on other computers</h2>
+  <p>The server&rsquo;s own browser already trusts the certificate. Every other computer needs to be told to trust it too, or its browser will show a warning. Try it first, to see what a visitor would see. On the remote PC, go to <code>https://sentinel-srv:5443</code>.</p>
+  <figure>
+    <img src="11.png" alt="A browser tab titled Privacy error, with Not secure and https struck through in the address bar for sentinel-srv:5443" width="441" height="105">
+    <figcaption>Before the certificate is trusted, the browser warns.</figcaption>
+  </figure>
+  <p>The page says <b>Your connection isn&rsquo;t private</b> (in Chrome, with the code <code>NET::ERR_CERT_AUTHORITY_INVALID</code>). It is a correct warning: the browser has no reason yet to believe this certificate.</p>
+
+  <h3>Export the public certificate</h3>
+  <p>On the server, open <b>Advanced Settings&hellip;</b> and press <b>Export Public Cert (.cer)&hellip;</b>. Choose where to save the file.</p>
+  <figure>
+    <img src="12.png" alt="The Save As window for the exported certificate, with the file name sentinel-public and the type DER Encoded Certificate (*.cer), and the Export Public Cert button below" width="629" height="312">
+    <figcaption>Export the public part of the certificate.</figcaption>
+  </figure>
+  <figure>
+    <img src="13.png" alt="A message reading Exported to C:\Program Files\SentinelSCADA\Tools\sentinel-public.cer" width="391" height="155">
+    <figcaption>Here the file was saved in the Tools folder.</figcaption>
+  </figure>
+  <p>The <code>.cer</code> file contains only the public part of the certificate, with no private key, so it is safe to copy around. Copy it to the remote PC by whatever route you trust: the shared folder from Part 1, a USB drive, or anything else.</p>
+
+  <h3>Import it on the remote PC</h3>
+  <p>On the remote PC, open PowerShell and import the file into the trusted store for your account. Use the real path to the file.</p>
+  <figure>
+    <img src="14.png" alt="PowerShell showing the Import-Certificate command with the file path to sentinel-public.cer and Cert:\CurrentUser\Root" width="1144" height="55">
+    <figcaption>Importing the certificate into your Trusted Root store.</figcaption>
+  </figure>
+  <pre><code>Import-Certificate -FilePath 'C:\path\to\sentinel-public.cer' -CertStoreLocation Cert:\CurrentUser\Root</code></pre>
+  <p>Windows asks you to confirm, with the same warning as before. Check that the thumbprint is the one you saw when you made the certificate, then choose <b>Yes</b>.</p>
+  <figure>
+    <img src="15.png" alt="A Windows Security Warning about installing a certificate for localhost with its thumbprint" width="413" height="382">
+    <figcaption>Confirm the import.</figcaption>
+  </figure>
+  <p>PowerShell then lists the certificate that was added.</p>
+  <figure>
+    <img src="16.png" alt="PowerShell showing the imported certificate listed with its thumbprint 6A4235D8AB78169B98CC50F733A5BDF9D701507E and the subject CN=localhost" width="1148" height="164">
+    <figcaption>The certificate is now trusted for this account.</figcaption>
+  </figure>
+  <p>This trusts the certificate for your own Windows account only. Each person who uses the remote PC needs to do this for their own account.</p>
 
   <h2>Checking it works</h2>
-  <p>The padlock, the certificate details, and a live screen that updates.</p>
+  <p>Now <strong>close the browser completely</strong>, as described above, open it again and go to <code>https://sentinel-srv:5443</code>. The browser shows no warning, and the web client loads. The banner asks you to sign in, because login is required.</p>
+  <figure>
+    <img src="17.png" alt="The remote PC's browser at sentinel-srv:5443 with no security warning, showing the SentinelSCADA web client and a banner asking the user to log in" width="736" height="184">
+    <figcaption>The remote browser, with no warning, after the certificate is trusted.</figcaption>
+  </figure>
+  <p>Click the icon at the left of the address and choose the certificate details if you want to see the names it covers: <code>localhost</code> and <code>SENTINEL-SRV</code>.</p>
+  <p>As before, a remote client waits on the standby screen until someone at the server chooses Run Mode, and only one client is served at a time on an evaluation edition.</p>
 
   <h2>What changes once HTTPS is on</h2>
   <ul>
     <li>The plain HTTP port redirects network browsers to HTTPS. At the server itself, <code>http://localhost:5000</code> still works.</li>
-    <li>Browsers are told to keep using HTTPS for the next seven days.</li>
+    <li>Browsers are told to keep using HTTPS for the next seven days. This is called HSTS, explained below.</li>
     <li>Session cookies are marked secure.</li>
-    <li>Every restart of the server returns it to Design Mode, and a remote client waits until the console selects Run.</li>
+    <li>Every restart of the server returns it to Design Mode, and a remote client waits until the console selects Run, unless you have a licensed edition with its start-up mode set to enter Run or Kiosk Mode.</li>
   </ul>
 
+  <h3>What is HSTS?</h3>
+  <p><strong>HSTS</strong> (HTTP Strict Transport Security) is a rule that a server gives to browsers: from now on, talk to me only over HTTPS. When SentinelSCADA answers over HTTPS, it adds a header that tells the browser to remember this for seven days. For those seven days, if you type an <code>http://</code> address for the same name, the browser changes it to <code>https://</code> itself, before it sends anything. This protects against someone on the network tampering with that first, unencrypted request.</p>
+  <p>The rule applies to the <strong>name</strong>, not to a single port. After a browser has visited <code>https://sentinel-srv:5443</code>, it will also turn <code>http://sentinel-srv:5000</code> into <code>https://sentinel-srv:5000</code>. The plain HTTP port does not speak HTTPS, so the browser shows <b>This site can&rsquo;t provide a secure connection</b> (<code>ERR_SSL_PROTOCOL_ERROR</code>). This is harmless. It means the browser did not reach the redirect, not that the server is wrong.</p>
+  <p>So: <strong>use <code>https://sentinel-srv:5443</code>, and bookmark it.</strong></p>
+  <p>The plain HTTP port still redirects any client that has not been to the HTTPS address, which is how a browser with no HSTS memory, such as a private window, arrives at HTTPS. You can check the redirect itself without a browser, from PowerShell on another computer:</p>
+  <pre><code>curl.exe -I http://sentinel-srv:5000</code></pre>
+  <pre><code>HTTP/1.1 308 Permanent Redirect
+Server: Kestrel
+Location: https://sentinel-srv:5443/</code></pre>
+  <p>If you want a browser to forget the HSTS rule, for example to test the redirect, open the browser&rsquo;s HSTS page (<code>chrome://net-internals/#hsts</code> in Chrome, <code>edge://net-internals/#hsts</code> in Edge), type the server&rsquo;s name under <b>Delete domain security policies</b> and press <b>Delete</b>. In Chrome this made the redirect work again. Be aware that visiting the HTTPS address again records the rule afresh.</p>
+
   <h2>Troubleshooting</h2>
-  <p>Certificate warnings, a name that does not match, a browser that still shows the old state, and the remembered-upgrade problem when turning HTTPS off again.</p>
+  <p>Work through these in order. Most certificate problems are one of the first two.</p>
+  <ul>
+    <li><strong>The browser still says Not secure after you trusted the certificate.</strong> Close the browser completely, including background processes, and open it again.</li>
+    <li><strong>You replaced the certificate, and a computer now shows an error.</strong> The server may still be offering the old one. Restart the server, then repeat the trust steps for the new certificate on every computer.</li>
+    <li><strong>A name mismatch</strong> (<code>NET::ERR_CERT_COMMON_NAME_INVALID</code>). The name you typed is not in the certificate. Browse by a name that is, or make a new certificate that includes it.</li>
+    <li><strong>You want to see what the server is offering.</strong> From PowerShell on the computer that complains, this shows the certificate&rsquo;s thumbprint and names. They should match the certificate you trusted:
+      <pre><code>$c = New-Object Net.Sockets.TcpClient('SENTINEL-SRV',5443); $s = New-Object Net.Security.SslStream($c.GetStream(),$false,{$true}); $s.AuthenticateAsClient('SENTINEL-SRV'); $x = New-Object Security.Cryptography.X509Certificates.X509Certificate2($s.RemoteCertificate); $x | Format-List Subject, Thumbprint, DnsNameList, NotBefore; $c.Close()</code></pre></li>
+    <li><strong>The server cannot be reached at all.</strong> Use the two checks earlier in this part, not ping.</li>
+    <li><strong>Turning HTTPS off again.</strong> Untick <b>Enable HTTPS</b> in Advanced Settings and restart the server. Browsers that remember HSTS keep trying HTTPS for up to seven days. Delete the rule as described above, or wait.</li>
+  </ul>
+
+  <h2>Checkpoint</h2>
+  <p>You now have a server that browsers reach over an encrypted connection, with a certificate that the server&rsquo;s own browser and your remote PC both trust.</p>
+  <p>If you are using a virtual machine, shut down the guest and take a snapshot called <b>HTTPS working</b>.</p>
 
   <footer>
     <p><a href="../04-remote-clients-and-autostart/">Previous: Part 4, Remote Clients and Starting Automatically</a> &middot; <a href="../">Back to the Server Setup Guide</a> &middot; <a href="../06-sqlite-and-keycloak/">Next: Part 6, SQLite and Keycloak Modes</a></p>

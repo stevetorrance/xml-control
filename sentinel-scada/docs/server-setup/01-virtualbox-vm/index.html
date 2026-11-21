@@ -47,17 +47,12 @@
 
   <h3>The server&rsquo;s name</h3>
 
-  <p>The server&rsquo;s name matters later, because the HTTPS certificate in <a href="../05-https-and-certificates/">Part 5</a> is issued for it. Once Windows is installed, you can see what yours is called by running this in PowerShell:</p>
-  <pre><code>hostname</code></pre>
-  <p>If you used Unattended Installation, the <b>Host Name</b> you typed in the <b>Set up unattended guest OS installation</b> section of the New Virtual Machine dialog becomes the Windows computer name, so it is already set.</p>
+  <p>The server&rsquo;s name matters later, because the HTTPS certificate in <a href="../05-https-and-certificates/">Part 5</a> is issued for it. If you used Unattended Installation, the <b>Host Name</b> you typed in the <b>Set up unattended guest OS installation</b> section of the New Virtual Machine dialog becomes the Windows computer name.</p>
   <figure>
     <img src="02.png" alt="The unattended installation section with the Host Name field set to SENTINEL-SRV" width="609" height="236">
     <figcaption>The Host Name field in the unattended installation section.</figcaption>
   </figure>
-
-  <p>If it is already a name you are happy with, there is nothing to do. Should you wish to rename the server after the install, run this in an elevated PowerShell. It restarts the machine:</p>
-  <pre><code>Rename-Computer -NewName SENTINEL-SRV -Restart</code></pre>
-  <p>Windows computer names can be up to 15 characters, using letters, digits and hyphens. After the restart, <code>hostname</code> shows the new name. If you have already made a certificate for the old name, make a new one, as it will no longer match.</p>
+  <p>If you left Unattended Installation unticked, as we suggest, Windows gives the machine a generated name instead. We set the name properly once Windows is installed, in <a href="#name-the-server">Name the server</a> below.</p>
 
   <h3>Memory and processors</h3>
   <p>Open <b>Specify virtual hardware</b>. We used <b>4096 MB</b> of memory and <b>4 CPUs</b>, which was plenty. Leave <b>Use EFI</b> unticked.</p>
@@ -107,16 +102,34 @@
 
   <p>Start the machine again. Windows Setup should now run normally, so carry on from the edition list above. Because the unattended answers have gone, you choose the edition and set the Administrator password yourself, as if you had left the option unticked.</p>
 
+  <h2 id="name-the-server">Name the server</h2>
+
+  <div class="warn"><strong>Do this before you install SentinelSCADA.</strong> A new Windows installation gets a generated name such as <code>WIN-L1T4EPVEVA5</code>. Later steps use the computer&rsquo;s name: the HTTPS certificate in <a href="../05-https-and-certificates/">Part 5</a> is issued for it, and clients browse to it. Changing it afterwards means making a new certificate and checking the scheduled task from <a href="../04-remote-clients-and-autostart/">Part 4</a>.</div>
+
+  <p>See what the machine is called now. In PowerShell, run:</p>
+  <pre><code>hostname</code></pre>
+  <figure>
+    <img src="09.png" alt="An administrator PowerShell window: hostname prints WIN-L1T4EPVEVA5, then Rename-Computer -NewName SENTINEL-SRV -Restart is typed" width="743" height="121">
+    <figcaption>The generated name, and the rename command.</figcaption>
+  </figure>
+  <p>If it is already a name you are happy with, there is nothing to do. Otherwise, run this in an elevated PowerShell (right-click PowerShell and choose <b>Run as administrator</b>). It renames the computer and <strong>restarts it straight away</strong>, so save anything first:</p>
+  <pre><code>Rename-Computer -NewName SENTINEL-SRV -Restart</code></pre>
+  <p>Windows computer names can be up to 15 characters, using letters, digits and hyphens. After the restart, run <code>hostname</code> again to confirm it shows the new name.</p>
+  <figure>
+    <img src="10.png" alt="PowerShell showing the hostname command printing SENTINEL-SRV" width="404" height="123">
+    <figcaption>After the restart, the new name.</figcaption>
+  </figure>
+
   <h2>Guest Additions</h2>
 
   <p>Guest Additions is VirtualBox&rsquo;s helper software for the virtual machine. It gives a better display and lets you share a folder with your PC, which is handy for passing the SentinelSCADA installer across. From the virtual machine&rsquo;s <b>Devices</b> menu choose <b>Insert Guest Additions CD image</b>, open the disc in File Explorer, run <code>VBoxWindowsAdditions.exe</code> and restart when asked.</p>
   <figure>
-    <img src="09.png" alt="The Oracle VirtualBox Guest Additions Setup welcome page" width="502" height="390">
+    <img src="11.png" alt="The Oracle VirtualBox Guest Additions Setup welcome page" width="502" height="390">
   </figure>
 
   <p>With Guest Additions installed, the same <b>Devices</b> menu lets you set up sharing between your PC and the virtual machine. Set these up to suit your own requirements:</p>
   <figure>
-    <img src="10.png" alt="The virtual machine's Devices menu, with the Shared Clipboard options Disabled, Host To Guest, Guest To Host and Bidirectional" width="722" height="315">
+    <img src="12.png" alt="The virtual machine's Devices menu, with the Shared Clipboard options Disabled, Host To Guest, Guest To Host and Bidirectional" width="722" height="315">
     <figcaption>The Devices menu, here with the Shared Clipboard options open.</figcaption>
   </figure>
   <ul>
@@ -137,16 +150,16 @@
 
   <p>With the machine stopped and selected, press <b>Settings</b> and open <b>Network</b>. On the <b>Adapter 2</b> tab tick <b>Enable Network Adapter</b> and set <b>Attached to</b> to <b>Host-only Adapter</b>.</p>
   <figure>
-    <img src="11.png" alt="The Network settings, Adapter 2 tab, enabled and attached to a Host-only Adapter" width="770" height="388">
+    <img src="13.png" alt="The Network settings, Adapter 2 tab, enabled and attached to a Host-only Adapter" width="770" height="388">
   </figure>
 
   <div class="note"><b>No host-only network listed?</b> If the Name list is empty, create one first using the Network tool in the VirtualBox Manager&rsquo;s left-hand list.</div>
 
-  <p>Start the machine again. If you want to check the connection, run <code>ipconfig</code> in PowerShell: the second adapter should show an address beginning <code>192.168.56</code>. Once SentinelSCADA is running (Part 3), your own PC can reach it at that address.</p>
+  <p>Start the machine again. If you want to check the connection, run <code>ipconfig</code> in PowerShell: the second adapter should show an address beginning <code>192.168.56</code>. Once SentinelSCADA is running (Part 4), your own PC can reach it at that address.</p>
 
   <h2>Take a snapshot</h2>
 
-  <p>A snapshot saves the machine&rsquo;s exact state, so you can return to it at any time. From the virtual machine&rsquo;s <b>Machine</b> menu choose <b>Take Snapshot</b> and call it <code>Clean OS</code>. It is worth taking another before any step that cannot be undone, such as the move to SQLite mode in Part 6. If something goes wrong, restore a snapshot and try again.</p>
+  <p>A snapshot saves the machine&rsquo;s exact state, so you can return to it at any time. From the virtual machine&rsquo;s <b>Machine</b> menu choose <b>Take Snapshot</b> and call it <code>Clean OS</code>. Check that <code>hostname</code> shows the name you want first, so that every snapshot from here on carries it. It is worth taking another before any step that cannot be undone, such as the move to SQLite mode in Part 6. If something goes wrong, restore a snapshot and try again.</p>
 
   <div class="note"><b>Handy to know</b> When the virtual machine window has captured your keyboard and mouse, press the <strong>Host key</strong> (the right Ctrl key by default) to get them back.</div>
 
