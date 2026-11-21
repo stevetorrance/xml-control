@@ -19,28 +19,132 @@
     Connect to the server from another computer, understand who may change its mode, shut it down safely, and have it start by itself.
   </div>
 
-  <div class="warn"><b>Draft</b> Outline only. Text and screenshots to follow.</div>
+
+  <p>This part uses two computers: the <strong>server</strong> (in this guide, the virtual machine from Part 1) and a <strong>remote PC</strong> that connects to it. Here the remote PC is the computer that hosts VirtualBox, reaching the server over the host-only network. The server address you see will differ from the one in the screenshots.</p>
 
   <h2>Connecting from another computer</h2>
-  <p>Opening the firewall for ports 5000 (HTTP) and 5443 (HTTPS) by running <code>Prepare-SentinelHost</code> again with <code>-OpenFirewall</code>, which skips anything already installed. The address to browse to, and what a remote browser sees while it waits.</p>
+  <h3>Set the bind address</h3>
+  <p>On the server, open <b>Advanced Settings&hellip;</b> from the tray menu. On the <b>Networking</b> tab, change <b>Bind Address</b> from <code>localhost</code> to <b>0.0.0.0 (all interfaces &mdash; LAN access)</b>, then press <b>Save</b>.</p>
+  <figure>
+    <img src="01.png" alt="The Launcher Settings Networking tab with Bind Address set to 0.0.0.0 (all interfaces - LAN access), highlighted" width="465" height="271">
+    <figcaption>Bind Address set to all interfaces.</figcaption>
+  </figure>
+  <p>The Launcher asks whether to restart the server now. The change only takes effect after a restart, so choose <b>Yes</b>.</p>
+  <figure>
+    <img src="02.png" alt="A Launcher Settings message reading Settings saved. Restart the server now to apply the new configuration? with Yes and No buttons" width="385" height="155">
+    <figcaption>The server must restart for the new bind address to apply.</figcaption>
+  </figure>
+  <div class="note"><strong>Private networks only.</strong> SentinelSCADA is designed for a private or isolated network. Binding to all interfaces makes the server reachable from every network the computer is connected to, so do this only on a network you trust.</div>
+
+  <h3>Open the firewall</h3>
+  <p>Windows blocks incoming connections to the server until you allow them. In Part 2 we ran <code>Prepare-SentinelHost.ps1</code> without opening any ports. Run it again from an elevated PowerShell, this time with <code>-OpenFirewall</code>. It skips anything that is already installed.</p>
+  <figure>
+    <img src="03.png" alt="An elevated PowerShell window running Prepare-SentinelHost.ps1 -OpenFirewall. After the I ACCEPT prompt it opens the firewall for TCP 5000 (HTTP) and 5443 (HTTPS), then shows the three runtimes as OK and the message Host is ready" width="980" height="513">
+    <figcaption>Re-running the script with <code>-OpenFirewall</code> adds rules for ports 5000 and 5443.</figcaption>
+  </figure>
+  <p>Port 5000 is the plain HTTP port that we use here. Port 5443 is for HTTPS, which we set up in <a href="../07-https-and-certificates/">Part 7</a>.</p>
+
+  <h3>Find the server&rsquo;s address</h3>
+  <p>The remote PC needs the server&rsquo;s IP address. There are two ways to find it. The first is to run <code>ipconfig</code> in PowerShell on the server and read the IPv4 address of the adapter on your network. In this guide that is the host-only adapter, <code>192.168.56.103</code>.</p>
+  <figure>
+    <img src="04.png" alt="PowerShell showing the output of ipconfig, with the IPv4 address 192.168.56.103 of the second Ethernet adapter highlighted" width="719" height="490">
+    <figcaption>The server&rsquo;s address from <code>ipconfig</code>. Your adapter and address will differ.</figcaption>
+  </figure>
+  <p>The second is to open <b>Advanced Settings&hellip;</b> and click <b>Show listening addresses&hellip;</b> under Bind Address. It lists the addresses the server is listening on, ready to type into a browser.</p>
+  <figure>
+    <img src="05.png" alt="The Listening Addresses dialog listing http://10.0.2.15:5000 and http://192.168.56.103:5000, with the second highlighted" width="552" height="494">
+    <figcaption>The Listening Addresses dialog.</figcaption>
+  </figure>
+  <p>The dialog says that this is a best-effort list based on the computer&rsquo;s active adapters, and that a firewall rule can still block an address even though it is listed. On the VirtualBox setup from Part 1, <code>10.0.2.15</code> is the NAT adapter, which the host cannot reach, so use the host-only address.</p>
 
   <h2>Standby until Run</h2>
-  <p>A remote client waits on a standby screen until someone at the server itself selects Run Mode. Every restart of the server returns it to Design Mode, so this happens again each time.</p>
+  <p>On the remote PC, open a browser and go to <code>http://</code>, the server&rsquo;s address, and <code>:5000</code>. While the server is still in Design Mode, the browser waits on a standby screen.</p>
+  <figure>
+    <img src="06.png" alt="A browser on the remote PC at 192.168.56.103:5000 showing the message Sentinel SCADA System currently in Design Mode - please standby" width="811" height="630">
+    <figcaption>A remote browser while the server is in Design Mode.</figcaption>
+  </figure>
+  <p>The browser warns <b>Not secure</b> because the address is plain HTTP. On a private network that is expected, and <a href="../07-https-and-certificates/">Part 7</a> adds HTTPS.</p>
+  <p>The remote client stays on this screen until someone at the server itself chooses <b>View</b> &gt; <b>Run Mode</b>, as in Part 3. As soon as the server is in Run Mode, the remote browser shows the project. Since login is required, a banner invites the visitor to sign in.</p>
+  <figure>
+    <img src="07.png" alt="The remote browser showing the default project screen once the server is in Run Mode, with a banner reading This project requires authentication. Log in to access features" width="1064" height="810">
+    <figcaption>The same browser a moment after the server entered Run Mode.</figcaption>
+  </figure>
+  <div class="note"><strong>Every restart returns the server to Design Mode.</strong> Remote clients wait on the standby screen again after each restart, including after a reboot, until someone selects Run Mode at the server. A fully licensed edition permits the server to immediately enter Run or Kiosk Modes as required.</div>
 
   <h2>One client at a time</h2>
-  <p>The evaluation edition allows one web client. What a second browser sees, and why refreshing the page is fine.</p>
+  <p>Without a licence file, SentinelSCADA runs as an evaluation edition, which serves one web client at a time. A second browser tab or computer sees this message instead of the project.</p>
+  <figure>
+    <img src="08.png" alt="A second browser tab showing Client limit reached, with the text Evaluation Edition - 1 of 1 client seats in use and a Try again button" width="1064" height="810">
+    <figcaption>A second client is turned away while the first holds the only seat.</figcaption>
+  </figure>
+  <p>The seat frees up when the first client disconnects, and <b>Try again</b> then lets the second one in. Refreshing the page in the browser that already holds the seat is fine.</p>
 
   <h2>Allow Remote Admin</h2>
-  <p>The Launcher&rsquo;s Advanced settings, Runtime Control. On: a remote Engineer may switch modes. Off: only the server console can. Which to choose.</p>
+  <p>Switching between Design, Run and Kiosk mode affects every connected client at once, so the server controls who may do it. Open <b>Advanced Settings&hellip;</b> and choose the <b>Runtime Control</b> tab.</p>
+  <figure>
+    <img src="09.png" alt="The Runtime Control tab showing the Allow Remote Admin checkbox ticked, with an explanation of Runtime Mode Authority" width="465" height="610">
+    <figcaption>Runtime Control, with Allow Remote Admin ticked.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>Off</strong> (the default): only the server computer itself may change the mode. Remote browsers can view and operate, but cannot switch the runtime mode. The dialog calls this the most secure setup.</li>
+    <li><strong>On</strong>: a remote client signed in as Admin or Engineer may also change the mode. Every change is recorded in the audit trail with the user&rsquo;s name and where it came from.</li>
+  </ul>
+  <p>If you have no good reason to change the mode from elsewhere, leave it off. The setting is stored on the server and can only be changed at the console. Like the bind address, it needs a server restart.</p>
+  <p>While the server restarts, a connected remote browser shows <b>Connection lost</b> and keeps trying to reconnect.</p>
+  <figure>
+    <img src="10.png" alt="A remote browser showing the project screen with a banner reading CONNECTION LOST - attempting to reconnect" width="1013" height="649">
+    <figcaption>A remote browser while the server restarts.</figcaption>
+  </figure>
+  <p>When the server is back and in Run Mode, the remote browser reconnects by itself. Without signing in it can look but cannot change anything.</p>
+  <figure>
+    <img src="11.png" alt="The remote browser back on the project screen with Not logged in at the top right and a banner asking the user to log in; the Properties panel is greyed out" width="1607" height="992">
+    <figcaption>After reconnecting, not signed in.</figcaption>
+  </figure>
 
   <h2>Shutting down properly</h2>
-  <p>Quit from the tray icon, and the credential prompt. Who is refused.</p>
+  <p>To stop the server, right-click the Launcher icon and choose <b>Quit Sentinel Server</b>.</p>
+  <figure>
+    <img src="12.png" alt="The Launcher tray menu with Quit Sentinel Server highlighted" width="237" height="309">
+    <figcaption>Quit Sentinel Server, at the bottom of the tray menu.</figcaption>
+  </figure>
+  <p>A confirmation warns that this disconnects every client, and that any active PLC or Modbus drivers will stop and live data will be lost until the server is restarted.</p>
+  <figure>
+    <img src="13.png" alt="The Server Shutdown confirmation dialog with Yes, Shut Down, No and Cancel buttons" width="465" height="527">
+    <figcaption>The shutdown confirmation.</figcaption>
+  </figure>
+  <p>Because authentication is on, an Admin or Engineer must then authorise the shutdown with their username and password. You may also choose a reason.</p>
+  <figure>
+    <img src="14.png" alt="The Server Shutdown Authorisation dialog asking for a username and password, with an optional reason" width="405" height="335">
+    <figcaption>The credential prompt. Only an Admin or Engineer may authorise the shutdown.</figcaption>
+  </figure>
+
+  <div class="warn">
+    <strong>Bad Shutdown Recovery</strong>
+    If the server is not shut down in a controlled manner, as described above, orphaned processes can be left running. Only Task Manager, or PowerShell or a terminal, can then be used to locate and stop them. First list them:
+    <pre><code>Get-Process SentinelServer, SentinelLauncher -ErrorAction SilentlyContinue</code></pre>
+    Then stop both. Run this from an elevated PowerShell if the processes belong to another account:
+    <pre><code>Stop-Process -Name SentinelServer, SentinelLauncher -Force -ErrorAction SilentlyContinue</code></pre>
+    Forcing a process to stop is a last resort: live data is lost and anything not yet saved is lost with it. Once both are gone, start the Launcher again from its shortcut.
+  </div>
 
   <h2>Starting automatically</h2>
-  <p>Running <code>Register-SentinelAutostart.ps1</code>: a scheduled task that starts the Launcher when an account logs on. This is not a Windows service, so nothing starts until that account has logged on. For a machine that boots unattended, set the account to sign in automatically.</p>
+  <p>Without help, the server only runs after somebody starts the Launcher. To have it start by itself, run <code>Register-SentinelAutostart.ps1</code>, from the same <code>Tools</code> folder as the other scripts. Right-click it and choose <b>Run with PowerShell</b>.</p>
+  <figure>
+    <img src="15.png" alt="A Windows folder listing New-SentinelCert, Prepare-SentinelHost and Register-SentinelAutostart, with the right-click menu open and Run with PowerShell highlighted" width="600" height="226">
+    <figcaption>Run with PowerShell, as in Part 2. Like the other scripts, read it before you run it.</figcaption>
+  </figure>
+  <p>It asks you to type <code>I ACCEPT</code>, and then registers a scheduled task.</p>
+  <figure>
+    <img src="16.png" alt="PowerShell showing the Register-SentinelAutostart result: Task SentinelSCADA Launcher registered, running SentinelLauncher.exe when the account logs on after 30 seconds, restarting up to 3 times, 1 minute apart" width="1240" height="465">
+    <figcaption>The scheduled task is registered.</figcaption>
+  </figure>
+  <p>The task starts the Launcher 30 seconds after the account logs on, and tries again up to three times, a minute apart, if it fails. Allow about 30 seconds after signing in before the server is up.</p>
+  <div class="warn"><strong>This is not a Windows service.</strong> Nothing starts until that account has logged on. For a machine that boots unattended, set the account to sign in automatically (the script suggests the Sysinternals Autologon tool). Remember also that the server starts in Design Mode, so someone must select Run Mode at the console after each start, unless a licensed edition with its start-up option set to enter Run or Kiosk Mode is in use.</div>
+  <p>To try it without rebooting, run <code>Start-ScheduledTask -TaskName 'SentinelSCADA Launcher'</code>. To remove the task, run the script again with <code>-Remove</code>.</p>
 
   <h2>Checkpoint</h2>
-  <p>A server reachable from other computers that comes back after a restart.</p>
+  <p>You now have a server that other computers on your private network can reach, that you know how to shut down properly, and that starts itself after a restart.</p>
+  <p>If you are using a virtual machine, shut down the guest and take a snapshot called <b>Remote access working</b>.</p>
 
   <footer>
     <p><a href="../03-first-start-and-security/">Previous: Part 3, First Start and Security</a> &middot; <a href="../">Back to the Server Setup Guide</a> &middot; <a href="../05-simulator/">Next: Part 5, Trying It with a Simulator</a></p>
