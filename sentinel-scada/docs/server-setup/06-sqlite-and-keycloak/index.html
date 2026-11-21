@@ -19,31 +19,79 @@
     Understand the security ladder, move the server from XML mode to SQLite mode knowing exactly what changes and that it cannot be undone, and know where to find the Keycloak setup for regulated sites.
   </div>
 
-  <div class="warn"><b>Draft</b> Outline only. Text and screenshots to follow.</div>
+  <div class="warn"><b>Draft</b> The Keycloak pictures at the end are still to come.</div>
 
   <h2>The security ladder</h2>
-  <p>SentinelSCADA has three security modes, in order: XML, SQLite and Keycloak. You can move up to a higher mode at any time, but never back down. This part takes you from XML to SQLite, and points to where Keycloak is set up.</p>
+  <p>SentinelSCADA has three security modes, one above the other:</p>
+  <ul>
+    <li><strong>XML</strong> is where every new project starts. Operations are logged to a local XML file. It is suitable for development, testing and non-regulated sites, and it is what Parts 1 to 5 used.</li>
+    <li><strong>SQLite (cryptographically chained)</strong> keeps audit records hash-chained in a local SQLite database, mirrored in secure operating system storage, so that tampering with the log can be detected.</li>
+    <li><strong>Keycloak (CFR Part 11 / SSO)</strong> is for regulated sites. It is described at the end of this part.</li>
+  </ul>
+  <p>You can move up this ladder whenever you like, but you can <strong>never move back down</strong>. This part takes you from XML to SQLite and then says where to find Keycloak.</p>
 
-  <h2>What SQLite mode adds</h2>
-  <p>User data and historian logs held in a database, with encryption, tamper detection and an audit trail.</p>
+  <div class="warn"><strong>The step cannot be undone.</strong> Once a project has been raised, the server will refuse to start if it is ever reverted to a lower level. If you are using a virtual machine, take a snapshot first. Otherwise, take a backup of the project. SQLite mode is optional: XML mode is fine for a lab or a single-person system, and you can raise the level later.</div>
 
-  <h2>One way only</h2>
-  <div class="warn"><b>It cannot be undone</b> The server refuses to go back to XML mode. Take a snapshot or a backup first.</div>
+  <h2>Moving to SQLite</h2>
+  <p>You need to be signed in as <code>admin</code>. Choose <b>Security</b> &gt; <b>Security Settings&hellip;</b>. The <b>Security Level</b> tab is the first one. It shows the three modes, with the current one marked, and an orange reminder that the level can only be raised.</p>
+  <figure>
+    <img src="01.png" alt="The Security Settings dialog on the Security Level tab with XML (Standard) marked Current, the one-way warning in orange, the SQLite and Keycloak options, and the Apply Security Level and Save Security Settings buttons" width="561" height="611">
+    <figcaption>The Security Level tab on a new project.</figcaption>
+  </figure>
+  <p>Choose <b>SQLite</b>, then press <b>Apply Security Level</b>. A confirmation repeats that this is a one-way change. Choose <b>OK</b> to go ahead.</p>
+  <figure>
+    <img src="02.png" alt="The sequence: SQLite selected (1), the Apply Security Level button (2) and the browser confirmation asking whether to raise the security level to SQLite and warning that it cannot be undone, with OK (3)" width="594" height="790">
+    <figcaption>Select SQLite (1), press Apply Security Level (2), confirm (3).</figcaption>
+  </figure>
+  <p><strong>Apply Security Level</strong> makes the change by itself. The <b>Save Security Settings</b> button is for the settings on the other tabs, so you do not need it to keep the new level, and it does no harm if you press it.</p>
 
-  <h2>Switching to SQLite</h2>
-  <p>Security &gt; Security Settings, choosing SQLite, and the confirmation.</p>
+  <h3>Change the default passwords</h3>
+  <p>When the level has been raised, the server checks your accounts and names any that still have their default password.</p>
+  <figure>
+    <img src="03.png" alt="A message reading Security level raised to SQLite, with a warning that the accounts engineer, operator and guest still use their default password and should be changed in User Management" width="451" height="227">
+    <figcaption>Accounts that still use a default password are listed.</figcaption>
+  </figure>
+  <p>Do what it says. Open <b>Security</b> &gt; <b>User Management&hellip;</b> and change each of those passwords, as you did for <code>admin</code> in Part 3.</p>
 
-  <h2>What happens to your users</h2>
-  <p>Existing users are carried across, with their roles. Why you should still check for default passwords afterwards.</p>
+  <h3>XML is now locked</h3>
+  <p>Open the <b>Security Level</b> tab again. SQLite is now marked current, and XML is greyed out with the reason beside it.</p>
+  <figure>
+    <img src="04.png" alt="The Security Level tab after the change: XML (Standard) is greyed out and marked Locked - this project has already been raised to SQLite and cannot be lowered; SQLite is marked Current" width="548" height="406">
+    <figcaption>XML can no longer be chosen.</figcaption>
+  </figure>
 
   <h2>Checking the result</h2>
-  <p>The user list, roles, and where the audit trail is kept. The server refusing a move back to XML.</p>
+  <p>The Launcher&rsquo;s <b>Server Status</b> window now shows <b>SQLite</b> as the security mode, and the client list shows who is signed in.</p>
+  <figure>
+    <img src="05.png" alt="The Server Status window showing Security mode SQLite and one client, admin, with the role Admin" width="804" height="482">
+    <figcaption>Server Status, in SQLite mode.</figcaption>
+  </figure>
+  <p>Your users have been carried across, with their roles. Open <b>Security</b> &gt; <b>User Management&hellip;</b> to see them.</p>
+  <figure>
+    <img src="06.png" alt="User Management listing admin (Admin), engineer (Engineer), guest (Guest) and operator (Operator), each with Pwd and Delete buttons, and the admin Delete button greyed out" width="686" height="318">
+    <figcaption>The same accounts and roles as before the change.</figcaption>
+  </figure>
+  <p>Open <b>Security</b> &gt; <b>Audit Trail</b>. It is now titled <b>SQLite Cryptographically Chained Audit Trail</b>. The change you have just made is its first record: who made it, when, and the old and new levels.</p>
+  <figure>
+    <img src="07.png" alt="The SQLite Cryptographically Chained Audit Trail dialog with one record, Security Mode Upgraded by admin, old value XML, new value SQLite, with the reason Security tier raised from XML to SQLite" width="905" height="460">
+    <figcaption>The first record in the new audit trail.</figcaption>
+  </figure>
+
+  <div class="note"><strong>Two entries marked CRITICAL are normal.</strong> After the change, the Errors tab of Server Status may list two entries marked CRITICAL, saying that a database schema fingerprint was established. They record the audit database being set up, and they are not a fault. Newer versions label them as notices and no longer count them as errors.</div>
+  <figure>
+    <img src="08.png" alt="The Errors tab of Server Status showing two entries marked CRITICAL: Schema fingerprint baseline established, and the Database schema SHA256 value" width="799" height="84">
+    <figcaption>These two entries are a normal part of moving to SQLite.</figcaption>
+  </figure>
 
   <h2>Keycloak, for regulated sites</h2>
-  <p>Keycloak is the top of the ladder, for regulated use such as 21 CFR Part 11. An external identity provider handles sign-in and electronic signatures, and authentication, the inactivity timeout and the audit trail are always on. Setting it up is a job for your own IT team and is not covered in this guide. The Server Guide, opened from the tray menu with <b>Help (Server Guide)&hellip;</b>, describes the security modes and the Keycloak setup. Like the step to SQLite, moving to Keycloak cannot be undone, and Keycloak is not part of every edition.</p>
+  <div class="warn"><strong>Do not choose Keycloak unless you hold a Clipper or TradeWinds licence and your IT team has already set up Keycloak.</strong> The option appears in the Security Level dialog on every edition, but Keycloak support begins at Clipper. Choosing it without both of those leaves nobody able to sign in, because local accounts can no longer be created. Like the step to SQLite, it cannot be undone.</div>
+  <p>Keycloak is the top of the ladder, for regulated use such as 21 CFR Part 11. It adds mandatory electronic signatures (a username, password and reason) for alarm acknowledgements and recipe downloads, validated through Keycloak single sign-on. Local user accounts can no longer be created for the project, because accounts are managed externally, in Keycloak.</p>
+  <p>Setting up Keycloak is a job for your own IT team, and this guide does not cover it. It involves Docker and Keycloak configuration. The Server Guide describes the security modes and the setup in detail. Open it from the tray menu with <b>Help (Server Guide)&hellip;</b>.</p>
+  <!-- SHOTS NEEDED: Help (Server Guide) in the tray menu, the security modes page, the Keycloak setup page -->
 
   <h2>Checkpoint</h2>
-  <p>A server in SQLite mode, with users and roles intact, and a snapshot to take if you are using a virtual machine.</p>
+  <p>You now have a server in SQLite mode, with your accounts and roles intact, the default passwords changed and a tamper-evident audit trail.</p>
+  <p>If you are using a virtual machine, shut down the guest and take a snapshot called <b>SQLite mode working</b>.</p>
 
   <footer>
     <p><a href="../05-https-and-certificates/">Previous: Part 5, HTTPS and Certificates</a> &middot; <a href="../">Back to the Server Setup Guide</a></p>
