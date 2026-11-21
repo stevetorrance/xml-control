@@ -19,28 +19,135 @@
     Start SentinelSCADA for the first time, secure it with XML mode, change the default passwords, and switch it to Run Mode.
   </div>
 
-  <div class="warn"><b>Draft</b> Outline only. Text and screenshots to follow.</div>
 
   <h2>Starting the Launcher</h2>
-  <p>The Start menu shortcut, the tray icon and its menu. The Launcher starts the server for you.</p>
+  <p>Start SentinelSCADA from the desktop shortcut the installer made. The Launcher lives in the notification area at the right of the taskbar, so look for its shield icon, or click the small arrow to show hidden icons. The server is already running once the icon appears, so there is nothing more to start.</p>
+  <p>Right-click the icon to open its menu. The items you will use most are:</p>
+  <ul>
+    <li><b>Sentinel Web UI&hellip;</b> opens the web client in your default browser.</li>
+    <li><b>Server Status&hellip;</b> shows how the server is doing and who is connected.</li>
+    <li><b>Advanced Settings&hellip;</b> holds the network, security, runtime and licence settings. We use it in the next section, and again in Parts 4 and 7.</li>
+    <li><b>Quit Sentinel Server</b> stops the server. We come to it in <a href="../04-remote-clients-and-autostart/">Part 4</a>.</li>
+  </ul>
+  <p>The rest of the menu (the Alarm Dispatcher, browsing projects, importing and exporting secure templates, and the server&rsquo;s Help) is covered in the built-in help.</p>
+
+  <h3>Server Status</h3>
+  <p>Choose <b>Server Status&hellip;</b> for a quick health check. It shows whether the server is online, the current project and its security mode, how much memory the server is using and how long it has been running.</p>
+  <figure>
+    <img src="01.png" alt="The tray menu with Server Status chosen, and the Server Status window showing the server online, project default, security mode XML, memory, uptime and a list of connected clients" width="1085" height="630">
+    <figcaption>The tray menu, and the Server Status window it opens.</figcaption>
+  </figure>
+  <p>The <b>Clients</b> tab lists every browser connected to the server, with its address, who is signed in, their role and when it connected. The address <code>::1</code> is this computer itself. The <b>Errors</b> tab lists any errors the server has logged. Zero is what you want to see.</p>
 
   <h2>The bind address</h2>
-  <p>The Launcher&rsquo;s Bind Address: <code>localhost</code> keeps the server to this machine, <code>0.0.0.0</code> lets other computers connect. Which to choose, and when.</p>
+  <p>The <strong>bind address</strong> decides which network connections the server accepts. Open <b>Advanced Settings&hellip;</b> from the tray menu and look at the <b>Networking</b> tab.</p>
+  <figure>
+    <img src="02.png" alt="The Launcher Settings window on the Networking tab, showing HTTP Port 5000 and Bind Address set to localhost (this machine only), with the HTTPS section below" width="465" height="610">
+    <figcaption>Advanced Settings, Networking tab. Bind Address is <code>localhost</code> by default.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>localhost (this machine only)</strong> is the default. Only a browser on this computer can reach the server.</li>
+    <li>Listening on all of the computer&rsquo;s network addresses (<code>0.0.0.0</code>) is what lets other computers connect. You need it for remote clients, and we set it in <a href="../04-remote-clients-and-autostart/">Part 4</a>.</li>
+  </ul>
+  <p>Leave it on <code>localhost</code> for now. Securing the server while only this machine can reach it means nobody else can connect before you have changed the default passwords.</p>
+  <p>The <b>HTTPS</b> section on the same tab is covered in <a href="../07-https-and-certificates/">Part 7</a>. Press <b>Cancel</b> to close the window without changing anything.</p>
 
   <h2>Design Mode</h2>
-  <p>The server always starts in Design Mode, and shows a banner so everyone can see it. Opening the web client in the server&rsquo;s own browser.</p>
+  <p>Choose <b>Sentinel Web UI&hellip;</b> from the tray menu. The web client opens in your browser at <code>localhost:5000</code>, showing the starter project, named <code>default</code>, in <b>Design Mode</b>.</p>
+  <figure>
+    <img src="03.png" alt="The SentinelSCADA web client in a browser at localhost:5000, showing the Toolbox on the left, the starter screen in the middle and the Properties panel on the right" width="1821" height="1044">
+    <figcaption>The web client on first start, in the Light theme.</figcaption>
+  </figure>
+  <p>The <b>Toolbox</b> is on the left, the starter screen in the middle and the <b>Properties</b> panel on the right. The menus run along the top: <b>Project</b>, <b>File</b>, <b>Security</b>, <b>System</b>, <b>View</b> and <b>Help</b>. At the top right are the project and screen names, who is signed in, and the server&rsquo;s status.</p>
+  <p>The server always starts in Design Mode, every time it starts, so this is where you will always begin.</p>
+
+  <div class="note"><strong>Use the tray menu to open the web client on the server computer.</strong> SentinelSCADA checks each browser and its user role with a token, and the tray menu&rsquo;s <b>Sentinel Web UI&hellip;</b> is the supported way to open it. If you close the browser, choose <b>Sentinel Web UI&hellip;</b> again from the tray menu rather than opening a browser by hand.</div>
+  <figure>
+    <img src="04.png" alt="The Launcher tray menu with Sentinel Web UI highlighted" width="255" height="288">
+    <figcaption>Use <b>Sentinel Web UI&hellip;</b> whenever you need the web client on the server computer.</figcaption>
+  </figure>
 
   <h2>XML mode and authentication</h2>
-  <p>Security &gt; Security Settings, what XML mode is for, and turning authentication on.</p>
+  <p>SentinelSCADA keeps its user accounts in a simple file on this computer. This is <strong>XML mode</strong>, and it is what a new installation uses. (<a href="../06-sqlite-mode/">Part 6</a> covers the next step up.)</p>
+  <p>A new installation has <strong>authentication switched off</strong>: anyone who can reach the server can use every feature without signing in. That suits a first look, but not a working system. We will switch it on now.</p>
+  <div class="note"><strong>Sign in first.</strong> You cannot change security settings anonymously. A person has to be able to sign in before anything is changed, so you sign in with the built-in account first, and only then turn on &ldquo;Require login&rdquo;.</div>
+
+  <h3>Sign in with the default account</h3>
+  <p>Open the <b>Security</b> menu and choose <b>Log In&hellip;</b>. Every new installation has an administrator account with the username <code>admin</code> and the password <code>admin</code>.</p>
+  <figure>
+    <img src="05.png" alt="The Log In dialog with the username admin and a password typed in" width="384" height="347">
+    <figcaption>The first sign-in uses the default account.</figcaption>
+  </figure>
+  <p>The top right of the page now shows who is signed in.</p>
+  <figure>
+    <img src="06.png" alt="The status area at the top right showing the project default, admin (Admin) signed in, and SERVER ONLINE" width="449" height="46">
+    <figcaption>Signed in as <code>admin</code>, role Admin.</figcaption>
+  </figure>
+
+  <h3>Turn on Require login</h3>
+  <p>Choose <b>Security</b> &gt; <b>Security Settings&hellip;</b>, then the <b>Authentication &amp; Timeout</b> tab. The <b>Require login (Authentication)</b> box is unticked.</p>
+  <figure>
+    <img src="07.png" alt="The Security Settings dialog on the Authentication and Timeout tab, with the Require Login (Authentication) box unticked" width="568" height="251">
+    <figcaption>Authentication is off on a new installation.</figcaption>
+  </figure>
+  <p>Tick the box and press <b>Save Security Settings</b>.</p>
+  <figure>
+    <img src="08.png" alt="The Security Settings dialog with Require Login ticked and the Save Security Settings button highlighted. Below it are the inactivity timeout options, with minutes for Admin, Engineer, Operator and Guest" width="563" height="786">
+    <figcaption>Tick Require Login, then Save Security Settings.</figcaption>
+  </figure>
+  <p>The inactivity timeout below it is a separate, optional setting that signs people out after a period without activity. It stays unticked unless you choose it, and it needs login to be required.</p>
+  <p>You do not need to sign out first. Your session carries on, and from now on everyone else has to sign in.</p>
 
   <h2>Passwords and roles</h2>
-  <p>Changing the default passwords, and what the Admin, Engineer, Operator and Guest roles can do. Anonymous visitors can see a live view of the screens set to Anonymous level; that is by design.</p>
+  <div class="warn"><strong>Change every default password before you go any further.</strong> The defaults are the same on every installation, so anyone who has read this guide knows them.</div>
+  <p>Choose <b>Security</b> &gt; <b>User Management&hellip;</b>. Four accounts have been created for you, and each one&rsquo;s password is the same as its username.</p>
+  <figure>
+    <img src="09.png" alt="The User Management dialog listing four accounts: admin (Admin), engineer (Engineer), operator (Operator) and guest (Guest), each with a Pwd button and a Delete button. The admin Pwd button is highlighted and its Delete button is greyed out" width="702" height="321">
+    <figcaption>The four default accounts. Press <b>Pwd</b> to change a password.</figcaption>
+  </figure>
+  <p>The roles, from most to least privileged, are <b>Admin</b>, <b>Engineer</b>, <b>Operator</b> and <b>Guest</b>. Admin manages users and security settings, and Engineer can edit the project. The built-in Help describes what each role can do. Anyone who has not signed in is an <strong>anonymous</strong> visitor, who can see a live view of the screens that are set to allow it. That is by design.</p>
+  <p>Press <b>Pwd</b> on the <code>admin</code> row, type a new password and press <b>Update</b>.</p>
+  <figure>
+    <img src="10.png" alt="The Change Password panel, updating for admin, with a new password typed and an Update button" width="651" height="200">
+    <figcaption>Choose a new password for <code>admin</code>.</figcaption>
+  </figure>
+  <figure>
+    <img src="11.png" alt="A browser message reading Password updated successfully for admin, with an OK button" width="452" height="156">
+    <figcaption>The server confirms the change.</figcaption>
+  </figure>
+  <p>Do the same for <code>engineer</code>, <code>operator</code> and <code>guest</code>. If you will not use an account, press <b>Delete</b> to remove it. The <code>admin</code> account cannot be deleted, which is why its Delete button is greyed out.</p>
+  <div class="note">Choose passwords that others cannot guess, and keep them somewhere safe.</div>
+
+  <h3>Check that login is now required</h3>
+  <p>Choose <b>Security</b> &gt; <b>Log Out</b>. The page now shows <b>Not logged in</b> and a banner saying the project requires authentication. Press <b>Log In&hellip;</b> in the banner and sign in as <code>admin</code> with your new password.</p>
+  <figure>
+    <img src="12.png" alt="The top of the web client after signing out, showing Not logged in at the top right and a banner reading This project requires authentication. Log in to access features, with a Log In link" width="1260" height="96">
+    <figcaption>Signed out, with login now required.</figcaption>
+  </figure>
 
   <h2>Switching to Run Mode</h2>
-  <p>View &gt; Run Mode, and what changes: logins, data logging and live device access. The 240 minute limit on an evaluation edition.</p>
+  <p>So far you have been in <strong>Design Mode</strong>, where you build and edit the project. Open the <b>View</b> menu. It offers three modes, and the current one is shown in colour.</p>
+  <figure>
+    <img src="13.png" alt="The View menu open with Design Mode (highlighted in orange as the current mode), Run Mode and Kiosk Mode" width="544" height="200">
+    <figcaption>The View menu: Design Mode, Run Mode and Kiosk Mode.</figcaption>
+  </figure>
+  <ul>
+    <li><strong>Design Mode</strong> is for building the project.</li>
+    <li><strong>Run Mode</strong> is the SCADA actually running. The designer still has access to the properties and settings.</li>
+    <li><strong>Kiosk Mode</strong> is the fully deployed view. Operators and the public see only the real SCADA screens, with none of the designer.</li>
+  </ul>
+  <p>Choose <b>Run Mode</b>.</p>
+  <figure>
+    <img src="14.png" alt="The web client in Run Mode at localhost:5000 with admin (Admin) signed in and the server online, still showing the Toolbox and Properties panels" width="1816" height="887">
+    <figcaption>Run Mode, signed in as <code>admin</code>.</figcaption>
+  </figure>
+  <p>The server returns to Design Mode every time it restarts, so you will have to choose Run Mode again after a restart. <a href="../04-remote-clients-and-autostart/">Part 4</a> explains why that matters for remote clients.</p>
+  <div class="note">Without a licence file the server runs as an evaluation edition. Run Mode is then limited to 240 minutes at a time, and one web client can connect.</div>
 
   <h2>Checkpoint</h2>
-  <p>A working, secured server in XML mode, and a snapshot to take if you are using a virtual machine.</p>
+  <p>You now have a working server in XML mode with login required, the default passwords changed, and the project in Run Mode.</p>
+  <p>If you are using a virtual machine, shut down the guest and take a snapshot called <b>XML mode working</b>, so you can come back to this point.</p>
+  <p>Next, in <a href="../04-remote-clients-and-autostart/">Part 4</a>, you connect from another computer and make the server start by itself.</p>
 
   <footer>
     <p><a href="../02-install-sentinelscada/">Previous: Part 2, Install SentinelSCADA</a> &middot; <a href="../">Back to the Server Setup Guide</a> &middot; <a href="../04-remote-clients-and-autostart/">Next: Part 4, Remote Clients and Starting Automatically</a></p>
