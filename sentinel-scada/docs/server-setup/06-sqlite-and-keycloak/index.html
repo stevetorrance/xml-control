@@ -21,12 +21,88 @@
 
   <div class="warn"><b>Draft</b> The Keycloak pictures at the end are still to come.</div>
 
-  <h2>The security ladder</h2>
+  <h2 id="the-security-ladder">The security ladder</h2>
+  <figure>
+    <svg viewBox="0 0 720 320" role="img" aria-labelledby="ladder-title ladder-desc" style="display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 6px 18px rgba(8,20,50,0.25);font-family:system-ui,-apple-system,'Segoe UI',sans-serif">
+      <title id="ladder-title">The security ladder</title>
+      <desc id="ladder-desc">Three steps rising from left to right. XML at the bottom, for development, small LAN and home automation projects. SQLite in the middle, with an encrypted database and a tamper-evident audit trail for commercial projects. Keycloak at the top, for regulated sites (21 CFR Part 11), with single sign-on, electronic signatures and robust administration. An arrow points up the steps: you can climb, but never step back down.</desc>
+      <defs>
+        <linearGradient id="ladder-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14305f"/><stop offset="1" stop-color="#0b1c3c"/></linearGradient>
+        <marker id="ladder-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#f2c14e"/></marker>
+      </defs>
+      <rect width="720" height="320" rx="12" fill="url(#ladder-bg)"/>
+
+      <!-- climbing arrow -->
+      <text x="40" y="24" fill="#f2c14e" font-size="13" font-weight="600" letter-spacing="1.5">RAISE ONLY</text>
+      <path d="M130 19 L664 19" stroke="#f2c14e" stroke-width="2" stroke-dasharray="7 6" fill="none" marker-end="url(#ladder-arrow)"/>
+
+      <!-- step 1: XML -->
+      <rect x="40" y="198" width="200" height="77" fill="#3d6194"/>
+      <rect x="40" y="198" width="200" height="6" fill="#5d84b8"/>
+      <text x="140" y="228" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">XML</text>
+      <text x="140" y="248" fill="#cfe0f5" font-size="11.5" text-anchor="middle">Development, small LAN and</text>
+      <text x="140" y="264" fill="#cfe0f5" font-size="11.5" text-anchor="middle">home automation projects</text>
+      <g transform="translate(140 146)">
+        <path d="M-16 -22 H8 L16 -14 V22 H-16 Z" fill="#e6eef9"/>
+        <path d="M8 -22 V-14 H16" fill="#b9cbe6"/>
+        <path d="M-9 -4 H9 M-9 4 H9 M-9 12 H3" stroke="#3d6194" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+
+      <!-- step 2: SQLite -->
+      <rect x="260" y="160" width="200" height="115" fill="#2b6bd1"/>
+      <rect x="260" y="160" width="200" height="6" fill="#5a93ea"/>
+      <text x="360" y="190" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">SQLite</text>
+      <text x="360" y="212" fill="#d6e6ff" font-size="11.5" text-anchor="middle">Encrypted database</text>
+      <text x="360" y="229" fill="#d6e6ff" font-size="11.5" text-anchor="middle">Tamper-evident audit trail</text>
+      <text x="360" y="246" fill="#d6e6ff" font-size="11.5" text-anchor="middle">for commercial projects</text>
+      <g transform="translate(352 108)">
+        <ellipse cx="0" cy="-18" rx="18" ry="7" fill="#e6eef9"/>
+        <path d="M-18 -18 V16 A18 7 0 0 0 18 16 V-18" fill="#c4d8f5"/>
+        <ellipse cx="0" cy="-18" rx="18" ry="7" fill="#e6eef9"/>
+        <path d="M-18 -4 A18 7 0 0 0 18 -4 M-18 8 A18 7 0 0 0 18 8" stroke="#2b6bd1" stroke-width="2" fill="none"/>
+        <rect x="22" y="-4" width="20" height="11" rx="5.5" fill="none" stroke="#f2c14e" stroke-width="3"/>
+        <rect x="34" y="-4" width="20" height="11" rx="5.5" fill="none" stroke="#f2c14e" stroke-width="3"/>
+      </g>
+
+      <!-- step 3: Keycloak -->
+      <rect x="480" y="110" width="200" height="165" fill="#c28f1f"/>
+      <rect x="480" y="110" width="200" height="6" fill="#e8b84a"/>
+      <text x="580" y="140" fill="#fff" font-size="20" font-weight="700" text-anchor="middle">Keycloak</text>
+      <text x="580" y="162" fill="#fff4d6" font-size="11.5" text-anchor="middle">For regulated sites</text>
+      <text x="580" y="178" fill="#fff4d6" font-size="11.5" text-anchor="middle">(21 CFR Part 11)</text>
+      <text x="580" y="198" fill="#fff4d6" font-size="11.5" text-anchor="middle">Single sign-on</text>
+      <text x="580" y="218" fill="#fff4d6" font-size="11.5" text-anchor="middle">Electronic signatures and</text>
+      <text x="580" y="234" fill="#fff4d6" font-size="11.5" text-anchor="middle">any project requiring</text>
+      <text x="580" y="250" fill="#fff4d6" font-size="11.5" text-anchor="middle">robust administration</text>
+      <g transform="translate(580 60)">
+        <path d="M0 -26 L22 -18 V4 C22 18 10 26 0 30 C-10 26 -22 18 -22 4 V-18 Z" fill="#f4f7fc"/>
+        <circle cx="0" cy="-6" r="7" fill="none" stroke="#c28f1f" stroke-width="3"/>
+        <path d="M0 1 V17 M0 10 H6 M0 16 H5" stroke="#c28f1f" stroke-width="3" stroke-linecap="round"/>
+      </g>
+
+      <text x="360" y="304" fill="#9fb6d8" font-size="12" text-anchor="middle">You can climb whenever you like. You can never step back down.</text>
+    </svg>
+    <figcaption>The security ladder, from XML at the bottom to Keycloak at the top.</figcaption>
+  </figure>
   <p>SentinelSCADA has three security modes, one above the other:</p>
   <ul>
-    <li><strong>XML</strong> is where every new project starts. Operations are logged to a local XML file. It is suitable for development, testing and non-regulated sites, and it is what Parts 1 to 5 used.</li>
-    <li><strong>SQLite (cryptographically chained)</strong> keeps audit records hash-chained in a local SQLite database, mirrored in secure operating system storage, so that tampering with the log can be detected.</li>
-    <li><strong>Keycloak (CFR Part 11 / SSO)</strong> is for regulated sites. It is described at the end of this part.</li>
+    <li><strong>XML</strong> is where every new project starts. Accounts and the audit log are kept in plain XML files on the server. However, passwords are never stored as plain text. They are protected with strong one-way cryptography, so they cannot be read back from the file, and guessing them is deliberately slow. The files themselves are not encrypted, and the audit log is not protected against tampering. XML is suitable for development, testing and non-regulated sites, and it is what Parts 1 to 5 used.</li>
+    <li><strong>SQLite (cryptographically chained)</strong> raises the bar from XML. Accounts and records live in an encrypted database instead of plain files, and every audit record is hash-chained to the one before it and mirrored in secure operating system storage, so that any tampering with the log can be detected. In practice that means:
+      <ul>
+        <li><strong>Accountability you can show.</strong> You can demonstrate who changed what and when, and that the record has not been altered afterwards. That is useful for customers, auditors and insurers who ask for it.</li>
+        <li><strong>A step toward regulated work without extra cost.</strong> Both XML and SQLite are in every edition, so moving up the ladder needs no new licence, and it keeps the way open to Keycloak later if you ever need it.</li>
+        <li><strong>Suited to production sites.</strong> XML is for development, home automation projects and similar use. SQLite is the sensible choice once several people use the system and it matters that nobody can quietly change the record.</li>
+      </ul>
+    </li>
+    <li><strong>Keycloak (CFR Part 11 / SSO)</strong> is the top of the ladder, for regulated industries where each person&rsquo;s identity must be verifiable. Sign-in moves out of SentinelSCADA&rsquo;s remit to the <a href="https://www.keycloak.org/" target="_blank" rel="noopener noreferrer">Keycloak</a> platform, an established open-source identity server. What the customer gets:
+      <ul>
+        <li><strong>Sign-in that SentinelSCADA never sees.</strong> Passwords go to Keycloak, not to the SCADA server, and the server checks Keycloak&rsquo;s signed tokens cryptographically.</li>
+        <li><strong>Enterprise identity features.</strong> Multi-factor sign-in, password policies, account lockout and session management are provided by Keycloak, with a central user directory that can connect to Active Directory or LDAP, and single sign-on across your systems.</li>
+        <li><strong>Electronic signatures.</strong> Alarm acknowledgements and recipe downloads require the person&rsquo;s username, password and a reason, and each is recorded.</li>
+        <li><strong>A tamper-evident audit trail with digital signatures,</strong> and a closed system: nothing is served to anyone who has not signed in, so there is no anonymous live view.</li>
+        <li><strong>The technical controls for 21 CFR Part 11.</strong> Validating the installed system, and the procedures around it, remain the customer&rsquo;s responsibility.</li>
+      </ul>
+    </li>
   </ul>
   <p>You can move up this ladder whenever you like, but you can <strong>never move back down</strong>. This part takes you from XML to SQLite and then says where to find Keycloak.</p>
 
@@ -77,15 +153,15 @@
     <figcaption>The first record in the new audit trail.</figcaption>
   </figure>
 
-  <div class="note"><strong>Two entries marked CRITICAL are normal.</strong> After the change, the Errors tab of Server Status may list two entries marked CRITICAL, saying that a database schema fingerprint was established. They record the audit database being set up, and they are not a fault. Newer versions label them as notices and no longer count them as errors.</div>
-  <figure>
-    <img src="08.png" alt="The Errors tab of Server Status showing two entries marked CRITICAL: Schema fingerprint baseline established, and the Database schema SHA256 value" width="799" height="84">
-    <figcaption>These two entries are a normal part of moving to SQLite.</figcaption>
-  </figure>
-
   <h2>Keycloak, for regulated sites</h2>
   <div class="warn"><strong>Do not choose Keycloak unless you hold a Clipper or TradeWinds licence and your IT team has already set up Keycloak.</strong> The option appears in the Security Level dialog on every edition, but Keycloak support begins at Clipper. Choosing it without both of those leaves nobody able to sign in, because local accounts can no longer be created. Like the step to SQLite, it cannot be undone.</div>
-  <p>Keycloak is the top of the ladder, for regulated use such as 21 CFR Part 11. It adds mandatory electronic signatures (a username, password and reason) for alarm acknowledgements and recipe downloads, validated through Keycloak single sign-on. Local user accounts can no longer be created for the project, because accounts are managed externally, in Keycloak.</p>
+  <p>The list under <a href="#the-security-ladder">The security ladder</a> shows what Keycloak gives you. This is what it asks of you in return:</p>
+  <ul>
+    <li><strong>Keycloak has to be run.</strong> It must be deployed, configured and kept running, which normally takes an IT professional. If the Keycloak server cannot be reached, nobody can sign in.</li>
+    <li><strong>Use it with HTTPS,</strong> as set up in <a href="../05-https-and-certificates/">Part 5</a>.</li>
+    <li><strong>Local accounts go away.</strong> Local user accounts can no longer be created for the project, because accounts are managed externally, in Keycloak.</li>
+    <li><strong>It needs a Clipper or TradeWinds licence,</strong> and, like the step to SQLite, it cannot be undone.</li>
+  </ul>
   <p>Setting up Keycloak is a job for your own IT team, and this guide does not cover it. It involves Docker and Keycloak configuration. The Server Guide describes the security modes and the setup in detail. Open it from the tray menu with <b>Help (Server Guide)&hellip;</b>.</p>
   <!-- SHOTS NEEDED: Help (Server Guide) in the tray menu, the security modes page, the Keycloak setup page -->
 
