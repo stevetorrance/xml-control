@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 1: A VirtualBox Virtual Machine - SentinelSCADA Server Setup</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../../tutorial/tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Server Setup Guide</a> &rsaquo; Part 1</p>
+
+  <h1>Part 1: A VirtualBox Virtual Machine</h1>
+
+  <p>SentinelSCADA can be installed on a suitable Windows 11 computer, on Windows Server, or on a virtual machine running either. Should you wish to set up a virtual machine, this part might be helpful. If you already have a machine to install on, or you use other virtualisation software, skip straight to <a href="../02-install-sentinelscada/">Part 2</a>.</p>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Build a clean Windows Server virtual machine in Oracle VirtualBox, with a network your own PC can reach, ready for SentinelSCADA to be installed in Part 2.
+  </div>
+
+  <p>A virtual machine is a safe way to try SentinelSCADA, or to rehearse an installation before doing it for real, and it can be thrown away or rolled back at any time. We used <b>Oracle VirtualBox</b> (version 7.2.4), which is free, and everything in this guide was proven on a virtual machine set up exactly as below.</p>
+
+  <h2>What you need</h2>
+  <ul>
+    <li>VirtualBox, installed on your own PC.</li>
+    <li>A Windows Server 2022 installation disc image (an <code>.iso</code> file). The time-limited evaluation edition from Microsoft is fine for a trial.</li>
+    <li>Around 4 GB of spare memory and 40 GB of disk space on your PC.</li>
+  </ul>
+
+  <h2>Create the virtual machine</h2>
+
+  <p>In the VirtualBox Manager press <b>New</b>. Give the machine a name (we used <code>SENTINEL-SRV</code>), choose a folder to keep it in, and browse to the <code>.iso</code> file. VirtualBox recognises the disc and fills in the operating system.</p>
+  <figure>
+    <img src="01.png" alt="The New Virtual Machine dialog with the name SENTINEL-SRV, the Windows Server 2022 ISO selected and Proceed with Unattended Installation not ticked" width="909" height="682">
+    <figcaption>The New Virtual Machine dialog.</figcaption>
+  </figure>
+
+  <div class="warn"><b>Unattended Installation: best left unticked</b>
+    <ul>
+      <li><strong>Unticked (recommended, and what this guide shows):</strong> follow the steps below. You install Windows yourself, which lets you choose the edition and set the computer name.</li>
+      <li><strong>Ticked:</strong> it saves some setting up, but on our machine Windows Setup stopped with a licence error. If that happens to you, see <a href="#unattended-fails">If Windows Setup stops with a licence error</a> below for the simple fix.</li>
+    </ul>
+  </div>
+
+  <h3>The server&rsquo;s name</h3>
+
+  <p>The server&rsquo;s name matters later, because the HTTPS certificate in <a href="../07-https-and-certificates/">Part 7</a> is issued for it. Once Windows is installed, you can see what yours is called by running this in PowerShell:</p>
+  <pre><code>hostname</code></pre>
+  <p>If you used Unattended Installation, the <b>Host Name</b> you typed in the <b>Set up unattended guest OS installation</b> section of the New Virtual Machine dialog becomes the Windows computer name, so it is already set.</p>
+  <figure>
+    <img src="02.png" alt="The unattended installation section with the Host Name field set to SENTINEL-SRV" width="609" height="236">
+    <figcaption>The Host Name field in the unattended installation section.</figcaption>
+  </figure>
+
+  <p>If it is already a name you are happy with, there is nothing to do. Should you wish to rename the server after the install, run this in an elevated PowerShell. It restarts the machine:</p>
+  <pre><code>Rename-Computer -NewName SENTINEL-SRV -Restart</code></pre>
+  <p>Windows computer names can be up to 15 characters, using letters, digits and hyphens. After the restart, <code>hostname</code> shows the new name. If you have already made a certificate for the old name, make a new one, as it will no longer match.</p>
+
+  <h3>Memory and processors</h3>
+  <p>Open <b>Specify virtual hardware</b>. We used <b>4096 MB</b> of memory and <b>4 CPUs</b>, which was plenty. Leave <b>Use EFI</b> unticked.</p>
+  <figure>
+    <img src="03.png" alt="The Specify virtual hardware section showing 4096 MB of base memory, 4 CPUs and Use EFI not ticked" width="618" height="161">
+  </figure>
+
+  <h3>Disk</h3>
+  <p>Open <b>Specify virtual hard disk</b> and make a new disk of <b>40 GB</b>. The default VDI format is fine, and there is no need to pre-allocate the full size. Press <b>Finish</b>. VirtualBox creates the machine and Windows installation begins from the disc image, so carry straight on to <b>Install Windows</b> below. The network is the one setting we leave until Windows is installed, because it can only be changed while the machine is shut down.</p>
+  <figure>
+    <img src="04.png" alt="The Specify virtual hard disk section with a new 40 GB VDI disk" width="616" height="262">
+  </figure>
+
+  <h2>Install Windows</h2>
+
+  <p>The machine starts from the disc image and Windows Setup begins. (If it has not started, select it in the VirtualBox Manager and press <b>Start</b>.) When Setup asks which operating system to install, choose <b>Windows Server 2022 Standard Evaluation (Desktop Experience)</b>.</p>
+  <figure>
+    <img src="05.png" alt="The Windows Setup edition list with Standard Evaluation (Desktop Experience) selected" width="530" height="175">
+  </figure>
+
+  <div class="warn"><b>Desktop Experience, not the first entry</b> The first entry in each pair is Server Core, which has no desktop. SentinelSCADA needs the desktop and will not run on Server Core.</div>
+
+  <p>Follow the rest of Setup and set a password for the <code>Administrator</code> account. When the machine reaches the desktop, sign in.</p>
+
+  <h3 id="unattended-fails">If Windows Setup stops with a licence error</h3>
+
+  <p>This may happen if you ticked <b>Proceed with Unattended Installation</b> when creating the machine. Setup stops with this message:</p>
+  <figure>
+    <img src="06.png" alt="A Microsoft Server Operating System Setup error: Windows cannot find the Microsoft Software License Terms" width="518" height="218">
+    <figcaption>&ldquo;Windows cannot find the Microsoft Software License Terms.&rdquo;</figcaption>
+  </figure>
+
+  <p>It may be particular to our setup, but if you see it the fix is quick:</p>
+  <ol>
+    <li>Click <b>OK</b>, then close the virtual machine&rsquo;s window and choose <b>Power off the machine</b>. Windows Setup cannot continue, so a forced shut down is fine here.</li>
+    <li>Select the machine, press <b>Settings</b> and open <b>Storage</b>.</li>
+    <li>Under <b>Controller: Floppy</b> there is a small disk image whose name starts with <code>Unattended-</code>. VirtualBox attached it to carry the unattended answers. Select it and remove it with the <b>Remove Attachment</b> button at the bottom of the list.</li>
+  </ol>
+  <figure>
+    <img src="07.png" alt="The Storage settings, with the Unattended floppy image selected under Controller: Floppy" width="770" height="356">
+    <figcaption>The unattended floppy image, before removal.</figcaption>
+  </figure>
+  <figure>
+    <img src="08.png" alt="The Storage device list after removal, with the Floppy controller empty" width="272" height="299">
+    <figcaption>The floppy controller, empty.</figcaption>
+  </figure>
+
+  <p>Start the machine again. Windows Setup should now run normally, so carry on from the edition list above. Because the unattended answers have gone, you choose the edition and set the Administrator password yourself, as if you had left the option unticked.</p>
+
+  <h2>Guest Additions</h2>
+
+  <p>Guest Additions is VirtualBox&rsquo;s helper software for the virtual machine. It gives a better display and lets you share a folder with your PC, which is handy for passing the SentinelSCADA installer across. From the virtual machine&rsquo;s <b>Devices</b> menu choose <b>Insert Guest Additions CD image</b>, open the disc in File Explorer, run <code>VBoxWindowsAdditions.exe</code> and restart when asked.</p>
+  <figure>
+    <img src="09.png" alt="The Oracle VirtualBox Guest Additions Setup welcome page" width="502" height="390">
+  </figure>
+
+  <p>With Guest Additions installed, the same <b>Devices</b> menu lets you set up sharing between your PC and the virtual machine. Set these up to suit your own requirements:</p>
+  <figure>
+    <img src="10.png" alt="The virtual machine's Devices menu, with the Shared Clipboard options Disabled, Host To Guest, Guest To Host and Bidirectional" width="722" height="315">
+    <figcaption>The Devices menu, here with the Shared Clipboard options open.</figcaption>
+  </figure>
+  <ul>
+    <li><b>Shared Folders:</b> choose a folder on your PC and tick <b>Auto-mount</b>. It appears inside the virtual machine as a network drive, which is handy for passing the SentinelSCADA installer across.</li>
+    <li><b>Shared Clipboard:</b> choose <b>Disabled</b>, <b>Host To Guest</b>, <b>Guest To Host</b> or <b>Bidirectional</b>. Bidirectional makes it easy to copy the commands in this guide into the virtual machine.</li>
+    <li><b>Drag and Drop:</b> works much like the clipboard, for dragging files between your PC and the virtual machine.</li>
+  </ul>
+
+  <div class="note"><b>Share only what you need</b> Each of these is a route between your PC and the virtual machine. For a trial machine that is a convenience. For anything more serious, enable only what you need, and disable the rest.</div>
+
+  <h2>Give it a network your PC can reach</h2>
+
+  <p>This is the part most worth getting right, and it is done last because it can only be changed while the machine is shut down. A new VirtualBox machine uses <b>NAT</b> on its first network adapter. NAT lets the server reach out to the Internet, which is all you need to download the runtimes in Part 2, but nothing on your own PC can reach in. For a SCADA server you want your browser, and other computers, to connect to it. So add a second adapter. First shut the virtual machine down from inside Windows (<b>Start</b> &gt; <b>Power</b> &gt; <b>Shut down</b>), and wait until it has stopped:</p>
+  <ul>
+    <li><b>Adapter 1: NAT</b> (the default). The server&rsquo;s Internet connection during setup. You can switch it off afterwards.</li>
+    <li><b>Adapter 2: Host-only.</b> A private network between your PC and the virtual machine, with no outside access. The server gets an address such as <code>192.168.56.102</code>, and your PC is <code>192.168.56.1</code>. This is the connection your browser uses.</li>
+  </ul>
+
+  <p>With the machine stopped and selected, press <b>Settings</b> and open <b>Network</b>. On the <b>Adapter 2</b> tab tick <b>Enable Network Adapter</b> and set <b>Attached to</b> to <b>Host-only Adapter</b>.</p>
+  <figure>
+    <img src="11.png" alt="The Network settings, Adapter 2 tab, enabled and attached to a Host-only Adapter" width="770" height="388">
+  </figure>
+
+  <div class="note"><b>No host-only network listed?</b> If the Name list is empty, create one first using the Network tool in the VirtualBox Manager&rsquo;s left-hand list.</div>
+
+  <p>Start the machine again. If you want to check the connection, run <code>ipconfig</code> in PowerShell: the second adapter should show an address beginning <code>192.168.56</code>. Once SentinelSCADA is running (Part 3), your own PC can reach it at that address.</p>
+
+  <h2>Take a snapshot</h2>
+
+  <p>A snapshot saves the machine&rsquo;s exact state, so you can return to it at any time. From the virtual machine&rsquo;s <b>Machine</b> menu choose <b>Take Snapshot</b> and call it <code>Clean OS</code>. It is worth taking another before any step that cannot be undone, such as the move to SQLite mode in Part 6. If something goes wrong, restore a snapshot and try again.</p>
+
+  <div class="note"><b>Handy to know</b> When the virtual machine window has captured your keyboard and mouse, press the <strong>Host key</strong> (the right Ctrl key by default) to get them back.</div>
+
+  <footer>
+    <p><a href="../">Back to the Server Setup Guide</a> &middot; <a href="../02-install-sentinelscada/">Next: Part 2, Install SentinelSCADA</a></p>
+  </footer>
+</body>
+</html>

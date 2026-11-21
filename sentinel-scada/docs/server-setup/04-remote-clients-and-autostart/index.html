@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 4: Remote Clients and Starting Automatically - SentinelSCADA Server Setup</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../../tutorial/tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Server Setup Guide</a> &rsaquo; Part 4</p>
+
+  <h1>Part 4: Remote Clients and Starting Automatically</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Connect to the server from another computer, understand who may change its mode, shut it down safely, and have it start by itself.
+  </div>
+
+  <div class="warn"><b>Draft</b> Outline only. Text and screenshots to follow.</div>
+
+  <h2>Connecting from another computer</h2>
+  <p>Opening the firewall for ports 5000 (HTTP) and 5443 (HTTPS) by running <code>Prepare-SentinelHost</code> again with <code>-OpenFirewall</code>, which skips anything already installed. The address to browse to, and what a remote browser sees while it waits.</p>
+
+  <h2>Standby until Run</h2>
+  <p>A remote client waits on a standby screen until someone at the server itself selects Run Mode. Every restart of the server returns it to Design Mode, so this happens again each time.</p>
+
+  <h2>One client at a time</h2>
+  <p>The evaluation edition allows one web client. What a second browser sees, and why refreshing the page is fine.</p>
+
+  <h2>Allow Remote Admin</h2>
+  <p>The Launcher&rsquo;s Advanced settings, Runtime Control. On: a remote Engineer may switch modes. Off: only the server console can. Which to choose.</p>
+
+  <h2>Shutting down properly</h2>
+  <p>Quit from the tray icon, and the credential prompt. Who is refused.</p>
+
+  <h2>Starting automatically</h2>
+  <p>Running <code>Register-SentinelAutostart.ps1</code>: a scheduled task that starts the Launcher when an account logs on. This is not a Windows service, so nothing starts until that account has logged on. For a machine that boots unattended, set the account to sign in automatically.</p>
+
+  <h2>Checkpoint</h2>
+  <p>A server reachable from other computers that comes back after a restart.</p>
+
+  <footer>
+    <p><a href="../03-first-start-and-security/">Previous: Part 3, First Start and Security</a> &middot; <a href="../">Back to the Server Setup Guide</a> &middot; <a href="../05-simulator/">Next: Part 5, Trying It with a Simulator</a></p>
+  </footer>
+</body>
+</html>

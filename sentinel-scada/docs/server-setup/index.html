@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Server Setup Guide - SentinelSCADA</title>
+  <link rel="icon" href="../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <link rel="stylesheet" href="../tutorial/tutorial.css">
+</head>
+<body>
+  <a class="brand" href="../../">
+    <picture>
+      <source srcset="../../../assets/sentinel-horizontal-dark.png" media="(prefers-color-scheme: dark)">
+      <img src="../../../assets/sentinel-horizontal-light.png" alt="SentinelSCADA" width="768" height="181">
+    </picture>
+  </a>
+  <p class="crumbs"><a href="../../">SentinelSCADA</a> &rsaquo; Server Setup Guide</p>
+
+  <h1>Server Setup Guide</h1>
+  <p class="tagline">Putting SentinelSCADA on a Windows server, step by step, from a clean machine to a working installation.</p>
+
+  <div class="warn"><b>Draft</b> This guide is being written. Parts marked as an outline will be filled in as each step is proven on a clean machine.</div>
+
+  <p>SentinelSCADA is designed to run on a private network, with no connection to the Internet needed or recommended while it is running. If you want to reach it from outside, that is your choice to make, for example through your own VPN. This guide does not cover it. An Internet connection is only needed briefly during setup, to download the Microsoft runtimes in Part 2.</p>
+
+  <p>SentinelSCADA can be installed on a suitable Windows 11 computer, on Windows Server, or on a virtual machine running either. We tested every step on a clean Windows Server 2022 virtual machine in VirtualBox, and Part 1 shows how to build one, in case that is helpful. If you already have a machine to install on, skip Part 1.</p>
+
+  <h2>Parts</h2>
+  <ol class="toc">
+    <li><a href="01-virtualbox-vm/"><b>Part 1: A VirtualBox Virtual Machine</b></a><br>
+      Optional. Building a clean Windows Server machine in VirtualBox: memory, disk, installing Windows, Guest Additions, a network your own PC can reach, and a first snapshot.</li>
+    <li><a href="02-install-sentinelscada/"><b>Part 2: Install SentinelSCADA</b></a><br>
+      What the server needs, getting the installer across, running it, and preparing the machine with the Prepare script.</li>
+    <li><a href="03-first-start-and-security/"><b>Part 3: First Start and Security</b></a><br>
+      Starting the Launcher, the bind address, Design Mode, XML mode, changing the default passwords, roles, and switching to Run.</li>
+    <li><a href="04-remote-clients-and-autostart/"><b>Part 4: Remote Clients and Starting Automatically</b></a><br>
+      Connecting from another computer, the one-client limit, Allow Remote Admin, shutting down safely, and starting at logon.</li>
+    <li><a href="05-simulator/"><b>Part 5: Trying It with a Simulator</b></a><br>
+      Optional. Running a Modbus simulator on the same machine and watching a live value, read and write.</li>
+    <li><a href="06-sqlite-mode/"><b>Part 6: Moving to SQLite Mode</b></a><br>
+      What SQLite mode adds, the one-way step, what happens to existing users, and checking the default passwords.</li>
+    <li><a href="07-https-and-certificates/"><b>Part 7: HTTPS and Certificates</b></a><br>
+      Encrypting the connection between the server and its browsers: making a certificate, switching HTTPS on, trusting it on each client, and what to expect afterwards.</li>
+  </ol>
+
+  <footer>
+    <p><a href="../../">Back to SentinelSCADA</a></p>
+  </footer>
+</body>
+</html>

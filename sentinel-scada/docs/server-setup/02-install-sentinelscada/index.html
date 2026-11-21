@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 2: Install SentinelSCADA - SentinelSCADA Server Setup</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../../tutorial/tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Server Setup Guide</a> &rsaquo; Part 2</p>
+
+  <h1>Part 2: Install SentinelSCADA</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Install SentinelSCADA and prepare the machine so the Launcher can start it.
+  </div>
+
+  <h2>What you need</h2>
+  <ul>
+    <li>A suitable Windows 11 computer or Windows Server (Desktop Experience), or a virtual machine running either. <a href="../01-virtualbox-vm/">Part 1</a> shows how to build one.</li>
+    <li>A brief Internet connection while you set up, to download the Microsoft runtimes. SentinelSCADA itself never needs one, and the connection can be removed afterwards.</li>
+    <li>The edition limits to expect while evaluating: 64 tags, 4 devices, 1 web client, and a 240 minute Run Mode session.</li>
+  </ul>
+
+  <h2>Getting the installer onto the machine</h2>
+  <p>Copy <code>SentinelSCADASetup.exe</code> to the machine you are installing on. A download, a USB stick, or the shared folder set up in <a href="../01-virtualbox-vm/">Part 1</a> all work. Ours was in the Downloads folder. The file&rsquo;s properties show its version, which will differ from the one in these pictures.</p>
+  <figure>
+    <img src="01.png" alt="SentinelSCADASetup in the Downloads folder, with its properties showing the version number" width="667" height="215">
+    <figcaption>The installer, with its properties showing.</figcaption>
+  </figure>
+
+  <h2>Running the installer</h2>
+  <p>If you are upgrading an existing installation, or have a licence file, read the two notes below first.</p>
+
+  <div class="warn"><b>Upgrading?</b> Uninstall the old version first, with SentinelSCADA closed. Uninstalling while it is running leaves files behind, most likely generates error messages, and installing over an old version can leave stray files from it.</div>
+
+  <div class="warn"><b>Keep your licence file safe</b> If you have a licensed copy, your licence file sits in the install folder, beside <code>SentinelServer.exe</code>. A full uninstall can remove it, along with everything else in that folder. Before you uninstall:
+    <ol>
+      <li>Copy your licence file or files from the install folder to a safe place outside it, such as a USB stick or another computer.</li>
+      <li>Uninstall, then install the new version.</li>
+      <li>Copy the licence file or files back into the install folder, beside <code>SentinelServer.exe</code>, and start SentinelSCADA again.</li>
+    </ol>
+    A licence is tied to the hardware of the machine it was issued for, so it cannot simply be moved to a different computer. If you lose it, contact XML Control &mdash; Software &amp; Automation. An evaluation copy needs no licence file.
+  </div>
+
+  <p>The installer is a five-step wizard: Welcome, License, Location, Installing and Finish. Double-click it to start. The first page shows the version and the size. Press <b>Next</b>.</p>
+  <figure>
+    <img src="02.png" alt="The Haggis installer Welcome page for SentinelSCADA, showing the publisher, version and size" width="524" height="454">
+  </figure>
+
+  <p>Read the licence agreement, tick <b>I accept the terms of the license agreement</b>, and press <b>Next</b>.</p>
+  <figure>
+    <img src="03.png" alt="The License agreement page with the accept box ticked" width="523" height="453">
+  </figure>
+
+  <p>Choose where to install. The default, <code>C:\Program Files\SentinelSCADA</code>, suits almost everyone and is what the rest of this guide uses. You can also choose whether to create a desktop shortcut. Press <b>Install</b>.</p>
+  <figure>
+    <img src="04.png" alt="The Choose install location page showing C:\Program Files\SentinelSCADA and the Create desktop shortcut option" width="524" height="454">
+  </figure>
+
+  <p>When it finishes, <b>untick Launch application now</b> before pressing <b>Finish</b>. SentinelSCADA also needs some Microsoft runtimes that are not on the machine yet, and the next sections put them there first.</p>
+  <figure>
+    <img src="05.png" alt="The Installation complete page with the Launch application now option unticked and highlighted" width="525" height="454">
+    <figcaption>The Finish page, with <i>Launch application now</i> unticked.</figcaption>
+  </figure>
+
+  <div class="note"><b>Started it too early?</b> If you left Launch application now ticked, or you start SentinelSCADA before preparing the machine, Windows says that you must install the .NET Desktop Runtime.</div>
+  <figure>
+    <img src="06.png" alt="A message from SentinelLauncher.exe: You must install .NET Desktop Runtime to run this application, with a Download it now link" width="546" height="215">
+  </figure>
+  <p>Press <b>Close</b>, not <b>Download it now</b>. That link fetches only one of the three things SentinelSCADA needs. The script in <b>Preparing the machine</b> below installs all of them.</p>
+
+  <h2>The scripts that come with it</h2>
+  <p>The installer puts three PowerShell scripts in the <code>Tools</code> folder, at <code>C:\Program Files\SentinelSCADA\Tools</code>.</p>
+  <figure>
+    <img src="07.png" alt="The Tools folder in File Explorer, showing New-SentinelCert, Prepare-SentinelHost and Register-SentinelAutostart" width="673" height="153">
+  </figure>
+  <ul>
+    <li><code>Prepare-SentinelHost</code> installs the Microsoft runtimes SentinelSCADA needs, and can open the firewall ports. We use it in the next section.</li>
+    <li><code>Register-SentinelAutostart</code> starts SentinelSCADA automatically when an account logs on. We use it in <a href="../04-remote-clients-and-autostart/">Part 4</a>.</li>
+    <li><code>New-SentinelCert</code> makes an HTTPS certificate. We use it in <a href="../07-https-and-certificates/">Part 7</a>. The Launcher&rsquo;s <b>Generate New</b> button runs it for you.</li>
+  </ul>
+
+  <div class="warn"><b>Reference examples only</b> These scripts show one way of doing each job. They are provided as is, with no warranty of any kind. Read and understand each one before you run it, decide for yourself that it suits your machine and your organisation&rsquo;s policies, and use it entirely at your own risk. They are short and commented, so open them in Notepad and read them. You are welcome to copy them and change them. The two that change your system ask you to type <code>I ACCEPT</code> before they do anything.</div>
+
+  <h3>Read a script before you run it</h3>
+  <p>Right-click the script, choose <b>Open with</b>, then <b>Notepad</b>. Each script opens with a description of what it does, what it changes and what options it has. <code>Prepare-SentinelHost</code>, for example, lists the runtimes it installs and the three Microsoft web addresses it downloads them from, and says that nothing else is fetched.</p>
+  <figure>
+    <img src="08.png" alt="The Prepare-SentinelHost script open in Notepad, showing the list of runtimes it installs and the web addresses it downloads from" width="796" height="481">
+    <figcaption>The top of <code>Prepare-SentinelHost</code> in Notepad.</figcaption>
+  </figure>
+  <p>If you do not understand something, or do not want it done on your machine, do not run the script.</p>
+
+  <h3>Running a script</h3>
+  <p>The scripts that change your system need an <b>elevated</b> PowerShell, one running as Administrator. Open the Start menu, type <b>PowerShell</b>, right-click <b>Windows PowerShell</b> and choose <b>Run as administrator</b>. The title bar then starts with <b>Administrator</b>.</p>
+  <div class="note"><b>What about right-click and Run with PowerShell?</b> That can work if you are signed in as the built-in <code>Administrator</code> account, which is already elevated. On other accounts it may not: the script can stop at its first check, and the window closes before you can read why. If in doubt, use the elevated PowerShell above, where any message stays on screen.</div>
+  <p>We start each script with <code>powershell -NoProfile -ExecutionPolicy Bypass -File</code>. The <code>-ExecutionPolicy Bypass</code> part allows that one script to run. Windows 11 blocks scripts by default, and Windows also blocks scripts that arrive from the Internet or from a network share. The setting applies to that single run only and changes nothing permanently.</p>
+
+  <h2>Preparing the machine</h2>
+  <p>Now run <code>Prepare-SentinelHost</code> to install what SentinelSCADA needs. In an elevated PowerShell, go to the <code>Tools</code> folder and run it:</p>
+  <pre><code>cd 'C:\Program Files\SentinelSCADA\Tools'
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Prepare-SentinelHost.ps1</code></pre>
+
+  <p>It needs an Internet connection for a few minutes. If they are not already on the machine, it installs three things:</p>
+  <ul>
+    <li><b>ASP.NET Core Runtime 10</b>, which runs the web server.</li>
+    <li><b>.NET Desktop Runtime 10</b>, for the Launcher and the server&rsquo;s own windows.</li>
+    <li><b>Microsoft Edge WebView2 Runtime</b>, for the Help viewer and report capture.</li>
+  </ul>
+  <p>The ASP.NET Core Hosting Bundle does not include the Desktop runtime, so even if you have installed it, still run this script.</p>
+
+  <div class="note"><b>Want to see first?</b> Add <code>-WhatIf</code> to the end of the command. The script then reports what it would do and changes nothing.</div>
+
+  <p>Before it changes anything, the script shows a notice and asks you to type <code>I ACCEPT</code>, in capitals. Anything else stops it, with nothing changed. Typing it confirms that you have read the script and accept the risk of running it.</p>
+  <figure>
+    <img src="09.png" alt="An elevated PowerShell window showing the reference-example notice and the prompt to type I ACCEPT, with I ACCEPT typed" width="974" height="187">
+    <figcaption>The notice, and the prompt with <code>I ACCEPT</code> typed.</figcaption>
+  </figure>
+
+  <p>The script then downloads and installs each runtime in turn. Lines such as &ldquo;Installation finished&rdquo; show each one completing. The note that the script &ldquo;does not ensure your Windows version is supported&rdquo; is part of Microsoft&rsquo;s own installer and is normal.</p>
+  <figure>
+    <img src="10.png" alt="PowerShell output from the dotnet-install script showing the ASP.NET Core and Windows Desktop runtimes version 10.0.15 downloaded, extracted and installed" width="973" height="472">
+    <figcaption>The runtimes installing. Your version numbers may be newer.</figcaption>
+  </figure>
+
+  <div class="note"><b>It can go quiet for a few minutes</b> The WebView2 install shows no output while it runs. The script tells you when it starts it, so be patient. When the script finishes it prints a short summary. If you started it by right-clicking it, the window waits for you to press Enter before it closes, so you can read the summary.</div>
+
+  <h3>Checking what is installed</h3>
+  <p>To check that everything is in place, at any time, run the script again with <code>-Check</code>. It installs nothing, changes nothing and asks nothing, and it does not need an elevated PowerShell:</p>
+  <pre><code>powershell -NoProfile -ExecutionPolicy Bypass -File .\Prepare-SentinelHost.ps1 -Check</code></pre>
+  <p>It lists each requirement with its version, or <code>MISSING</code> if it is not there.</p>
+  <figure>
+    <img src="11.png" alt="PowerShell showing the Prepare-SentinelHost -Check result: ASP.NET Core Runtime 10, .NET Desktop Runtime 10 and WebView2 Runtime all OK with their versions, and the message Host is ready" width="728" height="239">
+    <figcaption>All three requirements in place. Your version numbers may be newer.</figcaption>
+  </figure>
+  <p>If anything shows as <code>MISSING</code>, run the script again without <code>-Check</code>.</p>
+
+  <div class="note"><b>The firewall</b> You do not need to open any firewall ports to run SentinelSCADA on this machine. We open them in <a href="../04-remote-clients-and-autostart/">Part 4</a>, when other computers connect.</div>
+
+  <h2>Checkpoint</h2>
+  <p>Before you go on, check that you have:</p>
+  <ul>
+    <li>SentinelSCADA installed in <code>C:\Program Files\SentinelSCADA</code>, with the three scripts in its <code>Tools</code> folder.</li>
+    <li>All three requirements showing <b>OK</b> when you run <code>Prepare-SentinelHost.ps1 -Check</code>.</li>
+    <li>SentinelSCADA <b>not started yet</b>. That comes in <a href="../03-first-start-and-security/">Part 3</a>.</li>
+  </ul>
+  <p>The Internet connection has done its job. SentinelSCADA never needs one, so you can disconnect the machine from the Internet now if you wish.</p>
+
+  <h3>Take a snapshot</h3>
+  <p>If you are using a virtual machine, this is a good moment to save its state. From the virtual machine&rsquo;s <b>Machine</b> menu choose <b>Take Snapshot</b> and call it <code>SentinelSCADA installed</code>. If anything goes wrong later, you can come back to this point without installing again.</p>
+
+  <footer>
+    <p><a href="../01-virtualbox-vm/">Previous: Part 1, A VirtualBox Virtual Machine</a> &middot; <a href="../">Back to the Server Setup Guide</a> &middot; <a href="../03-first-start-and-security/">Next: Part 3, First Start and Security</a></p>
+  </footer>
+</body>
+</html>

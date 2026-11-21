@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 5: Trying It with a Simulator - SentinelSCADA Server Setup</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../../tutorial/tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Server Setup Guide</a> &rsaquo; Part 5</p>
+
+  <h1>Part 5: Trying It with a Simulator</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    See live data and a working write on your new server, with no real equipment, using a Modbus simulator.
+  </div>
+
+  <div class="warn"><b>Draft</b> Outline only. Text and screenshots to follow.</div>
+
+  <h2>Running the simulator</h2>
+  <p>We used the headless build of ModbusHydra, started so it listens on this machine only. Where to put it and how to start it.</p>
+
+  <h2>Adding a device and a tag</h2>
+  <p>A Modbus TCP device at <code>127.0.0.1</code>, port 1502, and a tag to read. This follows the same steps as <a href="../../tutorial/10-add-modbus-device/">Tutorial Chapter 10</a>.</p>
+
+  <h2>Watching a live value</h2>
+  <p>Switching to Run Mode and seeing the value update, and the simulator&rsquo;s request counter climbing.</p>
+
+  <h2>Trying a write</h2>
+  <p>A writable register, a value sent from Manual Control, and the simulator&rsquo;s write counter going up.</p>
+
+  <h2>Tidying up</h2>
+  <p>Stopping the simulator and removing the test device when you have finished.</p>
+
+  <footer>
+    <p><a href="../04-remote-clients-and-autostart/">Previous: Part 4, Remote Clients and Starting Automatically</a> &middot; <a href="../">Back to the Server Setup Guide</a> &middot; <a href="../06-sqlite-mode/">Next: Part 6, Moving to SQLite Mode</a></p>
+  </footer>
+</body>
+</html>

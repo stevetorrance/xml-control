@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Part 7: HTTPS and Certificates - SentinelSCADA Server Setup</title>
+  <link rel="icon" href="../../../../favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="../../../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../../../assets/site.css">
+  <link rel="stylesheet" href="../../tutorial/tutorial.css">
+</head>
+<body>
+  <p class="crumbs"><a href="../../../">SentinelSCADA</a> &rsaquo; <a href="../">Server Setup Guide</a> &rsaquo; Part 7</p>
+
+  <h1>Part 7: HTTPS and Certificates</h1>
+
+  <div class="goal">
+    <strong>Goal</strong>
+    Encrypt the connection between the server and its browsers, so that passwords and live data cannot be read by anyone else on the network, and make every client trust the server&rsquo;s certificate.
+  </div>
+
+  <div class="warn"><b>Draft</b> Outline only. Text and screenshots to follow.</div>
+
+  <p>This part assumes the server from <a href="../03-first-start-and-security/">Part 3</a> is working. It applies equally in XML mode and, after <a href="../06-sqlite-mode/">Part 6</a>, in SQLite mode.</p>
+
+  <h2>Why bother, on a private network?</h2>
+  <p>What HTTPS protects against, in plain terms, and what it does not: it encrypts the traffic, but you still need authentication on and the default passwords changed.</p>
+
+  <h2>Names, not addresses</h2>
+  <p>A certificate is issued for a name, and browsers check it against the address you type. Clients must browse by the server&rsquo;s host name, not its IP address.</p>
+
+  <h2>Making a certificate</h2>
+  <p>Using <b>Generate New</b> in the Launcher, or the <code>New-SentinelCert.ps1</code> script, and choosing the names to include. Keep <code>localhost</code> in the list.</p>
+
+  <h2>Switching HTTPS on</h2>
+  <p>The Launcher&rsquo;s Advanced Settings: Enable HTTPS, the port (5443 by default), the certificate file and its password. Opening the firewall for the HTTPS port.</p>
+
+  <h2>Trusting the certificate</h2>
+  <p>On the server: <b>Trust Certificate Locally</b>, and why the browser must be fully closed and reopened afterwards. On every other computer: exporting the public certificate with <b>Export Public Cert</b>, importing it, and where a hosts-file entry is needed for the name.</p>
+
+  <h2>Checking it works</h2>
+  <p>The padlock, the certificate details, and a live screen that updates.</p>
+
+  <h2>What changes once HTTPS is on</h2>
+  <ul>
+    <li>The plain HTTP port redirects network browsers to HTTPS. At the server itself, <code>http://localhost:5000</code> still works.</li>
+    <li>Browsers are told to keep using HTTPS for the next seven days.</li>
+    <li>Session cookies are marked secure.</li>
+    <li>Every restart of the server returns it to Design Mode, and a remote client waits until the console selects Run.</li>
+  </ul>
+
+  <h2>Troubleshooting</h2>
+  <p>Certificate warnings, a name that does not match, a browser that still shows the old state, and the remembered-upgrade problem when turning HTTPS off again.</p>
+
+  <footer>
+    <p><a href="../06-sqlite-mode/">Previous: Part 6, Moving to SQLite Mode</a> &middot; <a href="../">Back to the Server Setup Guide</a></p>
+  </footer>
+</body>
+</html>
